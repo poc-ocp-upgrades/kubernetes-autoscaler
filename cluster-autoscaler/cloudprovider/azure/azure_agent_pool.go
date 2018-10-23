@@ -23,8 +23,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Azure/azure-sdk-for-go/arm/compute"
-	"github.com/Azure/azure-sdk-for-go/arm/resources/resources"
+	"github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2018-04-01/compute"
+	"github.com/Azure/azure-sdk-for-go/services/resources/mgmt/2017-05-10/resources"
 	azStorage "github.com/Azure/azure-sdk-for-go/storage"
 	"github.com/Azure/go-autorest/autorest/to"
 	"github.com/golang/glog"
@@ -32,7 +32,7 @@ import (
 	apiv1 "k8s.io/api/core/v1"
 	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider"
 	"k8s.io/autoscaler/cluster-autoscaler/config/dynamic"
-	"k8s.io/kubernetes/pkg/scheduler/schedulercache"
+	schedulercache "k8s.io/kubernetes/pkg/scheduler/cache"
 )
 
 // AgentPool implements NodeGroup interface for agent pools deployed by acs-engine.
@@ -70,13 +70,16 @@ func NewAgentPool(spec *dynamic.NodeGroupSpec, az *AzureManager) (*AgentPool, er
 }
 
 func (as *AgentPool) initialize() error {
-	template, err := as.manager.azClient.deploymentsClient.ExportTemplate(as.manager.config.ResourceGroup, as.manager.config.Deployment)
+	ctx, cancel := getContextWithCancel()
+	defer cancel()
+
+	template, err := as.manager.azClient.deploymentsClient.ExportTemplate(ctx, as.manager.config.ResourceGroup, as.manager.config.Deployment)
 	if err != nil {
 		glog.Errorf("deploymentsClient.ExportTemplate(%s, %s) failed: %v", as.manager.config.ResourceGroup, as.manager.config.Deployment, err)
 		return err
 	}
 
-	as.template = *template.Template
+	as.template = template.Template.(map[string]interface{})
 	as.parameters = as.manager.config.DeploymentParameters
 	return normalizeForK8sVMASScalingUp(as.template)
 }
@@ -93,8 +96,8 @@ func (as *AgentPool) Exist() bool {
 }
 
 // Create creates the node group on the cloud provider side.
-func (as *AgentPool) Create() error {
-	return cloudprovider.ErrAlreadyExist
+func (as *AgentPool) Create() (cloudprovider.NodeGroup, error) {
+	return nil, cloudprovider.ErrAlreadyExist
 }
 
 // Delete deletes the node group on the cloud provider side.
@@ -196,7 +199,6 @@ func (as *AgentPool) IncreaseSize(delta int) error {
 	as.parameters[as.Name+"Count"] = map[string]int{"value": countForTemplate}
 	as.parameters[as.Name+"Offset"] = map[string]int{"value": highestUsedIndex + 1}
 
-	cancel := make(chan struct{})
 	newDeploymentName := fmt.Sprintf("cluster-autoscaler-%d", rand.New(rand.NewSource(time.Now().UnixNano())).Int31())
 	newDeployment := resources.Deployment{
 		Properties: &resources.DeploymentProperties{
@@ -205,9 +207,10 @@ func (as *AgentPool) IncreaseSize(delta int) error {
 			Mode:       resources.Incremental,
 		},
 	}
-	_, errChan := as.manager.azClient.deploymentsClient.CreateOrUpdate(as.manager.config.ResourceGroup, newDeploymentName, newDeployment, cancel)
+	ctx, cancel := getContextWithCancel()
+	defer cancel()
+	_, err = as.manager.azClient.deploymentsClient.CreateOrUpdate(ctx, as.manager.config.ResourceGroup, newDeploymentName, newDeployment)
 	glog.V(3).Infof("Waiting for deploymentsClient.CreateOrUpdate(%s, %s, %s)", as.manager.config.ResourceGroup, newDeploymentName, newDeployment)
-	err = <-errChan
 	if err != nil {
 		return err
 	}
@@ -219,37 +222,26 @@ func (as *AgentPool) IncreaseSize(delta int) error {
 
 // GetVirtualMachines returns list of nodes for the given agent pool.
 func (as *AgentPool) GetVirtualMachines() (instances []compute.VirtualMachine, err error) {
-	result, err := as.manager.azClient.virtualMachinesClient.List(as.manager.config.ResourceGroup)
+	ctx, cancel := getContextWithCancel()
+	defer cancel()
+
+	result, err := as.manager.azClient.virtualMachinesClient.List(ctx, as.manager.config.ResourceGroup)
 	if err != nil {
 		return nil, err
 	}
 
-	moreResult := (result.Value != nil && len(*result.Value) > 0)
-	for moreResult {
-		for _, instance := range *result.Value {
-			if instance.Tags == nil {
-				continue
-			}
-
-			tags := *instance.Tags
-			vmPoolName := tags["poolName"]
-			if *vmPoolName != as.Id() {
-				continue
-			}
-
-			instances = append(instances, instance)
+	for _, instance := range result {
+		if instance.Tags == nil {
+			continue
 		}
 
-		moreResult = false
-		if result.NextLink != nil {
-			result, err = as.manager.azClient.virtualMachinesClient.ListNextResults(result)
-			if err != nil {
-				glog.Errorf("virtualMachinesClient.ListNextResults failed: %v", err)
-				return nil, err
-			}
-
-			moreResult = (result.Value != nil && len(*result.Value) > 0)
+		tags := instance.Tags
+		vmPoolName := tags["poolName"]
+		if vmPoolName == nil || *vmPoolName != as.Id() {
+			continue
 		}
+
+		instances = append(instances, instance)
 	}
 
 	return instances, nil
@@ -409,7 +401,10 @@ func (as *AgentPool) Nodes() ([]string, error) {
 }
 
 func (as *AgentPool) deleteBlob(accountName, vhdContainer, vhdBlob string) error {
-	storageKeysResult, err := as.manager.azClient.storageAccountsClient.ListKeys(as.manager.config.ResourceGroup, accountName)
+	ctx, cancel := getContextWithCancel()
+	defer cancel()
+
+	storageKeysResult, err := as.manager.azClient.storageAccountsClient.ListKeys(ctx, as.manager.config.ResourceGroup, accountName)
 	if err != nil {
 		return err
 	}
@@ -429,8 +424,16 @@ func (as *AgentPool) deleteBlob(accountName, vhdContainer, vhdBlob string) error
 
 // deleteVirtualMachine deletes a VM and any associated OS disk
 func (as *AgentPool) deleteVirtualMachine(name string) error {
-	vm, err := as.manager.azClient.virtualMachinesClient.Get(as.manager.config.ResourceGroup, name, "")
+	ctx, cancel := getContextWithCancel()
+	defer cancel()
+
+	vm, err := as.manager.azClient.virtualMachinesClient.Get(ctx, as.manager.config.ResourceGroup, name, "")
 	if err != nil {
+		if exists, _ := checkResourceExistsFromError(err); !exists {
+			glog.V(2).Infof("VirtualMachine %s/%s has already been removed", as.manager.config.ResourceGroup, name)
+			return nil
+		}
+
 		glog.Errorf("failed to get VM: %s/%s: %s", as.manager.config.ResourceGroup, name, err.Error())
 		return err
 	}
@@ -454,20 +457,30 @@ func (as *AgentPool) deleteVirtualMachine(name string) error {
 		}
 		glog.Infof("found nic name for VM (%s/%s): %s", as.manager.config.ResourceGroup, name, nicName)
 	}
+
 	glog.Infof("deleting VM: %s/%s", as.manager.config.ResourceGroup, name)
-	_, deleteErrChan := as.manager.azClient.virtualMachinesClient.Delete(as.manager.config.ResourceGroup, name, nil)
-	glog.Infof("waiting for vm deletion: %s/%s", as.manager.config.ResourceGroup, name)
-	if err := <-deleteErrChan; err != nil {
-		return err
+	deleteCtx, deleteCancel := getContextWithCancel()
+	defer deleteCancel()
+
+	glog.Infof("waiting for VirtualMachine deletion: %s/%s", as.manager.config.ResourceGroup, name)
+	_, err = as.manager.azClient.virtualMachinesClient.Delete(deleteCtx, as.manager.config.ResourceGroup, name)
+	_, realErr := checkResourceExistsFromError(err)
+	if realErr != nil {
+		return realErr
 	}
+	glog.V(2).Infof("VirtualMachine %s/%s removed", as.manager.config.ResourceGroup, name)
 
 	if len(nicName) > 0 {
 		glog.Infof("deleting nic: %s/%s", as.manager.config.ResourceGroup, nicName)
-		_, nicErrChan := as.manager.azClient.interfacesClient.Delete(as.manager.config.ResourceGroup, nicName, nil)
+		interfaceCtx, interfaceCancel := getContextWithCancel()
+		defer interfaceCancel()
+		_, err = as.manager.azClient.interfacesClient.Delete(interfaceCtx, as.manager.config.ResourceGroup, nicName)
 		glog.Infof("waiting for nic deletion: %s/%s", as.manager.config.ResourceGroup, nicName)
-		if nicErr := <-nicErrChan; nicErr != nil {
-			return nicErr
+		_, realErr := checkResourceExistsFromError(err)
+		if realErr != nil {
+			return realErr
 		}
+		glog.V(2).Infof("interface %s/%s removed", as.manager.config.ResourceGroup, nicName)
 	}
 
 	if vhd != nil {
@@ -480,18 +493,25 @@ func (as *AgentPool) deleteVirtualMachine(name string) error {
 
 		glog.Infof("deleting blob: %s/%s", vhdContainer, vhdBlob)
 		if err = as.deleteBlob(accountName, vhdContainer, vhdBlob); err != nil {
-			return err
+			_, realErr := checkResourceExistsFromError(err)
+			if realErr != nil {
+				return realErr
+			}
+			glog.V(2).Infof("Blob %s/%s removed", as.manager.config.ResourceGroup, vhdBlob)
 		}
 	} else if managedDisk != nil {
 		if osDiskName == nil {
 			glog.Warningf("osDisk is not set for VM %s/%s", as.manager.config.ResourceGroup, name)
 		} else {
 			glog.Infof("deleting managed disk: %s/%s", as.manager.config.ResourceGroup, *osDiskName)
-			_, diskErrChan := as.manager.azClient.disksClient.Delete(as.manager.config.ResourceGroup, *osDiskName, nil)
-
-			if err := <-diskErrChan; err != nil {
-				return err
+			disksCtx, disksCancel := getContextWithCancel()
+			defer disksCancel()
+			_, err = as.manager.azClient.disksClient.Delete(disksCtx, as.manager.config.ResourceGroup, *osDiskName)
+			_, realErr := checkResourceExistsFromError(err)
+			if realErr != nil {
+				return realErr
 			}
+			glog.V(2).Infof("disk %s/%s removed", as.manager.config.ResourceGroup, *osDiskName)
 		}
 	}
 

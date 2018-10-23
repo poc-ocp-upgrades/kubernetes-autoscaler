@@ -150,10 +150,18 @@ func NewPrometheusCollector(i infoProvider, f ContainerLabelsFunc) *PrometheusCo
 				},
 			}, {
 				name:        "container_cpu_usage_seconds_total",
-				help:        "Cumulative cpu time consumed per cpu in seconds.",
+				help:        "Cumulative cpu time consumed in seconds.",
 				valueType:   prometheus.CounterValue,
 				extraLabels: []string{"cpu"},
 				getValues: func(s *info.ContainerStats) metricValues {
+					if len(s.Cpu.Usage.PerCpu) == 0 {
+						if s.Cpu.Usage.Total > 0 {
+							return metricValues{{
+								value:  float64(s.Cpu.Usage.Total) / float64(time.Second),
+								labels: []string{"total"},
+							}}
+						}
+					}
 					values := make(metricValues, 0, len(s.Cpu.Usage.PerCpu))
 					for i, value := range s.Cpu.Usage.PerCpu {
 						if value > 0 {
@@ -188,6 +196,27 @@ func NewPrometheusCollector(i infoProvider, f ContainerLabelsFunc) *PrometheusCo
 				condition: func(s info.ContainerSpec) bool { return s.Cpu.Quota != 0 },
 				getValues: func(s *info.ContainerStats) metricValues {
 					return metricValues{{value: float64(s.Cpu.CFS.ThrottledTime) / float64(time.Second)}}
+				},
+			}, {
+				name:      "container_cpu_schedstat_run_seconds_total",
+				help:      "Time duration the processes of the container have run on the CPU.",
+				valueType: prometheus.CounterValue,
+				getValues: func(s *info.ContainerStats) metricValues {
+					return metricValues{{value: float64(s.Cpu.Schedstat.RunTime) / float64(time.Second)}}
+				},
+			}, {
+				name:      "container_cpu_schedstat_runqueue_seconds_total",
+				help:      "Time duration processes of the container have been waiting on a runqueue.",
+				valueType: prometheus.CounterValue,
+				getValues: func(s *info.ContainerStats) metricValues {
+					return metricValues{{value: float64(s.Cpu.Schedstat.RunqueueTime) / float64(time.Second)}}
+				},
+			}, {
+				name:      "container_cpu_schedstat_run_periods_total",
+				help:      "Number of times processes of the cgroup have run on the cpu",
+				valueType: prometheus.CounterValue,
+				getValues: func(s *info.ContainerStats) metricValues {
+					return metricValues{{value: float64(s.Cpu.Schedstat.RunPeriods)}}
 				},
 			}, {
 				name:      "container_cpu_load_average_10s",

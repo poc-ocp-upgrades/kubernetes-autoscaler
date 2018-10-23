@@ -19,76 +19,145 @@ package api
 import (
 	"fmt"
 
+	"github.com/golang/glog"
 	apiv1 "k8s.io/api/core/v1"
 	vpa_types "k8s.io/autoscaler/vertical-pod-autoscaler/pkg/apis/poc.autoscaling.k8s.io/v1alpha1"
 )
 
-// GetCappedRecommendationForContainer returns a recommendation extracted for the given container, adjusted to obey policy and limits.
-func GetCappedRecommendationForContainer(
-	container apiv1.Container,
+// NewCappingRecommendationProcessor constructs new RecommendationsProcessor that adjusts recommendation
+// for given pod to obey VPA resources policy and container limits
+func NewCappingRecommendationProcessor() RecommendationProcessor {
+	return &cappingRecommendationProcessor{}
+}
+
+type cappingAction = string
+
+var (
+	cappedToMinAllowed cappingAction = "capped to minAllowed"
+	cappedToMaxAllowed cappingAction = "capped to maxAllowed"
+	cappedToLimit      cappingAction = "capped to container limit"
+)
+
+func toCappingAnnotation(resourceName apiv1.ResourceName, action cappingAction) string {
+	return fmt.Sprintf("%s %s", resourceName, action)
+}
+
+type cappingRecommendationProcessor struct{}
+
+// Apply returns a recommendation for the given pod, adjusted to obey policy and limits.
+func (c *cappingRecommendationProcessor) Apply(
 	podRecommendation *vpa_types.RecommendedPodResources,
-	policy *vpa_types.PodResourcePolicy) (*vpa_types.RecommendedContainerResources, error) {
-	containerRecommendation := getRecommendationForContainer(podRecommendation, container)
+	policy *vpa_types.PodResourcePolicy,
+	conditions []vpa_types.VerticalPodAutoscalerCondition,
+	pod *apiv1.Pod) (*vpa_types.RecommendedPodResources, ContainerToAnnotationsMap, error) {
+
+	if podRecommendation == nil && policy == nil {
+		// If there is no recommendation and no policies have been defined then no recommendation can be computed.
+		return nil, nil, nil
+	}
+	if podRecommendation == nil {
+		// Policies have been specified. Create an empty recommendation so that the policies can be applied correctly.
+		podRecommendation = new(vpa_types.RecommendedPodResources)
+	}
+	updatedRecommendations := []vpa_types.RecommendedContainerResources{}
+	containerToAnnotationsMap := ContainerToAnnotationsMap{}
+	for _, containerRecommendation := range podRecommendation.ContainerRecommendations {
+		container := getContainer(containerRecommendation.ContainerName, pod)
+
+		if container == nil {
+			glog.V(2).Infof("no matching Container found for recommendation %s", containerRecommendation.ContainerName)
+			continue
+		}
+		updatedContainerResources, containerAnnotations, err := getCappedRecommendationForContainer(
+			*container, &containerRecommendation, policy)
+
+		if len(containerAnnotations) != 0 {
+			containerToAnnotationsMap[containerRecommendation.ContainerName] = containerAnnotations
+		}
+
+		if err != nil {
+			return nil, nil, fmt.Errorf("cannot update recommendation for container name %v", container.Name)
+		}
+		updatedRecommendations = append(updatedRecommendations, *updatedContainerResources)
+	}
+	return &vpa_types.RecommendedPodResources{ContainerRecommendations: updatedRecommendations}, containerToAnnotationsMap, nil
+}
+
+// getCappedRecommendationForContainer returns a recommendation for the given container, adjusted to obey policy and limits.
+func getCappedRecommendationForContainer(
+	container apiv1.Container,
+	containerRecommendation *vpa_types.RecommendedContainerResources,
+	policy *vpa_types.PodResourcePolicy) (*vpa_types.RecommendedContainerResources, []string, error) {
 	if containerRecommendation == nil {
-		return nil, fmt.Errorf("no recommendation available for container name %v", container.Name)
+		return nil, nil, fmt.Errorf("no recommendation available for container name %v", container.Name)
 	}
 	// containerPolicy can be nil (user does not have to configure it).
-	containerPolicy := getContainerPolicy(container.Name, policy)
+	containerPolicy := GetContainerResourcePolicy(container.Name, policy)
 
 	cappedRecommendations := containerRecommendation.DeepCopy()
-	cappedRecommendationsList := []apiv1.ResourceList{
-		cappedRecommendations.Target,
-		cappedRecommendations.MinRecommended,
-		cappedRecommendations.MaxRecommended,
+
+	cappingAnnotations := make([]string, 0)
+
+	process := func(recommendation apiv1.ResourceList, genAnnotations bool) {
+		annotations := applyVPAPolicy(recommendation, containerPolicy)
+		if genAnnotations {
+			cappingAnnotations = append(cappingAnnotations, annotations...)
+		}
+		// TODO: If limits and policy are conflicting, set some condition on the VPA.
+		annotations = capRecommendationToContainerLimit(recommendation, container)
+		if genAnnotations {
+			cappingAnnotations = append(cappingAnnotations, annotations...)
+		}
 	}
 
-	for _, cappedRecommendation := range cappedRecommendationsList {
-		applyVPAPolicy(cappedRecommendation, containerPolicy)
-		// TODO: If limits and policy are conflicting, set some condition on the VPA.
-		capRecommendationToContainerLimit(cappedRecommendation, container)
-	}
-	return cappedRecommendations, nil
+	process(cappedRecommendations.Target, true)
+	process(cappedRecommendations.LowerBound, false)
+	process(cappedRecommendations.UpperBound, false)
+
+	return cappedRecommendations, cappingAnnotations, nil
 }
 
 // capRecommendationToContainerLimit makes sure recommendation is not above current limit for the container.
-func capRecommendationToContainerLimit(recommendation apiv1.ResourceList, container apiv1.Container) {
+// If this function makes adjustments approporiate annotations are returned.
+func capRecommendationToContainerLimit(recommendation apiv1.ResourceList, container apiv1.Container) []string {
+	annotations := make([]string, 0)
 	// Iterate over limits set in the container. Unset means Infinite limit.
 	for resourceName, limit := range container.Resources.Limits {
 		recommendedValue, found := recommendation[resourceName]
 		if found && recommendedValue.MilliValue() > limit.MilliValue() {
 			recommendation[resourceName] = limit
+			annotations = append(annotations, toCappingAnnotation(resourceName, cappedToLimit))
 		}
 	}
+	return annotations
 }
 
 // applyVPAPolicy updates recommendation if recommended resources are outside of limits defined in VPA resources policy
-func applyVPAPolicy(recommendation apiv1.ResourceList, policy *vpa_types.ContainerResourcePolicy) {
+func applyVPAPolicy(recommendation apiv1.ResourceList, policy *vpa_types.ContainerResourcePolicy) []string {
 	if policy == nil {
-		return
+		return nil
 	}
+	annotations := make([]string, 0)
 	for resourceName, recommended := range recommendation {
 		min, found := policy.MinAllowed[resourceName]
 		if found && !min.IsZero() && recommended.MilliValue() < min.MilliValue() {
 			recommendation[resourceName] = min
+			annotations = append(annotations, toCappingAnnotation(resourceName, cappedToMinAllowed))
 		}
 		max, found := policy.MaxAllowed[resourceName]
 		if found && !max.IsZero() && recommended.MilliValue() > max.MilliValue() {
 			recommendation[resourceName] = max
+			annotations = append(annotations, toCappingAnnotation(resourceName, cappedToMaxAllowed))
 		}
 	}
+	return annotations
 }
 
-// ApplyVPAContainerPolicy enforces min/max policy on resources
-func ApplyVPAContainerPolicy(resources apiv1.ResourceList, container apiv1.Container, policy *vpa_types.PodResourcePolicy) {
-	// containerPolicy can be nil (user does not have to configure it).
-	containerPolicy := getContainerPolicy(container.Name, policy)
-	applyVPAPolicy(resources, containerPolicy)
-}
-
-func getRecommendationForContainer(recommendation *vpa_types.RecommendedPodResources, container apiv1.Container) *vpa_types.RecommendedContainerResources {
+// GetRecommendationForContainer returns recommendation for given container name
+func GetRecommendationForContainer(containerName string, recommendation *vpa_types.RecommendedPodResources) *vpa_types.RecommendedContainerResources {
 	if recommendation != nil {
 		for i, containerRec := range recommendation.ContainerRecommendations {
-			if containerRec.Name == container.Name {
+			if containerRec.ContainerName == containerName {
 				recommendationCopy := recommendation.ContainerRecommendations[i]
 				return &recommendationCopy
 			}
@@ -97,12 +166,10 @@ func getRecommendationForContainer(recommendation *vpa_types.RecommendedPodResou
 	return nil
 }
 
-func getContainerPolicy(containerName string, policy *vpa_types.PodResourcePolicy) *vpa_types.ContainerResourcePolicy {
-	if policy != nil {
-		for i, container := range policy.ContainerPolicies {
-			if containerName == container.Name {
-				return &policy.ContainerPolicies[i]
-			}
+func getContainer(containerName string, pod *apiv1.Pod) *apiv1.Container {
+	for i, container := range pod.Spec.Containers {
+		if container.Name == containerName {
+			return &pod.Spec.Containers[i]
 		}
 	}
 	return nil

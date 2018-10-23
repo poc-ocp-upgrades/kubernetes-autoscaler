@@ -14,7 +14,6 @@ go_test(
         "transport_test.go",
     ],
     embed = [":go_default_library"],
-    importpath = "k8s.io/client-go/transport",
 )
 
 go_library(
@@ -25,10 +24,11 @@ go_library(
         "round_trippers.go",
         "transport.go",
     ],
+    importmap = "k8s.io/kubernetes/vendor/k8s.io/client-go/transport",
     importpath = "k8s.io/client-go/transport",
     deps = [
+        "//staging/src/k8s.io/apimachinery/pkg/util/net:go_default_library",
         "//vendor/github.com/golang/glog:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/util/net:go_default_library",
     ],
 )
 

@@ -36,6 +36,7 @@ import (
 	"k8s.io/kubernetes/pkg/kubelet/status"
 	"k8s.io/kubernetes/pkg/kubelet/util/format"
 	"k8s.io/kubernetes/pkg/kubelet/volumemanager/cache"
+	"k8s.io/kubernetes/pkg/kubelet/volumemanager/metrics"
 	"k8s.io/kubernetes/pkg/kubelet/volumemanager/populator"
 	"k8s.io/kubernetes/pkg/kubelet/volumemanager/reconciler"
 	"k8s.io/kubernetes/pkg/util/mount"
@@ -247,6 +248,8 @@ func (vm *volumeManager) Run(sourcesReady config.SourcesReady, stopCh <-chan str
 	glog.Infof("Starting Kubelet Volume Manager")
 	go vm.reconciler.Run(stopCh)
 
+	metrics.Register(vm.actualStateOfWorld, vm.desiredStateOfWorld, vm.volumePluginMgr)
+
 	<-stopCh
 	glog.Infof("Shutting down Kubelet Volume Manager")
 }
@@ -255,9 +258,10 @@ func (vm *volumeManager) GetMountedVolumesForPod(podName types.UniquePodName) co
 	podVolumes := make(container.VolumeMap)
 	for _, mountedVolume := range vm.actualStateOfWorld.GetMountedVolumesForPod(podName) {
 		podVolumes[mountedVolume.OuterVolumeSpecName] = container.VolumeInfo{
-			Mounter:           mountedVolume.Mounter,
-			BlockVolumeMapper: mountedVolume.BlockVolumeMapper,
-			ReadOnly:          mountedVolume.VolumeSpec.ReadOnly,
+			Mounter:             mountedVolume.Mounter,
+			BlockVolumeMapper:   mountedVolume.BlockVolumeMapper,
+			ReadOnly:            mountedVolume.VolumeSpec.ReadOnly,
+			InnerVolumeSpecName: mountedVolume.InnerVolumeSpecName,
 		}
 	}
 	return podVolumes
@@ -351,7 +355,7 @@ func (vm *volumeManager) WaitForAttachAndMount(pod *v1.Pod) error {
 	// like Downward API, depend on this to update the contents of the volume).
 	vm.desiredStateOfWorldPopulator.ReprocessPod(uniquePodName)
 
-	err := wait.Poll(
+	err := wait.PollImmediate(
 		podAttachAndMountRetryInterval,
 		podAttachAndMountTimeout,
 		vm.verifyVolumesMountedFunc(uniquePodName, expectedVolumes))
