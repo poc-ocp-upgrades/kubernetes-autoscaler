@@ -4,10 +4,20 @@ The cluster autoscaler on Azure scales worker nodes within any specified autosca
 
 ## Kubernetes Version
 
-Cluster autoscaler support two VM types with Azure cloud provider:
+Kubernetes v1.10.X and Cluster autoscaler v1.2+  are required to run on Azure.
 
-- vmss: For kubernetes cluster running on VMSS instances. Azure cloud provider's `vmType` parameter must be configured as 'vmss'. It requires Kubernetes with Azure VMSS support ([kubernetes#43287](https://github.com/kubernetes/kubernetes/issues/43287)), which is planed in Kubernetes v1.10.
-- standard: For kubernetes cluster running on VMAS instances. Azure cloud provider's `vmType` parameter must be configured as 'standard'. It only supports Kubernetes cluster deployed via [acs-engine](https://github.com/Azure/acs-engine). And [useInstanceMetadata](https://github.com/Azure/acs-engine/blob/master/docs/clusterdefinition.md#kubernetesconfig) should be set to `false` for all nodes.
+Cluster autoscaler supports four VM types with Azure cloud provider:
+
+- **vmss**: For kubernetes cluster running on VMSS instances. Azure cloud provider's `vmType` parameter must be configured as 'vmss'. It requires Kubernetes with Azure VMSS support ([kubernetes#43287](https://github.com/kubernetes/kubernetes/issues/43287)).
+- **standard**: For kubernetes cluster running on VMAS instances. Azure cloud provider's `vmType` parameter must be configured as 'standard' or left as empty string. It only supports Kubernetes cluster deployed via [acs-engine](https://github.com/Azure/acs-engine).
+- **aks**: Managed Container Service([AKS](https://docs.microsoft.com/en-us/azure/aks/))
+- **acs**: Container service([ACS](https://docs.microsoft.com/en-us/azure/container-service/kubernetes/))
+
+Only **vmss** vmType supports scaling to zero nodes.
+
+## CA Version
+
+You need to replace a placeholder, '{{ ca_version }}' in manifests with CA Version such as v1.2.2.
 
 ## Permissions
 
@@ -63,6 +73,12 @@ To run a CA pod in master node - CA deployment should tolerate the master `taint
 kubectl create -f cluster-autoscaler-vmss-master.yaml
 ```
 
+To run a CA pod with Azure managed service identity (MSI), use [cluster-autoscaler-vmss-msi.yaml](cluster-autoscaler-vmss-msi.yaml) instead:
+
+```sh
+kubectl create -f cluster-autoscaler-vmss-msi.yaml
+```
+
 ### Standard deployment
 
 Pre-requirements:
@@ -107,3 +123,67 @@ Then deploy cluster-autoscaler by running
 ```sh
 kubectl create -f cluster-autoscaler-standard-master.yaml
 ```
+
+To run a CA pod with Azure managed service identity (MSI), use [cluster-autoscaler-standard-msi.yaml](cluster-autoscaler-standard-msi.yaml) instead:
+
+```sh
+kubectl create -f cluster-autoscaler-standard-msi.yaml
+```
+
+**WARNING**: Cluster autoscaler depends on user provided deployment parameters to provision new nodes. It should be redeployed with new parameters after upgrading Kubernetes cluster (e.g. upgraded by `acs-engine upgrade` command), or else new nodes will be provisioned with old version.
+
+### ACS deployment
+
+Pre-requirements:
+
+- Get credentials from above `permissions` step.
+- Get the cluster name using the following:
+
+  ```
+  for ACS:
+  ```sh
+  az acs list
+  ```
+
+- Get a node pool name by extracting the value of the label **agentpool**
+  ```sh
+  kubectl get nodes --show-labels
+  ```
+
+- Encode each data with base64.
+
+Fill the values of cluster-autoscaler-azure secret in [cluster-autoscaler-containerservice](cluster-autoscaler-containerservice.yaml), including
+
+- ClientID: `<base64-encoded-client-id>`
+- ClientSecret: `<base64-encoded-client-secret>`
+- ResourceGroup: `<base64-encoded-resource-group>` (Note: Please use lower case)
+- SubscriptionID: `<base64-encode-subscription-id>`
+- TenantID: `<base64-encoded-tenant-id>`
+- ClusterName: `<base64-encoded-clustername>`
+
+> Note that all data above should be encoded with base64.
+
+
+And fill the node groups in container command by `--nodes`, with the range of nodes (minimum to be set as 3 which is the default cluster size) and node pool name obtained from pre-requirements steps above, e.g.
+
+```yaml
+        - --nodes=3:10:nodepool1
+```
+
+The vmType param determines the kind of service we are interacting with.
+For ACS fill the following base64 encoded value:
+
+```sh
+$echo ACS | base64
+QUNTCg==
+```
+
+Then deploy cluster-autoscaler by running
+
+```sh
+kubectl create -f cluster-autoscaler-containerservice.yaml
+```
+
+### AKS deployment
+
+Take a look at these docs here: https://docs.microsoft.com/en-us/azure/aks/autoscaler

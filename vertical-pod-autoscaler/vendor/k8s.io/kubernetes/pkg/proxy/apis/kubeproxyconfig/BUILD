@@ -15,9 +15,9 @@ go_library(
     ],
     importpath = "k8s.io/kubernetes/pkg/proxy/apis/kubeproxyconfig",
     deps = [
-        "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/runtime:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/runtime/schema:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/runtime:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/runtime/schema:go_default_library",
     ],
 )
 
@@ -32,6 +32,7 @@ filegroup(
     name = "all-srcs",
     srcs = [
         ":package-srcs",
+        "//pkg/proxy/apis/kubeproxyconfig/fuzzer:all-srcs",
         "//pkg/proxy/apis/kubeproxyconfig/scheme:all-srcs",
         "//pkg/proxy/apis/kubeproxyconfig/v1alpha1:all-srcs",
         "//pkg/proxy/apis/kubeproxyconfig/validation:all-srcs",

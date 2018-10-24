@@ -57,7 +57,7 @@ func (h *netlinkHandle) EnsureAddressBind(address, devName string) (exist bool, 
 	return false, nil
 }
 
-// UnbindAddress unbind address from the interface
+// UnbindAddress makes sure IP address is unbound from the network interface.
 func (h *netlinkHandle) UnbindAddress(address, devName string) error {
 	dev, err := h.LinkByName(devName)
 	if err != nil {
@@ -68,7 +68,9 @@ func (h *netlinkHandle) UnbindAddress(address, devName string) error {
 		return fmt.Errorf("error parse ip address: %s", address)
 	}
 	if err := h.AddrDel(dev, &netlink.Addr{IPNet: netlink.NewIPNet(addr)}); err != nil {
-		return fmt.Errorf("error unbind address: %s from interface: %s, err: %v", address, devName, err)
+		if err != unix.ENXIO {
+			return fmt.Errorf("error unbind address: %s from interface: %s, err: %v", address, devName, err)
+		}
 	}
 	return nil
 }
@@ -90,13 +92,34 @@ func (h *netlinkHandle) EnsureDummyDevice(devName string) (bool, error) {
 func (h *netlinkHandle) DeleteDummyDevice(devName string) error {
 	link, err := h.LinkByName(devName)
 	if err != nil {
-		return fmt.Errorf("error deleting a non-exist dummy device: %s", devName)
+		_, ok := err.(netlink.LinkNotFoundError)
+		if ok {
+			return nil
+		}
+		return fmt.Errorf("error deleting a non-exist dummy device: %s, %v", devName, err)
 	}
 	dummy, ok := link.(*netlink.Dummy)
 	if !ok {
 		return fmt.Errorf("expect dummy device, got device type: %s", link.Type())
 	}
 	return h.LinkDel(dummy)
+}
+
+// ListBindAddress will list all IP addresses which are bound in a given interface
+func (h *netlinkHandle) ListBindAddress(devName string) ([]string, error) {
+	dev, err := h.LinkByName(devName)
+	if err != nil {
+		return nil, fmt.Errorf("error get interface: %s, err: %v", devName, err)
+	}
+	addrs, err := h.AddrList(dev, 0)
+	if err != nil {
+		return nil, fmt.Errorf("error list bound address of interface: %s, err: %v", devName, err)
+	}
+	ips := make([]string, 0)
+	for _, addr := range addrs {
+		ips = append(ips, addr.IP.String())
+	}
+	return ips, nil
 }
 
 // GetLocalAddresses lists all LOCAL type IP addresses from host based on filter device.

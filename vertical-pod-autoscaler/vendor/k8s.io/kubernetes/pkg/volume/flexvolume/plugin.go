@@ -30,6 +30,7 @@ import (
 	"k8s.io/kubernetes/pkg/util/mount"
 	utilstrings "k8s.io/kubernetes/pkg/util/strings"
 	"k8s.io/kubernetes/pkg/volume"
+	"k8s.io/kubernetes/pkg/volume/util"
 	"k8s.io/utils/exec"
 )
 
@@ -58,12 +59,12 @@ var _ volume.AttachableVolumePlugin = &flexVolumeAttachablePlugin{}
 var _ volume.PersistentVolumePlugin = &flexVolumePlugin{}
 
 type PluginFactory interface {
-	NewFlexVolumePlugin(pluginDir, driverName string) (volume.VolumePlugin, error)
+	NewFlexVolumePlugin(pluginDir, driverName string, runner exec.Interface) (volume.VolumePlugin, error)
 }
 
 type pluginFactory struct{}
 
-func (pluginFactory) NewFlexVolumePlugin(pluginDir, name string) (volume.VolumePlugin, error) {
+func (pluginFactory) NewFlexVolumePlugin(pluginDir, name string, runner exec.Interface) (volume.VolumePlugin, error) {
 	execPath := path.Join(pluginDir, name)
 
 	driverName := utilstrings.UnescapePluginName(name)
@@ -71,7 +72,7 @@ func (pluginFactory) NewFlexVolumePlugin(pluginDir, name string) (volume.VolumeP
 	flexPlugin := &flexVolumePlugin{
 		driverName:          driverName,
 		execPath:            execPath,
-		runner:              exec.New(),
+		runner:              runner,
 		unsupportedCommands: []string{},
 	}
 
@@ -103,7 +104,7 @@ func (plugin *flexVolumePlugin) getExecutable() string {
 	execName := parts[len(parts)-1]
 	execPath := path.Join(plugin.execPath, execName)
 	if runtime.GOOS == "windows" {
-		execPath = volume.GetWindowsPath(execPath)
+		execPath = util.GetWindowsPath(execPath)
 	}
 	return execPath
 }
@@ -264,7 +265,7 @@ func (plugin *flexVolumePlugin) isUnsupported(command string) bool {
 
 func (plugin *flexVolumePlugin) GetDeviceMountRefs(deviceMountPath string) ([]string, error) {
 	mounter := plugin.host.GetMounter(plugin.GetPluginName())
-	return mount.GetMountRefs(mounter, deviceMountPath)
+	return mounter.GetMountRefs(deviceMountPath)
 }
 
 func (plugin *flexVolumePlugin) getDeviceMountPath(spec *volume.Spec) (string, error) {

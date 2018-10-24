@@ -17,8 +17,8 @@ limitations under the License.
 package autoscaling
 
 import (
+	appsv1 "k8s.io/api/apps/v1"
 	apiv1 "k8s.io/api/core/v1"
-	extensions "k8s.io/api/extensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	vpa_types "k8s.io/autoscaler/vertical-pod-autoscaler/pkg/apis/poc.autoscaling.k8s.io/v1alpha1"
 	"k8s.io/kubernetes/test/e2e/framework"
@@ -37,14 +37,14 @@ var _ = admissionControllerE2eDescribe("Admission-controller", func() {
 		vpaCRD := newVPA(f, "hamster-vpa", &metav1.LabelSelector{
 			MatchLabels: d.Spec.Template.Labels,
 		})
-		vpaCRD.Status.Recommendation.ContainerRecommendations = []vpa_types.RecommendedContainerResources{
-			{
-				Name: "hamster",
+		vpaCRD.Status.Recommendation = &vpa_types.RecommendedPodResources{
+			ContainerRecommendations: []vpa_types.RecommendedContainerResources{{
+				ContainerName: "hamster",
 				Target: apiv1.ResourceList{
 					apiv1.ResourceCPU:    parseQuantityOrDie("250m"),
 					apiv1.ResourceMemory: parseQuantityOrDie("200Mi"),
 				},
-			},
+			}},
 		}
 		installVPA(f, vpaCRD)
 
@@ -70,14 +70,14 @@ var _ = admissionControllerE2eDescribe("Admission-controller", func() {
 		vpaCRD := newVPA(f, "hamster-vpa", &metav1.LabelSelector{
 			MatchLabels: d.Spec.Template.Labels,
 		})
-		vpaCRD.Status.Recommendation.ContainerRecommendations = []vpa_types.RecommendedContainerResources{
-			{
-				Name: "hamster",
+		vpaCRD.Status.Recommendation = &vpa_types.RecommendedPodResources{
+			ContainerRecommendations: []vpa_types.RecommendedContainerResources{{
+				ContainerName: "hamster",
 				Target: apiv1.ResourceList{
 					apiv1.ResourceCPU:    parseQuantityOrDie("250m"),
 					apiv1.ResourceMemory: parseQuantityOrDie("200Mi"),
 				},
-			},
+			}},
 		}
 		installVPA(f, vpaCRD)
 
@@ -100,22 +100,23 @@ var _ = admissionControllerE2eDescribe("Admission-controller", func() {
 		vpaCRD := newVPA(f, "hamster-vpa", &metav1.LabelSelector{
 			MatchLabels: d.Spec.Template.Labels,
 		})
-		vpaCRD.Status.Recommendation.ContainerRecommendations = []vpa_types.RecommendedContainerResources{
-			{
-				Name: "hamster",
+		vpaCRD.Status.Recommendation = &vpa_types.RecommendedPodResources{
+			ContainerRecommendations: []vpa_types.RecommendedContainerResources{{
+				ContainerName: "hamster",
 				Target: apiv1.ResourceList{
 					apiv1.ResourceCPU:    parseQuantityOrDie("250m"),
 					apiv1.ResourceMemory: parseQuantityOrDie("200Mi"),
 				},
-			},
+			}},
 		}
-		vpaCRD.Spec.ResourcePolicy.ContainerPolicies = []vpa_types.ContainerResourcePolicy{{
-			Name: "hamster",
-			MaxAllowed: apiv1.ResourceList{
-				apiv1.ResourceCPU:    parseQuantityOrDie("233m"),
-				apiv1.ResourceMemory: parseQuantityOrDie("150Mi"),
-			},
-		},
+		vpaCRD.Spec.ResourcePolicy = &vpa_types.PodResourcePolicy{
+			ContainerPolicies: []vpa_types.ContainerResourcePolicy{{
+				ContainerName: "hamster",
+				MaxAllowed: apiv1.ResourceList{
+					apiv1.ResourceCPU:    parseQuantityOrDie("233m"),
+					apiv1.ResourceMemory: parseQuantityOrDie("150Mi"),
+				},
+			}},
 		}
 		installVPA(f, vpaCRD)
 
@@ -138,22 +139,23 @@ var _ = admissionControllerE2eDescribe("Admission-controller", func() {
 		vpaCRD := newVPA(f, "hamster-vpa", &metav1.LabelSelector{
 			MatchLabels: d.Spec.Template.Labels,
 		})
-		vpaCRD.Status.Recommendation.ContainerRecommendations = []vpa_types.RecommendedContainerResources{
-			{
-				Name: "hamster",
+		vpaCRD.Status.Recommendation = &vpa_types.RecommendedPodResources{
+			ContainerRecommendations: []vpa_types.RecommendedContainerResources{{
+				ContainerName: "hamster",
 				Target: apiv1.ResourceList{
 					apiv1.ResourceCPU:    parseQuantityOrDie("50m"),
 					apiv1.ResourceMemory: parseQuantityOrDie("60Mi"),
 				},
-			},
+			}},
 		}
-		vpaCRD.Spec.ResourcePolicy.ContainerPolicies = []vpa_types.ContainerResourcePolicy{{
-			Name: "hamster",
-			MinAllowed: apiv1.ResourceList{
-				apiv1.ResourceCPU:    parseQuantityOrDie("90m"),
-				apiv1.ResourceMemory: parseQuantityOrDie("80Mi"),
-			},
-		},
+		vpaCRD.Spec.ResourcePolicy = &vpa_types.PodResourcePolicy{
+			ContainerPolicies: []vpa_types.ContainerResourcePolicy{{
+				ContainerName: "hamster",
+				MinAllowed: apiv1.ResourceList{
+					apiv1.ResourceCPU:    parseQuantityOrDie("90m"),
+					apiv1.ResourceMemory: parseQuantityOrDie("80Mi"),
+				},
+			}},
 		}
 		installVPA(f, vpaCRD)
 
@@ -188,34 +190,6 @@ var _ = admissionControllerE2eDescribe("Admission-controller", func() {
 		}
 	})
 
-	ginkgo.It("leaves user's request when target recommendation is zero", func() {
-		d := newHamsterDeploymentWithResources(f, parseQuantityOrDie("100m") /*cpu*/, parseQuantityOrDie("100Mi") /*memory*/)
-
-		ginkgo.By("Setting up a VPA CRD")
-		vpaCRD := newVPA(f, "hamster-vpa", &metav1.LabelSelector{
-			MatchLabels: d.Spec.Template.Labels,
-		})
-		vpaCRD.Status.Recommendation.ContainerRecommendations = []vpa_types.RecommendedContainerResources{
-			{
-				Name: "hamster",
-				Target: apiv1.ResourceList{
-					apiv1.ResourceCPU:    parseQuantityOrDie("0"),
-					apiv1.ResourceMemory: parseQuantityOrDie("0"),
-				},
-			},
-		}
-		installVPA(f, vpaCRD)
-
-		ginkgo.By("Setting up a hamster deployment")
-		podList := startDeploymentPods(f, d)
-
-		// VPA has no recommendation, so user's request is passed through
-		for _, pod := range podList.Items {
-			gomega.Expect(pod.Spec.Containers[0].Resources.Requests[apiv1.ResourceCPU]).To(gomega.Equal(parseQuantityOrDie("100m")))
-			gomega.Expect(pod.Spec.Containers[0].Resources.Requests[apiv1.ResourceMemory]).To(gomega.Equal(parseQuantityOrDie("100Mi")))
-		}
-	})
-
 	ginkgo.It("passes empty request when no recommendation and no user-specified request", func() {
 		d := newHamsterDeployment(f)
 
@@ -236,9 +210,9 @@ var _ = admissionControllerE2eDescribe("Admission-controller", func() {
 
 })
 
-func startDeploymentPods(f *framework.Framework, deployment *extensions.Deployment) *apiv1.PodList {
+func startDeploymentPods(f *framework.Framework, deployment *appsv1.Deployment) *apiv1.PodList {
 	c, ns := f.ClientSet, f.Namespace.Name
-	deployment, err := c.ExtensionsV1beta1().Deployments(ns).Create(deployment)
+	deployment, err := c.AppsV1().Deployments(ns).Create(deployment)
 	gomega.Expect(err).NotTo(gomega.HaveOccurred())
 	err = framework.WaitForDeploymentComplete(c, deployment)
 	gomega.Expect(err).NotTo(gomega.HaveOccurred())

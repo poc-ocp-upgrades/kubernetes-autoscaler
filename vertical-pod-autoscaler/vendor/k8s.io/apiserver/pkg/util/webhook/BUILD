@@ -9,17 +9,17 @@ load(
 go_library(
     name = "go_default_library",
     srcs = ["webhook.go"],
+    importmap = "k8s.io/kubernetes/vendor/k8s.io/apiserver/pkg/util/webhook",
     importpath = "k8s.io/apiserver/pkg/util/webhook",
     deps = [
-        "//vendor/k8s.io/apimachinery/pkg/api/errors:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/apimachinery/registered:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/runtime:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/runtime/schema:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/runtime/serializer:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/util/net:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/util/wait:go_default_library",
-        "//vendor/k8s.io/client-go/rest:go_default_library",
-        "//vendor/k8s.io/client-go/tools/clientcmd:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/api/errors:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/runtime:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/runtime/schema:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/runtime/serializer:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/util/net:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/util/wait:go_default_library",
+        "//staging/src/k8s.io/client-go/rest:go_default_library",
+        "//staging/src/k8s.io/client-go/tools/clientcmd:go_default_library",
     ],
 )
 
@@ -30,14 +30,13 @@ go_test(
         "webhook_test.go",
     ],
     embed = [":go_default_library"],
-    importpath = "k8s.io/apiserver/pkg/util/webhook",
     deps = [
-        "//vendor/k8s.io/apimachinery/pkg/api/errors:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/apimachinery/registered:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/runtime/schema:go_default_library",
-        "//vendor/k8s.io/client-go/kubernetes/scheme:go_default_library",
-        "//vendor/k8s.io/client-go/rest:go_default_library",
-        "//vendor/k8s.io/client-go/tools/clientcmd/api/v1:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/api/errors:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/runtime:go_default_library",
+        "//staging/src/k8s.io/apimachinery/pkg/runtime/schema:go_default_library",
+        "//staging/src/k8s.io/client-go/kubernetes/scheme:go_default_library",
+        "//staging/src/k8s.io/client-go/rest:go_default_library",
+        "//staging/src/k8s.io/client-go/tools/clientcmd/api/v1:go_default_library",
     ],
 )
 

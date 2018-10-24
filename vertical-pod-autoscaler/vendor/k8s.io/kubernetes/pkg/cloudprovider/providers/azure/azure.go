@@ -21,13 +21,19 @@ import (
 	"io"
 	"io/ioutil"
 	"strings"
+	"sync"
 	"time"
 
+	"k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/util/wait"
+	"k8s.io/client-go/informers"
+	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/util/flowcontrol"
 	"k8s.io/kubernetes/pkg/cloudprovider"
 	"k8s.io/kubernetes/pkg/cloudprovider/providers/azure/auth"
 	"k8s.io/kubernetes/pkg/controller"
+	kubeletapis "k8s.io/kubernetes/pkg/kubelet/apis"
 	"k8s.io/kubernetes/pkg/version"
 
 	"github.com/Azure/go-autorest/autorest"
@@ -49,7 +55,18 @@ const (
 
 	vmTypeVMSS     = "vmss"
 	vmTypeStandard = "standard"
+
+	loadBalancerSkuBasic    = "basic"
+	loadBalancerSkuStandard = "standard"
 )
+
+var (
+	// Master nodes are not added to standard load balancer by default.
+	defaultExcludeMasterFromStandardLB = true
+)
+
+// Azure implements PVLabeler.
+var _ cloudprovider.PVLabeler = (*Cloud)(nil)
 
 // Config holds the configuration parsed from the --cloud-config flag
 // All fields are required unless otherwise specified
@@ -97,13 +114,27 @@ type Config struct {
 	CloudProviderBackoffJitter float64 `json:"cloudProviderBackoffJitter" yaml:"cloudProviderBackoffJitter"`
 	// Enable rate limiting
 	CloudProviderRateLimit bool `json:"cloudProviderRateLimit" yaml:"cloudProviderRateLimit"`
-	// Rate limit QPS
+	// Rate limit QPS (Read)
 	CloudProviderRateLimitQPS float32 `json:"cloudProviderRateLimitQPS" yaml:"cloudProviderRateLimitQPS"`
 	// Rate limit Bucket Size
 	CloudProviderRateLimitBucket int `json:"cloudProviderRateLimitBucket" yaml:"cloudProviderRateLimitBucket"`
+	// Rate limit QPS (Write)
+	CloudProviderRateLimitQPSWrite float32 `json:"cloudProviderRateLimitQPSWrite" yaml:"cloudProviderRateLimitQPSWrite"`
+	// Rate limit Bucket Size
+	CloudProviderRateLimitBucketWrite int `json:"cloudProviderRateLimitBucketWrite" yaml:"cloudProviderRateLimitBucketWrite"`
+
+	// Use instance metadata service where possible
+	UseInstanceMetadata bool `json:"useInstanceMetadata" yaml:"useInstanceMetadata"`
+
+	// Sku of Load Balancer and Public IP. Candidate values are: basic and standard.
+	// If not set, it will be default to basic.
+	LoadBalancerSku string `json:"loadBalancerSku" yaml:"loadBalancerSku"`
+	// ExcludeMasterFromStandardLB excludes master nodes from standard load balancer.
+	// If not set, it will be default to true.
+	ExcludeMasterFromStandardLB *bool `json:"excludeMasterFromStandardLB" yaml:"excludeMasterFromStandardLB"`
 
 	// Maximum allowed LoadBalancer Rule Count is the limit enforced by Azure Load balancer
-	MaximumLoadBalancerRuleCount int `json:"maximumLoadBalancerRuleCount"`
+	MaximumLoadBalancerRuleCount int `json:"maximumLoadBalancerRuleCount" yaml:"maximumLoadBalancerRuleCount"`
 }
 
 // Cloud holds the config and clients
@@ -122,11 +153,24 @@ type Cloud struct {
 	DisksClient             DisksClient
 	FileClient              FileClient
 	resourceRequestBackoff  wait.Backoff
+	metadata                *InstanceMetadata
 	vmSet                   VMSet
+
+	// Lock for access to nodeZones
+	nodeZonesLock sync.Mutex
+	// nodeZones is a mapping from Zone to a sets.String of Node's names in the Zone
+	// it is updated by the nodeInformer
+	nodeZones          map[string]sets.String
+	nodeInformerSynced cache.InformerSynced
 
 	// Clients for vmss.
 	VirtualMachineScaleSetsClient   VirtualMachineScaleSetsClient
 	VirtualMachineScaleSetVMsClient VirtualMachineScaleSetVMsClient
+
+	vmCache  *timedCache
+	lbCache  *timedCache
+	nsgCache *timedCache
+	rtCache  *timedCache
 
 	*BlobDiskController
 	*ManagedDiskController
@@ -144,6 +188,11 @@ func NewCloud(configReader io.Reader) (cloudprovider.Interface, error) {
 		return nil, err
 	}
 
+	if config.VMType == "" {
+		// default to standard vmType if not set.
+		config.VMType = vmTypeStandard
+	}
+
 	env, err := auth.ParseAzureEnvironment(config.Cloud)
 	if err != nil {
 		return nil, err
@@ -156,6 +205,10 @@ func NewCloud(configReader io.Reader) (cloudprovider.Interface, error) {
 
 	// operationPollRateLimiter.Accept() is a no-op if rate limits are configured off.
 	operationPollRateLimiter := flowcontrol.NewFakeAlwaysRateLimiter()
+	operationPollRateLimiterWrite := flowcontrol.NewFakeAlwaysRateLimiter()
+
+	// If reader is provided (and no writer) we will
+	// use the same value for both.
 	if config.CloudProviderRateLimit {
 		// Assign rate limit defaults if no configuration was passed in
 		if config.CloudProviderRateLimitQPS == 0 {
@@ -164,23 +217,46 @@ func NewCloud(configReader io.Reader) (cloudprovider.Interface, error) {
 		if config.CloudProviderRateLimitBucket == 0 {
 			config.CloudProviderRateLimitBucket = rateLimitBucketDefault
 		}
+		if config.CloudProviderRateLimitQPSWrite == 0 {
+			config.CloudProviderRateLimitQPSWrite = rateLimitQPSDefault
+		}
+		if config.CloudProviderRateLimitBucketWrite == 0 {
+			config.CloudProviderRateLimitBucketWrite = rateLimitBucketDefault
+		}
+
 		operationPollRateLimiter = flowcontrol.NewTokenBucketRateLimiter(
 			config.CloudProviderRateLimitQPS,
 			config.CloudProviderRateLimitBucket)
-		glog.V(2).Infof("Azure cloudprovider using rate limit config: QPS=%g, bucket=%d",
+
+		operationPollRateLimiterWrite = flowcontrol.NewTokenBucketRateLimiter(
+			config.CloudProviderRateLimitQPSWrite,
+			config.CloudProviderRateLimitBucketWrite)
+
+		glog.V(2).Infof("Azure cloudprovider (read ops) using rate limit config: QPS=%g, bucket=%d",
 			config.CloudProviderRateLimitQPS,
 			config.CloudProviderRateLimitBucket)
+
+		glog.V(2).Infof("Azure cloudprovider (write ops) using rate limit config: QPS=%g, bucket=%d",
+			config.CloudProviderRateLimitQPSWrite,
+			config.CloudProviderRateLimitBucketWrite)
+	}
+
+	// Do not add master nodes to standard LB by default.
+	if config.ExcludeMasterFromStandardLB == nil {
+		config.ExcludeMasterFromStandardLB = &defaultExcludeMasterFromStandardLB
 	}
 
 	azClientConfig := &azClientConfig{
 		subscriptionID:          config.SubscriptionID,
 		resourceManagerEndpoint: env.ResourceManagerEndpoint,
 		servicePrincipalToken:   servicePrincipalToken,
-		rateLimiter:             operationPollRateLimiter,
+		rateLimiterReader:       operationPollRateLimiter,
+		rateLimiterWriter:       operationPollRateLimiterWrite,
 	}
 	az := Cloud{
 		Config:      *config,
 		Environment: *env,
+		nodeZones:   map[string]sets.String{},
 
 		DisksClient:                     newAzDisksClient(azClientConfig),
 		RoutesClient:                    newAzRoutesClient(azClientConfig),
@@ -225,14 +301,39 @@ func NewCloud(configReader io.Reader) (cloudprovider.Interface, error) {
 			az.CloudProviderBackoffJitter)
 	}
 
+	az.metadata = NewInstanceMetadata()
+
 	if az.MaximumLoadBalancerRuleCount == 0 {
 		az.MaximumLoadBalancerRuleCount = maximumLoadBalancerRuleCount
 	}
 
 	if strings.EqualFold(vmTypeVMSS, az.Config.VMType) {
-		az.vmSet = newScaleSet(&az)
+		az.vmSet, err = newScaleSet(&az)
+		if err != nil {
+			return nil, err
+		}
 	} else {
 		az.vmSet = newAvailabilitySet(&az)
+	}
+
+	az.vmCache, err = az.newVMCache()
+	if err != nil {
+		return nil, err
+	}
+
+	az.lbCache, err = az.newLBCache()
+	if err != nil {
+		return nil, err
+	}
+
+	az.nsgCache, err = az.newNSGCache()
+	if err != nil {
+		return nil, err
+	}
+
+	az.rtCache, err = az.newRouteTableCache()
+	if err != nil {
+		return nil, err
 	}
 
 	if err := initDiskControllers(&az); err != nil {
@@ -339,4 +440,88 @@ func initDiskControllers(az *Cloud) error {
 	az.controllerCommon = common
 
 	return nil
+}
+
+// SetInformers sets informers for Azure cloud provider.
+func (az *Cloud) SetInformers(informerFactory informers.SharedInformerFactory) {
+	glog.Infof("Setting up informers for Azure cloud provider")
+	nodeInformer := informerFactory.Core().V1().Nodes().Informer()
+	nodeInformer.AddEventHandler(cache.ResourceEventHandlerFuncs{
+		AddFunc: func(obj interface{}) {
+			node := obj.(*v1.Node)
+			az.updateNodeZones(nil, node)
+		},
+		UpdateFunc: func(prev, obj interface{}) {
+			prevNode := prev.(*v1.Node)
+			newNode := obj.(*v1.Node)
+			if newNode.Labels[kubeletapis.LabelZoneFailureDomain] ==
+				prevNode.Labels[kubeletapis.LabelZoneFailureDomain] {
+				return
+			}
+			az.updateNodeZones(prevNode, newNode)
+		},
+		DeleteFunc: func(obj interface{}) {
+			node, isNode := obj.(*v1.Node)
+			// We can get DeletedFinalStateUnknown instead of *v1.Node here
+			// and we need to handle that correctly.
+			if !isNode {
+				deletedState, ok := obj.(cache.DeletedFinalStateUnknown)
+				if !ok {
+					glog.Errorf("Received unexpected object: %v", obj)
+					return
+				}
+				node, ok = deletedState.Obj.(*v1.Node)
+				if !ok {
+					glog.Errorf("DeletedFinalStateUnknown contained non-Node object: %v", deletedState.Obj)
+					return
+				}
+			}
+			az.updateNodeZones(node, nil)
+		},
+	})
+	az.nodeInformerSynced = nodeInformer.HasSynced
+}
+
+func (az *Cloud) updateNodeZones(prevNode, newNode *v1.Node) {
+	az.nodeZonesLock.Lock()
+	defer az.nodeZonesLock.Unlock()
+	if prevNode != nil {
+		prevZone, ok := prevNode.ObjectMeta.Labels[kubeletapis.LabelZoneFailureDomain]
+		if ok && az.isAvailabilityZone(prevZone) {
+			az.nodeZones[prevZone].Delete(prevNode.ObjectMeta.Name)
+			if az.nodeZones[prevZone].Len() == 0 {
+				az.nodeZones[prevZone] = nil
+			}
+		}
+	}
+	if newNode != nil {
+		newZone, ok := newNode.ObjectMeta.Labels[kubeletapis.LabelZoneFailureDomain]
+		if ok && az.isAvailabilityZone(newZone) {
+			if az.nodeZones[newZone] == nil {
+				az.nodeZones[newZone] = sets.NewString()
+			}
+			az.nodeZones[newZone].Insert(newNode.ObjectMeta.Name)
+		}
+	}
+}
+
+// GetActiveZones returns all the zones in which k8s nodes are currently running.
+func (az *Cloud) GetActiveZones() (sets.String, error) {
+	if az.nodeInformerSynced == nil {
+		return nil, fmt.Errorf("Azure cloud provider doesn't have informers set")
+	}
+
+	az.nodeZonesLock.Lock()
+	defer az.nodeZonesLock.Unlock()
+	if !az.nodeInformerSynced() {
+		return nil, fmt.Errorf("node informer is not synced when trying to GetActiveZones")
+	}
+
+	zones := sets.NewString()
+	for zone, nodes := range az.nodeZones {
+		if len(nodes) > 0 {
+			zones.Insert(zone)
+		}
+	}
+	return zones, nil
 }
