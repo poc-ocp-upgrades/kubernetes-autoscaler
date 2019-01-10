@@ -370,22 +370,25 @@ func (m *AwsManager) getAsgTemplate(name string) (*asgTemplate, error) {
 	}
 
 	if len(asg.AvailabilityZones) < 1 {
-		return nil, fmt.Errorf("Unable to get first AvailabilityZone for %s", name)
+		return nil, fmt.Errorf("Unable to get first AvailabilityZone for ASG %q", name)
 	}
 
 	az := *asg.AvailabilityZones[0]
 	region := az[0 : len(az)-1]
 
 	if len(asg.AvailabilityZones) > 1 {
-		glog.Warningf("Found multiple availability zones, using %s\n", az)
+		glog.Warningf("Found multiple availability zones for ASG %q, using %s\n", name, az)
 	}
 
-	return &asgTemplate{
-		InstanceType: InstanceTypes[instanceTypeName],
-		Region:       region,
-		Zone:         az,
-		Tags:         asg.Tags,
-	}, nil
+	if t, ok := InstanceTypes[instanceTypeName]; ok {
+		return &asgTemplate{
+			InstanceType: t,
+			Region:       region,
+			Zone:         az,
+			Tags:         asg.Tags,
+		}, nil
+	}
+	return nil, fmt.Errorf("ASG %q uses the unknown EC2 instance type %q", name, instanceTypeName)
 }
 
 func (m *AwsManager) buildNodeFromTemplate(asg *Asg, template *asgTemplate) (*apiv1.Node, error) {
