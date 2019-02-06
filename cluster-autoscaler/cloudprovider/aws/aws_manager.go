@@ -364,7 +364,7 @@ func (m *AwsManager) getAsgTemplate(name string) (*asgTemplate, error) {
 		return nil, err
 	}
 
-	instanceTypeName, err := m.service.getInstanceTypeByLCName(*asg.LaunchConfigurationName)
+	instanceTypeName, err := m.service.getInstanceTypeByLCName(aws.StringValue(asg.LaunchConfigurationName))
 	if err != nil {
 		return nil, err
 	}
