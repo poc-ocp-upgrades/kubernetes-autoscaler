@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package openshiftmachineapi_test
+package openshiftmachineapi
 
 import (
 	"strings"
@@ -22,10 +22,14 @@ import (
 
 	"github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider/openshiftmachineapi"
 )
 
-func TestParseMachineSetBounds(t *testing.T) {
+const (
+	uuid1 = "ec21c5fb-a3d5-a45f-887b-6b49aa8fc218"
+	uuid2 = "ec23ebb0-bc60-443f-d139-046ec5046283"
+)
+
+func TestParseScalingBounds(t *testing.T) {
 	for i, tc := range []struct {
 		description string
 		annotations map[string]string
@@ -35,105 +39,194 @@ func TestParseMachineSetBounds(t *testing.T) {
 	}{{
 		description: "missing min annotation defaults to 0 and no error",
 		annotations: map[string]string{
-			openshiftmachineapi.NodeGroupMaxSizeAnnotationKey: "0",
+			nodeGroupMaxSizeAnnotationKey: "0",
 		},
 	}, {
 		description: "missing max annotation defaults to 0 and no error",
 		annotations: map[string]string{
-			openshiftmachineapi.NodeGroupMinSizeAnnotationKey: "0",
+			nodeGroupMinSizeAnnotationKey: "0",
 		},
 	}, {
 		description: "invalid min errors",
 		annotations: map[string]string{
-			openshiftmachineapi.NodeGroupMinSizeAnnotationKey: "-1",
-			openshiftmachineapi.NodeGroupMaxSizeAnnotationKey: "0",
+			nodeGroupMinSizeAnnotationKey: "-1",
+			nodeGroupMaxSizeAnnotationKey: "0",
 		},
-		error: openshiftmachineapi.ErrInvalidMinAnnotation,
+		error: errInvalidMinAnnotation,
 	}, {
 		description: "invalid min errors",
 		annotations: map[string]string{
-			openshiftmachineapi.NodeGroupMinSizeAnnotationKey: "not-an-int",
-			openshiftmachineapi.NodeGroupMaxSizeAnnotationKey: "0",
+			nodeGroupMinSizeAnnotationKey: "not-an-int",
+			nodeGroupMaxSizeAnnotationKey: "0",
 		},
-		error: openshiftmachineapi.ErrInvalidMinAnnotation,
+		error: errInvalidMinAnnotation,
 	}, {
 		description: "invalid max errors",
 		annotations: map[string]string{
-			openshiftmachineapi.NodeGroupMinSizeAnnotationKey: "0",
-			openshiftmachineapi.NodeGroupMaxSizeAnnotationKey: "-1",
+			nodeGroupMinSizeAnnotationKey: "0",
+			nodeGroupMaxSizeAnnotationKey: "-1",
 		},
-		error: openshiftmachineapi.ErrInvalidMaxAnnotation,
+		error: errInvalidMaxAnnotation,
 	}, {
 		description: "invalid max errors",
 		annotations: map[string]string{
-			openshiftmachineapi.NodeGroupMinSizeAnnotationKey: "0",
-			openshiftmachineapi.NodeGroupMaxSizeAnnotationKey: "not-an-int",
+			nodeGroupMinSizeAnnotationKey: "0",
+			nodeGroupMaxSizeAnnotationKey: "not-an-int",
 		},
-		error: openshiftmachineapi.ErrInvalidMaxAnnotation,
+		error: errInvalidMaxAnnotation,
 	}, {
 		description: "negative min errors",
 		annotations: map[string]string{
-			openshiftmachineapi.NodeGroupMinSizeAnnotationKey: "-1",
-			openshiftmachineapi.NodeGroupMaxSizeAnnotationKey: "0",
+			nodeGroupMinSizeAnnotationKey: "-1",
+			nodeGroupMaxSizeAnnotationKey: "0",
 		},
-		error: openshiftmachineapi.ErrInvalidMinAnnotation,
+		error: errInvalidMinAnnotation,
 	}, {
 		description: "negative max errors",
 		annotations: map[string]string{
-			openshiftmachineapi.NodeGroupMinSizeAnnotationKey: "0",
-			openshiftmachineapi.NodeGroupMaxSizeAnnotationKey: "-1",
+			nodeGroupMinSizeAnnotationKey: "0",
+			nodeGroupMaxSizeAnnotationKey: "-1",
 		},
-		error: openshiftmachineapi.ErrInvalidMaxAnnotation,
+		error: errInvalidMaxAnnotation,
 	}, {
 		description: "max < min errors",
 		annotations: map[string]string{
-			openshiftmachineapi.NodeGroupMinSizeAnnotationKey: "1",
-			openshiftmachineapi.NodeGroupMaxSizeAnnotationKey: "0",
+			nodeGroupMinSizeAnnotationKey: "1",
+			nodeGroupMaxSizeAnnotationKey: "0",
 		},
-		error: openshiftmachineapi.ErrInvalidMaxAnnotation,
+		error: errInvalidMaxAnnotation,
 	}, {
 		description: "result is: min 0, max 0",
 		annotations: map[string]string{
-			openshiftmachineapi.NodeGroupMinSizeAnnotationKey: "0",
-			openshiftmachineapi.NodeGroupMaxSizeAnnotationKey: "0",
+			nodeGroupMinSizeAnnotationKey: "0",
+			nodeGroupMaxSizeAnnotationKey: "0",
 		},
 		min: 0,
 		max: 0,
 	}, {
 		description: "result is min 0, max 1",
 		annotations: map[string]string{
-			openshiftmachineapi.NodeGroupMinSizeAnnotationKey: "0",
-			openshiftmachineapi.NodeGroupMaxSizeAnnotationKey: "1",
+			nodeGroupMinSizeAnnotationKey: "0",
+			nodeGroupMaxSizeAnnotationKey: "1",
 		},
 		min: 0,
 		max: 1,
 	}} {
+		t.Logf("test #%d: %s", i, tc.description)
 		machineSet := v1beta1.MachineSet{
+
 			ObjectMeta: v1.ObjectMeta{
 				Annotations: tc.annotations,
 			},
 		}
 
-		min, max, err := openshiftmachineapi.ParseMachineSetBounds(&machineSet)
-
+		min, max, err := parseScalingBounds(machineSet.Annotations)
 		if tc.error != nil && err == nil {
 			t.Fatalf("test #%d: expected an error", i)
 		}
 
 		if tc.error != nil && tc.error != err {
 			if !strings.HasPrefix(err.Error(), tc.error.Error()) {
-				t.Errorf("test #%d: expected message to have prefix %q, got %q",
-					i, tc.error.Error(), err)
+				t.Errorf("expected message to have prefix %q, got %q", tc.error.Error(), err)
 			}
 		}
 
 		if tc.error == nil {
 			if tc.min != min {
-				t.Errorf("test #%d: expected min %d, got %d", i, tc.min, min)
+				t.Errorf("expected min %d, got %d", tc.min, min)
 			}
 			if tc.max != max {
-				t.Errorf("test #%d: expected max %d, got %d", i, tc.max, max)
+				t.Errorf("expected max %d, got %d", tc.max, max)
 			}
+		}
+	}
+}
+
+func TestMachineSetIsOwnedByMachineDeployment(t *testing.T) {
+	for i, tc := range []struct {
+		description       string
+		machineSet        v1beta1.MachineSet
+		machineDeployment v1beta1.MachineDeployment
+		owned             bool
+	}{{
+		description:       "not owned as no owner references",
+		machineSet:        v1beta1.MachineSet{},
+		machineDeployment: v1beta1.MachineDeployment{},
+		owned:             false,
+	}, {
+		description: "not owned as not the same Kind",
+		machineSet: v1beta1.MachineSet{
+			ObjectMeta: v1.ObjectMeta{
+				OwnerReferences: []v1.OwnerReference{{
+					Kind: "Other",
+				}},
+			},
+		},
+		machineDeployment: v1beta1.MachineDeployment{},
+		owned:             false,
+	}, {
+		description: "not owned because no OwnerReference.Name",
+		machineSet: v1beta1.MachineSet{
+			ObjectMeta: v1.ObjectMeta{
+				OwnerReferences: []v1.OwnerReference{{
+					Kind: "MachineSet",
+					UID:  uuid1,
+				}},
+			},
+		},
+		machineDeployment: v1beta1.MachineDeployment{
+			ObjectMeta: v1.ObjectMeta{
+				UID: uuid1,
+			},
+		},
+		owned: false,
+	}, {
+		description: "not owned as UID values don't match",
+		machineSet: v1beta1.MachineSet{
+			ObjectMeta: v1.ObjectMeta{
+				OwnerReferences: []v1.OwnerReference{{
+					Kind: "MachineSet",
+					Name: "foo",
+					UID:  uuid2,
+				}},
+			},
+		},
+		machineDeployment: v1beta1.MachineDeployment{
+			TypeMeta: v1.TypeMeta{
+				Kind: "MachineDeployment",
+			},
+			ObjectMeta: v1.ObjectMeta{
+				UID: uuid1,
+			},
+		},
+		owned: false,
+	}, {
+		description: "owned as UID values match and same Kind and Name not empty",
+		machineSet: v1beta1.MachineSet{
+			ObjectMeta: v1.ObjectMeta{
+				OwnerReferences: []v1.OwnerReference{{
+					Kind: "MachineDeployment",
+					Name: "foo",
+					UID:  uuid1,
+				}},
+			},
+		},
+		machineDeployment: v1beta1.MachineDeployment{
+			TypeMeta: v1.TypeMeta{
+				Kind: "MachineDeployment",
+			},
+			ObjectMeta: v1.ObjectMeta{
+				Name: "foo",
+				UID:  uuid1,
+			},
+		},
+		owned: true,
+	}} {
+		t.Logf("test #%d: %s", i, tc.description)
+		owned := machineSetIsOwnedByMachineDeployment(&tc.machineSet, &tc.machineDeployment)
+
+		if tc.owned != owned {
+			t.Errorf("expected %t, got %t", tc.owned, owned)
 		}
 	}
 }
@@ -166,13 +259,13 @@ func TestMachineIsOwnedByMachineSet(t *testing.T) {
 			ObjectMeta: v1.ObjectMeta{
 				OwnerReferences: []v1.OwnerReference{{
 					Kind: "MachineSet",
-					UID:  "ec21c5fb-a3d5-a45f-887b-6b49aa8fc218",
+					UID:  uuid1,
 				}},
 			},
 		},
 		machineSet: v1beta1.MachineSet{
 			ObjectMeta: v1.ObjectMeta{
-				UID: "ec21c5fb-a3d5-a45f-887b-6b49aa8fc218",
+				UID: uuid1,
 			},
 		},
 		owned: false,
@@ -183,7 +276,7 @@ func TestMachineIsOwnedByMachineSet(t *testing.T) {
 				OwnerReferences: []v1.OwnerReference{{
 					Kind: "MachineSet",
 					Name: "foo",
-					UID:  "ec23ebb0-bc60-443f-d139-046ec5046283",
+					UID:  uuid2,
 				}},
 			},
 		},
@@ -192,7 +285,7 @@ func TestMachineIsOwnedByMachineSet(t *testing.T) {
 				Kind: "MachineSet",
 			},
 			ObjectMeta: v1.ObjectMeta{
-				UID: "ec21c5fb-a3d5-a45f-887b-6b49aa8fc218",
+				UID: uuid1,
 			},
 		},
 		owned: false,
@@ -203,7 +296,7 @@ func TestMachineIsOwnedByMachineSet(t *testing.T) {
 				OwnerReferences: []v1.OwnerReference{{
 					Kind: "MachineSet",
 					Name: "foo",
-					UID:  "ec21c5fb-a3d5-a45f-887b-6b49aa8fc218",
+					UID:  uuid1,
 				}},
 			},
 		},
@@ -213,15 +306,67 @@ func TestMachineIsOwnedByMachineSet(t *testing.T) {
 			},
 			ObjectMeta: v1.ObjectMeta{
 				Name: "foo",
-				UID:  "ec21c5fb-a3d5-a45f-887b-6b49aa8fc218",
+				UID:  uuid1,
 			},
 		},
 		owned: true,
 	}} {
-		owned := openshiftmachineapi.MachineIsOwnedByMachineSet(&tc.machine, &tc.machineSet)
+		t.Logf("test #%d: %s", i, tc.description)
+		owned := machineIsOwnedByMachineSet(&tc.machine, &tc.machineSet)
 
 		if tc.owned != owned {
-			t.Errorf("test #%d: expected %t, got %t", i, tc.owned, owned)
+			t.Errorf("expected %t, got %t", tc.owned, owned)
+		}
+	}
+}
+
+func TestMachineSetMachineDeploymentOwnerRef(t *testing.T) {
+	for i, tc := range []struct {
+		description       string
+		machineSet        v1beta1.MachineSet
+		machineDeployment v1beta1.MachineDeployment
+		owned             bool
+	}{{
+		description:       "machineset not owned as no owner references",
+		machineSet:        v1beta1.MachineSet{},
+		machineDeployment: v1beta1.MachineDeployment{},
+		owned:             false,
+	}, {
+		description: "machineset not owned as ownerref not a MachineDeployment",
+		machineSet: v1beta1.MachineSet{
+			ObjectMeta: v1.ObjectMeta{
+				OwnerReferences: []v1.OwnerReference{{
+					Kind: "Other",
+				}},
+			},
+		},
+		machineDeployment: v1beta1.MachineDeployment{},
+		owned:             false,
+	}, {
+		description: "machineset owned as Kind matches and Name not empty",
+		machineSet: v1beta1.MachineSet{
+			ObjectMeta: v1.ObjectMeta{
+				OwnerReferences: []v1.OwnerReference{{
+					Kind: "MachineDeployment",
+					Name: "foo",
+				}},
+			},
+		},
+		machineDeployment: v1beta1.MachineDeployment{
+			TypeMeta: v1.TypeMeta{
+				Kind: "MachineDeployment",
+			},
+			ObjectMeta: v1.ObjectMeta{
+				Name: "foo",
+			},
+		},
+		owned: true,
+	}} {
+		t.Logf("test #%d: %s", i, tc.description)
+
+		owned := machineSetHasMachineDeploymentOwnerRef(&tc.machineSet)
+		if tc.owned != owned {
+			t.Errorf("expected %t, got %t", tc.owned, owned)
 		}
 	}
 }
