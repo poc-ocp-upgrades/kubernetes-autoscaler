@@ -26,7 +26,51 @@ const (
 	waitLong   = 10 * time.Minute
 )
 
-func (tc *testConfig) ExpectOperatorAvailable() error {
+func newWorkLoad() *batchv1.Job {
+	backoffLimit := int32(4)
+	completions := int32(50)
+	parallelism := int32(50)
+	activeDeadlineSeconds := int64(100)
+	return &batchv1.Job{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "workload",
+			Namespace: namespace,
+		},
+		TypeMeta: metav1.TypeMeta{
+			Kind:       "Job",
+			APIVersion: "batch/v1",
+		},
+		Spec: batchv1.JobSpec{
+			Template: corev1.PodTemplateSpec{
+				Spec: corev1.PodSpec{
+					Containers: []corev1.Container{
+						{
+							Name:  "workload",
+							Image: "busybox",
+							Command: []string{
+								"sleep",
+								"300",
+							},
+							Resources: corev1.ResourceRequirements{
+								Requests: corev1.ResourceList{
+									"memory": resource.MustParse("500Mi"),
+									"cpu":    resource.MustParse("500m"),
+								},
+							},
+						},
+					},
+					RestartPolicy: corev1.RestartPolicy("Never"),
+				},
+			},
+			ActiveDeadlineSeconds: &activeDeadlineSeconds,
+			BackoffLimit:          &backoffLimit,
+			Completions:           &completions,
+			Parallelism:           &parallelism,
+		},
+	}
+}
+
+func (tc *testConfig) ExpectOperatorAvailable(ctx context.Context) error {
 	name := "machine-api-operator"
 	key := types.NamespacedName{
 		Namespace: namespace,
@@ -35,9 +79,9 @@ func (tc *testConfig) ExpectOperatorAvailable() error {
 	d := &kappsapi.Deployment{}
 
 	err := wait.PollImmediate(1*time.Second, waitShort, func() (bool, error) {
-		if err := tc.client.Get(context.TODO(), key, d); err != nil {
+		if err := tc.client.Get(ctx, key, d); err != nil {
 			glog.Errorf("error querying api for Deployment object: %v, retrying...", err)
-			return false, nil
+			return false, ctx.Err()
 		}
 		if d.Status.ReadyReplicas < 1 {
 			return false, nil
@@ -58,16 +102,16 @@ func (tc *testConfig) ExpectOperatorAvailable() error {
 // Validate the number of nodes scales down to the initial number before scale out
 // Delete the machineAutoscaler object
 // Delete the clusterAutoscaler object
-func (tc *testConfig) ExpectAutoscalerScalesOut() error {
+func (tc *testConfig) ExpectAutoscalerScalesOut(ctx context.Context) error {
 	listOptions := client.ListOptions{
 		Namespace: namespace,
 	}
 	glog.Info("Get one machineSet")
 	machineSetList := mapiv1beta1.MachineSetList{}
 	if err := wait.PollImmediate(1*time.Second, waitMedium, func() (bool, error) {
-		if err := tc.client.List(context.TODO(), &listOptions, &machineSetList); err != nil {
+		if err := tc.client.List(ctx, &listOptions, &machineSetList); err != nil {
 			glog.Errorf("error querying api for nodeList object: %v, retrying...", err)
-			return false, nil
+			return false, ctx.Err()
 		}
 		return len(machineSetList.Items) > 0, nil
 	}); err != nil {
@@ -114,16 +158,16 @@ func (tc *testConfig) ExpectAutoscalerScalesOut() error {
 		},
 	}
 	if err := wait.PollImmediate(1*time.Second, waitMedium, func() (bool, error) {
-		if err := tc.client.Create(context.TODO(), &clusterAutoscaler); err != nil {
+		if err := tc.client.Create(ctx, &clusterAutoscaler); err != nil {
 			if !strings.Contains(err.Error(), "already exists") {
 				glog.Errorf("error querying api for clusterAutoscaler object: %v, retrying...", err)
-				return false, nil
+				return false, ctx.Err()
 			}
 		}
-		if err := tc.client.Create(context.TODO(), &machineAutoscaler); err != nil {
+		if err := tc.client.Create(ctx, &machineAutoscaler); err != nil {
 			if !strings.Contains(err.Error(), "already exists") {
 				glog.Errorf("error querying api for machineAutoscaler object: %v, retrying...", err)
-				return false, nil
+				return false, ctx.Err()
 			}
 		}
 		return true, nil
@@ -131,9 +175,22 @@ func (tc *testConfig) ExpectAutoscalerScalesOut() error {
 		return err
 	}
 
+	workLoad := newWorkLoad()
+
 	// We want to clean up these objects on any subsequent error.
 
 	defer func() {
+		if workLoad != nil {
+			wait.PollImmediate(1*time.Second, waitShort, func() (bool, error) {
+				if err := tc.client.Delete(context.TODO(), workLoad); err != nil {
+					glog.Errorf("error querying api for workLoad object: %v, retrying...", err)
+					return false, nil
+				}
+				return true, nil
+			})
+			glog.Info("Deleted workload object")
+		}
+
 		wait.PollImmediate(1*time.Second, waitShort, func() (bool, error) {
 			if err := tc.client.Delete(context.TODO(), &machineAutoscaler); err != nil {
 				glog.Errorf("error querying api for machineAutoscaler object: %v, retrying...", err)
@@ -156,9 +213,9 @@ func (tc *testConfig) ExpectAutoscalerScalesOut() error {
 	glog.Info("Get nodeList")
 	nodeList := corev1.NodeList{}
 	if err := wait.PollImmediate(1*time.Second, waitMedium, func() (bool, error) {
-		if err := tc.client.List(context.TODO(), &listOptions, &nodeList); err != nil {
+		if err := tc.client.List(ctx, &listOptions, &nodeList); err != nil {
 			glog.Errorf("error querying api for nodeList object: %v, retrying...", err)
-			return false, nil
+			return false, ctx.Err()
 		}
 		return true, nil
 	}); err != nil {
@@ -169,59 +226,11 @@ func (tc *testConfig) ExpectAutoscalerScalesOut() error {
 	glog.Infof("Cluster initial number of nodes is %d", clusterInitialTotalNodes)
 
 	glog.Info("Create workload")
-	mem, err := resource.ParseQuantity("500Mi")
-	if err != nil {
-		glog.Fatalf("failed to ParseQuantity %v", err)
-	}
-	cpu, err := resource.ParseQuantity("500m")
-	if err != nil {
-		glog.Fatalf("failed to ParseQuantity %v", err)
-	}
-	backoffLimit := int32(4)
-	completions := int32(50)
-	parallelism := int32(50)
-	activeDeadlineSeconds := int64(100)
-	workLoad := batchv1.Job{
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      "workload",
-			Namespace: namespace,
-		},
-		TypeMeta: metav1.TypeMeta{
-			Kind:       "Job",
-			APIVersion: "batch/v1",
-		},
-		Spec: batchv1.JobSpec{
-			Template: corev1.PodTemplateSpec{
-				Spec: corev1.PodSpec{
-					Containers: []corev1.Container{
-						{
-							Name:  "workload",
-							Image: "busybox",
-							Command: []string{
-								"sleep",
-								"300",
-							},
-							Resources: corev1.ResourceRequirements{
-								Requests: corev1.ResourceList{
-									"memory": mem,
-									"cpu":    cpu,
-								},
-							},
-						},
-					},
-					RestartPolicy: corev1.RestartPolicy("Never"),
-				},
-			},
-			ActiveDeadlineSeconds: &activeDeadlineSeconds,
-			BackoffLimit:          &backoffLimit,
-			Completions:           &completions,
-			Parallelism:           &parallelism,
-		},
-	}
+
 	if err := wait.PollImmediate(1*time.Second, waitMedium, func() (bool, error) {
-		if err := tc.client.Create(context.TODO(), &workLoad); err != nil {
-			glog.Errorf("error querying api for workLoad object: %v, retrying...", err)
-			return false, nil
+		if err := tc.client.Create(ctx, workLoad); err != nil {
+			glog.Errorf("error querying api for workLoad object: %T, retrying...", err)
+			return false, ctx.Err()
 		}
 		return true, nil
 	}); err != nil {
@@ -235,9 +244,9 @@ func (tc *testConfig) ExpectAutoscalerScalesOut() error {
 			Name:      targetMachineSet.Name,
 		}
 		ms := &mapiv1beta1.MachineSet{}
-		if err := tc.client.Get(context.TODO(), msKey, ms); err != nil {
+		if err := tc.client.Get(ctx, msKey, ms); err != nil {
 			glog.Errorf("error querying api for clusterAutoscaler object: %v, retrying...", err)
-			return false, nil
+			return false, ctx.Err()
 		}
 		glog.Infof("MachineSet %s. Initial number of replicas: %d. New number of replicas: %d", targetMachineSet.Name, *initialNumberOfReplicas, *ms.Spec.Replicas)
 		return *ms.Spec.Replicas > *initialNumberOfReplicas, nil
@@ -248,9 +257,9 @@ func (tc *testConfig) ExpectAutoscalerScalesOut() error {
 	glog.Info("Wait for cluster to scale out nodes")
 	if err := wait.PollImmediate(1*time.Second, waitLong, func() (bool, error) {
 		nodeList := corev1.NodeList{}
-		if err := tc.client.List(context.TODO(), &listOptions, &nodeList); err != nil {
+		if err := tc.client.List(ctx, &listOptions, &nodeList); err != nil {
 			glog.Errorf("error querying api for nodeList object: %v, retrying...", err)
-			return false, nil
+			return false, ctx.Err()
 		}
 		glog.Info("Expect at least a new node to come up")
 		glog.Infof("Initial number of nodes: %d. New number of nodes: %d", clusterInitialTotalNodes, len(nodeList.Items))
@@ -261,10 +270,11 @@ func (tc *testConfig) ExpectAutoscalerScalesOut() error {
 
 	glog.Info("Delete workload")
 	if err := wait.PollImmediate(1*time.Second, waitMedium, func() (bool, error) {
-		if err := tc.client.Delete(context.TODO(), &workLoad); err != nil {
+		if err := tc.client.Delete(ctx, workLoad); err != nil {
 			glog.Errorf("error querying api for workLoad object: %v, retrying...", err)
-			return false, nil
+			return false, ctx.Err()
 		}
+		workLoad = nil
 		return true, nil
 	}); err != nil {
 		return err
@@ -282,14 +292,14 @@ func (tc *testConfig) ExpectAutoscalerScalesOut() error {
 			Name:      targetMachineSet.Name,
 		}
 		ms := &mapiv1beta1.MachineSet{}
-		if err := tc.client.Get(context.TODO(), msKey, ms); err != nil {
+		if err := tc.client.Get(ctx, msKey, ms); err != nil {
 			glog.Errorf("error querying api for machineSet object: %v, retrying...", err)
-			return false, nil
+			return false, ctx.Err()
 		}
 		ms.Spec.Replicas = initialNumberOfReplicas
-		if err := tc.client.Update(context.TODO(), ms); err != nil {
+		if err := tc.client.Update(ctx, ms); err != nil {
 			glog.Errorf("error querying api for machineSet object: %v, retrying...", err)
-			return false, nil
+			return false, ctx.Err()
 		}
 		return true, nil
 	}); err != nil {
@@ -299,9 +309,9 @@ func (tc *testConfig) ExpectAutoscalerScalesOut() error {
 	glog.Info("Wait for cluster to match initial number of nodes")
 	return wait.PollImmediate(1*time.Second, waitLong, func() (bool, error) {
 		nodeList := corev1.NodeList{}
-		if err := tc.client.List(context.TODO(), &listOptions, &nodeList); err != nil {
+		if err := tc.client.List(ctx, &listOptions, &nodeList); err != nil {
 			glog.Errorf("error querying api for nodeList object: %v, retrying...", err)
-			return false, nil
+			return false, ctx.Err()
 		}
 		glog.Infof("Initial number of nodes: %d. Current number of nodes: %d", clusterInitialTotalNodes, len(nodeList.Items))
 		return len(nodeList.Items) == clusterInitialTotalNodes, nil
