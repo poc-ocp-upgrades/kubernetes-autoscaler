@@ -23,11 +23,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
 	apiv1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider"
 	"k8s.io/utils/pointer"
 )
@@ -35,204 +33,6 @@ import (
 const (
 	machineAnnotationKey = "machine.openshift.io/machine"
 )
-
-type clusterTestConfig struct {
-	machineDeployment *v1beta1.MachineDeployment
-	machineSet        *v1beta1.MachineSet
-	machines          []*v1beta1.Machine
-	nodes             []*apiv1.Node
-}
-
-type clusterTestSpec struct {
-	annotations             map[string]string
-	id                      int
-	machineDeploymentPrefix string
-	machineSetPrefix        string
-	namespace               string
-	nodeCount               int
-	replicaCount            int32
-	rootIsMachineDeployment bool
-}
-
-func (config clusterTestConfig) newNodeGroup(t *testing.T, c *machineController) (*nodegroup, error) {
-	if config.machineDeployment != nil {
-		return newNodegroupFromMachineDeployment(c, config.machineDeployment)
-	}
-	return newNodegroupFromMachineSet(c, config.machineSet)
-}
-
-func (config clusterTestConfig) newMachineController(t *testing.T) (*machineController, testControllerShutdownFunc) {
-	nodeObjects := make([]runtime.Object, len(config.nodes))
-	machineObjects := make([]runtime.Object, len(config.machines))
-
-	for i := range config.nodes {
-		nodeObjects[i] = config.nodes[i]
-	}
-
-	for i := range config.machines {
-		machineObjects[i] = config.machines[i]
-	}
-
-	machineObjects = append(machineObjects, config.machineSet)
-	if config.machineDeployment != nil {
-		machineObjects = append(machineObjects, config.machineDeployment)
-	}
-
-	return mustCreateTestController(t, testControllerConfig{
-		nodeObjects:    nodeObjects,
-		machineObjects: machineObjects,
-	})
-}
-
-func newMachineSetTestObjs(namespace string, id, nodeCount int, replicaCount int32, annotations map[string]string) (*clusterTestConfig, *clusterTestSpec) {
-	spec := &clusterTestSpec{
-		id:                      id,
-		annotations:             annotations,
-		machineSetPrefix:        fmt.Sprintf("machineset-%s-", namespace),
-		namespace:               namespace,
-		nodeCount:               nodeCount,
-		replicaCount:            replicaCount,
-		rootIsMachineDeployment: false,
-	}
-
-	return makeClusterObjs(spec), spec
-}
-
-func newMachineDeploymentTestObjs(namespace string, id, nodeCount int, replicaCount int32, annotations map[string]string) (*clusterTestConfig, *clusterTestSpec) {
-	spec := &clusterTestSpec{
-		id:                      id,
-		annotations:             annotations,
-		machineDeploymentPrefix: fmt.Sprintf("machinedeployment-%s-", namespace),
-		machineSetPrefix:        fmt.Sprintf("machineset-%s-", namespace),
-		namespace:               namespace,
-		nodeCount:               nodeCount,
-		replicaCount:            replicaCount,
-		rootIsMachineDeployment: true,
-	}
-
-	return makeClusterObjs(spec), spec
-}
-
-func makeClusterObjs(spec *clusterTestSpec) *clusterTestConfig {
-	objs := clusterTestConfig{
-		nodes:    make([]*apiv1.Node, spec.nodeCount),
-		machines: make([]*v1beta1.Machine, spec.nodeCount),
-	}
-
-	objs.machineSet = &v1beta1.MachineSet{
-		TypeMeta: v1.TypeMeta{
-			Kind: "MachineSet",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:      fmt.Sprintf("%s%d", spec.machineSetPrefix, spec.id),
-			Namespace: spec.namespace,
-			UID:       types.UID(fmt.Sprintf("%s%d", spec.machineSetPrefix, spec.id)),
-		},
-	}
-
-	if !spec.rootIsMachineDeployment {
-		objs.machineSet.ObjectMeta.Annotations = spec.annotations
-		objs.machineSet.Spec.Replicas = int32ptr(spec.replicaCount)
-	} else {
-		objs.machineDeployment = &v1beta1.MachineDeployment{
-			TypeMeta: v1.TypeMeta{
-				Kind: "MachineDeployment",
-			},
-			ObjectMeta: v1.ObjectMeta{
-				Name:        fmt.Sprintf("%s%d", spec.machineDeploymentPrefix, spec.id),
-				Namespace:   spec.namespace,
-				UID:         types.UID(fmt.Sprintf("%s%d", spec.machineDeploymentPrefix, spec.id)),
-				Annotations: spec.annotations,
-			},
-			Spec: v1beta1.MachineDeploymentSpec{
-				Replicas: int32ptr(spec.replicaCount),
-			},
-		}
-
-		objs.machineSet.OwnerReferences = make([]v1.OwnerReference, 1)
-		objs.machineSet.OwnerReferences[0] = v1.OwnerReference{
-			Name: objs.machineDeployment.Name,
-			Kind: objs.machineDeployment.Kind,
-			UID:  objs.machineDeployment.UID,
-		}
-	}
-
-	machineOwner := v1.OwnerReference{
-		Name: objs.machineSet.Name,
-		Kind: objs.machineSet.Kind,
-		UID:  objs.machineSet.UID,
-	}
-
-	for i := 0; i < spec.nodeCount; i++ {
-		objs.nodes[i], objs.machines[i] = makeLinkedNodeAndMachine(i, spec.namespace, machineOwner)
-	}
-
-	return &objs
-}
-
-func int32ptr(v int32) *int32 {
-	return &v
-}
-
-func makeMachineSet(i int, replicaCount int, annotations map[string]string) *v1beta1.MachineSet {
-	return &v1beta1.MachineSet{
-		TypeMeta: v1.TypeMeta{
-			Kind: "MachineSet",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:        fmt.Sprintf("machineset-%d", i),
-			Namespace:   "test-namespace",
-			UID:         types.UID(fmt.Sprintf("machineset-%d", i)),
-			Annotations: annotations,
-		},
-		Spec: v1beta1.MachineSetSpec{
-			Replicas: int32ptr(int32(replicaCount)),
-		},
-	}
-}
-
-// makeLinkedNodeAndMachine creates a node and machine. The machine
-// has its NodeRef set to the new node and the new machine's owner
-// reference is set to owner.
-func makeLinkedNodeAndMachine(i int, namespace string, owner v1.OwnerReference) (*apiv1.Node, *v1beta1.Machine) {
-	node := &apiv1.Node{
-		TypeMeta: v1.TypeMeta{
-			Kind: "Node",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name: fmt.Sprintf("node-%d", i),
-			Annotations: map[string]string{
-				machineAnnotationKey: fmt.Sprintf("%s/machine-%d", namespace, i),
-			},
-		},
-		Spec: apiv1.NodeSpec{
-			ProviderID: fmt.Sprintf("nodeid-%d", i),
-		},
-	}
-
-	machine := &v1beta1.Machine{
-		TypeMeta: v1.TypeMeta{
-			Kind: "Machine",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:      fmt.Sprintf("machine-%d", i),
-			Namespace: namespace,
-			OwnerReferences: []v1.OwnerReference{{
-				Name: owner.Name,
-				Kind: owner.Kind,
-				UID:  owner.UID,
-			}},
-		},
-		Status: v1beta1.MachineStatus{
-			NodeRef: &apiv1.ObjectReference{
-				Kind: node.Kind,
-				Name: node.Name,
-			},
-		},
-	}
-
-	return node, machine
-}
 
 func TestNodeGroupNewNodeGroup(t *testing.T) {
 	type testCase struct {
@@ -306,8 +106,6 @@ func TestNodeGroupNewNodeGroup(t *testing.T) {
 	}}
 
 	testNodeGroupProperties := func(t *testing.T, tc testCase, clusterObjs *clusterTestConfig) {
-		t.Helper()
-
 		controller, stop := clusterObjs.newMachineController(t)
 		defer stop()
 
@@ -382,15 +180,11 @@ func TestNodeGroupNewNodeGroup(t *testing.T) {
 	}
 
 	t.Run("MachineSet", func(t *testing.T) {
-		t.Parallel()
 		for i, tc := range testCases {
-			i := i   // capture range variable
-			tc := tc // capture range variable
 			t.Run(tc.description, func(t *testing.T) {
-				t.Parallel()
-				testObjs, spec := newMachineSetTestObjs(t.Name(), i, tc.nodeCount, tc.replicas, tc.annotations)
-				tc.namespace = spec.namespace
-				tc.name = fmt.Sprintf("%s%d", spec.machineSetPrefix, i)
+				testObjs := newMachineSetTestObjs(t.Name(), i, tc.nodeCount, tc.replicas, tc.annotations)
+				tc.namespace = testObjs.spec.namespace
+				tc.name = fmt.Sprintf("%s%d", testObjs.spec.machineSetPrefix, i)
 				tc.id = path.Join(tc.namespace, tc.name)
 				tc.debug = fmt.Sprintf("%s (min: %d, max: %d, replicas: %d)", path.Join(tc.namespace, tc.name), tc.minSize, tc.maxSize, tc.replicas)
 				testNodeGroupProperties(t, tc, testObjs)
@@ -399,15 +193,11 @@ func TestNodeGroupNewNodeGroup(t *testing.T) {
 	})
 
 	t.Run("MachineDeployment", func(t *testing.T) {
-		t.Parallel()
 		for i, tc := range testCases {
-			i := i   // capture range variable
-			tc := tc // capture range variable
 			t.Run(tc.description, func(t *testing.T) {
-				t.Parallel()
-				testObjs, spec := newMachineDeploymentTestObjs(t.Name(), i, tc.nodeCount, tc.replicas, tc.annotations)
-				tc.namespace = spec.namespace
-				tc.name = fmt.Sprintf("%s%d", spec.machineDeploymentPrefix, i)
+				testObjs := newMachineDeploymentTestObjs(t.Name(), i, tc.nodeCount, tc.replicas, tc.annotations)
+				tc.namespace = testObjs.spec.namespace
+				tc.name = fmt.Sprintf("%s%d", testObjs.spec.machineDeploymentPrefix, i)
 				tc.id = path.Join(tc.namespace, tc.name)
 				tc.debug = fmt.Sprintf("%s (min: %d, max: %d, replicas: %d)", path.Join(tc.namespace, tc.name), tc.minSize, tc.maxSize, tc.replicas)
 				testNodeGroupProperties(t, tc, testObjs)
@@ -452,8 +242,6 @@ func TestNodeGroupIncreaseSize(t *testing.T) {
 	}}
 
 	test := func(t *testing.T, tc *testCase, testObjs *clusterTestConfig) {
-		t.Helper()
-
 		controller, stop := testObjs.newMachineController(t)
 		defer stop()
 
@@ -517,8 +305,7 @@ func TestNodeGroupIncreaseSize(t *testing.T) {
 					nodeGroupMinSizeAnnotationKey: tc.minSize,
 					nodeGroupMaxSizeAnnotationKey: tc.maxSize,
 				}
-				testObjs, _ := newMachineSetTestObjs(t.Name(), i, int(tc.initial), tc.initial, annotations)
-				test(t, &tc, testObjs)
+				test(t, &tc, newMachineSetTestObjs(t.Name(), i, int(tc.initial), tc.initial, annotations))
 			})
 		}
 	})
@@ -530,8 +317,7 @@ func TestNodeGroupIncreaseSize(t *testing.T) {
 					nodeGroupMinSizeAnnotationKey: tc.minSize,
 					nodeGroupMaxSizeAnnotationKey: tc.maxSize,
 				}
-				testObjs, _ := newMachineDeploymentTestObjs(t.Name(), i, int(tc.initial), tc.initial, annotations)
-				test(t, &tc, testObjs)
+				test(t, &tc, newMachineDeploymentTestObjs(t.Name(), i, int(tc.initial), tc.initial, annotations))
 			})
 		}
 	})
@@ -573,8 +359,6 @@ func TestNodeGroupDecreaseSize(t *testing.T) {
 	}}
 
 	test := func(t *testing.T, tc *testCase, testConfig *clusterTestConfig) {
-		t.Helper()
-
 		controller, stop := testConfig.newMachineController(t)
 		defer stop()
 
@@ -639,8 +423,7 @@ func TestNodeGroupDecreaseSize(t *testing.T) {
 					nodeGroupMinSizeAnnotationKey: tc.minSize,
 					nodeGroupMaxSizeAnnotationKey: tc.maxSize,
 				}
-				testObjs, _ := newMachineSetTestObjs(t.Name(), i, tc.initial, int32(tc.initial), annotations)
-				test(t, &tc, testObjs)
+				test(t, &tc, newMachineSetTestObjs(t.Name(), i, tc.initial, int32(tc.initial), annotations))
 			})
 		}
 	})
@@ -652,8 +435,7 @@ func TestNodeGroupDecreaseSize(t *testing.T) {
 					nodeGroupMinSizeAnnotationKey: tc.minSize,
 					nodeGroupMaxSizeAnnotationKey: tc.maxSize,
 				}
-				testObjs, _ := newMachineDeploymentTestObjs(t.Name(), i, tc.initial, int32(tc.initial), annotations)
-				test(t, &tc, testObjs)
+				test(t, &tc, newMachineDeploymentTestObjs(t.Name(), i, tc.initial, int32(tc.initial), annotations))
 			})
 		}
 	})
@@ -661,8 +443,6 @@ func TestNodeGroupDecreaseSize(t *testing.T) {
 
 func TestNodeGroupDeleteNodes(t *testing.T) {
 	test := func(t *testing.T, testObjs *clusterTestConfig) {
-		t.Helper()
-
 		controller, stop := testObjs.newMachineController(t)
 		defer stop()
 
@@ -730,19 +510,17 @@ func TestNodeGroupDeleteNodes(t *testing.T) {
 	// sorting and the expected semantics in test() will fail.
 
 	t.Run("MachineSet", func(t *testing.T) {
-		testObjs, _ := newMachineSetTestObjs(t.Name(), 0, 10, 10, map[string]string{
+		test(t, newMachineSetTestObjs(t.Name(), 0, 10, 10, map[string]string{
 			nodeGroupMinSizeAnnotationKey: "1",
 			nodeGroupMaxSizeAnnotationKey: "10",
-		})
-		test(t, testObjs)
+		}))
 	})
 
 	t.Run("MachineDeployment", func(t *testing.T) {
-		testObjs, _ := newMachineDeploymentTestObjs(t.Name(), 0, 10, 10, map[string]string{
+		test(t, newMachineDeploymentTestObjs(t.Name(), 0, 10, 10, map[string]string{
 			nodeGroupMinSizeAnnotationKey: "1",
 			nodeGroupMaxSizeAnnotationKey: "10",
-		})
-		test(t, testObjs)
+		}))
 	})
 }
 
