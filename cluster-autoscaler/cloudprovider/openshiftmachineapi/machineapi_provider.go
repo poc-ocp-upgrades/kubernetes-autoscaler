@@ -107,6 +107,7 @@ func newProvider(
 	}, nil
 }
 
+// BuildCloudProvider builds CloudProvider implementation for machine api.
 func BuildCloudProvider(name string, opts config.AutoscalingOptions, rl *cloudprovider.ResourceLimiter) (cloudprovider.CloudProvider, error) {
 	var err error
 	var externalConfig *rest.Config
