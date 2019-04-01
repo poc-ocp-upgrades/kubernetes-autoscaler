@@ -28,6 +28,7 @@ import (
 	fakeclusterapi "github.com/openshift/cluster-api/pkg/client/clientset_generated/clientset/fake"
 	apiv1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 	fakekube "k8s.io/client-go/kubernetes/fake"
@@ -325,392 +326,226 @@ func TestControllerFindMachineByID(t *testing.T) {
 }
 
 func TestControllerFindMachineOwner(t *testing.T) {
-	testMachineWithNoOwner := &v1beta1.Machine{
-		TypeMeta: v1.TypeMeta{
-			Kind: "Machine",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:      "testMachineWithNoOwner",
-			Namespace: "test-namespace",
-		},
-	}
-
-	testMachineWithOwner := &v1beta1.Machine{
-		TypeMeta: v1.TypeMeta{
-			Kind: "Machine",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:      "testMachineWithOwner",
-			Namespace: "test-namespace",
-			OwnerReferences: []v1.OwnerReference{{
-				Kind: "MachineSet",
-				UID:  uuid1,
-				Name: "testMachineSet",
-			}},
-		},
-	}
-
-	controller, stop := mustCreateTestController(t, testControllerConfig{
-		machineObjects: []runtime.Object{
-			testMachineWithOwner,
-			testMachineWithNoOwner,
-		},
+	testObjs := newMachineSetTestObjs(t.Name(), 0, 1, 1, map[string]string{
+		nodeGroupMinSizeAnnotationKey: "1",
+		nodeGroupMaxSizeAnnotationKey: "10",
 	})
+
+	controller, stop := testObjs.newMachineController(t)
 	defer stop()
 
-	// Verify machine has no owner.
-	foundMachineSet, err := controller.findMachineOwner(testMachineWithNoOwner)
+	// Test #1: Lookup succeeds
+	testResult1, err := controller.findMachineOwner(testObjs.machines[0].DeepCopy())
 	if err != nil {
 		t.Fatalf("unexpected error, got %v", err)
 	}
-	if foundMachineSet != nil {
-		t.Fatalf("expected no owner, got %v", foundMachineSet)
+	if testResult1 == nil {
+		t.Fatal("expected non-nil result")
+	}
+	expected := fmt.Sprintf("%s%d", testObjs.spec.machineSetPrefix, 0)
+	if expected != testResult1.Name {
+		t.Errorf("expected %q, got %q", expected, testResult1.Name)
 	}
 
-	// Verify machine still has no owner as we don't have a
-	// corresponding foundMachineSet in the store, even though the
-	// OwnerReference is valid.
-	foundMachineSet, err = controller.findMachineOwner(testMachineWithOwner)
+	// Test #2: Lookup fails as the machine UUID != machineset UUID
+	testMachine2 := testObjs.machines[0].DeepCopy()
+	testMachine2.OwnerReferences[0].UID = "does-not-match-machineset"
+	testResult2, err := controller.findMachineOwner(testMachine2)
 	if err != nil {
 		t.Fatalf("unexpected error, got %v", err)
 	}
-	if foundMachineSet != nil {
-		t.Fatalf("expected no owner, got %v", foundMachineSet)
+	if testResult2 != nil {
+		t.Fatal("expected nil result")
 	}
 
-	testMachineSet := &v1beta1.MachineSet{
-		TypeMeta: v1.TypeMeta{
-			Kind: "MachineSet",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:      "testMachineSet",
-			Namespace: "test-namespace",
-			UID:       uuid1,
-		},
+	// Test #3: Delete the MachineSet and lookup should fail
+	if err := controller.machineSetInformer.Informer().GetStore().Delete(testResult1); err != nil {
+		t.Fatalf("unexpected error, got %v", err)
 	}
-
-	controller.machineSetInformer.Informer().GetStore().Add(testMachineSet)
-
-	// Verify machine now has an owner
-	foundMachineSet, err = controller.findMachineOwner(testMachineWithOwner)
+	testResult3, err := controller.findMachineOwner(testObjs.machines[0].DeepCopy())
 	if err != nil {
 		t.Fatalf("unexpected error, got %v", err)
 	}
-	if foundMachineSet == nil {
-		t.Fatal("expected an owner")
-	}
-
-	// Verify that a successful result returns a DeepCopy().
-	if foundMachineSet == testMachineSet {
-		t.Fatalf("expected a copy")
+	if testResult3 != nil {
+		t.Fatal("expected lookup to fail")
 	}
 }
 
 func TestControllerFindMachineByNodeProviderID(t *testing.T) {
-	testNode := &apiv1.Node{
-		TypeMeta: v1.TypeMeta{
-			Kind: "Node",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name: "ip-10-0-18-236.us-east-2.compute.internal",
-		},
-	}
-
-	testMachine := &v1beta1.Machine{
-		TypeMeta: v1.TypeMeta{
-			Kind: "Machine",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name: "worker-us-east-2c-p4zwl",
-		},
-	}
-
-	controller, stop := mustCreateTestController(t, testControllerConfig{
-		nodeObjects: []runtime.Object{
-			testNode,
-		},
-		machineObjects: []runtime.Object{
-			testMachine,
-		},
+	testObjs := newMachineSetTestObjs(t.Name(), 0, 1, 1, map[string]string{
+		nodeGroupMinSizeAnnotationKey: "1",
+		nodeGroupMaxSizeAnnotationKey: "10",
 	})
+
+	controller, stop := testObjs.newMachineController(t)
 	defer stop()
 
-	// Verify machine cannot be found as testNode has no
-	// ProviderID and will not be indexed by the controller.
-	foundMachine, err := controller.findMachineByNodeProviderID(testNode)
+	// Test #1: Verify node can be found because it has a
+	// ProviderID value and a machine annotation.
+	machine, err := controller.findMachineByNodeProviderID(testObjs.nodes[0])
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if foundMachine != nil {
-		t.Fatalf("expected nil, got %v", foundMachine)
-	}
-
-	// Update node with machine linkage.
-	testNode.Spec.ProviderID = "aws:///us-east-2b/i-03759ec2e4e053f99"
-	testNode.Annotations = map[string]string{
-		"machine.openshift.io/machine": path.Join(testMachine.Namespace, testMachine.Name),
-	}
-
-	controller.nodeInformer.GetStore().Update(testNode)
-
-	// Verify the machine can now be found from the information in the node
-	foundMachine, err = controller.findMachineByNodeProviderID(testNode)
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
-	}
-	if foundMachine == nil {
+	if machine == nil {
 		t.Fatal("expected to find machine")
 	}
-
-	if !reflect.DeepEqual(*foundMachine, *testMachine) {
-		t.Fatalf("expected %+v, got %+v", *testMachine, *foundMachine)
+	if !reflect.DeepEqual(machine, testObjs.machines[0]) {
+		t.Fatalf("expected machines to be equal - expected %+v, got %+v", testObjs.machines[0], machine)
 	}
 
-	if foundMachine == testMachine {
-		t.Fatalf("expected a copy")
+	// Test #2: Verify node is not found if it has a non-existent ProviderID
+	node := testObjs.nodes[0].DeepCopy()
+	node.Spec.ProviderID = ""
+	nonExistentMachine, err := controller.findMachineByNodeProviderID(node)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if nonExistentMachine != nil {
+		t.Fatal("expected find to fail")
+	}
+
+	// Test #3: Verify node is not found if the stored object has
+	// no "machine" annotation
+	node = testObjs.nodes[0].DeepCopy()
+	delete(node.Annotations, machineAnnotationKey)
+	if err := controller.nodeInformer.GetStore().Update(node); err != nil {
+		t.Fatalf("unexpected error updating node, got %v", err)
+	}
+	nonExistentMachine, err = controller.findMachineByNodeProviderID(testObjs.nodes[0])
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if nonExistentMachine != nil {
+		t.Fatal("expected find to fail")
 	}
 }
 
 func TestControllerFindNodeByNodeName(t *testing.T) {
-	testNode := &apiv1.Node{
-		ObjectMeta: v1.ObjectMeta{
-			Name: "ip-10-0-18-236.us-east-2.compute.internal",
-		},
-	}
-
-	controller, stop := mustCreateTestController(t, testControllerConfig{
-		nodeObjects: []runtime.Object{
-			testNode,
-		},
+	testObjs := newMachineSetTestObjs(t.Name(), 0, 1, 1, map[string]string{
+		nodeGroupMinSizeAnnotationKey: "1",
+		nodeGroupMaxSizeAnnotationKey: "10",
 	})
+
+	controller, stop := testObjs.newMachineController(t)
 	defer stop()
 
-	// Verify inserted node can be found
-	node, err := controller.findNodeByNodeName("ip-10-0-18-236.us-east-2.compute.internal")
+	// Test #1: Verify known node can be found
+	node, err := controller.findNodeByNodeName(testObjs.nodes[0].Name)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-
 	if node == nil {
-		t.Fatal("expected a node")
+		t.Fatal("expected lookup to be successful")
 	}
 
-	// Verify node is identical to that added to the store
-	if !reflect.DeepEqual(*node, *testNode) {
-		t.Fatalf("expected %+v, got %+v", testNode, node)
-	}
-
-	// Verify that a successful findNodeByNodeName returns a DeepCopy().
-	if node == testNode {
-		t.Fatalf("expected a DeepCopy to be returned from findMachine()")
-	}
-
-	// Verify non-existent node doesn't error but is not found
-	node, err = controller.findNodeByNodeName("does-not-exist")
+	// Test #2: Verify non-existent node cannot be found
+	node, err = controller.findNodeByNodeName(testObjs.nodes[0].Name + "non-existent")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-
 	if node != nil {
-		t.Fatalf("didn't expect to find a node")
+		t.Fatal("expected lookup to fail")
 	}
 }
 
 func TestControllerMachinesInMachineSet(t *testing.T) {
-	testMachineSet1 := &v1beta1.MachineSet{
-		TypeMeta: v1.TypeMeta{
-			Kind: "MachineSet",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:      "testMachineSet1",
-			Namespace: "test-namespace",
-			UID:       uuid1,
-		},
-	}
-
-	testMachineSet2 := &v1beta1.MachineSet{
-		TypeMeta: v1.TypeMeta{
-			Kind: "MachineSet",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:      "testMachineSet2",
-			Namespace: "test-namespace",
-			UID:       "a-value-that-is-not-uuid1-or-uuid2",
-		},
-	}
-
-	objects := []runtime.Object{
-		testMachineSet1,
-		testMachineSet2,
-	}
-
-	testMachines := make([]*v1beta1.Machine, 10)
-
-	for i := 0; i < 10; i++ {
-		testMachines[i] = &v1beta1.Machine{
-			TypeMeta: v1.TypeMeta{
-				Kind: "Machine",
-			},
-			ObjectMeta: v1.ObjectMeta{
-				Name:      fmt.Sprintf("machine-%d", i),
-				Namespace: "test-namespace",
-			},
-		}
-		// Only even numbered machines belong to testMachineSet1
-		if i%2 == 0 {
-			testMachines[i].OwnerReferences = []v1.OwnerReference{{
-				Kind: "MachineSet",
-				UID:  uuid1,
-				Name: "testMachineSet1",
-			}}
-		}
-		objects = append(objects, testMachines[i])
-	}
-
-	controller, stop := mustCreateTestController(t, testControllerConfig{
-		machineObjects: objects,
+	testObjs1 := newMachineSetTestObjs("testObjs1", 0, 5, 5, map[string]string{
+		nodeGroupMinSizeAnnotationKey: "1",
+		nodeGroupMaxSizeAnnotationKey: "10",
 	})
+
+	controller, stop := testObjs1.newMachineController(t)
 	defer stop()
 
-	foundMachines, err := controller.machinesInMachineSet(testMachineSet1)
-	if err != nil {
-		t.Fatalf("unexpected error, got %v", err)
+	// Construct a second set of objects and add the machines,
+	// nodes and the additional machineset to the existing set of
+	// test objects in the controller. This gives us two
+	// machinesets, each with their own machines and linked nodes.
+	testObjs2 := newMachineSetTestObjs("testObjs2", 1, 5, 5, map[string]string{
+		nodeGroupMinSizeAnnotationKey: "1",
+		nodeGroupMaxSizeAnnotationKey: "10",
+	})
+
+	for _, node := range testObjs2.nodes {
+		if err := controller.nodeInformer.GetStore().Add(node); err != nil {
+			t.Fatalf("error adding node, got %v", err)
+		}
 	}
-	if len(foundMachines) != 5 {
-		t.Fatalf("expected 5 machines, got %v", len(foundMachines))
+
+	for _, machine := range testObjs2.machines {
+		if err := controller.machineInformer.Informer().GetStore().Add(machine); err != nil {
+			t.Fatalf("error adding machine, got %v", err)
+		}
+	}
+
+	if err := controller.machineSetInformer.Informer().GetStore().Add(testObjs2.machineSet); err != nil {
+		t.Fatalf("error adding machineset, got %v", err)
+	}
+
+	machinesInTestObjs1, err := controller.machineInformer.Lister().Machines(testObjs1.spec.namespace).List(labels.Everything())
+	if err != nil {
+		t.Fatalf("error listing machines: %v", err)
+	}
+
+	machinesInTestObjs2, err := controller.machineInformer.Lister().Machines(testObjs2.spec.namespace).List(labels.Everything())
+	if err != nil {
+		t.Fatalf("error listing machines: %v", err)
+	}
+
+	actual := len(machinesInTestObjs1) + len(machinesInTestObjs2)
+	expected := len(testObjs1.machines) + len(testObjs2.machines)
+	if actual != expected {
+		t.Fatalf("expected %d machines, got %d", expected, actual)
 	}
 
 	// Sort results as order is not guaranteed.
-	sort.Slice(foundMachines, func(i, j int) bool {
-		return foundMachines[i].Name < foundMachines[j].Name
+	sort.Slice(machinesInTestObjs1, func(i, j int) bool {
+		return machinesInTestObjs1[i].Name < machinesInTestObjs1[j].Name
+	})
+	sort.Slice(machinesInTestObjs2, func(i, j int) bool {
+		return machinesInTestObjs2[i].Name < machinesInTestObjs2[j].Name
 	})
 
-	for i := 0; i < len(foundMachines); i++ {
-		if !reflect.DeepEqual(*testMachines[2*i], *foundMachines[i]) {
-			t.Errorf("expected %s, got %s", testMachines[2*i].Name, foundMachines[i].Name)
+	for i, m := range machinesInTestObjs1 {
+		if m.Name != testObjs1.machines[i].Name {
+			t.Errorf("expected %q, got %q", testObjs1.machines[i].Name, m.Name)
 		}
-		// Verify that a successful result is a copy
-		if testMachines[2*i] == foundMachines[i] {
-			t.Errorf("expected a copy")
+		if m.Namespace != testObjs1.machines[i].Namespace {
+			t.Errorf("expected %q, got %q", testObjs1.machines[i].Namespace, m.Namespace)
 		}
+	}
+
+	for i, m := range machinesInTestObjs2 {
+		if m.Name != testObjs2.machines[i].Name {
+			t.Errorf("expected %q, got %q", testObjs2.machines[i].Name, m.Name)
+		}
+		if m.Namespace != testObjs2.machines[i].Namespace {
+			t.Errorf("expected %q, got %q", testObjs2.machines[i].Namespace, m.Namespace)
+		}
+	}
+
+	// Finally everything in the respective objects should be equal.
+	if !reflect.DeepEqual(testObjs1.machines, machinesInTestObjs1) {
+		t.Fatalf("expected %+v, got %+v", testObjs1.machines, machinesInTestObjs1)
+	}
+	if !reflect.DeepEqual(testObjs2.machines, machinesInTestObjs2) {
+		t.Fatalf("expected %+v, got %+v", testObjs2.machines, machinesInTestObjs2)
 	}
 }
 
-func TestControllerNodeGroupsSizes(t *testing.T) {
-	for i, tc := range []struct {
-		description string
-		annotations map[string]string
-		count       int
-	}{{
-		description: "errors because minSize is invalid",
-		annotations: map[string]string{
-			nodeGroupMinSizeAnnotationKey: "-1",
-			nodeGroupMaxSizeAnnotationKey: "0",
-		},
-	}, {
-		description: "errors because maxSize is invalid",
-		annotations: map[string]string{
-			nodeGroupMinSizeAnnotationKey: "0",
-			nodeGroupMaxSizeAnnotationKey: "-1",
-		},
-	}, {
-		description: "errors because minSize > maxSize",
-		annotations: map[string]string{
-			nodeGroupMinSizeAnnotationKey: "1",
-			nodeGroupMaxSizeAnnotationKey: "0",
-		},
-	}, {
-		description: "errors because maxSize < minSize",
-		annotations: map[string]string{
-			nodeGroupMinSizeAnnotationKey: "1",
-			nodeGroupMaxSizeAnnotationKey: "0",
-		},
-	}, {
-		description: "success, number of nodegroups == 1",
-		annotations: map[string]string{
-			nodeGroupMaxSizeAnnotationKey: "10",
-		},
-		count: 1,
-	}, {
-		description: "success, number of nodegroups == 1",
-		annotations: map[string]string{
-			nodeGroupMinSizeAnnotationKey: "1",
-			nodeGroupMaxSizeAnnotationKey: "10",
-		},
-		count: 1,
-	}} {
-		machineSet := &v1beta1.MachineSet{
-			TypeMeta: v1.TypeMeta{
-				Kind: "MachineSet",
-			},
-			ObjectMeta: v1.ObjectMeta{
-				Name:        fmt.Sprintf("machineset-%d", i),
-				Namespace:   "test-namespace",
-				Annotations: tc.annotations,
-			},
-		}
-
-		controller, stop := mustCreateTestController(t, testControllerConfig{
-			machineObjects: []runtime.Object{
-				machineSet,
-			},
-		})
-		defer stop()
-
-		nodegroups, err := controller.nodeGroups()
-		if tc.count == 0 && err == nil {
-			t.Fatalf("expected an error")
-		}
-
-		if l := len(nodegroups); l != tc.count {
-			t.Errorf("expected %v, got %v", tc.count, l)
-		}
-	}
-}
-
-func TestControllerLookupNodeGroupForNodeThatDoesNotExist(t *testing.T) {
-	machine := &v1beta1.Machine{
-		TypeMeta: v1.TypeMeta{
-			Kind: "Machine",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:      "machine",
-			Namespace: "test-namespace",
-			OwnerReferences: []v1.OwnerReference{{
-				Kind: "MachineSet",
-				UID:  uuid1,
-				Name: "testMachineSet",
-			}},
-		},
-	}
-
-	machineSet := &v1beta1.MachineSet{
-		TypeMeta: v1.TypeMeta{
-			Kind: "MachineSet",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:      "machineset",
-			Namespace: "test-namespace",
-			UID:       uuid1,
-		},
-	}
-
-	controller, stop := mustCreateTestController(t, testControllerConfig{
-		machineObjects: []runtime.Object{
-			machine,
-			machineSet,
-		},
+func TestControllerLookupNodeGroupForNonExistentNode(t *testing.T) {
+	testObjs := newMachineSetTestObjs(t.Name(), 0, 1, 1, map[string]string{
+		nodeGroupMinSizeAnnotationKey: "1",
+		nodeGroupMaxSizeAnnotationKey: "10",
 	})
+
+	controller, stop := testObjs.newMachineController(t)
 	defer stop()
 
-	ng, err := controller.nodeGroupForNode(&apiv1.Node{
-		TypeMeta: v1.TypeMeta{
-			Kind: "Node",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name: "node",
-		},
-	})
+	node := testObjs.nodes[0].DeepCopy()
+	node.Spec.ProviderID = "does-not-exist"
+
+	ng, err := controller.nodeGroupForNode(node)
 
 	// Looking up a node that doesn't exist doesn't generate an
 	// error. But, equally, the ng should actually be nil.
@@ -724,72 +559,74 @@ func TestControllerLookupNodeGroupForNodeThatDoesNotExist(t *testing.T) {
 }
 
 func TestControllerNodeGroupForNodeWithMissingMachineOwner(t *testing.T) {
-	node := &apiv1.Node{
-		TypeMeta: v1.TypeMeta{
-			Kind: "Node",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name: "node",
-			Annotations: map[string]string{
-				machineAnnotationKey: "test-namespace/machine",
-			},
-		},
-		Spec: apiv1.NodeSpec{
-			ProviderID: "provider-id",
-		},
+	test := func(t *testing.T, testObjs *clusterTestConfig) {
+		controller, stop := testObjs.newMachineController(t)
+		defer stop()
+
+		machine := testObjs.machines[0].DeepCopy()
+		machine.OwnerReferences = []v1.OwnerReference{}
+		if err := controller.machineInformer.Informer().GetStore().Update(machine); err != nil {
+			t.Fatalf("unexpected error updating machine, got %v", err)
+		}
+
+		ng, err := controller.nodeGroupForNode(testObjs.nodes[0])
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+
+		if ng != nil {
+			t.Fatalf("unexpected nodegroup: %v", ng)
+		}
 	}
 
-	machine := &v1beta1.Machine{
-		TypeMeta: v1.TypeMeta{
-			Kind: "Machine",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:      "machine",
-			Namespace: "test-namespace",
-		},
-	}
-
-	machineSet := &v1beta1.MachineSet{
-		TypeMeta: v1.TypeMeta{
-			Kind: "MachineSet",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name:      "machineset",
-			Namespace: "test-namespace",
-			UID:       uuid1,
-		},
-	}
-
-	controller, stop := mustCreateTestController(t, testControllerConfig{
-		nodeObjects: []runtime.Object{
-			node,
-		},
-		machineObjects: []runtime.Object{
-			machine,
-			machineSet,
-		},
-	})
-	defer stop()
-
-	ng, err := controller.nodeGroupForNode(&apiv1.Node{
-		TypeMeta: v1.TypeMeta{
-			Kind: "Node",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name: "node",
-		},
-		Spec: apiv1.NodeSpec{
-			ProviderID: "provider-id",
-		},
+	t.Run("MachineSet", func(t *testing.T) {
+		testObjs := newMachineSetTestObjs(t.Name(), 0, 1, 1, map[string]string{
+			nodeGroupMinSizeAnnotationKey: "1",
+			nodeGroupMaxSizeAnnotationKey: "10",
+		})
+		test(t, testObjs)
 	})
 
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+	t.Run("MachineDeployment", func(t *testing.T) {
+		testObjs := newMachineDeploymentTestObjs(t.Name(), 0, 1, 1, map[string]string{
+			nodeGroupMinSizeAnnotationKey: "1",
+			nodeGroupMaxSizeAnnotationKey: "10",
+		})
+		test(t, testObjs)
+	})
+}
+
+func TestControllerNodeGroupForNodeWithPositiveScalingBounds(t *testing.T) {
+	test := func(t *testing.T, testObjs *clusterTestConfig) {
+		controller, stop := testObjs.newMachineController(t)
+		defer stop()
+
+		ng, err := controller.nodeGroupForNode(testObjs.nodes[0])
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		// We don't scale from 0 so nodes must belong to a
+		// nodegroup that has a scale size of at least 1.
+		if ng != nil {
+			t.Fatalf("unexpected nodegroup: %v", ng)
+		}
 	}
 
-	if ng != nil {
-		t.Fatalf("unexpected nodegroup: %v", ng)
-	}
+	t.Run("MachineSet", func(t *testing.T) {
+		testObjs := newMachineSetTestObjs(t.Name(), 0, 1, 1, map[string]string{
+			nodeGroupMinSizeAnnotationKey: "1",
+			nodeGroupMaxSizeAnnotationKey: "1",
+		})
+		test(t, testObjs)
+	})
+
+	t.Run("MachineDeployment", func(t *testing.T) {
+		testObjs := newMachineDeploymentTestObjs(t.Name(), 0, 1, 1, map[string]string{
+			nodeGroupMinSizeAnnotationKey: "1",
+			nodeGroupMaxSizeAnnotationKey: "1",
+		})
+		test(t, testObjs)
+	})
 }
 
 func TestControllerNodeGroups(t *testing.T) {
