@@ -18,6 +18,22 @@
   revision = "de5bf2ad457846296e2031421a34e2568e304e35"
 
 [[projects]]
+  digest = "1:464aef731a5f82ded547c62e249a2e9ec59fbbc9ddab53cda7b9857852630a61"
+  name = "github.com/appscode/jsonpatch"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "7c0e3b262f30165a8ec3d0b4c6059fd92703bfb2"
+  version = "1.0.0"
+
+[[projects]]
+  digest = "1:d6afaeed1502aa28e80a4ed0981d570ad91b2579193404256ce672ed0a609e0d"
+  name = "github.com/beorn7/perks"
+  packages = ["quantile"]
+  pruneopts = "UT"
+  revision = "4b2b341e8d7715fae06375aa633dbb6e91b3fb46"
+  version = "v1.0.0"
+
+[[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
@@ -233,12 +249,12 @@
   revision = "6243d8e04c3f819e79757e8bc3faa15c3cb27003"
 
 [[projects]]
-  branch = "master"
-  digest = "1:fc2b04b0069d6b10bdef96d278fe20c345794009685ed3c8c7f1a6dc023eefec"
-  name = "github.com/mattbaird/jsonpatch"
-  packages = ["."]
+  digest = "1:ff5ebae34cfbf047d505ee150de27e60570e8c394b3b8fdbb720ff6ac71985fc"
+  name = "github.com/matttproud/golang_protobuf_extensions"
+  packages = ["pbutil"]
   pruneopts = "UT"
-  revision = "81af80346b1a01caae0cbc27fd3c1ba5b11e189f"
+  revision = "c12348ce28de40eed0136aa2b644d0ee0650e56c"
+  version = "v1.0.1"
 
 [[projects]]
   digest = "1:33422d238f147d247752996a26574ac48dcf472976eda7f5134015f06bf16563"
@@ -313,7 +329,8 @@
   revision = "c58918e29f89383d2e1467bad7156e2b0c49497f"
 
 [[projects]]
-  digest = "1:923b72a548291930286c5c4caf8ba7da8c41819a5b3bdb28e3ad66ca5cddfd66"
+  branch = "openshift-4.0-cluster-api-0.0.0-alpha.4"
+  digest = "1:80658de2853ad4df2148384875babc633d3c0e48c2488f707a0fd9178896c8c4"
   name = "github.com/openshift/cluster-api"
   packages = [
     "pkg/apis/cluster/common",
@@ -329,23 +346,23 @@
     "pkg/util",
   ]
   pruneopts = "UT"
-  revision = "0c3e884db79556cf786aa8436f5be977ef10c211"
+  revision = "34fb0d070a2ed877b1df06a2b79bbc4f92bcad2d"
 
 [[projects]]
   branch = "master"
-  digest = "1:fb272c1a3d6a0e8925f203ef47e13bcfbefa2217a79577ae582ad8b552fe5e18"
+  digest = "1:ada209c942e97be1ee2b8310da6f393df8b5789175eca2b580184b81eb469b39"
   name = "github.com/openshift/cluster-api-actuator-pkg"
   packages = [
-    "pkg/e2e/actuators",
     "pkg/e2e/autoscaler",
     "pkg/e2e/framework",
     "pkg/e2e/infra",
+    "pkg/e2e/machinehealthcheck",
     "pkg/e2e/operators",
     "pkg/manifests",
     "pkg/types",
   ]
   pruneopts = ""
-  revision = "b418c2172440181ab972ed820b54af0daede57e5"
+  revision = "480b54695c31cb66af3b8d0925d5c3adef044b05"
 
 [[projects]]
   branch = "master"
@@ -365,6 +382,20 @@
   packages = ["pkg/config/clusteroperator/v1helpers"]
   pruneopts = "UT"
   revision = "51a1e47ef123a462296101395ff83998715da643"
+
+[[projects]]
+  digest = "1:08305457f8ce8e7eb1cfefad34d3a86f2abae9640c237410ecb15fece512f007"
+  name = "github.com/openshift/machine-api-operator"
+  packages = [
+    "pkg/apis/healthchecking",
+    "pkg/apis/healthchecking/v1alpha1",
+    "pkg/generated/clientset/versioned",
+    "pkg/generated/clientset/versioned/scheme",
+    "pkg/generated/clientset/versioned/typed/healthchecking/v1alpha1",
+    "pkg/util/conditions",
+  ]
+  pruneopts = "UT"
+  revision = "9650e16c98802a4b57b7551201b0973fcae2f738"
 
 [[projects]]
   digest = "1:e5d0bd87abc2781d14e274807a470acd180f0499f8bf5bb18606e9ec22ad9de9"
@@ -397,6 +428,46 @@
   pruneopts = "UT"
   revision = "ba968bfe8b2f7e042a574c888954fccecfa385b4"
   version = "v0.8.1"
+
+[[projects]]
+  digest = "1:93a746f1060a8acbcf69344862b2ceced80f854170e1caae089b2834c5fbf7f4"
+  name = "github.com/prometheus/client_golang"
+  packages = [
+    "prometheus",
+    "prometheus/internal",
+    "prometheus/promhttp",
+  ]
+  pruneopts = "UT"
+  revision = "505eaef017263e299324067d40ca2c48f6a2cf50"
+  version = "v0.9.2"
+
+[[projects]]
+  branch = "master"
+  digest = "1:2d5cd61daa5565187e1d96bae64dbbc6080dacf741448e9629c64fd93203b0d4"
+  name = "github.com/prometheus/client_model"
+  packages = ["go"]
+  pruneopts = "UT"
+  revision = "fd36f4220a901265f90734c3183c5f0c91daa0b8"
+
+[[projects]]
+  digest = "1:35cf6bdf68db765988baa9c4f10cc5d7dda1126a54bd62e252dbcd0b1fc8da90"
+  name = "github.com/prometheus/common"
+  packages = [
+    "expfmt",
+    "internal/bitbucket.org/ww/goautoneg",
+    "model",
+  ]
+  pruneopts = "UT"
+  revision = "a82f4c12f983cc2649298185f296632953e50d3e"
+  version = "v0.3.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:5e412e2a03bd0cfdb102db97212be2e625df74fa8b2d4a8a51f107b1456e256b"
+  name = "github.com/prometheus/procfs"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "e22ddced71425e65e388b17b7d0289c5ea77d06e"
 
 [[projects]]
   digest = "1:c1b1102241e7f645bc8e0c22ae352e8f0dc6484b6cb4d132fa9f24174e0119e2"
@@ -456,9 +527,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:9de022a097e417ac8f359a7004c9e7bd71d3fbf64b9fc76a541167cef1ef3d8f"
+  digest = "1:f7a827cdb8efeaee15ba654c4db18863e08134abc0b67a0a6dc79b7a98c650f8"
   name = "golang.org/x/net"
   packages = [
+    "context",
+    "context/ctxhttp",
     "html",
     "html/atom",
     "html/charset",
@@ -469,6 +542,17 @@
   ]
   pruneopts = "UT"
   revision = "3a22650c66bd7f4fb6d1e8072ffd7b75c8a27898"
+
+[[projects]]
+  branch = "master"
+  digest = "1:9927d6aceb89d188e21485f42a7a254e67e6fdcf4260aba375fe18e3c300dfb4"
+  name = "golang.org/x/oauth2"
+  packages = [
+    ".",
+    "internal",
+  ]
+  pruneopts = "UT"
+  revision = "9f3314589c9a9136388751d9adae6b0ed400978a"
 
 [[projects]]
   branch = "master"
@@ -526,6 +610,22 @@
   revision = "85acf8d2951cb2a3bde7632f9ff273ef0379bcbd"
 
 [[projects]]
+  digest = "1:6eb6e3b6d9fffb62958cf7f7d88dbbe1dd6839436b0802e194c590667a40412a"
+  name = "google.golang.org/appengine"
+  packages = [
+    "internal",
+    "internal/base",
+    "internal/datastore",
+    "internal/log",
+    "internal/remote_api",
+    "internal/urlfetch",
+    "urlfetch",
+  ]
+  pruneopts = "UT"
+  revision = "54a98f90d1c46b7731eb8fb305d2a321c30ef610"
+  version = "v1.5.0"
+
+[[projects]]
   digest = "1:abeb38ade3f32a92943e5be54f55ed6d6e3b6602761d74b4aab4c9dd45c18abd"
   name = "gopkg.in/fsnotify.v1"
   packages = ["."]
@@ -559,7 +659,7 @@
   version = "v2.2.2"
 
 [[projects]]
-  digest = "1:728c0c37966b7a6c8980fab69a3d690cc0996e206804a55052318858d00f1e17"
+  digest = "1:3ca4baec1a14e727951288f091badc5d403096d1c00d3ff5299f273a0c6db85d"
   name = "k8s.io/api"
   packages = [
     "admission/v1beta1",
@@ -568,16 +668,19 @@
     "apps/v1",
     "apps/v1beta1",
     "apps/v1beta2",
+    "auditregistration/v1alpha1",
     "authentication/v1",
     "authentication/v1beta1",
     "authorization/v1",
     "authorization/v1beta1",
     "autoscaling/v1",
     "autoscaling/v2beta1",
+    "autoscaling/v2beta2",
     "batch/v1",
     "batch/v1beta1",
     "batch/v2alpha1",
     "certificates/v1beta1",
+    "coordination/v1beta1",
     "core/v1",
     "events/v1beta1",
     "extensions/v1beta1",
@@ -594,10 +697,11 @@
     "storage/v1beta1",
   ]
   pruneopts = "UT"
-  revision = "2d6f90ab1293a1fb871cf149423ebb72aa7423aa"
+  revision = "05914d821849570fba9eacfb29466f2d8d3cd229"
+  version = "kubernetes-1.13.1"
 
 [[projects]]
-  digest = "1:145647b653ff6a6882bbc2c4701ebcbce7be643007231d545560e4ce612ad5cb"
+  digest = "1:db0e48e58e92eddc9ae08e9efb3dfaa1d61e32de690fff0dae5bccf4b45ebcce"
   name = "k8s.io/apiextensions-apiserver"
   packages = [
     "pkg/apis/apiextensions",
@@ -607,10 +711,11 @@
     "pkg/client/clientset/clientset/typed/apiextensions/v1beta1",
   ]
   pruneopts = "UT"
-  revision = "408db4a50408e2149acbd657bceb2480c13cb0a4"
+  revision = "0fe22c71c47604641d9aa352c785b7912c200562"
+  version = "kubernetes-1.13.1"
 
 [[projects]]
-  digest = "1:19bd50c0d9e2471eb33fea1611ef6e80a2ac0c69d0472dc87d52056bea951ae2"
+  digest = "1:756538c9b8fe0a9d82f3fe04bbdefb7486045a4939f0649ebdd3fcbdb27314d2"
   name = "k8s.io/apimachinery"
   packages = [
     "pkg/api/equality",
@@ -644,7 +749,9 @@
     "pkg/util/intstr",
     "pkg/util/json",
     "pkg/util/mergepatch",
+    "pkg/util/naming",
     "pkg/util/net",
+    "pkg/util/rand",
     "pkg/util/runtime",
     "pkg/util/sets",
     "pkg/util/strategicpatch",
@@ -659,10 +766,11 @@
     "third_party/forked/golang/reflect",
   ]
   pruneopts = "UT"
-  revision = "103fd098999dc9c0c88536f5c9ad2e5da39373ae"
+  revision = "2b1284ed4c93a43499e781493253e2ac5959c4fd"
+  version = "kubernetes-1.13.1"
 
 [[projects]]
-  digest = "1:026709ca5861b8b90b58514d6e8f543ff0bb677b99d1278311a03d5376fc64fa"
+  digest = "1:1b029a23727c2d23116ac20241d94b9ae7ee4f2e9af9d80f1d290deabbafdb6f"
   name = "k8s.io/client-go"
   packages = [
     "discovery",
@@ -674,16 +782,19 @@
     "kubernetes/typed/apps/v1",
     "kubernetes/typed/apps/v1beta1",
     "kubernetes/typed/apps/v1beta2",
+    "kubernetes/typed/auditregistration/v1alpha1",
     "kubernetes/typed/authentication/v1",
     "kubernetes/typed/authentication/v1beta1",
     "kubernetes/typed/authorization/v1",
     "kubernetes/typed/authorization/v1beta1",
     "kubernetes/typed/autoscaling/v1",
     "kubernetes/typed/autoscaling/v2beta1",
+    "kubernetes/typed/autoscaling/v2beta2",
     "kubernetes/typed/batch/v1",
     "kubernetes/typed/batch/v1beta1",
     "kubernetes/typed/batch/v2alpha1",
     "kubernetes/typed/certificates/v1beta1",
+    "kubernetes/typed/coordination/v1beta1",
     "kubernetes/typed/core/v1",
     "kubernetes/typed/events/v1beta1",
     "kubernetes/typed/extensions/v1beta1",
@@ -737,7 +848,8 @@
     "util/workqueue",
   ]
   pruneopts = "UT"
-  revision = "1f13a808da65775f22cbf47862c4e5898d8f4ca1"
+  revision = "8d9ed539ba3134352c586810e749e58df4e94e4f"
+  version = "kubernetes-1.13.1"
 
 [[projects]]
   digest = "1:72fd56341405f53c745377e0ebc4abeff87f1a048e0eea6568a20212650f5a82"
@@ -767,7 +879,7 @@
   revision = "21c4ce38f2a793ec01e925ddc31216500183b773"
 
 [[projects]]
-  digest = "1:9bf88f2082655455535099895e8220704fddbea2e7104b5684c19506c1076b69"
+  digest = "1:52e73ab64f1026315715c24fd05d9b9544a51e1007a3f48dc61937ad3a1a2c2b"
   name = "sigs.k8s.io/controller-runtime"
   packages = [
     "pkg/cache",
@@ -778,9 +890,11 @@
     "pkg/event",
     "pkg/handler",
     "pkg/internal/controller",
+    "pkg/internal/controller/metrics",
     "pkg/internal/recorder",
     "pkg/leaderelection",
     "pkg/manager",
+    "pkg/metrics",
     "pkg/patch",
     "pkg/predicate",
     "pkg/reconcile",
@@ -792,10 +906,12 @@
     "pkg/source/internal",
     "pkg/webhook/admission",
     "pkg/webhook/admission/types",
+    "pkg/webhook/internal/metrics",
     "pkg/webhook/types",
   ]
   pruneopts = "UT"
-  revision = "a67a5036fa19242e7ca874420224bc26753b811f"
+  revision = "12d98582e72927b6cd0123e2b4e819f9341ce62c"
+  version = "v0.1.10"
 
 [[projects]]
   digest = "1:7719608fe0b52a4ece56c2dde37bedd95b938677d1ab0f84b8a7852e4c59f849"
@@ -813,12 +929,13 @@
     "github.com/onsi/ginkgo",
     "github.com/onsi/gomega",
     "github.com/openshift/api/config/v1",
-    "github.com/openshift/cluster-api-actuator-pkg/pkg/e2e/actuators",
     "github.com/openshift/cluster-api-actuator-pkg/pkg/e2e/autoscaler",
     "github.com/openshift/cluster-api-actuator-pkg/pkg/e2e/infra",
+    "github.com/openshift/cluster-api-actuator-pkg/pkg/e2e/machinehealthcheck",
     "github.com/openshift/cluster-api-actuator-pkg/pkg/e2e/operators",
     "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1",
     "github.com/openshift/cluster-autoscaler-operator/pkg/apis",
+    "github.com/openshift/machine-api-operator/pkg/apis/healthchecking/v1alpha1",
     "k8s.io/client-go/kubernetes/scheme",
   ]
   solver-name = "gps-cdcl"

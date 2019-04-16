@@ -43,11 +43,15 @@ required = [
 
 [[constraint]]
   name = "github.com/openshift/cluster-api"
-  revision = "0c3e884db79556cf786aa8436f5be977ef10c211"
+  branch = "openshift-4.0-cluster-api-0.0.0-alpha.4"
 
 [[constraint]]
   name = "github.com/openshift/cluster-autoscaler-operator"
   branch = "master"
+
+[[constraint]]
+  name = "github.com/openshift/machine-api-operator"
+  revision = "9650e16c98802a4b57b7551201b0973fcae2f738"
 
 # We need to specify fsnotify source to avoid dep panic
 [[override]]
@@ -56,20 +60,20 @@ required = [
 
 [[override]]
   name = "k8s.io/api"
-  version = "kubernetes-1.12.5"
+  version = "kubernetes-1.13.1"
 
 [[override]]
   name = "k8s.io/apiextensions-apiserver"
-  version = "kubernetes-1.12.5"
+  version = "kubernetes-1.13.1"
 
 [[override]]
   name = "k8s.io/apimachinery"
-  version = "kubernetes-1.12.5"
+  version = "kubernetes-1.13.1"
 
 [[override]]
   name = "k8s.io/client-go"
-  version = "kubernetes-1.12.5"
+  version = "kubernetes-1.13.1"
 
 [[override]]
   name = "k8s.io/kube-aggregator"
-  branch = "release-1.12"
+  branch = "release-1.13"
