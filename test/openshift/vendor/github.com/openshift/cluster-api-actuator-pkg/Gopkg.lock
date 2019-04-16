@@ -26,6 +26,14 @@
   revision = "de5bf2ad457846296e2031421a34e2568e304e35"
 
 [[projects]]
+  digest = "1:60942d250d0e06d3722ddc8e22bc52f8cef7961ba6d8d3e95327a32b6b024a7b"
+  name = "github.com/appscode/jsonpatch"
+  packages = ["."]
+  pruneopts = ""
+  revision = "7c0e3b262f30165a8ec3d0b4c6059fd92703bfb2"
+  version = "1.0.0"
+
+[[projects]]
   branch = "master"
   digest = "1:c0bec5f9b98d0bc872ff5e834fac186b807b656683bd29cb82fb207a1513fabb"
   name = "github.com/beorn7/perks"
@@ -282,14 +290,6 @@
   version = "v1.0.1"
 
 [[projects]]
-  branch = "master"
-  digest = "1:58050e2bc9621cc6b68c1da3e4a0d1c40ad1f89062b9855c26521fd42a97a106"
-  name = "github.com/mattbaird/jsonpatch"
-  packages = ["."]
-  pruneopts = ""
-  revision = "81af80346b1a01caae0cbc27fd3c1ba5b11e189f"
-
-[[projects]]
   digest = "1:63722a4b1e1717be7b98fc686e0b30d5e7f734b9e93d7dee86293b6deab7ea28"
   name = "github.com/matttproud/golang_protobuf_extensions"
   packages = ["pbutil"]
@@ -372,7 +372,8 @@
   revision = "af79befc50a8223c8122e9e654f65763dd17a87e"
 
 [[projects]]
-  digest = "1:1a6c1522af42be78c04c706ebeb86148536ebaae1e320ca0fa4781d2e38a0de5"
+  branch = "openshift-4.0-cluster-api-0.0.0-alpha.4"
+  digest = "1:dbd28c2d6b9c58d0dfbfaa7cb2efce07fc36f812c2eb52197856d40d91a635bb"
   name = "github.com/openshift/cluster-api"
   packages = [
     "pkg/apis/cluster/common",
@@ -388,7 +389,7 @@
     "pkg/util",
   ]
   pruneopts = ""
-  revision = "0c3e884db79556cf786aa8436f5be977ef10c211"
+  revision = "5c833e464afbd8a9b3aca3f1d09943478bd90521"
 
 [[projects]]
   branch = "master"
@@ -408,6 +409,20 @@
   packages = ["pkg/config/clusteroperator/v1helpers"]
   pruneopts = ""
   revision = "cd621d02d319d52b9ac1297674b9bd743ebe2687"
+
+[[projects]]
+  digest = "1:d499d0c870bf83afc8e077db22359f5064521d7ea197ce986b23e30ec9359535"
+  name = "github.com/openshift/machine-api-operator"
+  packages = [
+    "pkg/apis/healthchecking",
+    "pkg/apis/healthchecking/v1alpha1",
+    "pkg/generated/clientset/versioned",
+    "pkg/generated/clientset/versioned/scheme",
+    "pkg/generated/clientset/versioned/typed/healthchecking/v1alpha1",
+    "pkg/util/conditions",
+  ]
+  pruneopts = ""
+  revision = "9650e16c98802a4b57b7551201b0973fcae2f738"
 
 [[projects]]
   digest = "1:a5484d4fa43127138ae6e7b2299a6a52ae006c7f803d98d717f60abf3e97192e"
@@ -715,7 +730,7 @@
   version = "v2.2.1"
 
 [[projects]]
-  digest = "1:3e3e9df293bd6f9fd64effc9fa1f0edcd97e6c74145cd9ab05d35719004dc41f"
+  digest = "1:be67264067c68b1f601bfc4a6c102b1380ed0743147381de81ed11da88d2e246"
   name = "k8s.io/api"
   packages = [
     "admission/v1beta1",
@@ -724,6 +739,7 @@
     "apps/v1",
     "apps/v1beta1",
     "apps/v1beta2",
+    "auditregistration/v1alpha1",
     "authentication/v1",
     "authentication/v1beta1",
     "authorization/v1",
@@ -752,11 +768,11 @@
     "storage/v1beta1",
   ]
   pruneopts = ""
-  revision = "6db15a15d2d3874a6c3ddb2140ac9f3bc7058428"
-  version = "kubernetes-1.12.5"
+  revision = "05914d821849570fba9eacfb29466f2d8d3cd229"
+  version = "kubernetes-1.13.1"
 
 [[projects]]
-  digest = "1:38bf124557f0bc0aecaa95557185cfc84c46de8a222ac0ae33e58379d8a82009"
+  digest = "1:2133e488e6db5701ef295c39cbc0836855c02af677e8707e539ebf605a4211ca"
   name = "k8s.io/apiextensions-apiserver"
   packages = [
     "pkg/apis/apiextensions",
@@ -766,11 +782,11 @@
     "pkg/client/clientset/clientset/typed/apiextensions/v1beta1",
   ]
   pruneopts = ""
-  revision = "a384d17938fe55d54a52d5668bf0ff40044daef0"
-  version = "kubernetes-1.12.5"
+  revision = "0fe22c71c47604641d9aa352c785b7912c200562"
+  version = "kubernetes-1.13.1"
 
 [[projects]]
-  digest = "1:8cac653dd97e89700e00ce6ea7134cf28b3e1b59615ab99464760e230fab9860"
+  digest = "1:66b0292f815d508d11ed5fe94fdeb0bcc5a988703a08e73bf3cb3a415de676cf"
   name = "k8s.io/apimachinery"
   packages = [
     "pkg/api/equality",
@@ -806,6 +822,7 @@
     "pkg/util/mergepatch",
     "pkg/util/naming",
     "pkg/util/net",
+    "pkg/util/rand",
     "pkg/util/runtime",
     "pkg/util/sets",
     "pkg/util/strategicpatch",
@@ -820,11 +837,11 @@
     "third_party/forked/golang/reflect",
   ]
   pruneopts = ""
-  revision = "49ce2735e5074ffc3f8190c8406cf51a96302dad"
-  version = "kubernetes-1.12.5"
+  revision = "2b1284ed4c93a43499e781493253e2ac5959c4fd"
+  version = "kubernetes-1.13.1"
 
 [[projects]]
-  digest = "1:203ee3d901467a9bfa00c1859438f168288431405b7a30c7c6f14f8391cafa6f"
+  digest = "1:d603c9957fa66c90792d45fe0205d484da2ea364a01069c20890f2640b4a0fd5"
   name = "k8s.io/client-go"
   packages = [
     "discovery",
@@ -836,6 +853,7 @@
     "kubernetes/typed/apps/v1",
     "kubernetes/typed/apps/v1beta1",
     "kubernetes/typed/apps/v1beta2",
+    "kubernetes/typed/auditregistration/v1alpha1",
     "kubernetes/typed/authentication/v1",
     "kubernetes/typed/authentication/v1beta1",
     "kubernetes/typed/authorization/v1",
@@ -871,6 +889,14 @@
     "rest",
     "rest/watch",
     "restmapper",
+    "scale",
+    "scale/scheme",
+    "scale/scheme/appsint",
+    "scale/scheme/appsv1beta1",
+    "scale/scheme/appsv1beta2",
+    "scale/scheme/autoscalingv1",
+    "scale/scheme/extensionsint",
+    "scale/scheme/extensionsv1beta1",
     "third_party/forked/golang/template",
     "tools/auth",
     "tools/cache",
@@ -896,8 +922,8 @@
     "util/workqueue",
   ]
   pruneopts = ""
-  revision = "701b913670036511e3d752318272c97f1a2a2edd"
-  version = "kubernetes-1.12.5"
+  revision = "8d9ed539ba3134352c586810e749e58df4e94e4f"
+  version = "kubernetes-1.13.1"
 
 [[projects]]
   branch = "master"
@@ -955,7 +981,7 @@
   revision = "c2654d5206da6b7b6ace12841e8f359bb89b443c"
 
 [[projects]]
-  digest = "0:"
+  digest = "1:35fe7fc05f04f79af905348b757b440723f67534f873abfef906e1a64dfe9e64"
   name = "sigs.k8s.io/controller-runtime"
   packages = [
     "pkg/cache",
@@ -984,11 +1010,12 @@
     "pkg/source/internal",
     "pkg/webhook/admission",
     "pkg/webhook/admission/types",
+    "pkg/webhook/internal/metrics",
     "pkg/webhook/types",
   ]
   pruneopts = ""
-  revision = ""
-  version = "v0.1.8"
+  revision = "12d98582e72927b6cd0123e2b4e819f9341ce62c"
+  version = "v0.1.10"
 
 [[projects]]
   digest = "1:0fb3157cb64930e8fb7d5b3fbfcedb71b8b4b990d8babcc7c7cd28e1eb672e13"
@@ -1030,6 +1057,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/emicklei/go-restful",
+    "github.com/ghodss/yaml",
     "github.com/golang/glog",
     "github.com/onsi/ginkgo",
     "github.com/onsi/gomega",
@@ -1040,6 +1068,9 @@
     "github.com/openshift/cluster-autoscaler-operator/pkg/apis",
     "github.com/openshift/cluster-autoscaler-operator/pkg/apis/autoscaling/v1alpha1",
     "github.com/openshift/library-go/pkg/config/clusteroperator/v1helpers",
+    "github.com/openshift/machine-api-operator/pkg/apis/healthchecking/v1alpha1",
+    "github.com/openshift/machine-api-operator/pkg/generated/clientset/versioned",
+    "github.com/openshift/machine-api-operator/pkg/util/conditions",
     "golang.org/x/crypto/ssh",
     "k8s.io/api/apps/v1",
     "k8s.io/api/apps/v1beta2",
@@ -1049,25 +1080,32 @@
     "k8s.io/api/rbac/v1",
     "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1",
     "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset",
+    "k8s.io/apimachinery/pkg/api/errors",
     "k8s.io/apimachinery/pkg/api/resource",
     "k8s.io/apimachinery/pkg/apis/meta/v1",
     "k8s.io/apimachinery/pkg/labels",
     "k8s.io/apimachinery/pkg/runtime",
+    "k8s.io/apimachinery/pkg/runtime/schema",
     "k8s.io/apimachinery/pkg/types",
     "k8s.io/apimachinery/pkg/util/intstr",
+    "k8s.io/apimachinery/pkg/util/rand",
     "k8s.io/apimachinery/pkg/util/sets",
     "k8s.io/apimachinery/pkg/util/uuid",
     "k8s.io/apimachinery/pkg/util/wait",
+    "k8s.io/client-go/discovery",
+    "k8s.io/client-go/dynamic",
     "k8s.io/client-go/kubernetes",
     "k8s.io/client-go/kubernetes/scheme",
     "k8s.io/client-go/plugin/pkg/client/auth/gcp",
     "k8s.io/client-go/rest",
+    "k8s.io/client-go/scale",
     "k8s.io/client-go/tools/cache",
     "k8s.io/client-go/tools/clientcmd",
     "k8s.io/client-go/tools/clientcmd/api",
     "k8s.io/code-generator/cmd/deepcopy-gen",
     "k8s.io/utils/pointer",
     "sigs.k8s.io/controller-runtime/pkg/client",
+    "sigs.k8s.io/controller-runtime/pkg/client/apiutil",
     "sigs.k8s.io/controller-runtime/pkg/client/config",
     "sigs.k8s.io/controller-runtime/pkg/controller",
     "sigs.k8s.io/controller-runtime/pkg/handler",
