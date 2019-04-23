@@ -1,7 +1,7 @@
 .PHONY: dep deps
 
 dep:
-	type -P dep 2>&1 > /dev/null || go get -u github.com/golang/dep/cmd/dep
+	type -p dep 2>&1 > /dev/null || go get -u github.com/golang/dep/cmd/dep
 
 deps: dep
 	dep ensure -v
