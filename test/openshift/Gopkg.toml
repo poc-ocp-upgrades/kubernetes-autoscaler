@@ -12,6 +12,10 @@ required = [
   "github.com/openshift/api/config/v1",
 ]
 
+[[override]]
+  name = "github.com/openshift/cluster-api-actuator-pkg"
+  branch = "master"
+
 [[constraint]]
   branch = "master"
   name = "github.com/golang/glog"

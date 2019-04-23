@@ -321,12 +321,11 @@
   version = "v1.4.3"
 
 [[projects]]
-  branch = "master"
-  digest = "1:ee97ac0227ac301fd540cd73c7f7c7547d4173b5e7df8390efb1d196c6f22a97"
+  digest = "1:ab0ab601abcdd8e58e98e6b8a4d5ba2049543c4afdd0fa04524ac255cabe4c77"
   name = "github.com/openshift/api"
   packages = ["config/v1"]
   pruneopts = "UT"
-  revision = "c58918e29f89383d2e1467bad7156e2b0c49497f"
+  revision = "8e476cb7322e59919cbb6482fd076ec5a214df25"
 
 [[projects]]
   branch = "openshift-4.0-cluster-api-0.0.0-alpha.4"
@@ -350,7 +349,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:ada209c942e97be1ee2b8310da6f393df8b5789175eca2b580184b81eb469b39"
+  digest = "1:3b502bd7be21d85f3261d761998cc4845fc6baf2e9fa8d195a09f147f5fe04a5"
   name = "github.com/openshift/cluster-api-actuator-pkg"
   packages = [
     "pkg/e2e/autoscaler",
@@ -362,18 +361,19 @@
     "pkg/types",
   ]
   pruneopts = ""
-  revision = "480b54695c31cb66af3b8d0925d5c3adef044b05"
+  revision = "5e4d8bc5c8f9087815e09c0b1bb7da1e4898fbe0"
 
 [[projects]]
   branch = "master"
-  digest = "1:4dcebfe12917390dc19606bd61bbacb75c66750fbdef323749cc898965ca2912"
+  digest = "1:95477dd994da5b855f4751bdaa55ee64da4d3bc16fde83b13ca73c3271ddb9a3"
   name = "github.com/openshift/cluster-autoscaler-operator"
   packages = [
     "pkg/apis",
-    "pkg/apis/autoscaling/v1alpha1",
+    "pkg/apis/autoscaling/v1",
+    "pkg/apis/autoscaling/v1beta1",
   ]
   pruneopts = "UT"
-  revision = "1df9eecb2d95391e36a0269669e199c2943fde66"
+  revision = "768476f3a9df4c9040295d12fce38fffbab69d2e"
 
 [[projects]]
   branch = "master"
