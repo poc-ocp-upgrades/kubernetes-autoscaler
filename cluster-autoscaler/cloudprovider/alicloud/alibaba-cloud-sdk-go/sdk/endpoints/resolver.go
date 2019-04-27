@@ -1,19 +1,3 @@
-/*
-Copyright 2018 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package endpoints
 
 import (
@@ -26,20 +10,19 @@ import (
 )
 
 const (
-	// ResolveEndpointUserGuideLink returns guide link
 	ResolveEndpointUserGuideLink = ""
 )
 
 var once sync.Once
 var resolvers []Resolver
 
-// Resolver interface
 type Resolver interface {
 	TryResolve(param *ResolveParam) (endpoint string, support bool, err error)
 }
 
-// Resolve returns endpoint
 func Resolve(param *ResolveParam) (endpoint string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	supportedResolvers := getAllResolvers()
 	for _, resolver := range supportedResolvers {
 		endpoint, supported, err := resolver.TryResolve(param)
@@ -47,38 +30,31 @@ func Resolve(param *ResolveParam) (endpoint string, err error) {
 			return endpoint, err
 		}
 	}
-
-	// not support
 	errorMsg := fmt.Sprintf(errors.CanNotResolveEndpointErrorMessage, param, ResolveEndpointUserGuideLink)
 	err = errors.NewClientError(errors.CanNotResolveEndpointErrorCode, errorMsg, nil)
 	return
 }
-
 func getAllResolvers() []Resolver {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	once.Do(func() {
-		resolvers = []Resolver{
-			&SimpleHostResolver{},
-			&MappingResolver{},
-			&LocationResolver{},
-			&LocalRegionalResolver{},
-			&LocalGlobalResolver{},
-		}
+		resolvers = []Resolver{&SimpleHostResolver{}, &MappingResolver{}, &LocationResolver{}, &LocalRegionalResolver{}, &LocalGlobalResolver{}}
 	})
 	return resolvers
 }
 
-// ResolveParam params to resolve endpoint
 type ResolveParam struct {
-	Domain               string
-	Product              string
-	RegionId             string
-	LocationProduct      string
-	LocationEndpointType string
-	CommonApi            func(request *requests.CommonRequest) (response *responses.CommonResponse, err error) `json:"-"`
+	Domain			string
+	Product			string
+	RegionId		string
+	LocationProduct		string
+	LocationEndpointType	string
+	CommonApi		func(request *requests.CommonRequest) (response *responses.CommonResponse, err error)	`json:"-"`
 }
 
-// String returns json string
 func (param *ResolveParam) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	jsonBytes, err := json.Marshal(param)
 	if err != nil {
 		return fmt.Sprint("ResolveParam.String() process error:", err)

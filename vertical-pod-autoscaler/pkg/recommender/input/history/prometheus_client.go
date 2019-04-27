@@ -1,19 +1,3 @@
-/*
-Copyright 2018 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package history
 
 import (
@@ -24,34 +8,29 @@ import (
 )
 
 var (
-	numRetries = 10
-	retryDelay = 3 * time.Second
+	numRetries	= 10
+	retryDelay	= 3 * time.Second
 )
 
-// PrometheusClient talks to Prometheus using its HTTP API.
 type PrometheusClient interface {
-	// Given a particular query (that's supposed to return range vectors
-	// in Prometheus terminology), gets the results from Prometheus.
 	GetTimeseries(query string) ([]Timeseries, error)
 }
-
 type httpGetter interface {
 	Get(url string) (*http.Response, error)
 }
-
-// An implementation of PrometheusClient.
 type prometheusClient struct {
-	httpClient httpGetter
-	address    string
+	httpClient	httpGetter
+	address		string
 }
 
-// NewPrometheusClient constructs a prometheusClient.
 func NewPrometheusClient(httpClient httpGetter, address string) PrometheusClient {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &prometheusClient{httpClient: httpClient, address: address}
 }
-
-// Changes Prometheus address and query into a full escaped URL to call.
 func getUrlWithQuery(address, query string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	url, err := url.Parse(address)
 	if err != nil {
 		return "", err
@@ -62,8 +41,9 @@ func getUrlWithQuery(address, query string) (string, error) {
 	url.RawQuery = queryValues.Encode()
 	return url.String(), nil
 }
-
 func retry(callback func() error, attempts int, delay time.Duration) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := 1; ; i++ {
 		err := callback()
 		if err == nil {
@@ -75,8 +55,9 @@ func retry(callback func() error, attempts int, delay time.Duration) error {
 		time.Sleep(delay)
 	}
 }
-
 func (c *prometheusClient) GetTimeseries(query string) ([]Timeseries, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	url, err := getUrlWithQuery(c.address, query)
 	if err != nil {
 		return nil, fmt.Errorf("couldn't construct url to Prometheus: %v", err)

@@ -1,19 +1,3 @@
-/*
-Copyright 2016 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package gce
 
 import (
@@ -21,7 +5,6 @@ import (
 	"math/rand"
 	"regexp"
 	"strings"
-
 	gce "google.golang.org/api/compute/v1"
 	apiv1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
@@ -29,15 +12,15 @@ import (
 	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider"
 	"k8s.io/autoscaler/cluster-autoscaler/utils/gpu"
 	kubeletapis "k8s.io/kubernetes/pkg/kubelet/apis"
-
 	"github.com/ghodss/yaml"
 	"k8s.io/klog"
 )
 
-// GceTemplateBuilder builds templates for GCE nodes.
 type GceTemplateBuilder struct{}
 
 func (t *GceTemplateBuilder) getAcceleratorCount(accelerators []*gce.AcceleratorConfig) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	count := int64(0)
 	for _, accelerator := range accelerators {
 		if strings.HasPrefix(accelerator.AcceleratorType, "nvidia-") {
@@ -46,32 +29,22 @@ func (t *GceTemplateBuilder) getAcceleratorCount(accelerators []*gce.Accelerator
 	}
 	return count
 }
-
-// BuildCapacity builds a list of resource capacities given list of hardware.
 func (t *GceTemplateBuilder) BuildCapacity(cpu int64, mem int64, accelerators []*gce.AcceleratorConfig) (apiv1.ResourceList, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	capacity := apiv1.ResourceList{}
-	// TODO: get a real value.
 	capacity[apiv1.ResourcePods] = *resource.NewQuantity(110, resource.DecimalSI)
 	capacity[apiv1.ResourceCPU] = *resource.NewQuantity(cpu, resource.DecimalSI)
 	memTotal := mem - CalculateKernelReserved(mem)
 	capacity[apiv1.ResourceMemory] = *resource.NewQuantity(memTotal, resource.DecimalSI)
-
 	if accelerators != nil && len(accelerators) > 0 {
 		capacity[gpu.ResourceNvidiaGPU] = *resource.NewQuantity(t.getAcceleratorCount(accelerators), resource.DecimalSI)
 	}
-
 	return capacity, nil
 }
-
-// BuildAllocatableFromKubeEnv builds node allocatable based on capacity of the node and
-// value of kubeEnv.
-// KubeEnv is a multi-line string containing entries in the form of
-// <RESOURCE_NAME>:<string>. One of the resources it contains is a list of
-// kubelet arguments from which we can extract the resources reserved by
-// the kubelet for its operation. Allocated resources are capacity minus reserved.
-// If we fail to extract the reserved resources from kubeEnv (e.g it is in a
-// wrong format or does not contain kubelet arguments), we return an error.
 func (t *GceTemplateBuilder) BuildAllocatableFromKubeEnv(capacity apiv1.ResourceList, kubeEnv string) (apiv1.ResourceList, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kubeReserved, err := extractKubeReservedFromKubeEnv(kubeEnv)
 	if err != nil {
 		return nil, err
@@ -82,10 +55,9 @@ func (t *GceTemplateBuilder) BuildAllocatableFromKubeEnv(capacity apiv1.Resource
 	}
 	return t.CalculateAllocatable(capacity, reserved), nil
 }
-
-// CalculateAllocatable computes allocatable resources subtracting kube reserved values
-// and kubelet eviction memory buffer from corresponding capacity.
 func (t *GceTemplateBuilder) CalculateAllocatable(capacity, kubeReserved apiv1.ResourceList) apiv1.ResourceList {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	allocatable := apiv1.ResourceList{}
 	for key, value := range capacity {
 		quantity := *value.Copy()
@@ -99,33 +71,21 @@ func (t *GceTemplateBuilder) CalculateAllocatable(capacity, kubeReserved apiv1.R
 	}
 	return allocatable
 }
-
-// BuildNodeFromTemplate builds node from provided GCE template.
 func (t *GceTemplateBuilder) BuildNodeFromTemplate(mig Mig, template *gce.InstanceTemplate, cpu int64, mem int64) (*apiv1.Node, error) {
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if template.Properties == nil {
 		return nil, fmt.Errorf("instance template %s has no properties", template.Name)
 	}
-
 	node := apiv1.Node{}
 	nodeName := fmt.Sprintf("%s-template-%d", template.Name, rand.Int63())
-
-	node.ObjectMeta = metav1.ObjectMeta{
-		Name:     nodeName,
-		SelfLink: fmt.Sprintf("/api/v1/nodes/%s", nodeName),
-		Labels:   map[string]string{},
-	}
-
+	node.ObjectMeta = metav1.ObjectMeta{Name: nodeName, SelfLink: fmt.Sprintf("/api/v1/nodes/%s", nodeName), Labels: map[string]string{}}
 	capacity, err := t.BuildCapacity(cpu, mem, template.Properties.GuestAccelerators)
 	if err != nil {
 		return nil, err
 	}
-	node.Status = apiv1.NodeStatus{
-		Capacity: capacity,
-	}
-
+	node.Status = apiv1.NodeStatus{Capacity: capacity}
 	var nodeAllocatable apiv1.ResourceList
-	// KubeEnv labels & taints
 	if template.Properties.Metadata == nil {
 		return nil, fmt.Errorf("instance template %s has no metadata", template.Name)
 	}
@@ -134,19 +94,16 @@ func (t *GceTemplateBuilder) BuildNodeFromTemplate(mig Mig, template *gce.Instan
 			if item.Value == nil {
 				return nil, fmt.Errorf("no kube-env content in metadata")
 			}
-			// Extract labels
 			kubeEnvLabels, err := extractLabelsFromKubeEnv(*item.Value)
 			if err != nil {
 				return nil, err
 			}
 			node.Labels = cloudprovider.JoinStringMaps(node.Labels, kubeEnvLabels)
-			// Extract taints
 			kubeEnvTaints, err := extractTaintsFromKubeEnv(*item.Value)
 			if err != nil {
 				return nil, err
 			}
 			node.Spec.Taints = append(node.Spec.Taints, kubeEnvTaints...)
-
 			if allocatable, err := t.BuildAllocatableFromKubeEnv(node.Status.Capacity, *item.Value); err == nil {
 				nodeAllocatable = allocatable
 			}
@@ -158,27 +115,20 @@ func (t *GceTemplateBuilder) BuildNodeFromTemplate(mig Mig, template *gce.Instan
 	} else {
 		node.Status.Allocatable = nodeAllocatable
 	}
-	// GenericLabels
 	labels, err := BuildGenericLabels(mig.GceRef(), template.Properties.MachineType, nodeName)
 	if err != nil {
 		return nil, err
 	}
 	node.Labels = cloudprovider.JoinStringMaps(node.Labels, labels)
-
-	// Ready status
 	node.Status.Conditions = cloudprovider.BuildReadyConditions()
 	return &node, nil
 }
-
-// BuildGenericLabels builds basic labels that should be present on every GCE node,
-// including hostname, zone etc.
 func BuildGenericLabels(ref GceRef, machineType string, nodeName string) (map[string]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make(map[string]string)
-
-	// TODO: extract it somehow
 	result[kubeletapis.LabelArch] = cloudprovider.DefaultArch
 	result[kubeletapis.LabelOS] = cloudprovider.DefaultOS
-
 	result[kubeletapis.LabelInstanceType] = machineType
 	ix := strings.LastIndex(ref.Zone, "-")
 	if ix == -1 {
@@ -189,8 +139,9 @@ func BuildGenericLabels(ref GceRef, machineType string, nodeName string) (map[st
 	result[kubeletapis.LabelHostname] = nodeName
 	return result, nil
 }
-
 func parseKubeReserved(kubeReserved string) (apiv1.ResourceList, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resourcesMap, err := parseKeyValueListToMap(kubeReserved)
 	if err != nil {
 		return nil, fmt.Errorf("failed to extract kube-reserved from kube-env: %q", err)
@@ -208,11 +159,9 @@ func parseKubeReserved(kubeReserved string) (apiv1.ResourceList, error) {
 	}
 	return reservedResources, nil
 }
-
 func extractLabelsFromKubeEnv(kubeEnv string) (map[string]string, error) {
-	// In v1.10+, labels are only exposed for the autoscaler via AUTOSCALER_ENV_VARS
-	// see kubernetes/kubernetes#61119. We try AUTOSCALER_ENV_VARS first, then
-	// fall back to the old way.
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	labels, err := extractAutoscalerVarFromKubeEnv(kubeEnv, "node_labels")
 	if err != nil {
 		klog.Errorf("node_labels not found via AUTOSCALER_ENV_VARS due to error, will try NODE_LABELS: %v", err)
@@ -223,11 +172,9 @@ func extractLabelsFromKubeEnv(kubeEnv string) (map[string]string, error) {
 	}
 	return parseKeyValueListToMap(labels)
 }
-
 func extractTaintsFromKubeEnv(kubeEnv string) ([]apiv1.Taint, error) {
-	// In v1.10+, taints are only exposed for the autoscaler via AUTOSCALER_ENV_VARS
-	// see kubernetes/kubernetes#61119. We try AUTOSCALER_ENV_VARS first, then
-	// fall back to the old way.
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	taints, err := extractAutoscalerVarFromKubeEnv(kubeEnv, "node_taints")
 	if err != nil {
 		klog.Errorf("node_taints not found via AUTOSCALER_ENV_VARS due to error, will try NODE_TAINTS: %v", err)
@@ -242,11 +189,9 @@ func extractTaintsFromKubeEnv(kubeEnv string) ([]apiv1.Taint, error) {
 	}
 	return buildTaints(taintMap)
 }
-
 func extractKubeReservedFromKubeEnv(kubeEnv string) (string, error) {
-	// In v1.10+, kube-reserved is only exposed for the autoscaler via AUTOSCALER_ENV_VARS
-	// see kubernetes/kubernetes#61119. We try AUTOSCALER_ENV_VARS first, then
-	// fall back to the old way.
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kubeReserved, err := extractAutoscalerVarFromKubeEnv(kubeEnv, "kube_reserved")
 	if err != nil {
 		klog.Errorf("kube_reserved not found via AUTOSCALER_ENV_VARS due to error, will try kube-reserved in KUBELET_TEST_ARGS: %v", err)
@@ -255,7 +200,6 @@ func extractKubeReservedFromKubeEnv(kubeEnv string) (string, error) {
 			return "", err
 		}
 		resourcesRegexp := regexp.MustCompile(`--kube-reserved=([^ ]+)`)
-
 		matches := resourcesRegexp.FindStringSubmatch(kubeletArgs)
 		if len(matches) > 1 {
 			return matches[1], nil
@@ -264,8 +208,9 @@ func extractKubeReservedFromKubeEnv(kubeEnv string) (string, error) {
 	}
 	return kubeReserved, nil
 }
-
 func extractAutoscalerVarFromKubeEnv(kubeEnv, name string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	const autoscalerVars = "AUTOSCALER_ENV_VARS"
 	autoscalerVals, err := extractFromKubeEnv(kubeEnv, autoscalerVars)
 	if err != nil {
@@ -283,8 +228,9 @@ func extractAutoscalerVarFromKubeEnv(kubeEnv, name string) (string, error) {
 	}
 	return "", fmt.Errorf("var %s not found in %s: %v", name, autoscalerVars, autoscalerVals)
 }
-
 func extractFromKubeEnv(kubeEnv, resource string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kubeEnvMap := make(map[string]string)
 	err := yaml.Unmarshal([]byte(kubeEnv), &kubeEnvMap)
 	if err != nil {
@@ -292,8 +238,9 @@ func extractFromKubeEnv(kubeEnv, resource string) (string, error) {
 	}
 	return kubeEnvMap[resource], nil
 }
-
 func parseKeyValueListToMap(kvList string) (map[string]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make(map[string]string)
 	if len(kvList) == 0 {
 		return result, nil
@@ -307,19 +254,16 @@ func parseKeyValueListToMap(kvList string) (map[string]string, error) {
 	}
 	return result, nil
 }
-
 func buildTaints(kubeEnvTaints map[string]string) ([]apiv1.Taint, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	taints := make([]apiv1.Taint, 0)
 	for key, value := range kubeEnvTaints {
 		values := strings.SplitN(value, ":", 2)
 		if len(values) != 2 {
 			return nil, fmt.Errorf("error while parsing node taint value and effect: %s", value)
 		}
-		taints = append(taints, apiv1.Taint{
-			Key:    key,
-			Value:  values[0],
-			Effect: apiv1.TaintEffect(values[1]),
-		})
+		taints = append(taints, apiv1.Taint{Key: key, Value: values[0], Effect: apiv1.TaintEffect(values[1])})
 	}
 	return taints, nil
 }

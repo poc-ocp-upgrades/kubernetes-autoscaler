@@ -1,19 +1,3 @@
-/*
-Copyright 2018 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package responses
 
 import (
@@ -26,7 +10,6 @@ import (
 	"strings"
 )
 
-// AcsResponse interface
 type AcsResponse interface {
 	IsSuccess() bool
 	GetHttpStatus() int
@@ -37,8 +20,9 @@ type AcsResponse interface {
 	parseFromHttpResponse(httpResponse *http.Response) error
 }
 
-// Unmarshal return response body
 func Unmarshal(response AcsResponse, httpResponse *http.Response, format string) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = response.parseFromHttpResponse(httpResponse)
 	if err != nil {
 		return
@@ -48,14 +32,11 @@ func Unmarshal(response AcsResponse, httpResponse *http.Response, format string)
 		return
 	}
 	if _, isCommonResponse := response.(CommonResponse); isCommonResponse {
-		// common response need not unmarshal
 		return
 	}
-
 	if len(response.GetHttpContentBytes()) == 0 {
 		return
 	}
-
 	if strings.ToUpper(format) == "JSON" {
 		initJsonParserOnce()
 		err = jsonParser.Unmarshal(response.GetHttpContentBytes(), response)
@@ -68,50 +49,50 @@ func Unmarshal(response AcsResponse, httpResponse *http.Response, format string)
 	return
 }
 
-// BaseResponse wrap originHttpResponse
 type BaseResponse struct {
-	httpStatus         int
-	httpHeaders        map[string][]string
-	httpContentString  string
-	httpContentBytes   []byte
-	originHttpResponse *http.Response
+	httpStatus		int
+	httpHeaders		map[string][]string
+	httpContentString	string
+	httpContentBytes	[]byte
+	originHttpResponse	*http.Response
 }
 
-// GetHttpStatus returns httpStatus
 func (baseResponse *BaseResponse) GetHttpStatus() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return baseResponse.httpStatus
 }
-
-// GetHttpHeaders returns httpHeaders
 func (baseResponse *BaseResponse) GetHttpHeaders() map[string][]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return baseResponse.httpHeaders
 }
-
-// GetHttpContentString returns httpContentString
 func (baseResponse *BaseResponse) GetHttpContentString() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return baseResponse.httpContentString
 }
-
-// GetHttpContentBytes returns httpContentBytes
 func (baseResponse *BaseResponse) GetHttpContentBytes() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return baseResponse.httpContentBytes
 }
-
-// GetOriginHttpResponse returns originHttpResponse
 func (baseResponse *BaseResponse) GetOriginHttpResponse() *http.Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return baseResponse.originHttpResponse
 }
-
-// IsSuccess checks weather httpStatus is 200 or not
 func (baseResponse *BaseResponse) IsSuccess() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if baseResponse.GetHttpStatus() >= 200 && baseResponse.GetHttpStatus() < 300 {
 		return true
 	}
-
 	return false
 }
-
 func (baseResponse *BaseResponse) parseFromHttpResponse(httpResponse *http.Response) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer httpResponse.Body.Close()
 	body, err := ioutil.ReadAll(httpResponse.Body)
 	if err != nil {
@@ -124,33 +105,24 @@ func (baseResponse *BaseResponse) parseFromHttpResponse(httpResponse *http.Respo
 	baseResponse.originHttpResponse = httpResponse
 	return
 }
-
-// String returns base response content
 func (baseResponse *BaseResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resultBuilder := bytes.Buffer{}
-	// statusCode
 	resultBuilder.WriteString("\n")
 	resultBuilder.WriteString(fmt.Sprintf("%s %s\n", baseResponse.originHttpResponse.Proto, baseResponse.originHttpResponse.Status))
-	// httpHeaders
-	//resultBuilder.WriteString("Headers:\n")
 	for key, value := range baseResponse.httpHeaders {
 		resultBuilder.WriteString(key + ": " + strings.Join(value, ";") + "\n")
 	}
 	resultBuilder.WriteString("\n")
-	// content
-	//resultBuilder.WriteString("Content:\n")
 	resultBuilder.WriteString(baseResponse.httpContentString + "\n")
 	return resultBuilder.String()
 }
 
-// CommonResponse wrap base response
-type CommonResponse struct {
-	*BaseResponse
-}
+type CommonResponse struct{ *BaseResponse }
 
-// NewCommonResponse return common response
 func NewCommonResponse() (response *CommonResponse) {
-	return &CommonResponse{
-		BaseResponse: &BaseResponse{},
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return &CommonResponse{BaseResponse: &BaseResponse{}}
 }
