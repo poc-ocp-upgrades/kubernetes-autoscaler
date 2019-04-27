@@ -26,6 +26,8 @@ type aliCloudProvider struct {
 func BuildAliCloudProvider(manager *AliCloudManager, discoveryOpts cloudprovider.NodeGroupDiscoveryOptions, resourceLimiter *cloudprovider.ResourceLimiter) (cloudprovider.CloudProvider, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if discoveryOpts.StaticDiscoverySpecified() {
 		return buildStaticallyDiscoveringProvider(manager, discoveryOpts.NodeGroupSpecs, resourceLimiter)
 	}
@@ -35,6 +37,8 @@ func BuildAliCloudProvider(manager *AliCloudManager, discoveryOpts cloudprovider
 	return nil, fmt.Errorf("failed to build alicloud provider: node group specs must be specified")
 }
 func buildStaticallyDiscoveringProvider(manager *AliCloudManager, specs []string, resourceLimiter *cloudprovider.ResourceLimiter) (*aliCloudProvider, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	acp := &aliCloudProvider{manager: manager, asgs: make([]*Asg, 0), resourceLimiter: resourceLimiter}
@@ -49,6 +53,8 @@ func buildStaticallyDiscoveringProvider(manager *AliCloudManager, specs []string
 func (ali *aliCloudProvider) addNodeGroup(spec string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	asg, err := buildAsgFromSpec(spec, ali.manager)
 	if err != nil {
 		klog.Errorf("failed to build ASG from spec,because of %s", err.Error())
@@ -60,15 +66,21 @@ func (ali *aliCloudProvider) addNodeGroup(spec string) error {
 func (ali *aliCloudProvider) addAsg(asg *Asg) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ali.asgs = append(ali.asgs, asg)
 	ali.manager.RegisterAsg(asg)
 }
 func (ali *aliCloudProvider) Name() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ProviderName
 }
 func (ali *aliCloudProvider) NodeGroups() []cloudprovider.NodeGroup {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make([]cloudprovider.NodeGroup, 0, len(ali.asgs))
@@ -78,6 +90,8 @@ func (ali *aliCloudProvider) NodeGroups() []cloudprovider.NodeGroup {
 	return result
 }
 func (ali *aliCloudProvider) NodeGroupForNode(node *apiv1.Node) (cloudprovider.NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	instanceId, err := ecsInstanceIdFromProviderId(node.Spec.ProviderID)
@@ -90,9 +104,13 @@ func (ali *aliCloudProvider) NodeGroupForNode(node *apiv1.Node) (cloudprovider.N
 func (ali *aliCloudProvider) Pricing() (cloudprovider.PricingModel, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (ali *aliCloudProvider) GetAvailableMachineTypes() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return []string{}, nil
@@ -100,9 +118,13 @@ func (ali *aliCloudProvider) GetAvailableMachineTypes() ([]string, error) {
 func (ali *aliCloudProvider) NewNodeGroup(machineType string, labels map[string]string, systemLabels map[string]string, taints []apiv1.Taint, extraResources map[string]resource.Quantity) (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (ali *aliCloudProvider) GetResourceLimiter() (*cloudprovider.ResourceLimiter, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ali.resourceLimiter, nil
@@ -110,14 +132,20 @@ func (ali *aliCloudProvider) GetResourceLimiter() (*cloudprovider.ResourceLimite
 func (ali *aliCloudProvider) Refresh() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (ali *aliCloudProvider) Cleanup() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (ali *aliCloudProvider) GetInstanceID(node *apiv1.Node) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return node.Spec.ProviderID
@@ -131,6 +159,8 @@ type AliRef struct {
 func ecsInstanceIdFromProviderId(id string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	parts := strings.Split(id, ".")
 	if len(parts) < 2 {
 		return "", fmt.Errorf("AliCloud: unexpected ProviderID format, providerID=%s", id)
@@ -138,6 +168,8 @@ func ecsInstanceIdFromProviderId(id string) (string, error) {
 	return parts[1], nil
 }
 func buildAsgFromSpec(value string, manager *AliCloudManager) (*Asg, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	spec, err := dynamic.SpecFromString(value, true)
@@ -155,9 +187,13 @@ func buildAsgFromSpec(value string, manager *AliCloudManager) (*Asg, error) {
 func buildAsg(manager *AliCloudManager, minSize int, maxSize int, id string, regionId string) *Asg {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Asg{manager: manager, minSize: minSize, maxSize: maxSize, regionId: regionId, id: id}
 }
 func BuildAlicloud(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDiscoveryOptions, rl *cloudprovider.ResourceLimiter) cloudprovider.CloudProvider {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var aliManager *AliCloudManager

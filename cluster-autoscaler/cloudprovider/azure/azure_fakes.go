@@ -25,11 +25,15 @@ type VirtualMachineScaleSetsClientMock struct {
 func (client *VirtualMachineScaleSetsClientMock) Get(ctx context.Context, resourceGroupName string, vmScaleSetName string) (result compute.VirtualMachineScaleSet, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	capacity := int64(2)
 	properties := compute.VirtualMachineScaleSetProperties{}
 	return compute.VirtualMachineScaleSet{Name: &vmScaleSetName, Sku: &compute.Sku{Capacity: &capacity}, VirtualMachineScaleSetProperties: &properties}, nil
 }
 func (client *VirtualMachineScaleSetsClientMock) CreateOrUpdate(ctx context.Context, resourceGroupName string, VMScaleSetName string, parameters compute.VirtualMachineScaleSet) (resp *http.Response, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client.mutex.Lock()
@@ -43,10 +47,14 @@ func (client *VirtualMachineScaleSetsClientMock) CreateOrUpdate(ctx context.Cont
 func (client *VirtualMachineScaleSetsClientMock) DeleteInstances(ctx context.Context, resourceGroupName string, vmScaleSetName string, vmInstanceIDs compute.VirtualMachineScaleSetVMInstanceRequiredIDs) (resp *http.Response, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := client.Called(resourceGroupName, vmScaleSetName, vmInstanceIDs)
 	return nil, args.Error(1)
 }
 func (client *VirtualMachineScaleSetsClientMock) List(ctx context.Context, resourceGroupName string) (result []compute.VirtualMachineScaleSet, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client.mutex.Lock()
@@ -65,12 +73,16 @@ type VirtualMachineScaleSetVMsClientMock struct{ mock.Mock }
 func (m *VirtualMachineScaleSetVMsClientMock) Get(ctx context.Context, resourceGroupName string, VMScaleSetName string, instanceID string) (result compute.VirtualMachineScaleSetVM, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ID := fakeVirtualMachineScaleSetVMID
 	vmID := "123E4567-E89B-12D3-A456-426655440000"
 	properties := compute.VirtualMachineScaleSetVMProperties{VMID: &vmID}
 	return compute.VirtualMachineScaleSetVM{ID: &ID, InstanceID: &instanceID, VirtualMachineScaleSetVMProperties: &properties}, nil
 }
 func (m *VirtualMachineScaleSetVMsClientMock) List(ctx context.Context, resourceGroupName string, virtualMachineScaleSetName string, filter string, selectParameter string, expand string) (result []compute.VirtualMachineScaleSetVM, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ID := fakeVirtualMachineScaleSetVMID
@@ -90,6 +102,8 @@ type VirtualMachinesClientMock struct {
 func (m *VirtualMachinesClientMock) Get(ctx context.Context, resourceGroupName string, VMName string, expand compute.InstanceViewTypes) (result compute.VirtualMachine, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
 	if _, ok := m.FakeStore[resourceGroupName]; ok {
@@ -100,6 +114,8 @@ func (m *VirtualMachinesClientMock) Get(ctx context.Context, resourceGroupName s
 	return result, autorest.DetailedError{StatusCode: http.StatusNotFound, Message: "Not such VM"}
 }
 func (m *VirtualMachinesClientMock) List(ctx context.Context, resourceGroupName string) (result []compute.VirtualMachine, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.mutex.Lock()
@@ -114,6 +130,8 @@ func (m *VirtualMachinesClientMock) List(ctx context.Context, resourceGroupName 
 func (m *VirtualMachinesClientMock) Delete(ctx context.Context, resourceGroupName string, VMName string) (resp *http.Response, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(resourceGroupName, VMName)
 	return nil, args.Error(1)
 }
@@ -121,6 +139,8 @@ func (m *VirtualMachinesClientMock) Delete(ctx context.Context, resourceGroupNam
 type InterfacesClientMock struct{ mock.Mock }
 
 func (m *InterfacesClientMock) Delete(ctx context.Context, resourceGroupName string, networkInterfaceName string) (resp *http.Response, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called(resourceGroupName, networkInterfaceName)
@@ -132,6 +152,8 @@ type DisksClientMock struct{ mock.Mock }
 func (m *DisksClientMock) Delete(ctx context.Context, resourceGroupName string, diskName string) (resp *http.Response, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(resourceGroupName, diskName)
 	return nil, args.Error(1)
 }
@@ -139,6 +161,8 @@ func (m *DisksClientMock) Delete(ctx context.Context, resourceGroupName string, 
 type AccountsClientMock struct{ mock.Mock }
 
 func (m *AccountsClientMock) ListKeys(ctx context.Context, resourceGroupName string, accountName string) (result storage.AccountListKeysResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called(resourceGroupName, accountName)
@@ -154,6 +178,8 @@ type DeploymentsClientMock struct {
 func (m *DeploymentsClientMock) Get(ctx context.Context, resourceGroupName string, deploymentName string) (result resources.DeploymentExtended, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
 	deploy, ok := m.FakeStore[deploymentName]
@@ -165,6 +191,8 @@ func (m *DeploymentsClientMock) Get(ctx context.Context, resourceGroupName strin
 func (m *DeploymentsClientMock) ExportTemplate(ctx context.Context, resourceGroupName string, deploymentName string) (result resources.DeploymentExportResult, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
 	deploy, ok := m.FakeStore[deploymentName]
@@ -174,6 +202,8 @@ func (m *DeploymentsClientMock) ExportTemplate(ctx context.Context, resourceGrou
 	return resources.DeploymentExportResult{Template: deploy.Properties.Template}, nil
 }
 func (m *DeploymentsClientMock) CreateOrUpdate(ctx context.Context, resourceGroupName string, deploymentName string, parameters resources.Deployment) (resp *http.Response, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.mutex.Lock()

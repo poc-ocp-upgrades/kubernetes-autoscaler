@@ -21,12 +21,16 @@ type testPricingModel struct {
 func (tpm *testPricingModel) NodePrice(node *apiv1.Node, startTime time.Time, endTime time.Time) (float64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if price, found := tpm.nodePrice[node.Name]; found {
 		return price, nil
 	}
 	return 0.0, fmt.Errorf("price for node %v not found", node.Name)
 }
 func (tpm *testPricingModel) PodPrice(node *apiv1.Pod, startTime time.Time, endTime time.Time) (float64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if price, found := tpm.podPrice[node.Name]; found {
@@ -40,9 +44,13 @@ type testPreferredNodeProvider struct{ preferred *apiv1.Node }
 func (tpnp *testPreferredNodeProvider) Node() (*apiv1.Node, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tpnp.preferred, nil
 }
 func TestPriceExpander(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n1 := BuildTestNode("n1", 1000, 1000)

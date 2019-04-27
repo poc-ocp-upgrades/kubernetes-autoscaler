@@ -16,6 +16,8 @@ type RetriableRequest struct {
 func (rr *RetriableRequest) Prepare() (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if rr.req.Body != nil {
 		if rr.rc != nil {
 			rr.req.Body = rr.rc
@@ -38,6 +40,8 @@ func (rr *RetriableRequest) Prepare() (err error) {
 	return err
 }
 func removeRequestBody(req *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req.Body = nil

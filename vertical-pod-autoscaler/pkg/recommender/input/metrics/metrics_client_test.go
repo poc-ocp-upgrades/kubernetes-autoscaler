@@ -8,6 +8,8 @@ import (
 func TestGetContainersMetricsReturnsEmptyList(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tc := newEmptyMetricsClientTestCase()
 	emptyMetricsClient := tc.createFakeMetricsClient()
 	containerMetricsSnapshots, err := emptyMetricsClient.GetContainersMetrics()
@@ -15,6 +17,8 @@ func TestGetContainersMetricsReturnsEmptyList(t *testing.T) {
 	assert.Empty(t, containerMetricsSnapshots, "should be empty for empty MetricsGetter")
 }
 func TestGetContainersMetricsReturnsResults(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tc := newMetricsClientTestCase()

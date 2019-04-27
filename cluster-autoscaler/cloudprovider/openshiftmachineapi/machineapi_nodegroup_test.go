@@ -18,6 +18,8 @@ const (
 func TestNodeGroupNewNodeGroupConstructor(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testCase struct {
 		description	string
 		annotations	map[string]string
@@ -113,6 +115,8 @@ func TestNodeGroupNewNodeGroupConstructor(t *testing.T) {
 func TestNodeGroupIncreaseSizeErrors(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testCase struct {
 		description	string
 		delta		int
@@ -190,6 +194,8 @@ func TestNodeGroupIncreaseSizeErrors(t *testing.T) {
 func TestNodeGroupIncreaseSize(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testCase struct {
 		description	string
 		delta		int
@@ -249,6 +255,8 @@ func TestNodeGroupIncreaseSize(t *testing.T) {
 	})
 }
 func TestNodeGroupDecreaseTargetSize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testCase struct {
@@ -316,6 +324,8 @@ func TestNodeGroupDecreaseTargetSize(t *testing.T) {
 	})
 }
 func TestNodeGroupDecreaseSizeErrors(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testCase struct {
@@ -395,6 +405,8 @@ func TestNodeGroupDecreaseSizeErrors(t *testing.T) {
 func TestNodeGroupDeleteNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	test := func(t *testing.T, testConfig *testConfig) {
 		controller, stop := mustCreateTestController(t, testConfig)
 		defer stop()
@@ -462,6 +474,8 @@ func TestNodeGroupDeleteNodes(t *testing.T) {
 	})
 }
 func TestNodeGroupMachineSetDeleteNodesWithMismatchedNodes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	test := func(t *testing.T, expected int, testConfigs []*testConfig) {

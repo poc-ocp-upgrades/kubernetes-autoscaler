@@ -15,6 +15,8 @@ import (
 func TestUtilization(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod := BuildTestPod("p1", 100, 200000)
 	pod2 := BuildTestPod("p2", -1, -1)
 	nodeInfo := schedulercache.NewNodeInfo(pod, pod, pod2)
@@ -50,6 +52,8 @@ func TestUtilization(t *testing.T) {
 func TestFindPlaceAllOk(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod1 := BuildTestPod("p1", 300, 500000)
 	new1 := BuildTestPod("p2", 600, 500000)
 	new2 := BuildTestPod("p3", 500, 500000)
@@ -70,6 +74,8 @@ func TestFindPlaceAllOk(t *testing.T) {
 	assert.NoError(t, err)
 }
 func TestFindPlaceAllBas(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod1 := BuildTestPod("p1", 300, 500000)
@@ -97,6 +103,8 @@ func TestFindPlaceAllBas(t *testing.T) {
 func TestFindNone(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod1 := BuildTestPod("p1", 300, 500000)
 	nodeInfos := map[string]*schedulercache.NodeInfo{"n1": schedulercache.NewNodeInfo(pod1), "n2": schedulercache.NewNodeInfo()}
 	node1 := BuildTestNode("n1", 1000, 2000000)
@@ -111,6 +119,8 @@ func TestFindNone(t *testing.T) {
 func TestShuffleNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodes := []*apiv1.Node{BuildTestNode("n1", 0, 0), BuildTestNode("n2", 0, 0), BuildTestNode("n3", 0, 0)}
 	gotPermutation := false
 	for i := 0; i < 10000; i++ {
@@ -123,6 +133,8 @@ func TestShuffleNodes(t *testing.T) {
 	assert.True(t, gotPermutation)
 }
 func TestFindEmptyNodes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod1 := BuildTestPod("p1", 300, 500000)
@@ -151,6 +163,8 @@ type findNodesToRemoveTestConfig struct {
 }
 
 func TestFindNodesToRemove(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	emptyNode := BuildTestNode("n1", 1000, 2000000)

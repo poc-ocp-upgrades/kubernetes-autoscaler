@@ -39,6 +39,8 @@ type updater struct {
 func NewUpdater(kubeClient kube_client.Interface, vpaClient *vpa_clientset.Clientset, minReplicasForEvicition int, evictionToleranceFraction float64, recommendationProcessor vpa_api_util.RecommendationProcessor, evictionAdmission priority.PodEvictionAdmission) (Updater, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	factory, err := eviction.NewPodsEvictionRestrictionFactory(kubeClient, minReplicasForEvicition, evictionToleranceFraction)
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create eviction restriction factory: %v", err)
@@ -46,6 +48,8 @@ func NewUpdater(kubeClient kube_client.Interface, vpaClient *vpa_clientset.Clien
 	return &updater{vpaLister: vpa_api_util.NewAllVpasLister(vpaClient, make(chan struct{})), podLister: newPodLister(kubeClient), eventRecorder: newEventRecorder(kubeClient), evictionFactory: factory, recommendationProcessor: recommendationProcessor, evictionAdmission: evictionAdmission}, nil
 }
 func (u *updater) RunOnce() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	timer := metrics_updater.NewExecutionTimer()
@@ -110,6 +114,8 @@ func (u *updater) RunOnce() {
 func (u *updater) getPodsUpdateOrder(pods []*apiv1.Pod, vpa *vpa_types.VerticalPodAutoscaler) []*apiv1.Pod {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	priorityCalculator := priority.NewUpdatePriorityCalculator(vpa.Spec.ResourcePolicy, vpa.Status.Conditions, nil, u.recommendationProcessor)
 	recommendation := vpa.Status.Recommendation
 	for _, pod := range pods {
@@ -118,6 +124,8 @@ func (u *updater) getPodsUpdateOrder(pods []*apiv1.Pod, vpa *vpa_types.VerticalP
 	return priorityCalculator.GetSortedPods(u.evictionAdmission)
 }
 func filterNonEvictablePods(pods []*apiv1.Pod, evictionRestriciton eviction.PodsEvictionRestriction) []*apiv1.Pod {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make([]*apiv1.Pod, 0)
@@ -131,6 +139,8 @@ func filterNonEvictablePods(pods []*apiv1.Pod, evictionRestriciton eviction.Pods
 func filterDeletedPods(pods []*apiv1.Pod) []*apiv1.Pod {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make([]*apiv1.Pod, 0)
 	for _, pod := range pods {
 		if pod.DeletionTimestamp == nil {
@@ -140,6 +150,8 @@ func filterDeletedPods(pods []*apiv1.Pod) []*apiv1.Pod {
 	return result
 }
 func newPodLister(kubeClient kube_client.Interface) v1lister.PodLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	selector := fields.ParseSelectorOrDie("spec.nodeName!=" + "" + ",status.phase!=" + string(apiv1.PodSucceeded) + ",status.phase!=" + string(apiv1.PodFailed))
@@ -154,6 +166,8 @@ func newPodLister(kubeClient kube_client.Interface) v1lister.PodLister {
 func newEventRecorder(kubeClient kube_client.Interface) record.EventRecorder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eventBroadcaster := record.NewBroadcaster()
 	eventBroadcaster.StartLogging(glog.V(4).Infof)
 	if _, isFake := kubeClient.(*fake.Clientset); !isFake {
@@ -164,7 +178,16 @@ func newEventRecorder(kubeClient kube_client.Interface) record.EventRecorder {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

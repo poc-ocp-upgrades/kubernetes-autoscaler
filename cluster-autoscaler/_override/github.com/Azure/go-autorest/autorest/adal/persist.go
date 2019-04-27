@@ -11,6 +11,8 @@ import (
 func LoadToken(path string) (*Token, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open file (%s) while loading token: %v", path, err)
@@ -24,6 +26,8 @@ func LoadToken(path string) (*Token, error) {
 	return &token, nil
 }
 func SaveToken(path string, mode os.FileMode, token Token) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dir := filepath.Dir(path)

@@ -63,6 +63,8 @@ type AzUtil struct{ manager *AzureManager }
 func (util *AzUtil) DeleteBlob(accountName, vhdContainer, vhdBlob string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
 	defer cancel()
 	storageKeysResult, err := util.manager.azClient.storageAccountsClient.ListKeys(ctx, util.manager.config.ResourceGroup, accountName)
@@ -80,6 +82,8 @@ func (util *AzUtil) DeleteBlob(accountName, vhdContainer, vhdBlob string) error 
 	return blobRef.Delete(&azStorage.DeleteBlobOptions{})
 }
 func (util *AzUtil) DeleteVirtualMachine(rg string, name string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
@@ -167,6 +171,8 @@ func (util *AzUtil) DeleteVirtualMachine(rg string, name string) error {
 func decodePkcs12(pkcs []byte, password string) (*x509.Certificate, *rsa.PrivateKey, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	privateKey, certificate, err := pkcs12.Decode(pkcs, password)
 	if err != nil {
 		return nil, nil, fmt.Errorf("decoding the PKCS#12 client certificate: %v", err)
@@ -180,10 +186,14 @@ func decodePkcs12(pkcs []byte, password string) (*x509.Certificate, *rsa.Private
 func configureUserAgent(client *autorest.Client) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	k8sVersion := version.Get().GitVersion
 	client.UserAgent = fmt.Sprintf("%s; cluster-autoscaler/%s", client.UserAgent, k8sVersion)
 }
 func normalizeForK8sVMASScalingUp(templateMap map[string]interface{}) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := normalizeMasterResourcesForScaling(templateMap); err != nil {
@@ -249,6 +259,8 @@ func normalizeForK8sVMASScalingUp(templateMap map[string]interface{}) error {
 func removeIndexesFromArray(array []interface{}, indexes []int) []interface{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sort.Sort(sort.Reverse(sort.IntSlice(indexes)))
 	for _, index := range indexes {
 		array = append(array[:index], array[index+1:]...)
@@ -256,6 +268,8 @@ func removeIndexesFromArray(array []interface{}, indexes []int) []interface{} {
 	return array
 }
 func normalizeMasterResourcesForScaling(templateMap map[string]interface{}) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resources := templateMap[resourcesFieldName].([]interface{})
@@ -309,6 +323,8 @@ func normalizeMasterResourcesForScaling(templateMap map[string]interface{}) erro
 func removeCustomData(resourceProperties map[string]interface{}) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	osProfile, ok := resourceProperties[osProfileFieldName].(map[string]interface{})
 	if !ok {
 		klog.Warning("Template improperly formatted")
@@ -320,6 +336,8 @@ func removeCustomData(resourceProperties map[string]interface{}) bool {
 	return ok
 }
 func removeImageReference(resourceProperties map[string]interface{}) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	storageProfile, ok := resourceProperties[storageProfileFieldName].(map[string]interface{})
@@ -335,6 +353,8 @@ func removeImageReference(resourceProperties map[string]interface{}) bool {
 func resourceName(ID string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	parts := strings.Split(ID, "/")
 	name := parts[len(parts)-1]
 	if len(name) == 0 {
@@ -343,6 +363,8 @@ func resourceName(ID string) (string, error) {
 	return name, nil
 }
 func splitBlobURI(URI string) (string, string, string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	uri, err := url.Parse(URI)
@@ -358,6 +380,8 @@ func splitBlobURI(URI string) (string, string, string, error) {
 func k8sLinuxVMNameParts(vmName string) (poolIdentifier, nameSuffix string, agentIndex int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vmNameParts := vmnameLinuxRegexp.FindStringSubmatch(vmName)
 	if len(vmNameParts) != 4 {
 		return "", "", -1, fmt.Errorf("resource name was missing from identifier")
@@ -369,6 +393,8 @@ func k8sLinuxVMNameParts(vmName string) (poolIdentifier, nameSuffix string, agen
 	return vmNameParts[k8sLinuxVMAgentPoolNameIndex], vmNameParts[k8sLinuxVMAgentClusterIDIndex], vmNum, nil
 }
 func windowsVMNameParts(vmName string) (poolPrefix string, orch string, poolIndex int, agentIndex int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var poolInfo string
@@ -397,6 +423,8 @@ func windowsVMNameParts(vmName string) (poolPrefix string, orch string, poolInde
 func GetVMNameIndex(osType compute.OperatingSystemTypes, vmName string) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var agentIndex int
 	var err error
 	if osType == compute.Linux {
@@ -413,6 +441,8 @@ func GetVMNameIndex(osType compute.OperatingSystemTypes, vmName string) (int, er
 	return agentIndex, nil
 }
 func matchDiscoveryConfig(labels map[string]*string, configs []cloudprovider.LabelAutoDiscoveryConfig) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(configs) == 0 {
@@ -437,6 +467,8 @@ func matchDiscoveryConfig(labels map[string]*string, configs []cloudprovider.Lab
 	return true
 }
 func validateConfig(cfg *Config) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cfg.ResourceGroup == "" {
@@ -472,6 +504,8 @@ func validateConfig(cfg *Config) error {
 func getLastSegment(ID string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	parts := strings.Split(strings.TrimSpace(ID), "/")
 	name := parts[len(parts)-1]
 	if len(name) == 0 {
@@ -480,6 +514,8 @@ func getLastSegment(ID string) (string, error) {
 	return name, nil
 }
 func readDeploymentParameters(paramFilePath string) (map[string]interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	contents, err := ioutil.ReadFile(paramFilePath)
@@ -500,9 +536,13 @@ func readDeploymentParameters(paramFilePath string) (map[string]interface{}, err
 func getContextWithCancel() (context.Context, context.CancelFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return context.WithCancel(context.Background())
 }
 func checkResourceExistsFromError(err error) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == nil {
@@ -518,6 +558,8 @@ func checkResourceExistsFromError(err error) (bool, error) {
 	return false, v
 }
 func isSuccessHTTPResponse(resp *http.Response, err error) (isSuccess bool, realError error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err != nil {

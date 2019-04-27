@@ -16,9 +16,13 @@ const (
 func ParseMigUrl(url string) (project string, zone string, name string, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return parseGceUrl(url, "instanceGroups")
 }
 func ParseIgmUrl(url string) (project string, zone string, name string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return parseGceUrl(url, "instanceGroupManagers")
@@ -26,9 +30,13 @@ func ParseIgmUrl(url string) (project string, zone string, name string, err erro
 func ParseInstanceUrl(url string) (project string, zone string, name string, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return parseGceUrl(url, "instances")
 }
 func ParseInstanceUrlRef(url string) (GceRef, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	project, zone, name, err := parseGceUrl(url, "instances")
@@ -40,14 +48,20 @@ func ParseInstanceUrlRef(url string) (GceRef, error) {
 func GenerateInstanceUrl(ref GceRef) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf(instanceUrlTemplate, ref.Project, ref.Zone, ref.Name)
 }
 func GenerateMigUrl(ref GceRef) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf(migUrlTemplate, ref.Project, ref.Zone, ref.Name)
 }
 func parseGceUrl(url, expectedResource string) (project string, zone string, name string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	errMsg := fmt.Errorf("Wrong url: expected format https://content.googleapis.com/compute/v1/projects/<project-id>/zones/<zone>/%s/<name>, got %s", expectedResource, url)

@@ -20,9 +20,13 @@ type CreateNodeGroupResult struct {
 func (*NoOpNodeGroupManager) CreateNodeGroup(context *context.AutoscalingContext, nodeGroup cloudprovider.NodeGroup) (CreateNodeGroupResult, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return CreateNodeGroupResult{}, errors.NewAutoscalerError(errors.InternalError, "not implemented")
 }
 func (*NoOpNodeGroupManager) RemoveUnneededNodeGroups(context *context.AutoscalingContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -30,8 +34,12 @@ func (*NoOpNodeGroupManager) RemoveUnneededNodeGroups(context *context.Autoscali
 func (*NoOpNodeGroupManager) CleanUp() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func NewDefaultNodeGroupManager() NodeGroupManager {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &NoOpNodeGroupManager{}

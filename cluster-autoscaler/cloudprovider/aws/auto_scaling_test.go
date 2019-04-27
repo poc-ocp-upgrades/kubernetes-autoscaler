@@ -12,6 +12,8 @@ import (
 func TestMoreThen50Groups(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	service := &AutoScalingMock{}
 	autoScalingWrapper := &autoScalingWrapper{autoScaling: service}
 	names := make([]string, 51)

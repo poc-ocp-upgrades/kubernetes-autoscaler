@@ -11,6 +11,8 @@ import (
 func NewCappingRecommendationProcessor() RecommendationProcessor {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cappingRecommendationProcessor{}
 }
 
@@ -25,12 +27,16 @@ var (
 func toCappingAnnotation(resourceName apiv1.ResourceName, action cappingAction) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s %s", resourceName, action)
 }
 
 type cappingRecommendationProcessor struct{}
 
 func (c *cappingRecommendationProcessor) Apply(podRecommendation *vpa_types.RecommendedPodResources, policy *vpa_types.PodResourcePolicy, conditions []vpa_types.VerticalPodAutoscalerCondition, pod *apiv1.Pod) (*vpa_types.RecommendedPodResources, ContainerToAnnotationsMap, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if podRecommendation == nil && policy == nil {
@@ -61,6 +67,8 @@ func (c *cappingRecommendationProcessor) Apply(podRecommendation *vpa_types.Reco
 func getCappedRecommendationForContainer(container apiv1.Container, containerRecommendation *vpa_types.RecommendedContainerResources, policy *vpa_types.PodResourcePolicy) (*vpa_types.RecommendedContainerResources, []string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if containerRecommendation == nil {
 		return nil, nil, fmt.Errorf("no recommendation available for container name %v", container.Name)
 	}
@@ -85,6 +93,8 @@ func getCappedRecommendationForContainer(container apiv1.Container, containerRec
 func capRecommendationToContainerLimit(recommendation apiv1.ResourceList, container apiv1.Container) []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	annotations := make([]string, 0)
 	for resourceName, limit := range container.Resources.Limits {
 		recommendedValue, found := recommendation[resourceName]
@@ -96,6 +106,8 @@ func capRecommendationToContainerLimit(recommendation apiv1.ResourceList, contai
 	return annotations
 }
 func applyVPAPolicy(recommendation apiv1.ResourceList, policy *vpa_types.ContainerResourcePolicy) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if policy == nil {
@@ -117,6 +129,8 @@ func applyVPAPolicy(recommendation apiv1.ResourceList, policy *vpa_types.Contain
 	return annotations
 }
 func applyVPAPolicyForContainer(containerName string, containerRecommendation *vpa_types.RecommendedContainerResources, policy *vpa_types.PodResourcePolicy) (*vpa_types.RecommendedContainerResources, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if containerRecommendation == nil {
@@ -143,6 +157,8 @@ func applyVPAPolicyForContainer(containerName string, containerRecommendation *v
 func maybeCapToMin(recommended resource.Quantity, resourceName apiv1.ResourceName, containerPolicy *vpa_types.ContainerResourcePolicy) (resource.Quantity, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	min, found := containerPolicy.MinAllowed[resourceName]
 	if found && !min.IsZero() && recommended.Cmp(min) < 0 {
 		return min, true
@@ -152,6 +168,8 @@ func maybeCapToMin(recommended resource.Quantity, resourceName apiv1.ResourceNam
 func maybeCapToMax(recommended resource.Quantity, resourceName apiv1.ResourceName, containerPolicy *vpa_types.ContainerResourcePolicy) (resource.Quantity, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	max, found := containerPolicy.MaxAllowed[resourceName]
 	if found && !max.IsZero() && recommended.Cmp(max) > 0 {
 		return max, true
@@ -159,6 +177,8 @@ func maybeCapToMax(recommended resource.Quantity, resourceName apiv1.ResourceNam
 	return recommended, false
 }
 func ApplyVPAPolicy(podRecommendation *vpa_types.RecommendedPodResources, policy *vpa_types.PodResourcePolicy) (*vpa_types.RecommendedPodResources, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if podRecommendation == nil {
@@ -181,6 +201,8 @@ func ApplyVPAPolicy(podRecommendation *vpa_types.RecommendedPodResources, policy
 func GetRecommendationForContainer(containerName string, recommendation *vpa_types.RecommendedPodResources) *vpa_types.RecommendedContainerResources {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if recommendation != nil {
 		for i, containerRec := range recommendation.ContainerRecommendations {
 			if containerRec.ContainerName == containerName {
@@ -192,6 +214,8 @@ func GetRecommendationForContainer(containerName string, recommendation *vpa_typ
 	return nil
 }
 func getContainer(containerName string, pod *apiv1.Pod) *apiv1.Container {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i, container := range pod.Spec.Containers {

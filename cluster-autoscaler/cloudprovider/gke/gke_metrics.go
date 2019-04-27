@@ -15,9 +15,13 @@ var (
 func registerMetrics() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(requestCounter)
 }
 func registerRequest(resource string, verb string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	requestCounter.WithLabelValues(resource, verb).Add(1.0)

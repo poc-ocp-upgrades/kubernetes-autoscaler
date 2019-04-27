@@ -19,9 +19,13 @@ const (
 func CPUAmountFromCores(cores float64) ResourceAmount {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return resourceAmountFromFloat(cores * 1000.0)
 }
 func CoresFromCPUAmount(cpuAmount ResourceAmount) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return float64(cpuAmount) / 1000.0
@@ -29,9 +33,13 @@ func CoresFromCPUAmount(cpuAmount ResourceAmount) float64 {
 func QuantityFromCPUAmount(cpuAmount ResourceAmount) resource.Quantity {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return *resource.NewScaledQuantity(int64(cpuAmount), -3)
 }
 func MemoryAmountFromBytes(bytes float64) ResourceAmount {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return resourceAmountFromFloat(bytes)
@@ -39,9 +47,13 @@ func MemoryAmountFromBytes(bytes float64) ResourceAmount {
 func BytesFromMemoryAmount(memoryAmount ResourceAmount) float64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return float64(memoryAmount)
 }
 func QuantityFromMemoryAmount(memoryAmount ResourceAmount) resource.Quantity {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return *resource.NewScaledQuantity(int64(memoryAmount), 0)
@@ -49,9 +61,13 @@ func QuantityFromMemoryAmount(memoryAmount ResourceAmount) resource.Quantity {
 func ScaleResource(amount ResourceAmount, factor float64) ResourceAmount {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return resourceAmountFromFloat(float64(amount) * factor)
 }
 func ResourcesAsResourceList(resources Resources) apiv1.ResourceList {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(apiv1.ResourceList)
@@ -76,9 +92,13 @@ func ResourcesAsResourceList(resources Resources) apiv1.ResourceList {
 func RoundResourceAmount(amount, unit ResourceAmount) ResourceAmount {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ResourceAmount(int64(amount) - int64(amount)%int64(unit))
 }
 func ResourceAmountMax(amount1, amount2 ResourceAmount) ResourceAmount {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if amount1 > amount2 {
@@ -87,6 +107,8 @@ func ResourceAmountMax(amount1, amount2 ResourceAmount) ResourceAmount {
 	return amount2
 }
 func resourceAmountFromFloat(amount float64) ResourceAmount {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if amount < 0 {

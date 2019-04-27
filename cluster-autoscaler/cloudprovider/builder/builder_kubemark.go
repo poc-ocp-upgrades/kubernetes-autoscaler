@@ -13,6 +13,8 @@ const DefaultCloudProvider = kubemark.ProviderName
 func buildCloudProvider(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDiscoveryOptions, rl *cloudprovider.ResourceLimiter) cloudprovider.CloudProvider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch opts.CloudProviderName {
 	case kubemark.ProviderName:
 		return kubemark.BuildKubemark(opts, do, rl)

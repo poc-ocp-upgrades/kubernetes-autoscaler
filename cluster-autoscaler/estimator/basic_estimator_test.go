@@ -12,9 +12,13 @@ import (
 func makePod(cpuPerPod, memoryPerPod int64) *apiv1.Pod {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &apiv1.Pod{Spec: apiv1.PodSpec{Containers: []apiv1.Container{{Resources: apiv1.ResourceRequirements{Requests: apiv1.ResourceList{apiv1.ResourceCPU: *resource.NewMilliQuantity(cpuPerPod, resource.DecimalSI), apiv1.ResourceMemory: *resource.NewQuantity(memoryPerPod, resource.DecimalSI)}}}}}}
 }
 func TestEstimate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cpuPerPod := int64(500)
@@ -39,6 +43,8 @@ func TestEstimate(t *testing.T) {
 func TestEstimateWithComing(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cpuPerPod := int64(500)
 	memoryPerPod := int64(1000 * units.MiB)
 	pod := makePod(cpuPerPod, memoryPerPod)
@@ -60,6 +66,8 @@ func TestEstimateWithComing(t *testing.T) {
 	assert.Equal(t, 5, estimator.GetCount())
 }
 func TestEstimateWithPorts(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cpuPerPod := int64(500)

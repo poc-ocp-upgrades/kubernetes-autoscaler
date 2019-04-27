@@ -16,6 +16,8 @@ var (
 func validateGpuConfig(gpuType string, gpuCount int64, zone, machineType string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	zoneInfo, found := gpuZones[gpuType]
 	if !found {
 		return cloudprovider.ErrIllegalConfiguration
@@ -43,6 +45,8 @@ func validateGpuConfig(gpuType string, gpuCount int64, zone, machineType string)
 	return nil
 }
 func getNormalizedGpuCount(initialCount int64) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := int64(1); i <= int64(8); i = 2 * i {

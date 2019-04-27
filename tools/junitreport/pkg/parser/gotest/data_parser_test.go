@@ -9,6 +9,8 @@ import (
 func TestExtractRunOk(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var testCases = []struct {
 		name		string
 		testLine	string
@@ -21,6 +23,8 @@ func TestExtractRunOk(t *testing.T) {
 	}
 }
 func TestExtractRunName(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var testCases = []struct {
@@ -39,6 +43,8 @@ func TestExtractRunName(t *testing.T) {
 	}
 }
 func TestExtractResult(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var testCases = []struct {
@@ -63,6 +69,8 @@ func TestExtractResult(t *testing.T) {
 func TestExtractDuration(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var testCases = []struct {
 		name			string
 		testLine		string
@@ -85,6 +93,8 @@ func TestExtractDuration(t *testing.T) {
 func TestExtractSuiteName(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var testCases = []struct {
 		name		string
 		testLine	string
@@ -105,6 +115,8 @@ func TestExtractSuiteName(t *testing.T) {
 	}
 }
 func TestSuiteProperties(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var testCases = []struct {

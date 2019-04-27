@@ -12,12 +12,16 @@ type fakeProcessor struct{ message string }
 func (p *fakeProcessor) Apply(podRecommendation *vpa_types.RecommendedPodResources, policy *vpa_types.PodResourcePolicy, conditions []vpa_types.VerticalPodAutoscalerCondition, pod *v1.Pod) (*vpa_types.RecommendedPodResources, ContainerToAnnotationsMap, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := podRecommendation.DeepCopy()
 	result.ContainerRecommendations[0].ContainerName += p.message
 	containerToAnnotationsMap := ContainerToAnnotationsMap{"trace": []string{p.message}}
 	return result, containerToAnnotationsMap, nil
 }
 func TestSequentialProcessor(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	name1 := "processor1"

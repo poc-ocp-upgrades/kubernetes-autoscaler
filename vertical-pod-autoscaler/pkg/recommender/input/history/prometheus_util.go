@@ -25,6 +25,8 @@ type matrixType struct {
 func decodeSamples(input [][]interface{}) ([]Sample, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	res := make([]Sample, 0)
 	for _, item := range input {
 		if len(item) != 2 {
@@ -45,6 +47,8 @@ func decodeSamples(input [][]interface{}) ([]Sample, error) {
 	return res, nil
 }
 func decodeTimeseriesFromResponse(input io.Reader) ([]Timeseries, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var resp responseType

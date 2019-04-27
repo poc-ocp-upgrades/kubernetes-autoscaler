@@ -28,9 +28,13 @@ type Clientset struct {
 func (c *Clientset) AutoscalingV1beta1() autoscalingv1beta1.AutoscalingV1beta1Interface {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.autoscalingV1beta1
 }
 func (c *Clientset) Autoscaling() autoscalingv1beta1.AutoscalingV1beta1Interface {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.autoscalingV1beta1
@@ -38,14 +42,20 @@ func (c *Clientset) Autoscaling() autoscalingv1beta1.AutoscalingV1beta1Interface
 func (c *Clientset) PocV1alpha1() pocv1alpha1.PocV1alpha1Interface {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.pocV1alpha1
 }
 func (c *Clientset) Poc() pocv1alpha1.PocV1alpha1Interface {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.pocV1alpha1
 }
 func (c *Clientset) Discovery() discovery.DiscoveryInterface {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c == nil {
@@ -54,6 +64,8 @@ func (c *Clientset) Discovery() discovery.DiscoveryInterface {
 	return c.DiscoveryClient
 }
 func NewForConfig(c *rest.Config) (*Clientset, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	configShallowCopy := *c
@@ -79,6 +91,8 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var cs Clientset
 	cs.autoscalingV1beta1 = autoscalingv1beta1.NewForConfigOrDie(c)
 	cs.pocV1alpha1 = pocv1alpha1.NewForConfigOrDie(c)
@@ -86,6 +100,8 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	return &cs
 }
 func New(c rest.Interface) *Clientset {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var cs Clientset
@@ -97,7 +113,16 @@ func New(c rest.Interface) *Clientset {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

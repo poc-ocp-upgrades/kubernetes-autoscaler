@@ -14,6 +14,8 @@ import (
 func TestFilterOutNodesWithUnreadyGpus(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	start := time.Now()
 	later := start.Add(10 * time.Minute)
 	expectedReadiness := make(map[string]bool)
@@ -59,6 +61,8 @@ func TestFilterOutNodesWithUnreadyGpus(t *testing.T) {
 func TestNodeHasGpu(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gpuLabels := map[string]string{GPULabel: "nvidia-tesla-k80"}
 	nodeGpuReady := &apiv1.Node{ObjectMeta: metav1.ObjectMeta{Name: "nodeGpuReady", Labels: gpuLabels}, Status: apiv1.NodeStatus{Capacity: apiv1.ResourceList{}, Allocatable: apiv1.ResourceList{}}}
 	nodeGpuReady.Status.Allocatable[ResourceNvidiaGPU] = *resource.NewQuantity(1, resource.DecimalSI)
@@ -70,6 +74,8 @@ func TestNodeHasGpu(t *testing.T) {
 	assert.False(t, NodeHasGpu(nodeNoGpu))
 }
 func TestPodRequestsGpu(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	podNoGpu := test.BuildTestPod("podNoGpu", 0, 1000)

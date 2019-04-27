@@ -9,6 +9,8 @@ import (
 func TestRandomExpander(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eo1a := expander.Option{Debug: "EO1a"}
 	e := NewStrategy()
 	ret := e.BestOption([]expander.Option{eo1a}, nil)

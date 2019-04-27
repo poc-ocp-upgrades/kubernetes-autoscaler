@@ -22,9 +22,13 @@ var _ scalableResource = (*machineSetScalableResource)(nil)
 func (r machineSetScalableResource) ID() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return path.Join(r.Namespace(), r.Name())
 }
 func (r machineSetScalableResource) MaxSize() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return r.maxSize
@@ -32,9 +36,13 @@ func (r machineSetScalableResource) MaxSize() int {
 func (r machineSetScalableResource) MinSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.minSize
 }
 func (r machineSetScalableResource) Name() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return r.machineSet.Name
@@ -42,9 +50,13 @@ func (r machineSetScalableResource) Name() string {
 func (r machineSetScalableResource) Namespace() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.machineSet.Namespace
 }
 func (r machineSetScalableResource) Nodes() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return r.controller.machineSetNodeNames(r.machineSet)
@@ -52,9 +64,13 @@ func (r machineSetScalableResource) Nodes() ([]string, error) {
 func (r machineSetScalableResource) Replicas() int32 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pointer.Int32PtrDerefOr(r.machineSet.Spec.Replicas, 0)
 }
 func (r machineSetScalableResource) SetSize(nreplicas int32) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	machineSet, err := r.machineapiClient.MachineSets(r.Namespace()).Get(r.Name(), metav1.GetOptions{})
@@ -70,6 +86,8 @@ func (r machineSetScalableResource) SetSize(nreplicas int32) error {
 	return nil
 }
 func newMachineSetScalableResource(controller *machineController, machineSet *v1beta1.MachineSet) (*machineSetScalableResource, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	minSize, maxSize, err := parseScalingBounds(machineSet.Annotations)

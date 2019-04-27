@@ -9,9 +9,13 @@ const (
 func PredictKubeReservedMemory(physicalMemory int64) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return memoryReservedMiB(physicalMemory/MiB) * MiB
 }
 func PredictKubeReservedCpuMillicores(physicalCpuMillicores int64) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return cpuReservedMillicores(physicalCpuMillicores)
@@ -25,6 +29,8 @@ type allocatableBracket struct {
 func memoryReservedMiB(memoryCapacityMiB int64) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if memoryCapacityMiB <= mbPerGB {
 		if memoryCapacityMiB <= 0 {
 			return 0
@@ -36,9 +42,13 @@ func memoryReservedMiB(memoryCapacityMiB int64) int64 {
 func cpuReservedMillicores(cpuCapacityMillicores int64) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return calculateReserved(cpuCapacityMillicores, []allocatableBracket{{threshold: 0, marginalReservedRate: 0.06}, {threshold: 1 * millicoresPerCore, marginalReservedRate: 0.01}, {threshold: 2 * millicoresPerCore, marginalReservedRate: 0.005}, {threshold: 4 * millicoresPerCore, marginalReservedRate: 0.0025}})
 }
 func calculateReserved(capacity int64, brackets []allocatableBracket) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var reserved float64

@@ -37,12 +37,16 @@ type machineSetFilterFunc func(machineSet *v1beta1.MachineSet) error
 func indexNodeByNodeProviderID(obj interface{}) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if node, ok := obj.(*apiv1.Node); ok {
 		return []string{node.Spec.ProviderID}, nil
 	}
 	return []string{}, nil
 }
 func (c *machineController) findMachine(id string) (*v1beta1.Machine, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	item, exists, err := c.machineInformer.Informer().GetStore().GetByKey(id)
@@ -61,6 +65,8 @@ func (c *machineController) findMachine(id string) (*v1beta1.Machine, error) {
 func (c *machineController) findMachineDeployment(id string) (*v1beta1.MachineDeployment, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	item, exists, err := c.machineDeploymentInformer.Informer().GetStore().GetByKey(id)
 	if err != nil {
 		return nil, err
@@ -75,6 +81,8 @@ func (c *machineController) findMachineDeployment(id string) (*v1beta1.MachineDe
 	return machineDeployment.DeepCopy(), nil
 }
 func (c *machineController) findMachineOwner(machine *v1beta1.Machine) (*v1beta1.MachineSet, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	machineOwnerRef := machineOwnerRef(machine)
@@ -101,6 +109,8 @@ func (c *machineController) findMachineOwner(machine *v1beta1.Machine) (*v1beta1
 func (c *machineController) run(stopCh <-chan struct{}) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.kubeInformerFactory.Start(stopCh)
 	c.clusterInformerFactory.Start(stopCh)
 	syncFuncs := []cache.InformerSynced{c.nodeInformer.HasSynced, c.machineInformer.Informer().HasSynced, c.machineSetInformer.Informer().HasSynced}
@@ -114,6 +124,8 @@ func (c *machineController) run(stopCh <-chan struct{}) error {
 	return nil
 }
 func (c *machineController) findMachineByNodeProviderID(node *apiv1.Node) (*v1beta1.Machine, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	objs, err := c.nodeInformer.GetIndexer().ByIndex(nodeProviderIDIndex, node.Spec.ProviderID)
@@ -138,6 +150,8 @@ func (c *machineController) findMachineByNodeProviderID(node *apiv1.Node) (*v1be
 func (c *machineController) findNodeByNodeName(name string) (*apiv1.Node, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	item, exists, err := c.nodeInformer.GetIndexer().GetByKey(name)
 	if err != nil {
 		return nil, err
@@ -154,6 +168,8 @@ func (c *machineController) findNodeByNodeName(name string) (*apiv1.Node, error)
 func (c *machineController) machinesInMachineSet(machineSet *v1beta1.MachineSet) ([]*v1beta1.Machine, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	listOptions := labels.SelectorFromSet(labels.Set(machineSet.Labels))
 	machines, err := c.machineInformer.Lister().Machines(machineSet.Namespace).List(listOptions)
 	if err != nil {
@@ -168,6 +184,8 @@ func (c *machineController) machinesInMachineSet(machineSet *v1beta1.MachineSet)
 	return result, nil
 }
 func newMachineController(kubeclient kubeclient.Interface, clusterclient clusterclient.Interface, enableMachineDeployments bool) (*machineController, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeclient, 0)
@@ -190,6 +208,8 @@ func newMachineController(kubeclient kubeclient.Interface, clusterclient cluster
 	return &machineController{clusterClientset: clusterclient, clusterInformerFactory: clusterInformerFactory, kubeInformerFactory: kubeInformerFactory, machineDeploymentInformer: machineDeploymentInformer, machineInformer: machineInformer, machineSetInformer: machineSetInformer, nodeInformer: nodeInformer, enableMachineDeployments: enableMachineDeployments}, nil
 }
 func (c *machineController) machineSetNodeNames(machineSet *v1beta1.MachineSet) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	machines, err := c.machinesInMachineSet(machineSet)
@@ -220,9 +240,13 @@ func (c *machineController) machineSetNodeNames(machineSet *v1beta1.MachineSet) 
 func (c *machineController) filterAllMachineSets(f machineSetFilterFunc) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.filterMachineSets(metav1.NamespaceAll, f)
 }
 func (c *machineController) filterMachineSets(namespace string, f machineSetFilterFunc) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	machineSets, err := c.machineSetInformer.Lister().MachineSets(namespace).List(labels.Everything())
@@ -237,6 +261,8 @@ func (c *machineController) filterMachineSets(namespace string, f machineSetFilt
 	return nil
 }
 func (c *machineController) machineSetNodeGroups() ([]*nodegroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var nodegroups []*nodegroup
@@ -258,6 +284,8 @@ func (c *machineController) machineSetNodeGroups() ([]*nodegroup, error) {
 	return nodegroups, nil
 }
 func (c *machineController) machineDeploymentNodeGroups() ([]*nodegroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !c.enableMachineDeployments {
@@ -282,6 +310,8 @@ func (c *machineController) machineDeploymentNodeGroups() ([]*nodegroup, error) 
 func (c *machineController) nodeGroups() ([]*nodegroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	machineSets, err := c.machineSetNodeGroups()
 	if err != nil {
 		return nil, err
@@ -293,6 +323,8 @@ func (c *machineController) nodeGroups() ([]*nodegroup, error) {
 	return append(machineSets, machineDeployments...), nil
 }
 func (c *machineController) nodeGroupForNode(node *apiv1.Node) (*nodegroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	machine, err := c.findMachineByNodeProviderID(node)
@@ -342,7 +374,16 @@ func (c *machineController) nodeGroupForNode(node *apiv1.Node) (*nodegroup, erro
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

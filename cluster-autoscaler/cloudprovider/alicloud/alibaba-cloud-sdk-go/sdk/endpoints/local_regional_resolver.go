@@ -11,6 +11,8 @@ type LocalRegionalResolver struct{}
 func (resolver *LocalRegionalResolver) TryResolve(param *ResolveParam) (endpoint string, support bool, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	regionalExpression := fmt.Sprintf("products[?code=='%s'].regional_endpoints", strings.ToLower(param.Product))
 	regionalData, err := jmespath.Search(regionalExpression, getEndpointConfigData())
 	if err == nil && regionalData != nil && len(regionalData.([]interface{})) > 0 {

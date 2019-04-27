@@ -62,10 +62,14 @@ type podListerMock struct{ mock.Mock }
 func (m *podListerMock) List(selector labels.Selector) (ret []*v1.Pod, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called()
 	return args.Get(0).([]*v1.Pod), args.Error(1)
 }
 func (m *podListerMock) Pods(namespace string) v1lister.PodNamespaceLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called()
@@ -80,9 +84,13 @@ type specClientTestCase struct {
 func newEmptySpecClientTestCase() *specClientTestCase {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &specClientTestCase{}
 }
 func newSpecClientTestCase() *specClientTestCase {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	podID1 := model.PodID{Namespace: "", PodName: "Pod1"}
@@ -98,6 +106,8 @@ func newSpecClientTestCase() *specClientTestCase {
 func newTestContainerSpec(podID model.PodID, containerName string, milicores int, memory int) BasicContainerSpec {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	containerID := model.ContainerID{PodID: podID, ContainerName: containerName}
 	requestedResources := model.Resources{model.ResourceCPU: model.ResourceAmount(milicores), model.ResourceMemory: model.ResourceAmount(memory)}
 	return BasicContainerSpec{ID: containerID, Image: containerName + "Image", Request: requestedResources}
@@ -105,9 +115,13 @@ func newTestContainerSpec(podID model.PodID, containerName string, milicores int
 func newTestPodSpec(podId model.PodID, containerSpecs ...BasicContainerSpec) *BasicPodSpec {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &BasicPodSpec{ID: podId, PodLabels: map[string]string{podId.PodName + "LabelKey": podId.PodName + "LabelValue"}, Containers: containerSpecs}
 }
 func (tc *specClientTestCase) createFakeSpecClient() SpecClient {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	podListerMock := new(podListerMock)
@@ -117,6 +131,8 @@ func (tc *specClientTestCase) createFakeSpecClient() SpecClient {
 func (tc *specClientTestCase) getFakePods() []*v1.Pod {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pods := []*v1.Pod{}
 	for _, yaml := range tc.podYamls {
 		pods = append(pods, newPod(yaml))
@@ -124,6 +140,8 @@ func (tc *specClientTestCase) getFakePods() []*v1.Pod {
 	return pods
 }
 func newPod(yaml string) *v1.Pod {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	decode := legacyscheme.Codecs.UniversalDeserializer().Decode

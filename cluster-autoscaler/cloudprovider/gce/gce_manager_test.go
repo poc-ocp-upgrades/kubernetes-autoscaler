@@ -189,9 +189,13 @@ const managedInstancesResponse2 = `{
 func getInstanceGroupManager(zone string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getInstanceGroupManagerNamed(defaultPoolMig, zone)
 }
 func getInstanceGroupManagerNamed(name, zone string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf(instanceGroupManager, name, zone, name, zone, name, zone, name)
@@ -199,9 +203,13 @@ func getInstanceGroupManagerNamed(name, zone string) string {
 func getManagedInstancesResponse1(zone string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getManagedInstancesResponse1Named(defaultPoolMig, zone)
 }
 func getManagedInstancesResponse1Named(name, zone string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf(managedInstancesResponse1, zone, name, zone, name, zone, name, zone, name)
@@ -209,14 +217,20 @@ func getManagedInstancesResponse1Named(name, zone string) string {
 func getManagedInstancesResponse2(zone string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getManagedInstancesResponse2Named(extraPoolMig, zone)
 }
 func getManagedInstancesResponse2Named(name, zone string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf(managedInstancesResponse2, zone, name)
 }
 func newTestGceManager(t *testing.T, testServerURL string, regional bool) *gceManagerImpl {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gceService := newTestAutoscalingGceClient(t, projectId, testServerURL)
@@ -231,6 +245,8 @@ func newTestGceManager(t *testing.T, testServerURL string, regional bool) *gceMa
 	return manager
 }
 func validateMig(t *testing.T, mig Mig, zone string, name string, minSize int, maxSize int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	assert.Equal(t, name, mig.GceRef().Name)
@@ -277,16 +293,22 @@ const deleteInstancesOperationResponse = `
 func setupTestDefaultPool(manager *gceManagerImpl) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mig := &gceMig{gceRef: GceRef{Name: defaultPoolMig, Zone: zoneB, Project: projectId}, gceManager: manager, minSize: 1, maxSize: 11}
 	manager.cache.migs = append(manager.cache.migs, &MigInformation{Config: mig})
 }
 func setupTestExtraPool(manager *gceManagerImpl) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mig := &gceMig{gceRef: GceRef{Name: extraPoolMig, Zone: zoneB, Project: projectId}, gceManager: manager, minSize: 0, maxSize: 1000}
 	manager.cache.migs = append(manager.cache.migs, &MigInformation{Config: mig})
 }
 func TestDeleteInstances(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -311,6 +333,8 @@ func TestDeleteInstances(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestGetMigSize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -360,6 +384,8 @@ const setMigSizeOperationResponse = `{
 func TestSetMigSize(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	server := NewHttpServerMock()
 	defer server.Close()
 	g := newTestGceManager(t, server.URL, false)
@@ -371,6 +397,8 @@ func TestSetMigSize(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestGetMigForInstance(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -387,6 +415,8 @@ func TestGetMigForInstance(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestGetMigNodes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -415,9 +445,13 @@ const instanceGroup = `{
 func getInstanceGroup(zone string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getInstanceGroupNamed("gke-cluster-1-default-pool", zone)
 }
 func getInstanceGroupNamed(name, zone string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf(instanceGroup, name, zone, name)
@@ -433,6 +467,8 @@ const instanceGroupList = `{
 func listInstanceGroups(zone string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf(instanceGroupList, zone, getInstanceGroupNamed(gceMigA, zone), getInstanceGroupNamed(gceMigB, zone), zone)
 }
 
@@ -444,6 +480,8 @@ const noInstanceGroupList = `{
 }`
 
 func listNoInstanceGroups(zone string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf(noInstanceGroupList, zone, zone)
@@ -464,6 +502,8 @@ const getRegion = `{
 }`
 
 func TestFetchAutoMigsZonal(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -491,6 +531,8 @@ func TestFetchAutoMigsZonal(t *testing.T) {
 func TestFetchAutoMigsUnregistersMissingMigs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	server := NewHttpServerMock()
 	defer server.Close()
 	server.On("handle", "/project1/zones/"+zoneB+"/instanceGroupManagers/"+gceMigA).Return(getInstanceGroupManagerNamed(gceMigA, zoneB)).Once()
@@ -513,6 +555,8 @@ func TestFetchAutoMigsUnregistersMissingMigs(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestFetchAutoMigsRegional(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -539,6 +583,8 @@ func TestFetchAutoMigsRegional(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestFetchExplicitMigs(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -605,6 +651,8 @@ const listMachineTypesResponse = `{
 func TestGetMigTemplateNode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	server := NewHttpServerMock()
 	defer server.Close()
 	server.On("handle", "/project1/zones/us-central1-b/instanceGroupManagers/default-pool").Return(getInstanceGroupManagerResponse).Once()
@@ -634,6 +682,8 @@ const getMachineTypeResponse = `{
 }`
 
 func TestGetCpuAndMemoryForMachineType(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -667,6 +717,8 @@ func TestGetCpuAndMemoryForMachineType(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestParseCustomMachineType(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cpu, mem, err := parseCustomMachineType("custom-2-2816")

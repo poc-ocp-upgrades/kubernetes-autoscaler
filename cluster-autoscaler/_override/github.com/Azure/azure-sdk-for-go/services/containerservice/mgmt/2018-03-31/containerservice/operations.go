@@ -12,14 +12,20 @@ type OperationsClient struct{ BaseClient }
 func NewOperationsClient(subscriptionID string) OperationsClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewOperationsClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 func NewOperationsClientWithBaseURI(baseURI string, subscriptionID string) OperationsClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return OperationsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 func (client OperationsClient) List(ctx context.Context) (result OperationListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := client.ListPreparer(ctx)
@@ -42,6 +48,8 @@ func (client OperationsClient) List(ctx context.Context) (result OperationListRe
 func (client OperationsClient) ListPreparer(ctx context.Context) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	const APIVersion = "2018-03-31"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
 	preparer := autorest.CreatePreparer(autorest.AsGet(), autorest.WithBaseURL(client.BaseURI), autorest.WithPath("/providers/Microsoft.ContainerService/operations"), autorest.WithQueryParameters(queryParameters))
@@ -50,9 +58,13 @@ func (client OperationsClient) ListPreparer(ctx context.Context) (*http.Request,
 func (client OperationsClient) ListSender(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.SendWithSender(client, req, autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 func (client OperationsClient) ListResponder(resp *http.Response) (result OperationListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())

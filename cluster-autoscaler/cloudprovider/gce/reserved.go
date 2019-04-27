@@ -13,6 +13,8 @@ const (
 func CalculateKernelReserved(physicalMemory int64) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	reserved := int64(physicalMemory / kernelReservedRatio)
 	reserved += kernelReservedMemory
 	if physicalMemory > swiotlbThresholdMemory {

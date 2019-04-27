@@ -9,5 +9,7 @@ type RsaKeyPairCredential struct {
 func NewRsaKeyPairCredential(privateKey, publicKeyId string, sessionExpiration int) *RsaKeyPairCredential {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &RsaKeyPairCredential{PrivateKey: privateKey, PublicKeyId: publicKeyId, SessionExpiration: sessionExpiration}
 }

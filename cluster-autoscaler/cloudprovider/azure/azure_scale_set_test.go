@@ -13,9 +13,13 @@ import (
 func newTestScaleSet(manager *AzureManager, name string) *ScaleSet {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ScaleSet{azureRef: azureRef{Name: name}, manager: manager, minSize: 1, maxSize: 5}
 }
 func TestMaxSize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	provider := newTestProvider(t)
@@ -27,6 +31,8 @@ func TestMaxSize(t *testing.T) {
 func TestMinSize(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	provider := newTestProvider(t)
 	registered := provider.azureManager.RegisterAsg(newTestScaleSet(provider.azureManager, "test-asg"))
 	assert.True(t, registered)
@@ -34,6 +40,8 @@ func TestMinSize(t *testing.T) {
 	assert.Equal(t, provider.NodeGroups()[0].MinSize(), 1)
 }
 func TestTargetSize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	provider := newTestProvider(t)
@@ -47,6 +55,8 @@ func TestTargetSize(t *testing.T) {
 func TestIncreaseSize(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	provider := newTestProvider(t)
 	registered := provider.azureManager.RegisterAsg(newTestScaleSet(provider.azureManager, "test-asg"))
 	assert.True(t, registered)
@@ -55,6 +65,8 @@ func TestIncreaseSize(t *testing.T) {
 	assert.NoError(t, err)
 }
 func TestBelongs(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	provider := newTestProvider(t)
@@ -71,6 +83,8 @@ func TestBelongs(t *testing.T) {
 	assert.NoError(t, err)
 }
 func TestDeleteNodes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	manager := newTestAzureManager(t)
@@ -93,6 +107,8 @@ func TestDeleteNodes(t *testing.T) {
 func TestId(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	provider := newTestProvider(t)
 	registered := provider.azureManager.RegisterAsg(newTestScaleSet(provider.azureManager, "test-asg"))
 	assert.True(t, registered)
@@ -102,11 +118,15 @@ func TestId(t *testing.T) {
 func TestDebug(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	asg := ScaleSet{manager: newTestAzureManager(t), minSize: 5, maxSize: 55}
 	asg.Name = "test-scale-set"
 	assert.Equal(t, asg.Debug(), "test-scale-set (5:55)")
 }
 func TestScaleSetNodes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	provider := newTestProvider(t)

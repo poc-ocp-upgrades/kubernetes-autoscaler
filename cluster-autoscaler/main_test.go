@@ -9,6 +9,8 @@ import (
 func TestParseSingleGpuLimit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testcase struct {
 		input			string
 		expectError		bool

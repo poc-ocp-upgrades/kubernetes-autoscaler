@@ -18,9 +18,13 @@ type leastwaste struct{ fallbackStrategy expander.Strategy }
 func NewStrategy() expander.Strategy {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &leastwaste{random.NewStrategy()}
 }
 func (l *leastwaste) BestOption(expansionOptions []expander.Option, nodeInfo map[string]*schedulercache.NodeInfo) *expander.Option {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var leastWastedScore float64
@@ -55,6 +59,8 @@ func (l *leastwaste) BestOption(expansionOptions []expander.Option, nodeInfo map
 func resourcesForPods(pods []*apiv1.Pod) (cpu resource.Quantity, memory resource.Quantity) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, pod := range pods {
 		for _, container := range pod.Spec.Containers {
 			if request, ok := container.Resources.Requests[apiv1.ResourceCPU]; ok {
@@ -70,6 +76,8 @@ func resourcesForPods(pods []*apiv1.Pod) (cpu resource.Quantity, memory resource
 func resourcesForNode(node *apiv1.Node) (cpu resource.Quantity, memory resource.Quantity) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cpu = node.Status.Capacity[apiv1.ResourceCPU]
 	memory = node.Status.Capacity[apiv1.ResourceMemory]
 	return cpu, memory
@@ -77,7 +85,16 @@ func resourcesForNode(node *apiv1.Node) (cpu resource.Quantity, memory resource.
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

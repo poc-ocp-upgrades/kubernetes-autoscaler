@@ -21,12 +21,16 @@ type CommonRequest struct {
 func NewCommonRequest() (request *CommonRequest) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request = &CommonRequest{baseRequest: defaultBaseRequest()}
 	request.Headers["x-sdk-invoke-type"] = "common"
 	request.PathParams = make(map[string]string)
 	return
 }
 func (request *CommonRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	request.TransToAcsRequest()
@@ -55,6 +59,8 @@ func (request *CommonRequest) String() string {
 func (request *CommonRequest) TransToAcsRequest() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(request.Version) == 0 {
 		errors.NewClientError(errors.MissingParamErrorCode, "Common request [version] is required", nil)
 	}
@@ -80,6 +86,8 @@ func (request *CommonRequest) TransToAcsRequest() {
 func (request *CommonRequest) BuildUrl() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(request.Port) > 0 {
 		return strings.ToLower(request.Scheme) + "://" + request.Domain + ":" + request.Port + request.BuildQueries()
 	}
@@ -88,9 +96,13 @@ func (request *CommonRequest) BuildUrl() string {
 func (request *CommonRequest) BuildQueries() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return request.Ontology.BuildQueries()
 }
 func (request *CommonRequest) GetUrl() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(request.Port) > 0 {
@@ -101,9 +113,13 @@ func (request *CommonRequest) GetUrl() string {
 func (request *CommonRequest) GetQueries() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return request.Ontology.GetQueries()
 }
 func (request *CommonRequest) GetBodyReader() io.Reader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return request.Ontology.GetBodyReader()
@@ -111,9 +127,13 @@ func (request *CommonRequest) GetBodyReader() io.Reader {
 func (request *CommonRequest) GetStyle() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return request.Ontology.GetStyle()
 }
 func (request *CommonRequest) addPathParam(key, value string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	request.PathParams[key] = value

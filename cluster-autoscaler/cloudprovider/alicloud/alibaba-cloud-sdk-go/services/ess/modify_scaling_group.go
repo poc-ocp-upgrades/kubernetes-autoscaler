@@ -8,11 +8,15 @@ import (
 func (client *Client) ModifyScalingGroup(request *ModifyScalingGroupRequest) (response *ModifyScalingGroupResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	response = CreateModifyScalingGroupResponse()
 	err = client.DoAction(request, response)
 	return
 }
 func (client *Client) ModifyScalingGroupWithChan(request *ModifyScalingGroupRequest) (<-chan *ModifyScalingGroupResponse, <-chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	responseChan := make(chan *ModifyScalingGroupResponse, 1)
@@ -35,6 +39,8 @@ func (client *Client) ModifyScalingGroupWithChan(request *ModifyScalingGroupRequ
 	return responseChan, errChan
 }
 func (client *Client) ModifyScalingGroupWithCallback(request *ModifyScalingGroupRequest, callback func(response *ModifyScalingGroupResponse, err error)) <-chan int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(chan int, 1)
@@ -80,11 +86,15 @@ type ModifyScalingGroupResponse struct {
 func CreateModifyScalingGroupRequest() (request *ModifyScalingGroupRequest) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request = &ModifyScalingGroupRequest{RpcRequest: &requests.RpcRequest{}}
 	request.InitWithApiInfo("Ess", "2014-08-28", "ModifyScalingGroup", "ess", "openAPI")
 	return
 }
 func CreateModifyScalingGroupResponse() (response *ModifyScalingGroupResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	response = &ModifyScalingGroupResponse{BaseResponse: &responses.BaseResponse{}}

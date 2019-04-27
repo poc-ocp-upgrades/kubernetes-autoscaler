@@ -8,6 +8,8 @@ import (
 func TestGetNormalizedGpuCount(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gpus, err := getNormalizedGpuCount(int64(0))
 	assert.Equal(t, err, nil)
 	assert.Equal(t, gpus, int64(1))
@@ -30,6 +32,8 @@ func TestGetNormalizedGpuCount(t *testing.T) {
 	assert.Error(t, err)
 }
 func TestValidateGpuConfig(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := validateGpuConfig("nvidia-tesla-k80", int64(1), "europe-west1-b", "n1-standard-1")

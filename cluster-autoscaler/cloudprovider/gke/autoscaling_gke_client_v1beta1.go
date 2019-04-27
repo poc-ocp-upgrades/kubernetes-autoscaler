@@ -28,6 +28,8 @@ type autoscalingGkeClientV1beta1 struct {
 func NewAutoscalingGkeClientV1beta1(client *http.Client, projectId, location, clusterName string) (*autoscalingGkeClientV1beta1, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	autoscalingGkeClient := &autoscalingGkeClientV1beta1{clusterPath: fmt.Sprintf(clusterPathPrefix, projectId, location, clusterName), nodePoolPath: fmt.Sprintf(nodePoolPathPrefix, projectId, location, clusterName), operationPath: fmt.Sprintf(operationPathPrefix, projectId, location), operationWaitTimeout: defaultOperationWaitTimeout, operationPollInterval: defaultOperationPollInterval}
 	gkeBetaService, err := gke_api_beta.New(client)
 	if err != nil {
@@ -40,6 +42,8 @@ func NewAutoscalingGkeClientV1beta1(client *http.Client, projectId, location, cl
 	return autoscalingGkeClient, nil
 }
 func (m *autoscalingGkeClientV1beta1) GetCluster() (Cluster, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	registerRequest("clusters", "get")
@@ -56,6 +60,8 @@ func (m *autoscalingGkeClientV1beta1) GetCluster() (Cluster, error) {
 	return Cluster{Locations: clusterResponse.Locations, NodePools: nodePools, ResourceLimiter: buildResourceLimiter(clusterResponse)}, nil
 }
 func buildResourceLimiter(cluster *gke_api_beta.Cluster) *cloudprovider.ResourceLimiter {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cluster.Autoscaling == nil {
@@ -82,6 +88,8 @@ func buildResourceLimiter(cluster *gke_api_beta.Cluster) *cloudprovider.Resource
 func (m *autoscalingGkeClientV1beta1) DeleteNodePool(toBeRemoved string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registerRequest("node_pools", "delete")
 	deleteOp, err := m.gkeBetaService.Projects.Locations.Clusters.NodePools.Delete(fmt.Sprintf(m.nodePoolPath, toBeRemoved)).Do()
 	if err != nil {
@@ -90,6 +98,8 @@ func (m *autoscalingGkeClientV1beta1) DeleteNodePool(toBeRemoved string) error {
 	return m.waitForGkeOp(deleteOp)
 }
 func (m *autoscalingGkeClientV1beta1) CreateNodePool(mig *GkeMig) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	spec := mig.Spec()
@@ -131,6 +141,8 @@ func (m *autoscalingGkeClientV1beta1) CreateNodePool(mig *GkeMig) error {
 	return m.waitForGkeOp(createOp)
 }
 func (m *autoscalingGkeClientV1beta1) waitForGkeOp(op *gke_api_beta.Operation) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for start := time.Now(); time.Since(start) < m.operationWaitTimeout; time.Sleep(m.operationPollInterval) {

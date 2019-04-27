@@ -11,6 +11,8 @@ import (
 func TestSplitBlobURI(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	expectedAccountName := "vhdstorage8h8pjybi9hbsl6"
 	expectedContainerName := "vhds"
 	expectedBlobPath := "osdisks/disk1234.vhd"
@@ -29,6 +31,8 @@ func TestSplitBlobURI(t *testing.T) {
 	}
 }
 func TestK8sLinuxVMNameParts(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data := []struct {
@@ -53,6 +57,8 @@ func TestK8sLinuxVMNameParts(t *testing.T) {
 	}
 }
 func TestWindowsVMNameParts(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data := []struct {
@@ -81,6 +87,8 @@ func TestWindowsVMNameParts(t *testing.T) {
 func TestGetVMNameIndexLinux(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	expectedAgentIndex := 65
 	agentIndex, err := GetVMNameIndex(compute.Linux, "k8s-agentpool1-38988164-65")
 	if agentIndex != expectedAgentIndex {
@@ -93,6 +101,8 @@ func TestGetVMNameIndexLinux(t *testing.T) {
 func TestGetVMNameIndexWindows(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	expectedAgentIndex := 20
 	agentIndex, err := GetVMNameIndex(compute.Windows, "38988k8s90320")
 	if agentIndex != expectedAgentIndex {
@@ -103,6 +113,8 @@ func TestGetVMNameIndexWindows(t *testing.T) {
 	}
 }
 func TestIsSuccessResponse(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

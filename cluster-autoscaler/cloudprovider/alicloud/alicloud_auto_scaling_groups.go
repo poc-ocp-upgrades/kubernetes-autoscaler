@@ -18,6 +18,8 @@ type autoScalingGroups struct {
 func newAutoScalingGroups(service *autoScalingWrapper) *autoScalingGroups {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registry := &autoScalingGroups{registeredAsgs: make([]*asgInformation, 0), service: service, instanceToAsg: make(map[string]*Asg), instancesNotInManagedAsg: make(map[string]struct{})}
 	go wait.Forever(func() {
 		registry.cacheMutex.Lock()
@@ -31,11 +33,15 @@ func newAutoScalingGroups(service *autoScalingWrapper) *autoScalingGroups {
 func (m *autoScalingGroups) Register(asg *Asg) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.cacheMutex.Lock()
 	defer m.cacheMutex.Unlock()
 	m.registeredAsgs = append(m.registeredAsgs, &asgInformation{config: asg})
 }
 func (m *autoScalingGroups) FindForInstance(instanceId string) (*Asg, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.cacheMutex.Lock()
@@ -56,6 +62,8 @@ func (m *autoScalingGroups) FindForInstance(instanceId string) (*Asg, error) {
 	return nil, nil
 }
 func (m *autoScalingGroups) regenerateCache() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	newCache := make(map[string]*Asg)

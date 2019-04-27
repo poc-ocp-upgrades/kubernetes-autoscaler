@@ -24,10 +24,14 @@ type AzureCloudProvider struct {
 func BuildAzureCloudProvider(azureManager *AzureManager, resourceLimiter *cloudprovider.ResourceLimiter) (cloudprovider.CloudProvider, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	azure := &AzureCloudProvider{azureManager: azureManager, resourceLimiter: resourceLimiter}
 	return azure, nil
 }
 func (azure *AzureCloudProvider) Cleanup() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	azure.azureManager.Cleanup()
@@ -36,9 +40,13 @@ func (azure *AzureCloudProvider) Cleanup() error {
 func (azure *AzureCloudProvider) Name() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "azure"
 }
 func (azure *AzureCloudProvider) NodeGroups() []cloudprovider.NodeGroup {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	asgs := azure.azureManager.getAsgs()
@@ -51,6 +59,8 @@ func (azure *AzureCloudProvider) NodeGroups() []cloudprovider.NodeGroup {
 func (azure *AzureCloudProvider) NodeGroupForNode(node *apiv1.Node) (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(6).Infof("Searching for node group for the node: %s\n", node.Spec.ProviderID)
 	ref := &azureRef{Name: node.Spec.ProviderID}
 	return azure.azureManager.GetAsgForInstance(ref)
@@ -58,9 +68,13 @@ func (azure *AzureCloudProvider) NodeGroupForNode(node *apiv1.Node) (cloudprovid
 func (azure *AzureCloudProvider) Pricing() (cloudprovider.PricingModel, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (azure *AzureCloudProvider) GetAvailableMachineTypes() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return []string{}, nil
@@ -68,9 +82,13 @@ func (azure *AzureCloudProvider) GetAvailableMachineTypes() ([]string, error) {
 func (azure *AzureCloudProvider) NewNodeGroup(machineType string, labels map[string]string, systemLabels map[string]string, taints []apiv1.Taint, extraResources map[string]resource.Quantity) (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (azure *AzureCloudProvider) GetResourceLimiter() (*cloudprovider.ResourceLimiter, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return azure.resourceLimiter, nil
@@ -78,9 +96,13 @@ func (azure *AzureCloudProvider) GetResourceLimiter() (*cloudprovider.ResourceLi
 func (azure *AzureCloudProvider) Refresh() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return azure.azureManager.Refresh()
 }
 func (azure *AzureCloudProvider) GetInstanceID(node *apiv1.Node) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return strings.ToLower(node.Spec.ProviderID)
@@ -91,9 +113,13 @@ type azureRef struct{ Name string }
 func (m *azureRef) GetKey() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.Name
 }
 func BuildAzure(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDiscoveryOptions, rl *cloudprovider.ResourceLimiter) cloudprovider.CloudProvider {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var config io.ReadCloser

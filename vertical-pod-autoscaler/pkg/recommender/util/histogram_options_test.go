@@ -12,6 +12,8 @@ var (
 func TestLinearHistogramOptions(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	o, err := NewLinearHistogramOptions(5.0, 0.3, epsilon)
 	assert.Nil(t, err)
 	assert.Equal(t, epsilon, o.Epsilon())
@@ -24,6 +26,8 @@ func TestLinearHistogramOptions(t *testing.T) {
 	assert.Equal(t, 17, o.FindBucket(100.0))
 }
 func TestExponentialHistogramOptions(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	o, err := NewExponentialHistogramOptions(500.0, 40.0, 1.5, epsilon)

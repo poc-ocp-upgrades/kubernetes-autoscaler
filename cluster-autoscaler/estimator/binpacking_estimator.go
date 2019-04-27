@@ -17,9 +17,13 @@ type BinpackingNodeEstimator struct{ predicateChecker *simulator.PredicateChecke
 func NewBinpackingNodeEstimator(predicateChecker *simulator.PredicateChecker) *BinpackingNodeEstimator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &BinpackingNodeEstimator{predicateChecker: predicateChecker}
 }
 func (estimator *BinpackingNodeEstimator) Estimate(pods []*apiv1.Pod, nodeTemplate *schedulercache.NodeInfo, upcomingNodes []*schedulercache.NodeInfo) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	podInfos := calculatePodScore(pods, nodeTemplate)
@@ -51,6 +55,8 @@ func (estimator *BinpackingNodeEstimator) Estimate(pods []*apiv1.Pod, nodeTempla
 	return len(newNodes) - len(upcomingNodes)
 }
 func calculatePodScore(pods []*apiv1.Pod, nodeTemplate *schedulercache.NodeInfo) []*podInfo {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	podInfos := make([]*podInfo, 0, len(pods))

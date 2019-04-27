@@ -13,14 +13,20 @@ type ManagedClustersClient struct{ BaseClient }
 func NewManagedClustersClient(subscriptionID string) ManagedClustersClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewManagedClustersClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 func NewManagedClustersClientWithBaseURI(baseURI string, subscriptionID string) ManagedClustersClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ManagedClustersClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 func (client ManagedClustersClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, parameters ManagedCluster) (result ManagedClustersCreateOrUpdateFuture, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := validation.Validate([]validation.Validation{{TargetValue: parameters, Constraints: []validation.Constraint{{Target: "parameters.ManagedClusterProperties", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.LinuxProfile", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.LinuxProfile.AdminUsername", Name: validation.Null, Rule: true, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.LinuxProfile.AdminUsername", Name: validation.Pattern, Rule: `^[a-z][a-z0-9_-]*$`, Chain: nil}}}, {Target: "parameters.ManagedClusterProperties.LinuxProfile.SSH", Name: validation.Null, Rule: true, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.LinuxProfile.SSH.PublicKeys", Name: validation.Null, Rule: true, Chain: nil}}}}}, {Target: "parameters.ManagedClusterProperties.ServicePrincipalProfile", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.ServicePrincipalProfile.ClientID", Name: validation.Null, Rule: true, Chain: nil}, {Target: "parameters.ManagedClusterProperties.ServicePrincipalProfile.KeyVaultSecretRef", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.ServicePrincipalProfile.KeyVaultSecretRef.VaultID", Name: validation.Null, Rule: true, Chain: nil}, {Target: "parameters.ManagedClusterProperties.ServicePrincipalProfile.KeyVaultSecretRef.SecretName", Name: validation.Null, Rule: true, Chain: nil}}}}}, {Target: "parameters.ManagedClusterProperties.NetworkProfile", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.NetworkProfile.PodCidr", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.NetworkProfile.PodCidr", Name: validation.Pattern, Rule: `^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$`, Chain: nil}}}, {Target: "parameters.ManagedClusterProperties.NetworkProfile.ServiceCidr", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.NetworkProfile.ServiceCidr", Name: validation.Pattern, Rule: `^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$`, Chain: nil}}}, {Target: "parameters.ManagedClusterProperties.NetworkProfile.DNSServiceIP", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.NetworkProfile.DNSServiceIP", Name: validation.Pattern, Rule: `^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$`, Chain: nil}}}, {Target: "parameters.ManagedClusterProperties.NetworkProfile.DockerBridgeCidr", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.NetworkProfile.DockerBridgeCidr", Name: validation.Pattern, Rule: `^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$`, Chain: nil}}}}}, {Target: "parameters.ManagedClusterProperties.AadProfile", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.ManagedClusterProperties.AadProfile.ClientAppID", Name: validation.Null, Rule: true, Chain: nil}, {Target: "parameters.ManagedClusterProperties.AadProfile.ServerAppID", Name: validation.Null, Rule: true, Chain: nil}}}}}}}}); err != nil {
@@ -41,6 +47,8 @@ func (client ManagedClustersClient) CreateOrUpdate(ctx context.Context, resource
 func (client ManagedClustersClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, resourceName string, parameters ManagedCluster) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"resourceGroupName": autorest.Encode("path", resourceGroupName), "resourceName": autorest.Encode("path", resourceName), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2018-03-31"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -48,6 +56,8 @@ func (client ManagedClustersClient) CreateOrUpdatePreparer(ctx context.Context, 
 	return preparer.Prepare((&http.Request{}).WithContext(ctx))
 }
 func (client ManagedClustersClient) CreateOrUpdateSender(req *http.Request) (future ManagedClustersCreateOrUpdateFuture, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var resp *http.Response
@@ -65,11 +75,15 @@ func (client ManagedClustersClient) CreateOrUpdateSender(req *http.Request) (fut
 func (client ManagedClustersClient) CreateOrUpdateResponder(resp *http.Response) (result ManagedCluster, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
 	return
 }
 func (client ManagedClustersClient) Delete(ctx context.Context, resourceGroupName string, resourceName string) (result ManagedClustersDeleteFuture, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := client.DeletePreparer(ctx, resourceGroupName, resourceName)
@@ -87,6 +101,8 @@ func (client ManagedClustersClient) Delete(ctx context.Context, resourceGroupNam
 func (client ManagedClustersClient) DeletePreparer(ctx context.Context, resourceGroupName string, resourceName string) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"resourceGroupName": autorest.Encode("path", resourceGroupName), "resourceName": autorest.Encode("path", resourceName), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2018-03-31"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -94,6 +110,8 @@ func (client ManagedClustersClient) DeletePreparer(ctx context.Context, resource
 	return preparer.Prepare((&http.Request{}).WithContext(ctx))
 }
 func (client ManagedClustersClient) DeleteSender(req *http.Request) (future ManagedClustersDeleteFuture, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var resp *http.Response
@@ -111,11 +129,15 @@ func (client ManagedClustersClient) DeleteSender(req *http.Request) (future Mana
 func (client ManagedClustersClient) DeleteResponder(resp *http.Response) (result autorest.Response, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent), autorest.ByClosing())
 	result.Response = resp
 	return
 }
 func (client ManagedClustersClient) Get(ctx context.Context, resourceGroupName string, resourceName string) (result ManagedCluster, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := client.GetPreparer(ctx, resourceGroupName, resourceName)
@@ -138,6 +160,8 @@ func (client ManagedClustersClient) Get(ctx context.Context, resourceGroupName s
 func (client ManagedClustersClient) GetPreparer(ctx context.Context, resourceGroupName string, resourceName string) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"resourceGroupName": autorest.Encode("path", resourceGroupName), "resourceName": autorest.Encode("path", resourceName), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2018-03-31"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -147,9 +171,13 @@ func (client ManagedClustersClient) GetPreparer(ctx context.Context, resourceGro
 func (client ManagedClustersClient) GetSender(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.SendWithSender(client, req, azure.DoRetryWithRegistration(client.Client))
 }
 func (client ManagedClustersClient) GetResponder(resp *http.Response) (result ManagedCluster, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())
@@ -157,6 +185,8 @@ func (client ManagedClustersClient) GetResponder(resp *http.Response) (result Ma
 	return
 }
 func (client ManagedClustersClient) GetAccessProfile(ctx context.Context, resourceGroupName string, resourceName string, roleName string) (result ManagedClusterAccessProfile, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := client.GetAccessProfilePreparer(ctx, resourceGroupName, resourceName, roleName)
@@ -179,6 +209,8 @@ func (client ManagedClustersClient) GetAccessProfile(ctx context.Context, resour
 func (client ManagedClustersClient) GetAccessProfilePreparer(ctx context.Context, resourceGroupName string, resourceName string, roleName string) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"resourceGroupName": autorest.Encode("path", resourceGroupName), "resourceName": autorest.Encode("path", resourceName), "roleName": autorest.Encode("path", roleName), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2018-03-31"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -188,9 +220,13 @@ func (client ManagedClustersClient) GetAccessProfilePreparer(ctx context.Context
 func (client ManagedClustersClient) GetAccessProfileSender(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.SendWithSender(client, req, azure.DoRetryWithRegistration(client.Client))
 }
 func (client ManagedClustersClient) GetAccessProfileResponder(resp *http.Response) (result ManagedClusterAccessProfile, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())
@@ -198,6 +234,8 @@ func (client ManagedClustersClient) GetAccessProfileResponder(resp *http.Respons
 	return
 }
 func (client ManagedClustersClient) GetUpgradeProfile(ctx context.Context, resourceGroupName string, resourceName string) (result ManagedClusterUpgradeProfile, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := client.GetUpgradeProfilePreparer(ctx, resourceGroupName, resourceName)
@@ -220,6 +258,8 @@ func (client ManagedClustersClient) GetUpgradeProfile(ctx context.Context, resou
 func (client ManagedClustersClient) GetUpgradeProfilePreparer(ctx context.Context, resourceGroupName string, resourceName string) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"resourceGroupName": autorest.Encode("path", resourceGroupName), "resourceName": autorest.Encode("path", resourceName), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2018-03-31"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -229,9 +269,13 @@ func (client ManagedClustersClient) GetUpgradeProfilePreparer(ctx context.Contex
 func (client ManagedClustersClient) GetUpgradeProfileSender(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.SendWithSender(client, req, azure.DoRetryWithRegistration(client.Client))
 }
 func (client ManagedClustersClient) GetUpgradeProfileResponder(resp *http.Response) (result ManagedClusterUpgradeProfile, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())
@@ -239,6 +283,8 @@ func (client ManagedClustersClient) GetUpgradeProfileResponder(resp *http.Respon
 	return
 }
 func (client ManagedClustersClient) List(ctx context.Context) (result ManagedClusterListResultPage, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result.fn = client.listNextResults
@@ -262,6 +308,8 @@ func (client ManagedClustersClient) List(ctx context.Context) (result ManagedClu
 func (client ManagedClustersClient) ListPreparer(ctx context.Context) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2018-03-31"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -271,9 +319,13 @@ func (client ManagedClustersClient) ListPreparer(ctx context.Context) (*http.Req
 func (client ManagedClustersClient) ListSender(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.SendWithSender(client, req, azure.DoRetryWithRegistration(client.Client))
 }
 func (client ManagedClustersClient) ListResponder(resp *http.Response) (result ManagedClusterListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())
@@ -281,6 +333,8 @@ func (client ManagedClustersClient) ListResponder(resp *http.Response) (result M
 	return
 }
 func (client ManagedClustersClient) listNextResults(lastResults ManagedClusterListResult) (result ManagedClusterListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := lastResults.managedClusterListResultPreparer()
@@ -304,10 +358,14 @@ func (client ManagedClustersClient) listNextResults(lastResults ManagedClusterLi
 func (client ManagedClustersClient) ListComplete(ctx context.Context) (result ManagedClusterListResultIterator, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result.page, err = client.List(ctx)
 	return
 }
 func (client ManagedClustersClient) ListByResourceGroup(ctx context.Context, resourceGroupName string) (result ManagedClusterListResultPage, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result.fn = client.listByResourceGroupNextResults
@@ -331,6 +389,8 @@ func (client ManagedClustersClient) ListByResourceGroup(ctx context.Context, res
 func (client ManagedClustersClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"resourceGroupName": autorest.Encode("path", resourceGroupName), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2018-03-31"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -340,9 +400,13 @@ func (client ManagedClustersClient) ListByResourceGroupPreparer(ctx context.Cont
 func (client ManagedClustersClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.SendWithSender(client, req, azure.DoRetryWithRegistration(client.Client))
 }
 func (client ManagedClustersClient) ListByResourceGroupResponder(resp *http.Response) (result ManagedClusterListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())
@@ -350,6 +414,8 @@ func (client ManagedClustersClient) ListByResourceGroupResponder(resp *http.Resp
 	return
 }
 func (client ManagedClustersClient) listByResourceGroupNextResults(lastResults ManagedClusterListResult) (result ManagedClusterListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := lastResults.managedClusterListResultPreparer()
@@ -373,10 +439,14 @@ func (client ManagedClustersClient) listByResourceGroupNextResults(lastResults M
 func (client ManagedClustersClient) ListByResourceGroupComplete(ctx context.Context, resourceGroupName string) (result ManagedClusterListResultIterator, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result.page, err = client.ListByResourceGroup(ctx, resourceGroupName)
 	return
 }
 func (client ManagedClustersClient) UpdateTags(ctx context.Context, resourceGroupName string, resourceName string, parameters TagsObject) (result ManagedClustersUpdateTagsFuture, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := client.UpdateTagsPreparer(ctx, resourceGroupName, resourceName, parameters)
@@ -394,6 +464,8 @@ func (client ManagedClustersClient) UpdateTags(ctx context.Context, resourceGrou
 func (client ManagedClustersClient) UpdateTagsPreparer(ctx context.Context, resourceGroupName string, resourceName string, parameters TagsObject) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"resourceGroupName": autorest.Encode("path", resourceGroupName), "resourceName": autorest.Encode("path", resourceName), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2018-03-31"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -401,6 +473,8 @@ func (client ManagedClustersClient) UpdateTagsPreparer(ctx context.Context, reso
 	return preparer.Prepare((&http.Request{}).WithContext(ctx))
 }
 func (client ManagedClustersClient) UpdateTagsSender(req *http.Request) (future ManagedClustersUpdateTagsFuture, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var resp *http.Response
@@ -416,6 +490,8 @@ func (client ManagedClustersClient) UpdateTagsSender(req *http.Request) (future 
 	return
 }
 func (client ManagedClustersClient) UpdateTagsResponder(resp *http.Response) (result ManagedCluster, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())

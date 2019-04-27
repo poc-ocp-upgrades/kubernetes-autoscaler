@@ -23,6 +23,8 @@ type AdmissionServer struct {
 func NewAdmissionServer(recommendationProvider RecommendationProvider, podPreProcessor PodPreProcessor) *AdmissionServer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &AdmissionServer{recommendationProvider, podPreProcessor}
 }
 
@@ -33,6 +35,8 @@ type patchRecord struct {
 }
 
 func (s *AdmissionServer) getPatchesForPodResourceRequest(raw []byte, namespace string) ([]patchRecord, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod := v1.Pod{}
@@ -87,6 +91,8 @@ func (s *AdmissionServer) getPatchesForPodResourceRequest(raw []byte, namespace 
 func parseVPA(raw []byte) (*vpa_types.VerticalPodAutoscaler, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vpa := vpa_types.VerticalPodAutoscaler{}
 	if err := json.Unmarshal(raw, &vpa); err != nil {
 		return nil, err
@@ -100,6 +106,8 @@ var (
 )
 
 func validateVPA(vpa *vpa_types.VerticalPodAutoscaler) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if vpa.Spec.UpdatePolicy != nil {
@@ -135,6 +143,8 @@ func validateVPA(vpa *vpa_types.VerticalPodAutoscaler) error {
 func getPatchesForVPADefaults(raw []byte) ([]patchRecord, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vpa, err := parseVPA(raw)
 	if err != nil {
 		return nil, err
@@ -152,6 +162,8 @@ func getPatchesForVPADefaults(raw []byte) ([]patchRecord, error) {
 	return patches, nil
 }
 func (s *AdmissionServer) admit(data []byte) (*v1beta1.AdmissionResponse, metrics_admission.AdmissionStatus, metrics_admission.AdmissionResource) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	response := v1beta1.AdmissionResponse{}
@@ -210,6 +222,8 @@ func (s *AdmissionServer) admit(data []byte) (*v1beta1.AdmissionResponse, metric
 	return &response, status, resource
 }
 func (s *AdmissionServer) Serve(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	timer := metrics_admission.NewAdmissionLatency()

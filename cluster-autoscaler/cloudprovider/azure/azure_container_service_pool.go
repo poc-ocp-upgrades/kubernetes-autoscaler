@@ -26,6 +26,8 @@ type ContainerServiceAgentPool struct {
 func NewContainerServiceAgentPool(spec *dynamic.NodeGroupSpec, am *AzureManager) (*ContainerServiceAgentPool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	asg := &ContainerServiceAgentPool{azureRef: azureRef{Name: spec.Name}, minSize: spec.MinSize, maxSize: spec.MaxSize, manager: am}
 	asg.util = &AzUtil{manager: am}
 	asg.serviceType = am.config.VMType
@@ -41,6 +43,8 @@ func NewContainerServiceAgentPool(spec *dynamic.NodeGroupSpec, am *AzureManager)
 func (agentPool *ContainerServiceAgentPool) GetAKSAgentPool(agentProfiles *[]containerservice.ManagedClusterAgentPoolProfile) (ret *containerservice.ManagedClusterAgentPoolProfile) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, value := range *agentProfiles {
 		profileName := *value.Name
 		klog.V(5).Infof("AKS AgentPool profile name: %s", profileName)
@@ -51,6 +55,8 @@ func (agentPool *ContainerServiceAgentPool) GetAKSAgentPool(agentProfiles *[]con
 	return nil
 }
 func (agentPool *ContainerServiceAgentPool) GetACSAgentPool(agentProfiles *[]containerservice.AgentPoolProfile) (ret *containerservice.AgentPoolProfile) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, value := range *agentProfiles {
@@ -73,6 +79,8 @@ func (agentPool *ContainerServiceAgentPool) GetACSAgentPool(agentProfiles *[]con
 func (agentPool *ContainerServiceAgentPool) getAKSNodeCount() (count int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
 	defer cancel()
 	managedCluster, err := agentPool.manager.azClient.managedContainerServicesClient.Get(ctx, agentPool.resourceGroup, agentPool.clusterName)
@@ -92,6 +100,8 @@ func (agentPool *ContainerServiceAgentPool) getAKSNodeCount() (count int, err er
 func (agentPool *ContainerServiceAgentPool) getACSNodeCount() (count int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
 	defer cancel()
 	acsCluster, err := agentPool.manager.azClient.containerServicesClient.Get(ctx, agentPool.resourceGroup, agentPool.clusterName)
@@ -109,6 +119,8 @@ func (agentPool *ContainerServiceAgentPool) getACSNodeCount() (count int, err er
 	return 0, nil
 }
 func (agentPool *ContainerServiceAgentPool) setAKSNodeCount(count int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
@@ -144,6 +156,8 @@ func (agentPool *ContainerServiceAgentPool) setAKSNodeCount(count int) error {
 func (agentPool *ContainerServiceAgentPool) setACSNodeCount(count int) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
 	defer cancel()
 	acsCluster, err := agentPool.manager.azClient.containerServicesClient.Get(ctx, agentPool.resourceGroup, agentPool.clusterName)
@@ -177,12 +191,16 @@ func (agentPool *ContainerServiceAgentPool) setACSNodeCount(count int) error {
 func (agentPool *ContainerServiceAgentPool) GetNodeCount() (count int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if agentPool.serviceType == vmTypeAKS {
 		return agentPool.getAKSNodeCount()
 	}
 	return agentPool.getACSNodeCount()
 }
 func (agentPool *ContainerServiceAgentPool) SetNodeCount(count int) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if agentPool.serviceType == vmTypeAKS {
@@ -193,9 +211,13 @@ func (agentPool *ContainerServiceAgentPool) SetNodeCount(count int) (err error) 
 func (agentPool *ContainerServiceAgentPool) GetProviderID(name string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "azure://" + strings.ToLower(name)
 }
 func (agentPool *ContainerServiceAgentPool) GetName(providerID string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	providerID = strings.TrimPrefix(providerID, "azure://")
@@ -215,9 +237,13 @@ func (agentPool *ContainerServiceAgentPool) GetName(providerID string) (string, 
 func (agentPool *ContainerServiceAgentPool) MaxSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return agentPool.maxSize
 }
 func (agentPool *ContainerServiceAgentPool) MinSize() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return agentPool.minSize
@@ -225,9 +251,13 @@ func (agentPool *ContainerServiceAgentPool) MinSize() int {
 func (agentPool *ContainerServiceAgentPool) TargetSize() (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return agentPool.GetNodeCount()
 }
 func (agentPool *ContainerServiceAgentPool) SetSize(targetSize int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if targetSize > agentPool.MaxSize() || targetSize < agentPool.MinSize() {
@@ -241,6 +271,8 @@ func (agentPool *ContainerServiceAgentPool) SetSize(targetSize int) error {
 	return agentPool.setACSNodeCount(targetSize)
 }
 func (agentPool *ContainerServiceAgentPool) IncreaseSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if delta <= 0 {
@@ -257,6 +289,8 @@ func (agentPool *ContainerServiceAgentPool) IncreaseSize(delta int) error {
 	return agentPool.SetSize(targetSize)
 }
 func (agentPool *ContainerServiceAgentPool) DeleteNodesInternal(providerIDs []string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	currentSize, err := agentPool.TargetSize()
@@ -286,6 +320,8 @@ func (agentPool *ContainerServiceAgentPool) DeleteNodesInternal(providerIDs []st
 func (agentPool *ContainerServiceAgentPool) DeleteNodes(nodes []*apiv1.Node) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var providerIDs []string
 	for _, node := range nodes {
 		klog.Infof("Node: %s", node.Spec.ProviderID)
@@ -299,6 +335,8 @@ func (agentPool *ContainerServiceAgentPool) DeleteNodes(nodes []*apiv1.Node) err
 func (agentPool *ContainerServiceAgentPool) IsContainerServiceNode(tags map[string]*string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	poolName := tags["poolName"]
 	if poolName != nil {
 		klog.V(5).Infof("Matching agentPool name: %s with tag name: %s", agentPool.azureRef.Name, *poolName)
@@ -309,6 +347,8 @@ func (agentPool *ContainerServiceAgentPool) IsContainerServiceNode(tags map[stri
 	return false
 }
 func (agentPool *ContainerServiceAgentPool) GetNodes() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
@@ -330,6 +370,8 @@ func (agentPool *ContainerServiceAgentPool) GetNodes() ([]string, error) {
 	return nodeArray, nil
 }
 func (agentPool *ContainerServiceAgentPool) DecreaseTargetSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if delta >= 0 {
@@ -355,14 +397,20 @@ func (agentPool *ContainerServiceAgentPool) DecreaseTargetSize(delta int) error 
 func (agentPool *ContainerServiceAgentPool) Id() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return agentPool.azureRef.Name
 }
 func (agentPool *ContainerServiceAgentPool) Debug() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s (%d:%d)", agentPool.Id(), agentPool.MinSize(), agentPool.MaxSize())
 }
 func (agentPool *ContainerServiceAgentPool) Nodes() ([]cloudprovider.Instance, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	instanceNames, err := agentPool.GetNodes()
@@ -378,9 +426,13 @@ func (agentPool *ContainerServiceAgentPool) Nodes() ([]cloudprovider.Instance, e
 func (agentPool *ContainerServiceAgentPool) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (agentPool *ContainerServiceAgentPool) Exist() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return true
@@ -388,14 +440,20 @@ func (agentPool *ContainerServiceAgentPool) Exist() bool {
 func (agentPool *ContainerServiceAgentPool) Create() (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrAlreadyExist
 }
 func (agentPool *ContainerServiceAgentPool) Delete() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cloudprovider.ErrNotImplemented
 }
 func (agentPool *ContainerServiceAgentPool) Autoprovisioned() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return false

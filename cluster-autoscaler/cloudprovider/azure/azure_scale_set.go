@@ -31,10 +31,14 @@ type ScaleSet struct {
 func NewScaleSet(spec *dynamic.NodeGroupSpec, az *AzureManager) (*ScaleSet, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	scaleSet := &ScaleSet{azureRef: azureRef{Name: spec.Name}, minSize: spec.MinSize, maxSize: spec.MaxSize, manager: az, curSize: -1}
 	return scaleSet, nil
 }
 func (scaleSet *ScaleSet) MinSize() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return scaleSet.minSize
@@ -42,9 +46,13 @@ func (scaleSet *ScaleSet) MinSize() int {
 func (scaleSet *ScaleSet) Exist() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return true
 }
 func (scaleSet *ScaleSet) Create() (cloudprovider.NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrAlreadyExist
@@ -52,9 +60,13 @@ func (scaleSet *ScaleSet) Create() (cloudprovider.NodeGroup, error) {
 func (scaleSet *ScaleSet) Delete() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cloudprovider.ErrNotImplemented
 }
 func (scaleSet *ScaleSet) Autoprovisioned() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return false
@@ -62,9 +74,13 @@ func (scaleSet *ScaleSet) Autoprovisioned() bool {
 func (scaleSet *ScaleSet) MaxSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return scaleSet.maxSize
 }
 func (scaleSet *ScaleSet) getVMSSInfo() (compute.VirtualMachineScaleSet, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
@@ -77,6 +93,8 @@ func (scaleSet *ScaleSet) getVMSSInfo() (compute.VirtualMachineScaleSet, error) 
 	return setInfo, nil
 }
 func (scaleSet *ScaleSet) getCurSize() (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scaleSet.mutex.Lock()
@@ -97,9 +115,13 @@ func (scaleSet *ScaleSet) getCurSize() (int64, error) {
 func (scaleSet *ScaleSet) GetScaleSetSize() (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return scaleSet.getCurSize()
 }
 func (scaleSet *ScaleSet) SetScaleSetSize(size int64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scaleSet.mutex.Lock()
@@ -128,10 +150,14 @@ func (scaleSet *ScaleSet) SetScaleSetSize(size int64) error {
 func (scaleSet *ScaleSet) TargetSize() (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size, err := scaleSet.GetScaleSetSize()
 	return int(size), err
 }
 func (scaleSet *ScaleSet) IncreaseSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if delta <= 0 {
@@ -147,6 +173,8 @@ func (scaleSet *ScaleSet) IncreaseSize(delta int) error {
 	return scaleSet.SetScaleSetSize(size + int64(delta))
 }
 func (scaleSet *ScaleSet) GetScaleSetVms() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
@@ -169,6 +197,8 @@ func (scaleSet *ScaleSet) GetScaleSetVms() ([]string, error) {
 func (scaleSet *ScaleSet) DecreaseTargetSize(delta int) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if delta >= 0 {
 		return fmt.Errorf("size decrease size must be negative")
 	}
@@ -188,6 +218,8 @@ func (scaleSet *ScaleSet) DecreaseTargetSize(delta int) error {
 func (scaleSet *ScaleSet) Belongs(node *apiv1.Node) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(6).Infof("Check if node belongs to this scale set: scaleset:%v, node:%v\n", scaleSet, node)
 	ref := &azureRef{Name: node.Spec.ProviderID}
 	targetAsg, err := scaleSet.manager.GetAsgForInstance(ref)
@@ -203,6 +235,8 @@ func (scaleSet *ScaleSet) Belongs(node *apiv1.Node) (bool, error) {
 	return true, nil
 }
 func (scaleSet *ScaleSet) DeleteInstances(instances []*azureRef) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(instances) == 0 {
@@ -239,6 +273,8 @@ func (scaleSet *ScaleSet) DeleteInstances(instances []*azureRef) error {
 func (scaleSet *ScaleSet) DeleteNodes(nodes []*apiv1.Node) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(8).Infof("Delete nodes requested: %q\n", nodes)
 	size, err := scaleSet.GetScaleSetSize()
 	if err != nil {
@@ -264,14 +300,20 @@ func (scaleSet *ScaleSet) DeleteNodes(nodes []*apiv1.Node) error {
 func (scaleSet *ScaleSet) Id() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return scaleSet.Name
 }
 func (scaleSet *ScaleSet) Debug() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s (%d:%d)", scaleSet.Id(), scaleSet.MinSize(), scaleSet.MaxSize())
 }
 func buildInstanceOS(template compute.VirtualMachineScaleSet) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	instanceOS := cloudprovider.DefaultOS
@@ -281,6 +323,8 @@ func buildInstanceOS(template compute.VirtualMachineScaleSet) string {
 	return instanceOS
 }
 func buildGenericLabels(template compute.VirtualMachineScaleSet, nodeName string) map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(map[string]string)
@@ -293,6 +337,8 @@ func buildGenericLabels(template compute.VirtualMachineScaleSet, nodeName string
 	return result
 }
 func (scaleSet *ScaleSet) buildNodeFromTemplate(template compute.VirtualMachineScaleSet) (*apiv1.Node, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	node := apiv1.Node{}
@@ -324,6 +370,8 @@ func (scaleSet *ScaleSet) buildNodeFromTemplate(template compute.VirtualMachineS
 func (scaleSet *ScaleSet) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	template, err := scaleSet.getVMSSInfo()
 	if err != nil {
 		return nil, err
@@ -337,6 +385,8 @@ func (scaleSet *ScaleSet) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
 	return nodeInfo, nil
 }
 func (scaleSet *ScaleSet) Nodes() ([]cloudprovider.Instance, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scaleSet.mutex.Lock()

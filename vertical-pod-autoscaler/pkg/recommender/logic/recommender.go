@@ -29,6 +29,8 @@ type podResourceRecommender struct {
 func (r *podResourceRecommender) GetRecommendedPodResources(containerNameToAggregateStateMap model.ContainerNameToAggregateStateMap) RecommendedPodResources {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var recommendation = make(RecommendedPodResources)
 	if len(containerNameToAggregateStateMap) == 0 {
 		return recommendation
@@ -44,9 +46,13 @@ func (r *podResourceRecommender) GetRecommendedPodResources(containerNameToAggre
 func (r *podResourceRecommender) estimateContainerResources(s *model.AggregateContainerState) RecommendedContainerResources {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return RecommendedContainerResources{r.targetEstimator.GetResourceEstimation(s), r.lowerBoundEstimator.GetResourceEstimation(s), r.upperBoundEstimator.GetResourceEstimation(s)}
 }
 func CreatePodResourceRecommender() PodResourceRecommender {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	targetCPUPercentile := 0.9

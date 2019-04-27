@@ -11,6 +11,8 @@ var SchemeGroupVersion = schema.GroupVersion{Group: "autoscaling.k8s.io", Versio
 func Resource(resource string) schema.GroupResource {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return SchemeGroupVersion.WithResource(resource).GroupResource()
 }
 
@@ -23,9 +25,13 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	localSchemeBuilder.Register(addKnownTypes)
 }
 func addKnownTypes(scheme *runtime.Scheme) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scheme.AddKnownTypes(SchemeGroupVersion, &VerticalPodAutoscaler{}, &VerticalPodAutoscalerList{}, &VerticalPodAutoscalerCheckpoint{}, &VerticalPodAutoscalerCheckpointList{})

@@ -9,6 +9,8 @@ import (
 func TestBuildReadyConditions(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	conditions := BuildReadyConditions()
 	foundReady := false
 	for _, condition := range conditions {
@@ -21,6 +23,8 @@ func TestBuildReadyConditions(t *testing.T) {
 func TestBuildKubeProxy(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod := BuildKubeProxy("kube-proxy")
 	assert.NotNil(t, pod)
 	assert.Equal(t, 1, len(pod.Spec.Containers))
@@ -28,6 +32,8 @@ func TestBuildKubeProxy(t *testing.T) {
 	assert.Equal(t, int64(100), cpu.MilliValue())
 }
 func TestJoinStringMaps(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	map1 := map[string]string{"1": "a", "2": "b"}

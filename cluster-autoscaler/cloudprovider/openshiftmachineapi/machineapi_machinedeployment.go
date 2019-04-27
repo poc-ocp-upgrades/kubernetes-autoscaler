@@ -22,9 +22,13 @@ var _ scalableResource = (*machineDeploymentScalableResource)(nil)
 func (r machineDeploymentScalableResource) ID() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return path.Join(r.Namespace(), r.Name())
 }
 func (r machineDeploymentScalableResource) MaxSize() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return r.maxSize
@@ -32,9 +36,13 @@ func (r machineDeploymentScalableResource) MaxSize() int {
 func (r machineDeploymentScalableResource) MinSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.minSize
 }
 func (r machineDeploymentScalableResource) Name() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return r.machineDeployment.Name
@@ -42,9 +50,13 @@ func (r machineDeploymentScalableResource) Name() string {
 func (r machineDeploymentScalableResource) Namespace() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.machineDeployment.Namespace
 }
 func (r machineDeploymentScalableResource) Nodes() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := []string{}
@@ -65,9 +77,13 @@ func (r machineDeploymentScalableResource) Nodes() ([]string, error) {
 func (r machineDeploymentScalableResource) Replicas() int32 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pointer.Int32PtrDerefOr(r.machineDeployment.Spec.Replicas, 0)
 }
 func (r machineDeploymentScalableResource) SetSize(nreplicas int32) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	machineDeployment, err := r.machineapiClient.MachineDeployments(r.Namespace()).Get(r.Name(), metav1.GetOptions{})
@@ -83,6 +99,8 @@ func (r machineDeploymentScalableResource) SetSize(nreplicas int32) error {
 	return nil
 }
 func newMachineDeploymentScalableResource(controller *machineController, machineDeployment *v1beta1.MachineDeployment) (*machineDeploymentScalableResource, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	minSize, maxSize, err := parseScalingBounds(machineDeployment.Annotations)

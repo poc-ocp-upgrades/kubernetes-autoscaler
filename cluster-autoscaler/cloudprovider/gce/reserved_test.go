@@ -9,6 +9,8 @@ import (
 func TestCalculateKernelReserved(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testCase struct {
 		physicalMemory	int64
 		reservedMemory	int64

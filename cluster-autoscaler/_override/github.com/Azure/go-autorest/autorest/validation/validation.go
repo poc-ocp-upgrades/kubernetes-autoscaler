@@ -38,6 +38,8 @@ const (
 func Validate(m []Validation) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, item := range m {
 		v := reflect.ValueOf(item.TargetValue)
 		for _, constraint := range item.Constraints {
@@ -68,6 +70,8 @@ func Validate(m []Validation) error {
 func validateStruct(x reflect.Value, v Constraint, name ...string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := strings.Split(v.Target, ".")
 	f := x.FieldByName(s[len(s)-1])
 	if isZero(f) {
@@ -76,6 +80,8 @@ func validateStruct(x reflect.Value, v Constraint, name ...string) error {
 	return Validate([]Validation{{TargetValue: getInterfaceValue(f), Constraints: []Constraint{v}}})
 }
 func validatePtr(x reflect.Value, v Constraint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if v.Name == ReadOnly {
@@ -93,6 +99,8 @@ func validatePtr(x reflect.Value, v Constraint) error {
 	return nil
 }
 func validateInt(x reflect.Value, v Constraint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i := x.Int()
@@ -129,6 +137,8 @@ func validateInt(x reflect.Value, v Constraint) error {
 func validateFloat(x reflect.Value, v Constraint) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f := x.Float()
 	r, ok := v.Rule.(float64)
 	if !ok {
@@ -157,6 +167,8 @@ func validateFloat(x reflect.Value, v Constraint) error {
 	return nil
 }
 func validateString(x reflect.Value, v Constraint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := x.String()
@@ -200,6 +212,8 @@ func validateString(x reflect.Value, v Constraint) error {
 	return nil
 }
 func validateArrayMap(x reflect.Value, v Constraint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch v.Name {
@@ -263,6 +277,8 @@ func validateArrayMap(x reflect.Value, v Constraint) error {
 func checkNil(x reflect.Value, v Constraint) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, ok := v.Rule.(bool); !ok {
 		return createError(x, v, fmt.Sprintf("rule must be bool value for %v constraint; got: %v", v.Name, v.Rule))
 	}
@@ -274,6 +290,8 @@ func checkNil(x reflect.Value, v Constraint) error {
 func checkEmpty(x reflect.Value, v Constraint) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, ok := v.Rule.(bool); !ok {
 		return createError(x, v, fmt.Sprintf("rule must be bool value for %v constraint; got: %v", v.Name, v.Rule))
 	}
@@ -283,6 +301,8 @@ func checkEmpty(x reflect.Value, v Constraint) error {
 	return nil
 }
 func checkForUniqueInArray(x reflect.Value) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x == reflect.Zero(reflect.TypeOf(x)) || x.Len() == 0 {
@@ -302,6 +322,8 @@ func checkForUniqueInArray(x reflect.Value) bool {
 	return true
 }
 func checkForUniqueInMap(x reflect.Value) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x == reflect.Zero(reflect.TypeOf(x)) || x.Len() == 0 {
@@ -324,6 +346,8 @@ func checkForUniqueInMap(x reflect.Value) bool {
 func getInterfaceValue(x reflect.Value) interface{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x.Kind() == reflect.Invalid {
 		return nil
 	}
@@ -332,14 +356,20 @@ func getInterfaceValue(x reflect.Value) interface{} {
 func isZero(x interface{}) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return x == reflect.Zero(reflect.TypeOf(x)).Interface()
 }
 func createError(x reflect.Value, v Constraint, err string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Errorf("autorest/validation: validation failed: parameter=%s constraint=%s value=%#v details: %s", v.Target, v.Name, getInterfaceValue(x), err)
 }
 func toInt64(v interface{}) (int64, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if i64, ok := v.(int64); ok {
@@ -351,6 +381,8 @@ func toInt64(v interface{}) (int64, bool) {
 	return 0, false
 }
 func NewErrorWithValidationError(err error, packageType, method string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return NewError(packageType, method, err.Error())

@@ -21,6 +21,8 @@ var verticalpodautoscalersKind = schema.GroupVersionKind{Group: "poc.autoscaling
 func (c *FakeVerticalPodAutoscalers) Get(name string, options v1.GetOptions) (result *v1alpha1.VerticalPodAutoscaler, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	obj, err := c.Fake.Invokes(testing.NewGetAction(verticalpodautoscalersResource, c.ns, name), &v1alpha1.VerticalPodAutoscaler{})
 	if obj == nil {
 		return nil, err
@@ -28,6 +30,8 @@ func (c *FakeVerticalPodAutoscalers) Get(name string, options v1.GetOptions) (re
 	return obj.(*v1alpha1.VerticalPodAutoscaler), err
 }
 func (c *FakeVerticalPodAutoscalers) List(opts v1.ListOptions) (result *v1alpha1.VerticalPodAutoscalerList, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj, err := c.Fake.Invokes(testing.NewListAction(verticalpodautoscalersResource, verticalpodautoscalersKind, c.ns, opts), &v1alpha1.VerticalPodAutoscalerList{})
@@ -49,9 +53,13 @@ func (c *FakeVerticalPodAutoscalers) List(opts v1.ListOptions) (result *v1alpha1
 func (c *FakeVerticalPodAutoscalers) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.Fake.InvokesWatch(testing.NewWatchAction(verticalpodautoscalersResource, c.ns, opts))
 }
 func (c *FakeVerticalPodAutoscalers) Create(verticalPodAutoscaler *v1alpha1.VerticalPodAutoscaler) (result *v1alpha1.VerticalPodAutoscaler, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj, err := c.Fake.Invokes(testing.NewCreateAction(verticalpodautoscalersResource, c.ns, verticalPodAutoscaler), &v1alpha1.VerticalPodAutoscaler{})
@@ -63,6 +71,8 @@ func (c *FakeVerticalPodAutoscalers) Create(verticalPodAutoscaler *v1alpha1.Vert
 func (c *FakeVerticalPodAutoscalers) Update(verticalPodAutoscaler *v1alpha1.VerticalPodAutoscaler) (result *v1alpha1.VerticalPodAutoscaler, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	obj, err := c.Fake.Invokes(testing.NewUpdateAction(verticalpodautoscalersResource, c.ns, verticalPodAutoscaler), &v1alpha1.VerticalPodAutoscaler{})
 	if obj == nil {
 		return nil, err
@@ -70,6 +80,8 @@ func (c *FakeVerticalPodAutoscalers) Update(verticalPodAutoscaler *v1alpha1.Vert
 	return obj.(*v1alpha1.VerticalPodAutoscaler), err
 }
 func (c *FakeVerticalPodAutoscalers) UpdateStatus(verticalPodAutoscaler *v1alpha1.VerticalPodAutoscaler) (*v1alpha1.VerticalPodAutoscaler, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj, err := c.Fake.Invokes(testing.NewUpdateSubresourceAction(verticalpodautoscalersResource, "status", c.ns, verticalPodAutoscaler), &v1alpha1.VerticalPodAutoscaler{})
@@ -81,10 +93,14 @@ func (c *FakeVerticalPodAutoscalers) UpdateStatus(verticalPodAutoscaler *v1alpha
 func (c *FakeVerticalPodAutoscalers) Delete(name string, options *v1.DeleteOptions) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := c.Fake.Invokes(testing.NewDeleteAction(verticalpodautoscalersResource, c.ns, name), &v1alpha1.VerticalPodAutoscaler{})
 	return err
 }
 func (c *FakeVerticalPodAutoscalers) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	action := testing.NewDeleteCollectionAction(verticalpodautoscalersResource, c.ns, listOptions)
@@ -92,6 +108,8 @@ func (c *FakeVerticalPodAutoscalers) DeleteCollection(options *v1.DeleteOptions,
 	return err
 }
 func (c *FakeVerticalPodAutoscalers) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.VerticalPodAutoscaler, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj, err := c.Fake.Invokes(testing.NewPatchSubresourceAction(verticalpodautoscalersResource, c.ns, name, data, subresources...), &v1alpha1.VerticalPodAutoscaler{})

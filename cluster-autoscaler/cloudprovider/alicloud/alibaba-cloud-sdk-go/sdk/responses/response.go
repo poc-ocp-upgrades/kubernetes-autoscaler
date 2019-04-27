@@ -23,6 +23,8 @@ type AcsResponse interface {
 func Unmarshal(response AcsResponse, httpResponse *http.Response, format string) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = response.parseFromHttpResponse(httpResponse)
 	if err != nil {
 		return
@@ -60,9 +62,13 @@ type BaseResponse struct {
 func (baseResponse *BaseResponse) GetHttpStatus() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return baseResponse.httpStatus
 }
 func (baseResponse *BaseResponse) GetHttpHeaders() map[string][]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return baseResponse.httpHeaders
@@ -70,9 +76,13 @@ func (baseResponse *BaseResponse) GetHttpHeaders() map[string][]string {
 func (baseResponse *BaseResponse) GetHttpContentString() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return baseResponse.httpContentString
 }
 func (baseResponse *BaseResponse) GetHttpContentBytes() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return baseResponse.httpContentBytes
@@ -80,9 +90,13 @@ func (baseResponse *BaseResponse) GetHttpContentBytes() []byte {
 func (baseResponse *BaseResponse) GetOriginHttpResponse() *http.Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return baseResponse.originHttpResponse
 }
 func (baseResponse *BaseResponse) IsSuccess() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if baseResponse.GetHttpStatus() >= 200 && baseResponse.GetHttpStatus() < 300 {
@@ -91,6 +105,8 @@ func (baseResponse *BaseResponse) IsSuccess() bool {
 	return false
 }
 func (baseResponse *BaseResponse) parseFromHttpResponse(httpResponse *http.Response) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer httpResponse.Body.Close()
@@ -108,6 +124,8 @@ func (baseResponse *BaseResponse) parseFromHttpResponse(httpResponse *http.Respo
 func (baseResponse *BaseResponse) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resultBuilder := bytes.Buffer{}
 	resultBuilder.WriteString("\n")
 	resultBuilder.WriteString(fmt.Sprintf("%s %s\n", baseResponse.originHttpResponse.Proto, baseResponse.originHttpResponse.Status))
@@ -122,6 +140,8 @@ func (baseResponse *BaseResponse) String() string {
 type CommonResponse struct{ *BaseResponse }
 
 func NewCommonResponse() (response *CommonResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &CommonResponse{BaseResponse: &BaseResponse{}}

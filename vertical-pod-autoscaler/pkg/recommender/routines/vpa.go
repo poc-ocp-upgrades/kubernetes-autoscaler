@@ -9,6 +9,8 @@ import (
 func GetContainerNameToAggregateStateMap(vpa *model.Vpa) model.ContainerNameToAggregateStateMap {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	containerNameToAggregateStateMap := vpa.AggregateStateByContainerName()
 	filteredContainerNameToAggregateStateMap := make(model.ContainerNameToAggregateStateMap)
 	for containerName, aggregatedContainerState := range containerNameToAggregateStateMap {

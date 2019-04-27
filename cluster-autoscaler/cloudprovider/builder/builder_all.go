@@ -18,6 +18,8 @@ const DefaultCloudProvider = gce.ProviderNameGCE
 func buildCloudProvider(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDiscoveryOptions, rl *cloudprovider.ResourceLimiter) cloudprovider.CloudProvider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch opts.CloudProviderName {
 	case gce.ProviderNameGCE:
 		return gce.BuildGCE(opts, do, rl)

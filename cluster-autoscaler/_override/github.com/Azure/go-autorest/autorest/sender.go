@@ -17,6 +17,8 @@ type SenderFunc func(*http.Request) (*http.Response, error)
 func (sf SenderFunc) Do(r *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sf(r)
 }
 
@@ -25,9 +27,13 @@ type SendDecorator func(Sender) Sender
 func CreateSender(decorators ...SendDecorator) Sender {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return DecorateSender(&http.Client{}, decorators...)
 }
 func DecorateSender(s Sender, decorators ...SendDecorator) Sender {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, decorate := range decorators {
@@ -38,14 +44,20 @@ func DecorateSender(s Sender, decorators ...SendDecorator) Sender {
 func Send(r *http.Request, decorators ...SendDecorator) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return SendWithSender(&http.Client{}, r, decorators...)
 }
 func SendWithSender(s Sender, r *http.Request, decorators ...SendDecorator) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return DecorateSender(s, decorators...).Do(r)
 }
 func AfterDelay(d time.Duration) SendDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(s Sender) Sender {
@@ -60,6 +72,8 @@ func AfterDelay(d time.Duration) SendDecorator {
 func AsIs() SendDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(s Sender) Sender {
 		return SenderFunc(func(r *http.Request) (*http.Response, error) {
 			return s.Do(r)
@@ -67,6 +81,8 @@ func AsIs() SendDecorator {
 	}
 }
 func DoCloseIfError() SendDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(s Sender) Sender {
@@ -82,6 +98,8 @@ func DoCloseIfError() SendDecorator {
 func DoErrorIfStatusCode(codes ...int) SendDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(s Sender) Sender {
 		return SenderFunc(func(r *http.Request) (*http.Response, error) {
 			resp, err := s.Do(r)
@@ -95,6 +113,8 @@ func DoErrorIfStatusCode(codes ...int) SendDecorator {
 func DoErrorUnlessStatusCode(codes ...int) SendDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(s Sender) Sender {
 		return SenderFunc(func(r *http.Request) (*http.Response, error) {
 			resp, err := s.Do(r)
@@ -106,6 +126,8 @@ func DoErrorUnlessStatusCode(codes ...int) SendDecorator {
 	}
 }
 func DoPollForStatusCodes(duration time.Duration, delay time.Duration, codes ...int) SendDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(s Sender) Sender {
@@ -123,6 +145,8 @@ func DoPollForStatusCodes(duration time.Duration, delay time.Duration, codes ...
 	}
 }
 func DoRetryForAttempts(attempts int, backoff time.Duration) SendDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(s Sender) Sender {
@@ -146,6 +170,8 @@ func DoRetryForAttempts(attempts int, backoff time.Duration) SendDecorator {
 	}
 }
 func DoRetryForStatusCodes(attempts int, backoff time.Duration, codes ...int) SendDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(s Sender) Sender {
@@ -179,6 +205,8 @@ func DoRetryForStatusCodes(attempts int, backoff time.Duration, codes ...int) Se
 func DelayWithRetryAfter(resp *http.Response, cancel <-chan struct{}) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if resp == nil {
 		return false
 	}
@@ -194,6 +222,8 @@ func DelayWithRetryAfter(resp *http.Response, cancel <-chan struct{}) bool {
 	return false
 }
 func DoRetryForDuration(d time.Duration, backoff time.Duration) SendDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(s Sender) Sender {
@@ -220,6 +250,8 @@ func DoRetryForDuration(d time.Duration, backoff time.Duration) SendDecorator {
 func WithLogging(logger *log.Logger) SendDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(s Sender) Sender {
 		return SenderFunc(func(r *http.Request) (*http.Response, error) {
 			logger.Printf("Sending %s %s", r.Method, r.URL)
@@ -234,6 +266,8 @@ func WithLogging(logger *log.Logger) SendDecorator {
 	}
 }
 func DelayForBackoff(backoff time.Duration, attempt int, cancel <-chan struct{}) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {

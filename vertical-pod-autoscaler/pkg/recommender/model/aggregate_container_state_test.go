@@ -21,16 +21,22 @@ var (
 func addTestCPUSample(cluster *ClusterState, container ContainerID, cpuCores float64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sample := ContainerUsageSampleWithKey{Container: container, ContainerUsageSample: ContainerUsageSample{MeasureStart: testTimestamp, Usage: CPUAmountFromCores(cpuCores), Request: testRequest[ResourceCPU], Resource: ResourceCPU}}
 	return cluster.AddSample(&sample)
 }
 func addTestMemorySample(cluster *ClusterState, container ContainerID, memoryBytes float64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sample := ContainerUsageSampleWithKey{Container: container, ContainerUsageSample: ContainerUsageSample{MeasureStart: testTimestamp, Usage: MemoryAmountFromBytes(memoryBytes), Request: testRequest[ResourceMemory], Resource: ResourceMemory}}
 	return cluster.AddSample(&sample)
 }
 func TestAggregateStateByContainerName(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := NewClusterState()
@@ -70,6 +76,8 @@ func TestAggregateStateByContainerName(t *testing.T) {
 func TestAggregateContainerStateSaveToCheckpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	location, _ := time.LoadLocation("UTC")
 	cs := NewAggregateContainerState()
 	t1, t2 := time.Date(2018, time.January, 1, 2, 3, 4, 0, location), time.Date(2018, time.February, 1, 2, 3, 4, 0, location)
@@ -91,12 +99,16 @@ func TestAggregateContainerStateSaveToCheckpoint(t *testing.T) {
 func TestAggregateContainerStateLoadFromCheckpointFailsForVersionMismatch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	checkpoint := vpa_types.VerticalPodAutoscalerCheckpointStatus{Version: "foo"}
 	cs := NewAggregateContainerState()
 	err := cs.LoadFromCheckpoint(&checkpoint)
 	assert.Error(t, err)
 }
 func TestAggregateContainerStateLoadFromCheckpoint(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	location, _ := time.LoadLocation("UTC")
@@ -112,6 +124,8 @@ func TestAggregateContainerStateLoadFromCheckpoint(t *testing.T) {
 	assert.False(t, cs.AggregateMemoryPeaks.IsEmpty())
 }
 func TestAggregateContainerStateIsExpired(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cs := NewAggregateContainerState()

@@ -12,6 +12,8 @@ import (
 func TestRecommendationNotAvailable(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod := test.Pod().WithName("pod1").AddContainer(test.BuildTestContainer("ctr-name", "", "")).Get()
 	podRecommendation := vpa_types.RecommendedPodResources{ContainerRecommendations: []vpa_types.RecommendedContainerResources{{ContainerName: "ctr-name-other", Target: apiv1.ResourceList{apiv1.ResourceCPU: *resource.NewScaledQuantity(100, 1), apiv1.ResourceMemory: *resource.NewScaledQuantity(50000, 1)}}}}
 	policy := vpa_types.PodResourcePolicy{}
@@ -21,6 +23,8 @@ func TestRecommendationNotAvailable(t *testing.T) {
 	assert.Empty(t, res.ContainerRecommendations)
 }
 func TestRecommendationCappedToLimit(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod := test.Pod().WithName("pod1").AddContainer(test.BuildTestContainer("ctr-name", "", "")).Get()
@@ -35,6 +39,8 @@ func TestRecommendationCappedToLimit(t *testing.T) {
 	assert.Equal(t, apiv1.ResourceList{apiv1.ResourceCPU: *resource.NewScaledQuantity(2, 1), apiv1.ResourceMemory: *resource.NewScaledQuantity(7000, 1)}, res.ContainerRecommendations[0].UpperBound)
 }
 func TestRecommendationCappedToMinMaxPolicy(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod := test.Pod().WithName("pod1").AddContainer(test.BuildTestContainer("ctr-name", "", "")).Get()
@@ -61,6 +67,8 @@ var applyTestCases = []struct {
 func TestApply(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod := test.Pod().WithName("pod1").AddContainer(test.BuildTestContainer("ctr-name", "", "")).Get()
 	for _, testCase := range applyTestCases {
 		res, _, err := NewCappingRecommendationProcessor().Apply(testCase.PodRecommendation, testCase.Policy, nil, pod)
@@ -69,6 +77,8 @@ func TestApply(t *testing.T) {
 	}
 }
 func TestApplyVpa(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	podRecommendation := vpa_types.RecommendedPodResources{ContainerRecommendations: []vpa_types.RecommendedContainerResources{{ContainerName: "ctr-name", Target: apiv1.ResourceList{apiv1.ResourceCPU: *resource.NewScaledQuantity(30, 1), apiv1.ResourceMemory: *resource.NewScaledQuantity(5000, 1)}, LowerBound: apiv1.ResourceList{apiv1.ResourceCPU: *resource.NewScaledQuantity(20, 1), apiv1.ResourceMemory: *resource.NewScaledQuantity(4300, 1)}, UncappedTarget: apiv1.ResourceList{apiv1.ResourceCPU: *resource.NewScaledQuantity(30, 1), apiv1.ResourceMemory: *resource.NewScaledQuantity(5000, 1)}, UpperBound: apiv1.ResourceList{apiv1.ResourceCPU: *resource.NewScaledQuantity(50, 1), apiv1.ResourceMemory: *resource.NewScaledQuantity(5500, 1)}}}}

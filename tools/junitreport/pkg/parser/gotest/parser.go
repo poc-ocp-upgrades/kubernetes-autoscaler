@@ -12,6 +12,8 @@ import (
 func NewParser(builder builder.TestSuitesBuilder, stream bool) parser.TestOutputParser {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &testOutputParser{builder: builder, stream: stream}
 }
 
@@ -30,8 +32,12 @@ const (
 func log(format string, args ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (p *testOutputParser) Parse(input *bufio.Scanner) (*api.TestSuites, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	suites := &api.TestSuites{}

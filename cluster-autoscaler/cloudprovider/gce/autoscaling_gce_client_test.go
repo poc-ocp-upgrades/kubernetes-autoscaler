@@ -13,6 +13,8 @@ import (
 func newTestAutoscalingGceClient(t *testing.T, projectId, url string) *autoscalingGceClientV1 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := &http.Client{}
 	gceClient, err := NewAutoscalingGceClientV1(client, projectId)
 	if !assert.NoError(t, err) {
@@ -46,6 +48,8 @@ const operationDoneResponse = `{
 func TestWaitForOp(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	server := test_util.NewHttpServerMock()
 	defer server.Close()
 	g := newTestAutoscalingGceClient(t, "project1", server.URL)
@@ -59,6 +63,8 @@ func TestWaitForOp(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestWaitForOpTimeout(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := test_util.NewHttpServerMock()

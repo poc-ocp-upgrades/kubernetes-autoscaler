@@ -18,6 +18,8 @@ import (
 func TestBuildNodeFromTemplateSetsResources(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testCase struct {
 		scenario		string
 		kubeEnv			string
@@ -60,6 +62,8 @@ func TestBuildNodeFromTemplateSetsResources(t *testing.T) {
 func TestBuildGenericLabels(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	labels, err := BuildGenericLabels(GceRef{Name: "kubernetes-minion-group", Project: "mwielgus-proj", Zone: "us-central1-b"}, "n1-standard-8", "sillyname")
 	assert.Nil(t, err)
 	assert.Equal(t, "us-central1", labels[kubeletapis.LabelZoneRegion])
@@ -70,6 +74,8 @@ func TestBuildGenericLabels(t *testing.T) {
 	assert.Equal(t, cloudprovider.DefaultOS, labels[kubeletapis.LabelOS])
 }
 func TestCalculateAllocatable(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testCase struct {
@@ -97,6 +103,8 @@ func TestCalculateAllocatable(t *testing.T) {
 	}
 }
 func TestBuildAllocatableFromKubeEnv(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testCase struct {
@@ -131,6 +139,8 @@ func TestBuildAllocatableFromKubeEnv(t *testing.T) {
 func TestGetAcceleratorCount(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCases := []struct {
 		accelerators	[]*gce.AcceleratorConfig
 		count		int64
@@ -141,6 +151,8 @@ func TestGetAcceleratorCount(t *testing.T) {
 	}
 }
 func TestBuildCapacityMemory(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testCase struct {
@@ -163,6 +175,8 @@ func TestBuildCapacityMemory(t *testing.T) {
 func TestExtractAutoscalerVarFromKubeEnv(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cases := []struct {
 		desc	string
 		name	string
@@ -182,6 +196,8 @@ func TestExtractAutoscalerVarFromKubeEnv(t *testing.T) {
 	}
 }
 func TestExtractLabelsFromKubeEnv(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	poolLabel := "cloud.google.com/gke-nodepool"
@@ -207,6 +223,8 @@ func TestExtractLabelsFromKubeEnv(t *testing.T) {
 func TestExtractTaintsFromKubeEnv(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	expectedTaints := makeTaintSet([]apiv1.Taint{{Key: "dedicated", Value: "ml", Effect: apiv1.TaintEffectNoSchedule}, {Key: "test", Value: "dev", Effect: apiv1.TaintEffectPreferNoSchedule}, {Key: "a", Value: "b", Effect: apiv1.TaintEffect("c")}})
 	cases := []struct {
 		desc	string
@@ -228,6 +246,8 @@ func TestExtractTaintsFromKubeEnv(t *testing.T) {
 func TestExtractKubeReservedFromKubeEnv(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testCase struct {
 		kubeEnv			string
 		expectedReserved	string
@@ -245,6 +265,8 @@ func TestExtractKubeReservedFromKubeEnv(t *testing.T) {
 	}
 }
 func TestParseKubeReserved(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testCase struct {
@@ -270,6 +292,8 @@ func TestParseKubeReserved(t *testing.T) {
 func makeTaintSet(taints []apiv1.Taint) map[apiv1.Taint]bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	set := make(map[apiv1.Taint]bool)
 	for _, taint := range taints {
 		set[taint] = true
@@ -277,6 +301,8 @@ func makeTaintSet(taints []apiv1.Taint) map[apiv1.Taint]bool {
 	return set
 }
 func makeResourceList(cpu string, memory string, gpu int64) (apiv1.ResourceList, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := apiv1.ResourceList{}
@@ -302,6 +328,8 @@ func makeResourceList(cpu string, memory string, gpu int64) (apiv1.ResourceList,
 func makeResourceList2(cpu int64, memory int64, gpu int64, pods int64) (apiv1.ResourceList, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := apiv1.ResourceList{}
 	result[apiv1.ResourceCPU] = *resource.NewQuantity(cpu, resource.DecimalSI)
 	result[apiv1.ResourceMemory] = *resource.NewQuantity(memory, resource.BinarySI)
@@ -316,10 +344,14 @@ func makeResourceList2(cpu int64, memory int64, gpu int64, pods int64) (apiv1.Re
 func assertEqualResourceLists(t *testing.T, name string, expected, actual apiv1.ResourceList) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Helper()
 	assert.True(t, quota.V1Equals(expected, actual), "%q unequal:\nExpected: %v\nActual:   %v", name, stringifyResourceList(expected), stringifyResourceList(actual))
 }
 func stringifyResourceList(resourceList apiv1.ResourceList) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resourceNames := []apiv1.ResourceName{apiv1.ResourcePods, apiv1.ResourceCPU, gpuUtils.ResourceNvidiaGPU, apiv1.ResourceMemory, apiv1.ResourceEphemeralStorage}

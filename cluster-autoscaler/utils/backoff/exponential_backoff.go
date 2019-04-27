@@ -21,9 +21,13 @@ type exponentialBackoffInfo struct {
 func NewExponentialBackoff(initialBackoffDuration time.Duration, maxBackoffDuration time.Duration, backoffResetTimeout time.Duration, nodeGroupKey func(nodeGroup cloudprovider.NodeGroup) string) Backoff {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &exponentialBackoff{maxBackoffDuration: maxBackoffDuration, initialBackoffDuration: initialBackoffDuration, backoffResetTimeout: backoffResetTimeout, backoffInfo: make(map[string]exponentialBackoffInfo), nodeGroupKey: nodeGroupKey}
 }
 func NewIdBasedExponentialBackoff(initialBackoffDuration time.Duration, maxBackoffDuration time.Duration, backoffResetTimeout time.Duration) Backoff {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return NewExponentialBackoff(initialBackoffDuration, maxBackoffDuration, backoffResetTimeout, func(nodeGroup cloudprovider.NodeGroup) string {
@@ -31,6 +35,8 @@ func NewIdBasedExponentialBackoff(initialBackoffDuration time.Duration, maxBacko
 	})
 }
 func (b *exponentialBackoff) Backoff(nodeGroup cloudprovider.NodeGroup, currentTime time.Time) time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	duration := b.initialBackoffDuration
@@ -50,15 +56,21 @@ func (b *exponentialBackoff) Backoff(nodeGroup cloudprovider.NodeGroup, currentT
 func (b *exponentialBackoff) IsBackedOff(nodeGroup cloudprovider.NodeGroup, currentTime time.Time) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	backoffInfo, found := b.backoffInfo[b.nodeGroupKey(nodeGroup)]
 	return found && backoffInfo.backoffUntil.After(currentTime)
 }
 func (b *exponentialBackoff) RemoveBackoff(nodeGroup cloudprovider.NodeGroup) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	delete(b.backoffInfo, b.nodeGroupKey(nodeGroup))
 }
 func (b *exponentialBackoff) RemoveStaleBackoffData(currentTime time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for key, backoffInfo := range b.backoffInfo {

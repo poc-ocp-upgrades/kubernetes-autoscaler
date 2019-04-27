@@ -18,6 +18,8 @@ import (
 func TestOKWithScaleUp(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	now := time.Now()
 	ng1_1 := BuildTestNode("ng1-1", 1000, 1000)
 	SetNodeReadyState(ng1_1, true, now.Add(-time.Minute))
@@ -57,6 +59,8 @@ func TestOKWithScaleUp(t *testing.T) {
 func TestEmptyOK(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	now := time.Now()
 	provider := testprovider.NewTestCloudProvider(nil, nil)
 	provider.AddNodeGroup("ng1", 0, 10, 0)
@@ -78,6 +82,8 @@ func TestEmptyOK(t *testing.T) {
 	assert.True(t, clusterstate.IsNodeGroupScalingUp("ng1"))
 }
 func TestOKOneUnreadyNode(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	now := time.Now()
@@ -114,6 +120,8 @@ func TestOKOneUnreadyNode(t *testing.T) {
 func TestNodeWithoutNodeGroupDontCrash(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	now := time.Now()
 	noNgNode := BuildTestNode("no_ng", 1000, 1000)
 	SetNodeReadyState(noNgNode, true, now.Add(-time.Minute))
@@ -127,6 +135,8 @@ func TestNodeWithoutNodeGroupDontCrash(t *testing.T) {
 	clusterstate.UpdateScaleDownCandidates([]*apiv1.Node{noNgNode}, now)
 }
 func TestOKOneUnreadyNodeWithScaleDownCandidate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	now := time.Now()
@@ -173,6 +183,8 @@ func TestOKOneUnreadyNodeWithScaleDownCandidate(t *testing.T) {
 func TestMissingNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	now := time.Now()
 	ng1_1 := BuildTestNode("ng1-1", 1000, 1000)
 	SetNodeReadyState(ng1_1, true, now.Add(-time.Minute))
@@ -206,6 +218,8 @@ func TestMissingNodes(t *testing.T) {
 func TestTooManyUnready(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	now := time.Now()
 	ng1_1 := BuildTestNode("ng1-1", 1000, 1000)
 	SetNodeReadyState(ng1_1, false, now.Add(-time.Minute))
@@ -228,6 +242,8 @@ func TestTooManyUnready(t *testing.T) {
 func TestExpiredScaleUp(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	now := time.Now()
 	ng1_1 := BuildTestNode("ng1-1", 1000, 1000)
 	SetNodeReadyState(ng1_1, true, now.Add(-time.Minute))
@@ -247,6 +263,8 @@ func TestExpiredScaleUp(t *testing.T) {
 func TestRegisterScaleDown(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ng1_1 := BuildTestNode("ng1-1", 1000, 1000)
 	provider := testprovider.NewTestCloudProvider(nil, nil)
 	provider.AddNodeGroup("ng1", 1, 10, 1)
@@ -262,6 +280,8 @@ func TestRegisterScaleDown(t *testing.T) {
 	assert.Equal(t, 0, len(clusterstate.scaleDownRequests))
 }
 func TestUpcomingNodes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	provider := testprovider.NewTestCloudProvider(nil, nil)
@@ -298,6 +318,8 @@ func TestUpcomingNodes(t *testing.T) {
 func TestIncorrectSize(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ng1_1 := BuildTestNode("ng1-1", 1000, 1000)
 	provider := testprovider.NewTestCloudProvider(nil, nil)
 	provider.AddNodeGroup("ng1", 1, 10, 5)
@@ -324,6 +346,8 @@ func TestIncorrectSize(t *testing.T) {
 	assert.Equal(t, now.Add(-3*time.Minute), incorrect.FirstObserved)
 }
 func TestUnregisteredNodes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ng1_1 := BuildTestNode("ng1-1", 1000, 1000)
@@ -354,6 +378,8 @@ func TestUnregisteredNodes(t *testing.T) {
 	assert.Equal(t, 0, len(clusterstate.GetUnregisteredNodes()))
 }
 func TestUpdateLastTransitionTimes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	now := metav1.Time{Time: time.Now()}
@@ -390,6 +416,8 @@ func TestUpdateLastTransitionTimes(t *testing.T) {
 	}
 }
 func TestScaleUpBackoff(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	now := time.Now()
@@ -441,6 +469,8 @@ func TestScaleUpBackoff(t *testing.T) {
 func TestGetClusterSize(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	now := time.Now()
 	ng1_1 := BuildTestNode("ng1-1", 1000, 1000)
 	SetNodeReadyState(ng1_1, true, now.Add(-time.Minute))
@@ -478,6 +508,8 @@ func TestGetClusterSize(t *testing.T) {
 func TestIsNodeStillStarting(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCases := []struct {
 		desc		string
 		condition	apiv1.NodeConditionType
@@ -501,6 +533,8 @@ func TestIsNodeStillStarting(t *testing.T) {
 	}
 }
 func newBackoff() backoff.Backoff {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return backoff.NewIdBasedExponentialBackoff(InitialNodeGroupBackoffDuration, MaxNodeGroupBackoffDuration, NodeGroupBackoffResetTimeout)

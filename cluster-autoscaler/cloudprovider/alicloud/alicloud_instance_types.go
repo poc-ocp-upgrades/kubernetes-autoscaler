@@ -25,6 +25,8 @@ type instanceWrapper struct {
 func (iw *instanceWrapper) getInstanceTypeById(typeId string) (*instanceType, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if instanceTypeModel := iw.FindInstanceType(typeId); instanceTypeModel != nil {
 		return &instanceTypeModel.instanceType, nil
 	}
@@ -41,12 +43,16 @@ func (iw *instanceWrapper) getInstanceTypeById(typeId string) (*instanceType, er
 func (iw *instanceWrapper) FindInstanceType(typeId string) *instanceTypeModel {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if iw.InstanceTypeCache == nil || iw.InstanceTypeCache[typeId] == nil {
 		return nil
 	}
 	return iw.InstanceTypeCache[typeId]
 }
 func (iw *instanceWrapper) RefreshCache() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req := ecs.CreateDescribeInstanceTypesRequest()
@@ -64,6 +70,8 @@ func (iw *instanceWrapper) RefreshCache() error {
 	return nil
 }
 func newInstanceWrapper(cfg *cloudConfig) (*instanceWrapper, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cfg.isValid() == false {
@@ -92,6 +100,8 @@ func newInstanceWrapper(cfg *cloudConfig) (*instanceWrapper, error) {
 	return iw, err
 }
 func getEcsClient(cfg *cloudConfig) (client *ecs.Client, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	region := cfg.getRegion()

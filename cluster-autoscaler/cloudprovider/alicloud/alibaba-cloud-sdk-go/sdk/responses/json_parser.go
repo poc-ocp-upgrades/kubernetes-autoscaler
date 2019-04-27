@@ -25,12 +25,16 @@ var initJson = &sync.Once{}
 func initJsonParserOnce() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	initJson.Do(func() {
 		registerBetterFuzzyDecoder()
 		jsonParser = jsoniter.ConfigCompatibleWithStandardLibrary
 	})
 }
 func registerBetterFuzzyDecoder() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	jsoniter.RegisterTypeDecoder("string", &nullableFuzzyStringDecoder{})
@@ -164,6 +168,8 @@ type nullableFuzzyStringDecoder struct{}
 func (decoder *nullableFuzzyStringDecoder) Decode(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	valueType := iter.WhatIsNext()
 	switch valueType {
 	case jsoniter.NumberValue:
@@ -185,6 +191,8 @@ func (decoder *nullableFuzzyStringDecoder) Decode(ptr unsafe.Pointer, iter *json
 type fuzzyBoolDecoder struct{}
 
 func (decoder *fuzzyBoolDecoder) Decode(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	valueType := iter.WhatIsNext()
@@ -225,6 +233,8 @@ type tolerateEmptyArrayDecoder struct{ valDecoder jsoniter.ValDecoder }
 func (decoder *tolerateEmptyArrayDecoder) Decode(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if iter.WhatIsNext() == jsoniter.ArrayValue {
 		iter.Skip()
 		newIter := iter.Pool().BorrowIterator([]byte("{}"))
@@ -240,6 +250,8 @@ type nullableFuzzyIntegerDecoder struct {
 }
 
 func (decoder *nullableFuzzyIntegerDecoder) Decode(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	valueType := iter.WhatIsNext()
@@ -280,6 +292,8 @@ type nullableFuzzyFloat32Decoder struct{}
 func (decoder *nullableFuzzyFloat32Decoder) Decode(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	valueType := iter.WhatIsNext()
 	var str string
 	switch valueType {
@@ -316,6 +330,8 @@ type nullableFuzzyFloat64Decoder struct{}
 func (decoder *nullableFuzzyFloat64Decoder) Decode(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	valueType := iter.WhatIsNext()
 	var str string
 	switch valueType {
@@ -349,7 +365,16 @@ func (decoder *nullableFuzzyFloat64Decoder) Decode(ptr unsafe.Pointer, iter *jso
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

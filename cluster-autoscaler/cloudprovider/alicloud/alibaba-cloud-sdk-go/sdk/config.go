@@ -22,11 +22,15 @@ type Config struct {
 func NewConfig() (config *Config) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	config = &Config{}
 	utils.InitStructWithDefaultTag(config)
 	return
 }
 func (c *Config) WithTimeout(timeout time.Duration) *Config {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.Timeout = timeout
@@ -35,10 +39,14 @@ func (c *Config) WithTimeout(timeout time.Duration) *Config {
 func (c *Config) WithAutoRetry(isAutoRetry bool) *Config {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.AutoRetry = isAutoRetry
 	return c
 }
 func (c *Config) WithMaxRetryTime(maxRetryTime int) *Config {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.MaxRetryTime = maxRetryTime
@@ -47,10 +55,14 @@ func (c *Config) WithMaxRetryTime(maxRetryTime int) *Config {
 func (c *Config) WithUserAgent(userAgent string) *Config {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.UserAgent = userAgent
 	return c
 }
 func (c *Config) WithHttpTransport(httpTransport *http.Transport) *Config {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.HttpTransport = httpTransport
@@ -59,10 +71,14 @@ func (c *Config) WithHttpTransport(httpTransport *http.Transport) *Config {
 func (c *Config) WithEnableAsync(isEnableAsync bool) *Config {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.EnableAsync = isEnableAsync
 	return c
 }
 func (c *Config) WithMaxTaskQueueSize(maxTaskQueueSize int) *Config {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.MaxTaskQueueSize = maxTaskQueueSize
@@ -71,10 +87,14 @@ func (c *Config) WithMaxTaskQueueSize(maxTaskQueueSize int) *Config {
 func (c *Config) WithGoRoutinePoolSize(goRoutinePoolSize int) *Config {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.GoRoutinePoolSize = goRoutinePoolSize
 	return c
 }
 func (c *Config) WithDebug(isDebug bool) *Config {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.Debug = isDebug

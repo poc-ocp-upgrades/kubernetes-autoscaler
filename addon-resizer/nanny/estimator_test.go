@@ -61,6 +61,8 @@ var (
 func verifyResources(t *testing.T, lineNum int, kind string, got, want api.ResourceList) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for res, val := range want {
 		actVal, ok := got[res]
 		if !ok {
@@ -74,6 +76,8 @@ func verifyResources(t *testing.T, lineNum int, kind string, got, want api.Resou
 func verifyRange(t *testing.T, lineNum int, kind string, got, want ResourceListPair) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(got.lower) != len(want.lower) || len(got.upper) != len(want.upper) {
 		t.Errorf("[test@line %d] %s not equal got: %+v want: %+v", lineNum, kind, got, want)
 	}
@@ -83,6 +87,8 @@ func verifyRange(t *testing.T, lineNum int, kind string, got, want ResourceListP
 func num() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, _, line, ok := runtime.Caller(1)
 	if ok {
 		return line
@@ -90,6 +96,8 @@ func num() int {
 	return -1
 }
 func TestEstimateResources(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCases := []struct {

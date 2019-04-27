@@ -26,6 +26,8 @@ type Histogram interface {
 func NewHistogram(options HistogramOptions) Histogram {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &histogram{options: options, bucketWeight: make([]float64, options.NumBuckets()), totalWeight: 0.0, minBucket: options.NumBuckets() - 1, maxBucket: 0}
 }
 
@@ -38,6 +40,8 @@ type histogram struct {
 }
 
 func (h *histogram) AddSample(value float64, weight float64, time time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if weight < 0.0 {
@@ -56,6 +60,8 @@ func (h *histogram) AddSample(value float64, weight float64, time time.Time) {
 func safeSubtract(value, sub, epsilon float64) float64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	value -= sub
 	if value < epsilon {
 		return 0.0
@@ -63,6 +69,8 @@ func safeSubtract(value, sub, epsilon float64) float64 {
 	return value
 }
 func (h *histogram) SubtractSample(value float64, weight float64, time time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if weight < 0.0 {
@@ -75,6 +83,8 @@ func (h *histogram) SubtractSample(value float64, weight float64, time time.Time
 	h.updateMinAndMaxBucket()
 }
 func (h *histogram) Merge(other Histogram) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	o := other.(*histogram)
@@ -93,6 +103,8 @@ func (h *histogram) Merge(other Histogram) {
 	}
 }
 func (h *histogram) Percentile(percentile float64) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if h.IsEmpty() {
@@ -115,9 +127,13 @@ func (h *histogram) Percentile(percentile float64) float64 {
 func (h *histogram) IsEmpty() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return h.bucketWeight[h.minBucket] < h.options.Epsilon()
 }
 func (h *histogram) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lines := []string{fmt.Sprintf("minBucket: %d, maxBucket: %d, totalWeight: %.3f", h.minBucket, h.maxBucket, h.totalWeight), "%-tile\tvalue"}
@@ -127,6 +143,8 @@ func (h *histogram) String() string {
 	return strings.Join(lines, "\n")
 }
 func (h *histogram) Equals(other Histogram) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h2, typesMatch := other.(*histogram)
@@ -144,6 +162,8 @@ func (h *histogram) Equals(other Histogram) bool {
 func (h *histogram) updateMinAndMaxBucket() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	epsilon := h.options.Epsilon()
 	lastBucket := h.options.NumBuckets() - 1
 	for h.bucketWeight[h.minBucket] < epsilon && h.minBucket < lastBucket {
@@ -154,6 +174,8 @@ func (h *histogram) updateMinAndMaxBucket() {
 	}
 }
 func (h *histogram) SaveToChekpoint() (*vpa_types.HistogramCheckpoint, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := vpa_types.HistogramCheckpoint{BucketWeights: make(map[int]uint32)}
@@ -174,6 +196,8 @@ func (h *histogram) SaveToChekpoint() (*vpa_types.HistogramCheckpoint, error) {
 	return &result, nil
 }
 func (h *histogram) LoadFromCheckpoint(checkpoint *vpa_types.HistogramCheckpoint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if checkpoint == nil {
@@ -209,6 +233,8 @@ func (h *histogram) LoadFromCheckpoint(checkpoint *vpa_types.HistogramCheckpoint
 	return nil
 }
 func (h *histogram) scale(factor float64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if factor < 0.0 {

@@ -11,6 +11,8 @@ import (
 func nodeGroup(id string) cloudprovider.NodeGroup {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	provider := testprovider.NewTestCloudProvider(nil, nil)
 	provider.AddNodeGroup(id, 1, 10, 1)
 	return provider.GetNodeGroup(id)
@@ -20,6 +22,8 @@ var nodeGroup1 = nodeGroup("id1")
 var nodeGroup2 = nodeGroup("id2")
 
 func TestBackoffTwoKeys(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	backoff := NewIdBasedExponentialBackoff(10*time.Minute, time.Hour, 3*time.Hour)
@@ -32,6 +36,8 @@ func TestBackoffTwoKeys(t *testing.T) {
 	assert.False(t, backoff.IsBackedOff(nodeGroup1, startTime.Add(11*time.Minute)))
 }
 func TestMaxBackoff(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	backoff := NewIdBasedExponentialBackoff(1*time.Minute, 3*time.Minute, 3*time.Hour)
@@ -49,6 +55,8 @@ func TestMaxBackoff(t *testing.T) {
 func TestRemoveBackoff(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	backoff := NewIdBasedExponentialBackoff(1*time.Minute, 3*time.Minute, 3*time.Hour)
 	startTime := time.Now()
 	backoff.Backoff(nodeGroup1, startTime)
@@ -57,6 +65,8 @@ func TestRemoveBackoff(t *testing.T) {
 	assert.False(t, backoff.IsBackedOff(nodeGroup1, startTime))
 }
 func TestResetStaleBackoffData(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	backoff := NewIdBasedExponentialBackoff(1*time.Minute, 3*time.Minute, 3*time.Hour)

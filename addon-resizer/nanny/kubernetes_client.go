@@ -25,6 +25,8 @@ type kubernetesClient struct {
 func (k *kubernetesClient) CountNodes() (uint64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := wait.PollImmediate(time.Second, time.Minute, func() (bool, error) {
 		if k.reflector.LastSyncResourceVersion() == "" {
 			return false, nil
@@ -37,6 +39,8 @@ func (k *kubernetesClient) CountNodes() (uint64, error) {
 	return uint64(len(k.nodeStore.List())), nil
 }
 func (k *kubernetesClient) ContainerResources() (*apiv1.ResourceRequirements, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod, err := k.clientset.CoreClient.Pods(k.namespace).Get(k.pod)
@@ -53,6 +57,8 @@ func (k *kubernetesClient) ContainerResources() (*apiv1.ResourceRequirements, er
 func (k *kubernetesClient) UpdateDeployment(resources *apiv1.ResourceRequirements) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dep, err := k.clientset.Extensions().Deployments(k.namespace).Get(k.deployment)
 	if err != nil {
 		return err
@@ -67,6 +73,8 @@ func (k *kubernetesClient) UpdateDeployment(resources *apiv1.ResourceRequirement
 	return fmt.Errorf("Container %s was not found in the deployment %s in namespace %s.", k.container, k.deployment, k.namespace)
 }
 func NewKubernetesClient(namespace, deployment, pod, container string, clientset *client.Clientset) KubernetesClient {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := &kubernetesClient{namespace: namespace, deployment: deployment, pod: pod, container: container, clientset: clientset, nodeStore: cache.NewStore(cache.MetaNamespaceKeyFunc)}

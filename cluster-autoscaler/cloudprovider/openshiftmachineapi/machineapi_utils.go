@@ -22,6 +22,8 @@ var (
 func minSize(annotations map[string]string) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	val, found := annotations[nodeGroupMinSizeAnnotationKey]
 	if !found {
 		return 0, errMissingMinAnnotation
@@ -35,6 +37,8 @@ func minSize(annotations map[string]string) (int, error) {
 func maxSize(annotations map[string]string) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	val, found := annotations[nodeGroupMaxSizeAnnotationKey]
 	if !found {
 		return 0, errMissingMaxAnnotation
@@ -46,6 +50,8 @@ func maxSize(annotations map[string]string) (int, error) {
 	return i, nil
 }
 func parseScalingBounds(annotations map[string]string) (int, int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	minSize, err := minSize(annotations)
@@ -70,6 +76,8 @@ func parseScalingBounds(annotations map[string]string) (int, int, error) {
 func machineOwnerRef(machine *v1beta1.Machine) *metav1.OwnerReference {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, ref := range machine.OwnerReferences {
 		if ref.Kind == "MachineSet" && ref.Name != "" {
 			return ref.DeepCopy()
@@ -80,12 +88,16 @@ func machineOwnerRef(machine *v1beta1.Machine) *metav1.OwnerReference {
 func machineIsOwnedByMachineSet(machine *v1beta1.Machine, machineSet *v1beta1.MachineSet) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ref := machineOwnerRef(machine); ref != nil {
 		return ref.UID == machineSet.UID
 	}
 	return false
 }
 func machineSetMachineDeploymentRef(machineSet *v1beta1.MachineSet) *metav1.OwnerReference {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, ref := range machineSet.OwnerReferences {
@@ -98,9 +110,13 @@ func machineSetMachineDeploymentRef(machineSet *v1beta1.MachineSet) *metav1.Owne
 func machineSetHasMachineDeploymentOwnerRef(machineSet *v1beta1.MachineSet) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return machineSetMachineDeploymentRef(machineSet) != nil
 }
 func machineSetIsOwnedByMachineDeployment(machineSet *v1beta1.MachineSet, machineDeployment *v1beta1.MachineDeployment) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ref := machineSetMachineDeploymentRef(machineSet); ref != nil {

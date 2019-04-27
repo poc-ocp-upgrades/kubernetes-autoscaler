@@ -53,6 +53,8 @@ type OverrideProperty struct {
 func EnvironmentFromURL(resourceManagerEndpoint string, properties ...OverrideProperty) (environment Environment, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var metadataEnvProperties environmentMetadataInfo
 	if resourceManagerEndpoint == "" {
 		return environment, fmt.Errorf("Metadata resource manager endpoint is empty")
@@ -93,6 +95,8 @@ func EnvironmentFromURL(resourceManagerEndpoint string, properties ...OverridePr
 	return environment, nil
 }
 func overrideProperties(environment *Environment, properties []OverrideProperty) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, property := range properties {
@@ -181,6 +185,8 @@ func overrideProperties(environment *Environment, properties []OverrideProperty)
 	}
 }
 func retrieveMetadataEnvironment(endpoint string) (environment environmentMetadataInfo, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client := autorest.NewClientWithUserAgent("")

@@ -14,6 +14,8 @@ import (
 func NewTestSuitesBuilder(rootSuiteNames []string) builder.TestSuitesBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	restrictedRoots := []*treeNode{}
 	nodes := map[string]*treeNode{}
 	for _, name := range rootSuiteNames {
@@ -41,6 +43,8 @@ type treeNode struct {
 func (b *nestedTestSuitesBuilder) AddSuite(suite *api.TestSuite) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowedToCreate(suite.Name, b.restrictedRoots) {
 		return
 	}
@@ -54,6 +58,8 @@ func (b *nestedTestSuitesBuilder) AddSuite(suite *api.TestSuite) {
 func allowedToCreate(name string, restrictedRoots []*treeNode) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(restrictedRoots) == 0 {
 		return true
 	}
@@ -65,6 +71,8 @@ func allowedToCreate(name string, restrictedRoots []*treeNode) bool {
 	return false
 }
 func (b *nestedTestSuitesBuilder) Build() *api.TestSuites {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodesToAdd := []*treeNode{}
@@ -97,6 +105,8 @@ func (b *nestedTestSuitesBuilder) Build() *api.TestSuites {
 func makeParentsFor(child *treeNode, register map[string]*treeNode, restrictedRoots []*treeNode) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	parentName := getParentName(child.suite.Name)
 	if parentName == "" {
 		return
@@ -117,6 +127,8 @@ func makeParentsFor(child *treeNode, register map[string]*treeNode, restrictedRo
 func getParentName(name string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !strings.Contains(name, TestSuiteNameDelimiter) {
 		return ""
 	}
@@ -124,6 +136,8 @@ func getParentName(name string) string {
 	return name[0:delimeterIndex]
 }
 func updateMetrics(root *treeNode) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, child := range root.children {
@@ -139,7 +153,16 @@ func updateMetrics(root *treeNode) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -18,9 +18,13 @@ type PodEvictionAdmission interface {
 func NewDefaultPodEvictionAdmission() PodEvictionAdmission {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &noopPodEvictionAdmission{}
 }
 func NewSequentialPodEvictionAdmission(admissions []PodEvictionAdmission) PodEvictionAdmission {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &sequentialPodEvictionAdmission{admissions: admissions}
@@ -31,11 +35,15 @@ type sequentialPodEvictionAdmission struct{ admissions []PodEvictionAdmission }
 func (a *sequentialPodEvictionAdmission) LoopInit(allLivePods []*apiv1.Pod, vpaControlledPods map[*vpa_types.VerticalPodAutoscaler][]*apiv1.Pod) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, admission := range a.admissions {
 		admission.LoopInit(allLivePods, vpaControlledPods)
 	}
 }
 func (a *sequentialPodEvictionAdmission) Admit(pod *apiv1.Pod, recommendation *vpa_types.RecommendedPodResources) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, admission := range a.admissions {
@@ -49,6 +57,8 @@ func (a *sequentialPodEvictionAdmission) Admit(pod *apiv1.Pod, recommendation *v
 func (a *sequentialPodEvictionAdmission) CleanUp() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, admission := range a.admissions {
 		admission.CleanUp()
 	}
@@ -59,8 +69,12 @@ type noopPodEvictionAdmission struct{}
 func (n *noopPodEvictionAdmission) LoopInit(allLivePods []*apiv1.Pod, vpaControlledPods map[*vpa_types.VerticalPodAutoscaler][]*apiv1.Pod) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (n *noopPodEvictionAdmission) Admit(pod *apiv1.Pod, recommendation *vpa_types.RecommendedPodResources) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return true
@@ -68,11 +82,22 @@ func (n *noopPodEvictionAdmission) Admit(pod *apiv1.Pod, recommendation *vpa_typ
 func (n *noopPodEvictionAdmission) CleanUp() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

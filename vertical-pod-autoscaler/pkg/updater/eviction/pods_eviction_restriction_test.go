@@ -26,6 +26,8 @@ type podWithExpectations struct {
 func TestEvictReplicatedByController(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rc := apiv1.ReplicationController{ObjectMeta: metav1.ObjectMeta{Name: "rc", Namespace: "default", SelfLink: testapi.Default.SelfLink("replicationcontrollers", "rc")}, TypeMeta: metav1.TypeMeta{Kind: "ReplicationController"}}
 	index := 0
 	generatePod := func() test.PodBuilder {
@@ -61,6 +63,8 @@ func TestEvictReplicatedByController(t *testing.T) {
 func TestEvictReplicatedByReplicaSet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	replicas := int32(5)
 	livePods := 5
 	rs := appsv1.ReplicaSet{ObjectMeta: metav1.ObjectMeta{Name: "rs", Namespace: "default", SelfLink: testapi.Default.SelfLink("replicasets", "rs")}, TypeMeta: metav1.TypeMeta{Kind: "ReplicaSet"}, Spec: appsv1.ReplicaSetSpec{Replicas: &replicas}}
@@ -83,6 +87,8 @@ func TestEvictReplicatedByReplicaSet(t *testing.T) {
 	}
 }
 func TestEvictReplicatedByStatefulSet(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	replicas := int32(5)
@@ -109,6 +115,8 @@ func TestEvictReplicatedByStatefulSet(t *testing.T) {
 func TestEvictReplicatedByJob(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	job := batchv1.Job{ObjectMeta: metav1.ObjectMeta{Name: "job", Namespace: "default", SelfLink: "/apiv1s/apps/v1/namespaces/default/jobs/job"}, TypeMeta: metav1.TypeMeta{Kind: "Job"}}
 	livePods := 5
 	pods := make([]*apiv1.Pod, livePods)
@@ -132,6 +140,8 @@ func TestEvictReplicatedByJob(t *testing.T) {
 func TestEvictTooFewReplicas(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	replicas := int32(5)
 	livePods := 5
 	rc := apiv1.ReplicationController{ObjectMeta: metav1.ObjectMeta{Name: "rc", Namespace: "default", SelfLink: testapi.Default.SelfLink("replicationcontrollers", "rc")}, TypeMeta: metav1.TypeMeta{Kind: "ReplicationController"}, Spec: apiv1.ReplicationControllerSpec{Replicas: &replicas}}
@@ -150,6 +160,8 @@ func TestEvictTooFewReplicas(t *testing.T) {
 	}
 }
 func TestEvictionTolerance(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	replicas := int32(5)
@@ -177,6 +189,8 @@ func TestEvictionTolerance(t *testing.T) {
 func TestEvictAtLeastOne(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	replicas := int32(5)
 	livePods := 5
 	tolerance := 0.1
@@ -200,6 +214,8 @@ func TestEvictAtLeastOne(t *testing.T) {
 	}
 }
 func getEvictionRestrictionFactory(rc *apiv1.ReplicationController, rs *appsv1.ReplicaSet, ss *appsv1.StatefulSet, minReplicas int, evictionToleranceFraction float64) (PodsEvictionRestrictionFactory, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	kubeClient := &fake.Clientset{}
@@ -227,6 +243,8 @@ func getEvictionRestrictionFactory(rc *apiv1.ReplicationController, rs *appsv1.R
 	return &podsEvictionRestrictionFactoryImpl{client: kubeClient, rsInformer: rsInformer, rcInformer: rcInformer, ssInformer: ssInformer, minReplicas: minReplicas, evictionToleranceFraction: evictionToleranceFraction}, nil
 }
 func getTestPodName(index int) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("test-%v", index)

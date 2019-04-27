@@ -31,6 +31,8 @@ const MiB = 1024 * 1024
 func TestPodSchedulableMap(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rc1 := apiv1.ReplicationController{ObjectMeta: metav1.ObjectMeta{Name: "rc1", Namespace: "default", SelfLink: testapi.Default.SelfLink("replicationcontrollers", "rc"), UID: "12345678-1234-1234-1234-123456789012"}}
 	rc2 := apiv1.ReplicationController{ObjectMeta: metav1.ObjectMeta{Name: "rc2", Namespace: "default", SelfLink: testapi.Default.SelfLink("replicationcontrollers", "rc"), UID: "12345678-1234-1234-1234-12345678901a"}}
 	pMap := make(podSchedulableMap)
@@ -75,6 +77,8 @@ func TestPodSchedulableMap(t *testing.T) {
 	assert.Nil(t, err)
 }
 func TestFilterOutSchedulable(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rc1 := apiv1.ReplicationController{ObjectMeta: metav1.ObjectMeta{Name: "rc1", Namespace: "default", SelfLink: testapi.Default.SelfLink("replicationcontrollers", "rc"), UID: "12345678-1234-1234-1234-123456789012"}}
@@ -122,6 +126,8 @@ func TestFilterOutSchedulable(t *testing.T) {
 func TestFilterOutExpendableAndSplit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var priority1 int32 = 1
 	var priority100 int32 = 100
 	p1 := BuildTestPod("p1", 1000, 200000)
@@ -150,6 +156,8 @@ func TestFilterOutExpendableAndSplit(t *testing.T) {
 func TestFilterOutExpendablePods(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p1 := BuildTestPod("p1", 1500, 200000)
 	p2 := BuildTestPod("p2", 3000, 200000)
 	podWaitingForPreemption1 := BuildTestPod("w1", 1500, 200000)
@@ -167,6 +175,8 @@ func TestFilterOutExpendablePods(t *testing.T) {
 	assert.Equal(t, podWaitingForPreemption2, res[2])
 }
 func TestFilterSchedulablePodsForNode(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rc1 := apiv1.ReplicationController{ObjectMeta: metav1.ObjectMeta{Name: "rc1", Namespace: "default", SelfLink: testapi.Default.SelfLink("replicationcontrollers", "rc"), UID: "12345678-1234-1234-1234-123456789012"}}
@@ -202,6 +212,8 @@ func TestFilterSchedulablePodsForNode(t *testing.T) {
 	}
 }
 func TestGetNodeInfosForGroups(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ready1 := BuildTestNode("n1", 1000, 1000)
@@ -251,6 +263,8 @@ func TestGetNodeInfosForGroups(t *testing.T) {
 	assert.Equal(t, 0, len(res))
 }
 func TestGetNodeInfosForGroupsCache(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ready1 := BuildTestNode("n1", 1000, 1000)
@@ -349,11 +363,15 @@ func TestGetNodeInfosForGroupsCache(t *testing.T) {
 func assertEqualNodeCapacities(t *testing.T, expected, actual *apiv1.Node) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Helper()
 	assert.Equal(t, getNodeResource(expected, apiv1.ResourceCPU), getNodeResource(actual, apiv1.ResourceCPU), "CPU should be the same")
 	assert.Equal(t, getNodeResource(expected, apiv1.ResourceMemory), getNodeResource(actual, apiv1.ResourceMemory), "Memory should be the same")
 }
 func TestRemoveOldUnregisteredNodes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	deletedNodes := make(chan string, 10)
@@ -389,6 +407,8 @@ func TestRemoveOldUnregisteredNodes(t *testing.T) {
 func TestSanitizeNodeInfo(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod := BuildTestPod("p1", 80, 0)
 	pod.Spec.NodeName = "n1"
 	node := BuildTestNode("node", 1000, 1000)
@@ -399,6 +419,8 @@ func TestSanitizeNodeInfo(t *testing.T) {
 	assert.Equal(t, 1, len(res.Pods()))
 }
 func TestSanitizeLabels(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oldNode := BuildTestNode("ng1-1", 1000, 1000)
@@ -413,6 +435,8 @@ func TestSanitizeLabels(t *testing.T) {
 func TestSanitizeTaints(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	oldNode := BuildTestNode("ng1-1", 1000, 1000)
 	taints := make([]apiv1.Taint, 0)
 	taints = append(taints, apiv1.Taint{Key: ReschedulerTaintKey, Value: "test1", Effect: apiv1.TaintEffectNoSchedule})
@@ -425,6 +449,8 @@ func TestSanitizeTaints(t *testing.T) {
 	assert.Equal(t, node.Spec.Taints[0].Key, "test-taint")
 }
 func TestRemoveFixNodeTargetSize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sizeChanges := make(chan string, 10)
@@ -455,6 +481,8 @@ func TestRemoveFixNodeTargetSize(t *testing.T) {
 func TestGetPotentiallyUnneededNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ng1_1 := BuildTestNode("ng1-1", 1000, 1000)
 	ng1_2 := BuildTestNode("ng1-2", 1000, 1000)
 	ng2_1 := BuildTestNode("ng2-1", 1000, 1000)
@@ -475,6 +503,8 @@ func TestGetPotentiallyUnneededNodes(t *testing.T) {
 func TestConfigurePredicateCheckerForLoop(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCases := []struct {
 		affinity		*apiv1.Affinity
 		predicateEnabled	bool
@@ -489,6 +519,8 @@ func TestConfigurePredicateCheckerForLoop(t *testing.T) {
 	}
 }
 func TestGetNodeResource(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	node := BuildTestNode("n1", 1000, 2*MiB)
@@ -514,6 +546,8 @@ func TestGetNodeResource(t *testing.T) {
 func TestGetNodeCoresAndMemory(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	node := BuildTestNode("n1", 2000, 2048*MiB)
 	cores, memory := getNodeCoresAndMemory(node)
 	assert.Equal(t, int64(2), cores)
@@ -525,6 +559,8 @@ func TestGetNodeCoresAndMemory(t *testing.T) {
 	assert.Equal(t, int64(0), memory)
 }
 func TestGetOldestPod(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p1 := BuildTestPod("p1", 500, 1000)

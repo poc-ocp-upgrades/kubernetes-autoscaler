@@ -7,6 +7,8 @@ import (
 func TestPredictKubeReserved(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testCase struct {
 		name			string
 		function		func(capacity int64) int64
@@ -21,6 +23,8 @@ func TestPredictKubeReserved(t *testing.T) {
 	}
 }
 func TestCalculateReserved(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testCase struct {

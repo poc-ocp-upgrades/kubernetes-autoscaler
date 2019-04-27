@@ -9,6 +9,8 @@ import (
 func TestMinResourcesApplied(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	constEstimator := NewConstEstimator(model.Resources{model.ResourceCPU: model.CPUAmountFromCores(0.001), model.ResourceMemory: model.MemoryAmountFromBytes(1e6)})
 	recommender := podResourceRecommender{constEstimator, constEstimator, constEstimator}
 	containerNameToAggregateStateMap := model.ContainerNameToAggregateStateMap{"container-1": &model.AggregateContainerState{}}
@@ -17,6 +19,8 @@ func TestMinResourcesApplied(t *testing.T) {
 	assert.Equal(t, model.MemoryAmountFromBytes(*podMinMemoryMb*1024*1024), recommendedResources["container-1"].Target[model.ResourceMemory])
 }
 func TestMinResourcesSplitAcrossContainers(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	constEstimator := NewConstEstimator(model.Resources{model.ResourceCPU: model.CPUAmountFromCores(0.001), model.ResourceMemory: model.MemoryAmountFromBytes(1e6)})

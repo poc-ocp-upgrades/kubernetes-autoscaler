@@ -48,11 +48,15 @@ type NodeDeleteStatus struct {
 func (n *NodeDeleteStatus) IsDeleteInProgress() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n.Lock()
 	defer n.Unlock()
 	return n.deleteInProgress
 }
 func (n *NodeDeleteStatus) SetDeleteInProgress(status bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n.Lock()
@@ -62,11 +66,15 @@ func (n *NodeDeleteStatus) SetDeleteInProgress(status bool) {
 func (n *NodeDeleteStatus) AddNodeDeleteResult(nodeName string, result error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n.Lock()
 	defer n.Unlock()
 	n.nodeDeleteResults[nodeName] = result
 }
 func (n *NodeDeleteStatus) DrainNodeDeleteResults() map[string]error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n.Lock()
@@ -82,6 +90,8 @@ type scaleDownResourcesDelta map[string]int64
 const scaleDownLimitUnknown = math.MinInt64
 
 func computeScaleDownResourcesLeftLimits(nodes []*apiv1.Node, resourceLimiter *cloudprovider.ResourceLimiter, cp cloudprovider.CloudProvider, timestamp time.Time) scaleDownResourcesLimits {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	totalCores, totalMem := calculateScaleDownCoresMemoryTotal(nodes, timestamp)
@@ -115,12 +125,16 @@ func computeScaleDownResourcesLeftLimits(nodes []*apiv1.Node, resourceLimiter *c
 func computeAboveMin(total int64, min int64) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if total > min {
 		return total - min
 	}
 	return 0
 }
 func calculateScaleDownCoresMemoryTotal(nodes []*apiv1.Node, timestamp time.Time) (int64, int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var coresTotal, memoryTotal int64
@@ -135,6 +149,8 @@ func calculateScaleDownCoresMemoryTotal(nodes []*apiv1.Node, timestamp time.Time
 	return coresTotal, memoryTotal
 }
 func calculateScaleDownGpusTotal(nodes []*apiv1.Node, cp cloudprovider.CloudProvider, timestamp time.Time) (map[string]int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type gpuInfo struct {
@@ -184,15 +200,21 @@ func calculateScaleDownGpusTotal(nodes []*apiv1.Node, cp cloudprovider.CloudProv
 func isNodeBeingDeleted(node *apiv1.Node, timestamp time.Time) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	deleteTime, _ := deletetaint.GetToBeDeletedTime(node)
 	return deleteTime != nil && (timestamp.Sub(*deleteTime) < MaxCloudProviderNodeDeletionTime || timestamp.Sub(*deleteTime) < MaxKubernetesEmptyNodeDeletionTime)
 }
 func noScaleDownLimitsOnResources() scaleDownResourcesLimits {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func copyScaleDownResourcesLimits(source scaleDownResourcesLimits) scaleDownResourcesLimits {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	copy := scaleDownResourcesLimits{}
@@ -202,6 +224,8 @@ func copyScaleDownResourcesLimits(source scaleDownResourcesLimits) scaleDownReso
 	return copy
 }
 func computeScaleDownResourcesDelta(node *apiv1.Node, nodeGroup cloudprovider.NodeGroup, resourcesWithLimits []string) (scaleDownResourcesDelta, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resultScaleDownDelta := make(scaleDownResourcesDelta)
@@ -226,9 +250,13 @@ type scaleDownLimitsCheckResult struct {
 func scaleDownLimitsNotExceeded() scaleDownLimitsCheckResult {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return scaleDownLimitsCheckResult{false, []string{}}
 }
 func (limits *scaleDownResourcesLimits) checkScaleDownDeltaWithinLimits(delta scaleDownResourcesDelta) scaleDownLimitsCheckResult {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	exceededResources := sets.NewString()
@@ -246,6 +274,8 @@ func (limits *scaleDownResourcesLimits) checkScaleDownDeltaWithinLimits(delta sc
 	return scaleDownLimitsNotExceeded()
 }
 func (limits *scaleDownResourcesLimits) tryDecrementLimitsByDelta(delta scaleDownResourcesDelta) scaleDownLimitsCheckResult {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := limits.checkScaleDownDeltaWithinLimits(delta)
@@ -276,9 +306,13 @@ type ScaleDown struct {
 func NewScaleDown(context *context.AutoscalingContext, clusterStateRegistry *clusterstate.ClusterStateRegistry) *ScaleDown {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ScaleDown{context: context, clusterStateRegistry: clusterStateRegistry, unneededNodes: make(map[string]time.Time), unremovableNodes: make(map[string]time.Time), podLocationHints: make(map[string]string), nodeUtilizationMap: make(map[string]simulator.UtilizationInfo), usageTracker: simulator.NewUsageTracker(), unneededNodesList: make([]*apiv1.Node, 0), nodeDeleteStatus: &NodeDeleteStatus{nodeDeleteResults: make(map[string]error)}}
 }
 func (sd *ScaleDown) CleanUp(timestamp time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sd.usageTracker.CleanUp(timestamp.Add(-sd.context.ScaleDownUnneededTime))
@@ -286,15 +320,21 @@ func (sd *ScaleDown) CleanUp(timestamp time.Time) {
 func (sd *ScaleDown) GetCandidatesForScaleDown() []*apiv1.Node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sd.unneededNodesList
 }
 func (sd *ScaleDown) CleanUpUnneededNodes() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sd.unneededNodesList = make([]*apiv1.Node, 0)
 	sd.unneededNodes = make(map[string]time.Time)
 }
 func (sd *ScaleDown) UpdateUnneededNodes(nodes []*apiv1.Node, nodesToCheck []*apiv1.Node, pods []*apiv1.Pod, timestamp time.Time, pdbs []*policyv1.PodDisruptionBudget) errors.AutoscalerError {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	currentlyUnneededNodes := make([]*apiv1.Node, 0)
@@ -413,6 +453,8 @@ func (sd *ScaleDown) UpdateUnneededNodes(nodes []*apiv1.Node, nodesToCheck []*ap
 func (sd *ScaleDown) updateUnremovableNodes(nodes []*apiv1.Node) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(sd.unremovableNodes) <= 0 {
 		return
 	}
@@ -432,6 +474,8 @@ func (sd *ScaleDown) updateUnremovableNodes(nodes []*apiv1.Node) {
 func (sd *ScaleDown) markSimulationError(simulatorErr errors.AutoscalerError, timestamp time.Time) errors.AutoscalerError {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.Errorf("Error while simulating node drains: %v", simulatorErr)
 	sd.unneededNodesList = make([]*apiv1.Node, 0)
 	sd.unneededNodes = make(map[string]time.Time)
@@ -440,6 +484,8 @@ func (sd *ScaleDown) markSimulationError(simulatorErr errors.AutoscalerError, ti
 	return simulatorErr.AddPrefix("error while simulating node drains: ")
 }
 func (sd *ScaleDown) chooseCandidates(nodes []*apiv1.Node) ([]*apiv1.Node, []*apiv1.Node) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if sd.context.ScaleDownNonEmptyCandidatesCount <= 0 {
@@ -459,6 +505,8 @@ func (sd *ScaleDown) chooseCandidates(nodes []*apiv1.Node) ([]*apiv1.Node, []*ap
 func (sd *ScaleDown) mapNodesToStatusScaleDownNodes(nodes []*apiv1.Node, nodeGroups map[string]cloudprovider.NodeGroup, evictedPodLists map[string][]*apiv1.Pod) []*status.ScaleDownNode {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var result []*status.ScaleDownNode
 	for _, node := range nodes {
 		result = append(result, &status.ScaleDownNode{Node: node, NodeGroup: nodeGroups[node.Name], UtilInfo: sd.nodeUtilizationMap[node.Name], EvictedPods: evictedPodLists[node.Name]})
@@ -466,6 +514,8 @@ func (sd *ScaleDown) mapNodesToStatusScaleDownNodes(nodes []*apiv1.Node, nodeGro
 	return result
 }
 func (sd *ScaleDown) TryToScaleDown(allNodes []*apiv1.Node, pods []*apiv1.Pod, pdbs []*policyv1.PodDisruptionBudget, currentTime time.Time) (*status.ScaleDownStatus, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scaleDownStatus := &status.ScaleDownStatus{NodeDeleteResults: sd.nodeDeleteStatus.DrainNodeDeleteResults()}
@@ -601,6 +651,8 @@ func (sd *ScaleDown) TryToScaleDown(allNodes []*apiv1.Node, pods []*apiv1.Pod, p
 func updateScaleDownMetrics(scaleDownStart time.Time, findNodesToRemoveDuration *time.Duration, nodeDeletionDuration *time.Duration) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	stop := time.Now()
 	miscDuration := stop.Sub(scaleDownStart) - *nodeDeletionDuration - *findNodesToRemoveDuration
 	metrics.UpdateDuration(metrics.ScaleDownNodeDeletion, *nodeDeletionDuration)
@@ -610,9 +662,13 @@ func updateScaleDownMetrics(scaleDownStart time.Time, findNodesToRemoveDuration 
 func getEmptyNodesNoResourceLimits(candidates []*apiv1.Node, pods []*apiv1.Pod, maxEmptyBulkDelete int, cloudProvider cloudprovider.CloudProvider) []*apiv1.Node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getEmptyNodes(candidates, pods, maxEmptyBulkDelete, noScaleDownLimitsOnResources(), cloudProvider)
 }
 func getEmptyNodes(candidates []*apiv1.Node, pods []*apiv1.Pod, maxEmptyBulkDelete int, resourcesLimits scaleDownResourcesLimits, cloudProvider cloudprovider.CloudProvider) []*apiv1.Node {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	emptyNodes := simulator.FindEmptyNodesToRemove(candidates, pods)
@@ -667,6 +723,8 @@ func getEmptyNodes(candidates []*apiv1.Node, pods []*apiv1.Pod, maxEmptyBulkDele
 func (sd *ScaleDown) scheduleDeleteEmptyNodes(emptyNodes []*apiv1.Node, client kube_client.Interface, recorder kube_record.EventRecorder, readinessMap map[string]bool, candidateNodeGroups map[string]cloudprovider.NodeGroup, confirmation chan errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, node := range emptyNodes {
 		klog.V(0).Infof("Scale-down: removing empty node %s", node.Name)
 		sd.context.LogRecorder.Eventf(apiv1.EventTypeNormal, "ScaleDownEmpty", "Scale-down: removing empty node %s", node.Name)
@@ -703,6 +761,8 @@ func (sd *ScaleDown) scheduleDeleteEmptyNodes(emptyNodes []*apiv1.Node, client k
 func (sd *ScaleDown) waitForEmptyNodesDeleted(emptyNodes []*apiv1.Node, confirmation chan errors.AutoscalerError) errors.AutoscalerError {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var finalError errors.AutoscalerError
 	startTime := time.Now()
 	for range emptyNodes {
@@ -724,6 +784,8 @@ func (sd *ScaleDown) waitForEmptyNodesDeleted(emptyNodes []*apiv1.Node, confirma
 	return finalError
 }
 func (sd *ScaleDown) deleteNode(node *apiv1.Node, pods []*apiv1.Pod) errors.AutoscalerError {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	deleteSuccessful := false
@@ -757,6 +819,8 @@ func (sd *ScaleDown) deleteNode(node *apiv1.Node, pods []*apiv1.Pod) errors.Auto
 func evictPod(podToEvict *apiv1.Pod, client kube_client.Interface, recorder kube_record.EventRecorder, maxGracefulTerminationSec int, retryUntil time.Time, waitBetweenRetries time.Duration) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	recorder.Eventf(podToEvict, apiv1.EventTypeNormal, "ScaleDown", "deleting pod for node scale down")
 	maxTermination := int64(apiv1.DefaultTerminationGracePeriodSeconds)
 	if podToEvict.Spec.TerminationGracePeriodSeconds != nil {
@@ -780,6 +844,8 @@ func evictPod(podToEvict *apiv1.Pod, client kube_client.Interface, recorder kube
 	return fmt.Errorf("Failed to evict pod %s/%s within allowed timeout (last error: %v)", podToEvict.Namespace, podToEvict.Name, lastError)
 }
 func drainNode(node *apiv1.Node, pods []*apiv1.Pod, client kube_client.Interface, recorder kube_record.EventRecorder, maxGracefulTerminationSec int, maxPodEvictionTime time.Duration, waitBetweenRetries time.Duration) errors.AutoscalerError {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	toEvict := len(pods)
@@ -832,6 +898,8 @@ func drainNode(node *apiv1.Node, pods []*apiv1.Pod, client kube_client.Interface
 func cleanToBeDeleted(nodes []*apiv1.Node, client kube_client.Interface, recorder kube_record.EventRecorder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, node := range nodes {
 		cleaned, err := deletetaint.CleanToBeDeleted(node, client)
 		if err != nil {
@@ -844,6 +912,8 @@ func cleanToBeDeleted(nodes []*apiv1.Node, client kube_client.Interface, recorde
 	}
 }
 func deleteNodeFromCloudProvider(node *apiv1.Node, cloudProvider cloudprovider.CloudProvider, recorder kube_record.EventRecorder, registry *clusterstate.ClusterStateRegistry) errors.AutoscalerError {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodeGroup, err := cloudProvider.NodeGroupForNode(node)
@@ -863,6 +933,8 @@ func deleteNodeFromCloudProvider(node *apiv1.Node, cloudProvider cloudprovider.C
 func hasNoScaleDownAnnotation(node *apiv1.Node) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return node.Annotations[ScaleDownDisabledKey] == "true"
 }
 
@@ -872,6 +944,8 @@ const (
 )
 
 func filterOutMasters(nodes []*apiv1.Node, pods []*apiv1.Pod) []*apiv1.Node {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	masters := make(map[string]bool)

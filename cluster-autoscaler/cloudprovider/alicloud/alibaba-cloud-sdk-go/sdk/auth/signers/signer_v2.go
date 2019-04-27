@@ -11,9 +11,13 @@ type SignerV2 struct {
 func (signer *SignerV2) GetExtraParam() map[string]string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func NewSignerV2(credential *credentials.RsaKeyPairCredential) (*SignerV2, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &SignerV2{credential: credential}, nil
@@ -21,9 +25,13 @@ func NewSignerV2(credential *credentials.RsaKeyPairCredential) (*SignerV2, error
 func (*SignerV2) GetName() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "SHA256withRSA"
 }
 func (*SignerV2) GetType() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return "PRIVATEKEY"
@@ -31,9 +39,13 @@ func (*SignerV2) GetType() string {
 func (*SignerV2) GetVersion() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "1.0"
 }
 func (signer *SignerV2) GetAccessKeyId() (accessKeyId string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return signer.credential.PublicKeyId, err
@@ -41,10 +53,14 @@ func (signer *SignerV2) GetAccessKeyId() (accessKeyId string, err error) {
 func (signer *SignerV2) Sign(stringToSign, secretSuffix string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	secret := signer.credential.PrivateKey
 	return Sha256WithRsa(stringToSign, secret)
 }
 func (signer *SignerV2) Shutdown() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }

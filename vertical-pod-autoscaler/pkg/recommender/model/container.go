@@ -29,14 +29,20 @@ type ContainerState struct {
 func NewContainerState(request Resources, aggregator ContainerStateAggregator) *ContainerState {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ContainerState{Request: request, LastCPUSampleStart: time.Time{}, WindowEnd: time.Time{}, lastMemorySampleStart: time.Time{}, aggregator: aggregator}
 }
 func (sample *ContainerUsageSample) isValid(expectedResource ResourceName) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sample.Usage >= 0 && sample.Resource == expectedResource
 }
 func (container *ContainerState) addCPUSample(sample *ContainerUsageSample) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !sample.isValid(ResourceCPU) || !sample.MeasureStart.After(container.LastCPUSampleStart) {
@@ -49,9 +55,13 @@ func (container *ContainerState) addCPUSample(sample *ContainerUsageSample) bool
 func (container *ContainerState) GetMaxMemoryPeak() ResourceAmount {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ResourceAmountMax(container.memoryPeak, container.oomPeak)
 }
 func (container *ContainerState) addMemorySample(sample *ContainerUsageSample, isOOM bool) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ts := sample.MeasureStart
@@ -91,6 +101,8 @@ func (container *ContainerState) addMemorySample(sample *ContainerUsageSample, i
 func (container *ContainerState) RecordOOM(timestamp time.Time, requestedMemory ResourceAmount) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if timestamp.Before(container.WindowEnd.Add(-1 * MemoryAggregationInterval)) {
 		return fmt.Errorf("OOM event will be discarded - it is too old (%v)", timestamp)
 	}
@@ -105,6 +117,8 @@ func (container *ContainerState) RecordOOM(timestamp time.Time, requestedMemory 
 func (container *ContainerState) AddSample(sample *ContainerUsageSample) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch sample.Resource {
 	case ResourceCPU:
 		return container.addCPUSample(sample)
@@ -115,6 +129,8 @@ func (container *ContainerState) AddSample(sample *ContainerUsageSample) bool {
 	}
 }
 func truncate(d, m time.Duration) time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m <= 0 {

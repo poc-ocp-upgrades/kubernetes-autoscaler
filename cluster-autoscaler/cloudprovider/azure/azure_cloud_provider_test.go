@@ -13,6 +13,8 @@ import (
 func newTestAzureManager(t *testing.T) *AzureManager {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	manager := &AzureManager{env: azure.PublicCloud, explicitlyConfigured: make(map[string]bool), config: &Config{ResourceGroup: "test", VMType: vmTypeVMSS}, azClient: &azClient{disksClient: &DisksClientMock{}, interfacesClient: &InterfacesClientMock{}, storageAccountsClient: &AccountsClientMock{}, deploymentsClient: &DeploymentsClientMock{FakeStore: make(map[string]resources.DeploymentExtended)}, virtualMachinesClient: &VirtualMachinesClientMock{FakeStore: make(map[string]map[string]compute.VirtualMachine)}, virtualMachineScaleSetsClient: &VirtualMachineScaleSetsClientMock{FakeStore: make(map[string]map[string]compute.VirtualMachineScaleSet)}, virtualMachineScaleSetVMsClient: &VirtualMachineScaleSetVMsClientMock{}}}
 	cache, error := newAsgCache()
 	assert.NoError(t, error)
@@ -22,11 +24,15 @@ func newTestAzureManager(t *testing.T) *AzureManager {
 func newTestProvider(t *testing.T) *AzureCloudProvider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	manager := newTestAzureManager(t)
 	resourceLimiter := cloudprovider.NewResourceLimiter(map[string]int64{cloudprovider.ResourceNameCores: 1, cloudprovider.ResourceNameMemory: 10000000}, map[string]int64{cloudprovider.ResourceNameCores: 10, cloudprovider.ResourceNameMemory: 100000000})
 	return &AzureCloudProvider{azureManager: manager, resourceLimiter: resourceLimiter}
 }
 func TestBuildAzureCloudProvider(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resourceLimiter := cloudprovider.NewResourceLimiter(map[string]int64{cloudprovider.ResourceNameCores: 1, cloudprovider.ResourceNameMemory: 10000000}, map[string]int64{cloudprovider.ResourceNameCores: 10, cloudprovider.ResourceNameMemory: 100000000})
@@ -37,10 +43,14 @@ func TestBuildAzureCloudProvider(t *testing.T) {
 func TestName(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	provider := newTestProvider(t)
 	assert.Equal(t, provider.Name(), "azure")
 }
 func TestNodeGroups(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	provider := newTestProvider(t)
@@ -50,6 +60,8 @@ func TestNodeGroups(t *testing.T) {
 	assert.Equal(t, len(provider.NodeGroups()), 1)
 }
 func TestNodeGroupForNode(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	provider := newTestProvider(t)

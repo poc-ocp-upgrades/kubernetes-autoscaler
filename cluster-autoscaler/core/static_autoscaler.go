@@ -44,6 +44,8 @@ type StaticAutoscaler struct {
 func NewStaticAutoscaler(opts config.AutoscalingOptions, predicateChecker *simulator.PredicateChecker, autoscalingKubeClients *context.AutoscalingKubeClients, processors *ca_processors.AutoscalingProcessors, cloudProvider cloudprovider.CloudProvider, expanderStrategy expander.Strategy, estimatorBuilder estimator.EstimatorBuilder, backoff backoff.Backoff) *StaticAutoscaler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	autoscalingContext := context.NewAutoscalingContext(opts, predicateChecker, autoscalingKubeClients, cloudProvider, expanderStrategy, estimatorBuilder)
 	clusterStateConfig := clusterstate.ClusterStateRegistryConfig{MaxTotalUnreadyPercentage: opts.MaxTotalUnreadyPercentage, OkTotalUnreadyCount: opts.OkTotalUnreadyCount, MaxNodeProvisionTime: opts.MaxNodeProvisionTime}
 	clusterStateRegistry := clusterstate.NewClusterStateRegistry(autoscalingContext.CloudProvider, clusterStateConfig, autoscalingContext.LogRecorder, backoff)
@@ -51,6 +53,8 @@ func NewStaticAutoscaler(opts config.AutoscalingOptions, predicateChecker *simul
 	return &StaticAutoscaler{AutoscalingContext: autoscalingContext, startTime: time.Now(), lastScaleUpTime: time.Now(), lastScaleDownDeleteTime: time.Now(), lastScaleDownFailTime: time.Now(), scaleDown: scaleDown, processors: processors, clusterStateRegistry: clusterStateRegistry, nodeInfoCache: make(map[string]*schedulercache.NodeInfo)}
 }
 func (a *StaticAutoscaler) cleanUpIfRequired() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if a.initialized {
@@ -64,6 +68,8 @@ func (a *StaticAutoscaler) cleanUpIfRequired() {
 	a.initialized = true
 }
 func (a *StaticAutoscaler) RunOnce(currentTime time.Time) errors.AutoscalerError {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	a.cleanUpIfRequired()
@@ -265,6 +271,8 @@ func (a *StaticAutoscaler) RunOnce(currentTime time.Time) errors.AutoscalerError
 func (a *StaticAutoscaler) filterOutYoungPods(allUnschedulablePods []*apiv1.Pod, currentTime time.Time) []*apiv1.Pod {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var oldUnschedulablePods []*apiv1.Pod
 	newPodScaleUpDelay := a.AutoscalingOptions.NewPodScaleUpDelay
 	for _, pod := range allUnschedulablePods {
@@ -280,6 +288,8 @@ func (a *StaticAutoscaler) filterOutYoungPods(allUnschedulablePods []*apiv1.Pod,
 func (a *StaticAutoscaler) ExitCleanUp() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	a.processors.CleanUp()
 	if !a.AutoscalingContext.WriteStatusConfigMap {
 		return
@@ -287,6 +297,8 @@ func (a *StaticAutoscaler) ExitCleanUp() {
 	utils.DeleteStatusConfigMap(a.AutoscalingContext.ClientSet, a.AutoscalingContext.ConfigNamespace)
 }
 func (a *StaticAutoscaler) obtainNodeLists() ([]*apiv1.Node, []*apiv1.Node, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	allNodes, err := a.AllNodeLister().List()
@@ -305,6 +317,8 @@ func (a *StaticAutoscaler) obtainNodeLists() ([]*apiv1.Node, []*apiv1.Node, erro
 func (a *StaticAutoscaler) actOnEmptyCluster(allNodes, readyNodes []*apiv1.Node, currentTime time.Time) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(allNodes) == 0 {
 		a.onEmptyCluster("Cluster has no nodes.", true)
 		return true
@@ -316,6 +330,8 @@ func (a *StaticAutoscaler) actOnEmptyCluster(allNodes, readyNodes []*apiv1.Node,
 	return false
 }
 func (a *StaticAutoscaler) updateClusterState(allNodes []*apiv1.Node, nodeInfosForGroups map[string]*schedulercache.NodeInfo, currentTime time.Time) errors.AutoscalerError {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := a.AutoscalingContext.CloudProvider.Refresh()
@@ -335,6 +351,8 @@ func (a *StaticAutoscaler) updateClusterState(allNodes []*apiv1.Node, nodeInfosF
 func (a *StaticAutoscaler) onEmptyCluster(status string, emitEvent bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.Warningf(status)
 	a.scaleDown.CleanUpUnneededNodes()
 	UpdateEmptyClusterStateMetrics()
@@ -346,6 +364,8 @@ func (a *StaticAutoscaler) onEmptyCluster(status string, emitEvent bool) {
 	}
 }
 func allPodsAreNew(pods []*apiv1.Pod, currentTime time.Time) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if getOldestCreateTime(pods).Add(unschedulablePodTimeBuffer).After(currentTime) {

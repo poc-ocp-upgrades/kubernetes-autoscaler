@@ -16,6 +16,8 @@ import (
 func TestGetDaemonSetPodsForNode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	node := BuildTestNode("node", 1000, 1000)
 	SetNodeReadyState(node, true, time.Now())
 	nodeInfo := schedulercache.NewNodeInfo()
@@ -32,6 +34,8 @@ func TestGetDaemonSetPodsForNode(t *testing.T) {
 	assert.Equal(t, 0, len(GetDaemonSetPodsForNode(nodeInfo, []*extensionsv1.DaemonSet{}, predicateChecker)))
 }
 func newDaemonSet(name string) *extensionsv1.DaemonSet {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &extensionsv1.DaemonSet{ObjectMeta: metav1.ObjectMeta{Name: name, Namespace: metav1.NamespaceDefault}, Spec: extensionsv1.DaemonSetSpec{Selector: &metav1.LabelSelector{MatchLabels: map[string]string{"name": "simple-daemon", "type": "production"}}, Template: apiv1.PodTemplateSpec{ObjectMeta: metav1.ObjectMeta{Labels: map[string]string{"name": "simple-daemon", "type": "production"}}, Spec: apiv1.PodSpec{Containers: []apiv1.Container{{Image: "foo/bar"}}}}}}

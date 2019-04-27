@@ -11,15 +11,21 @@ type RpcRequest struct{ *baseRequest }
 func (request *RpcRequest) init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request.baseRequest = defaultBaseRequest()
 	request.Method = POST
 }
 func (*RpcRequest) GetStyle() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return RPC
 }
 func (request *RpcRequest) GetBodyReader() io.Reader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if request.FormParams != nil && len(request.FormParams) > 0 {
@@ -31,10 +37,14 @@ func (request *RpcRequest) GetBodyReader() io.Reader {
 func (request *RpcRequest) BuildQueries() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request.queries = "/?" + utils.GetUrlFormedMap(request.QueryParams)
 	return request.queries
 }
 func (request *RpcRequest) GetQueries() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return request.queries
@@ -42,9 +52,13 @@ func (request *RpcRequest) GetQueries() string {
 func (request *RpcRequest) BuildUrl() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.ToLower(request.Scheme) + "://" + request.Domain + ":" + request.Port + request.BuildQueries()
 }
 func (request *RpcRequest) GetUrl() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return strings.ToLower(request.Scheme) + "://" + request.Domain + request.GetQueries()
@@ -52,9 +66,13 @@ func (request *RpcRequest) GetUrl() string {
 func (request *RpcRequest) GetVersion() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return request.version
 }
 func (request *RpcRequest) GetActionName() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return request.actionName
@@ -62,9 +80,13 @@ func (request *RpcRequest) GetActionName() string {
 func (request *RpcRequest) addPathParam(key, value string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panic("not support")
 }
 func (request *RpcRequest) InitWithApiInfo(product, version, action, serviceCode, endpointType string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	request.init()

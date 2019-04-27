@@ -22,6 +22,8 @@ type EcsRamRoleSigner struct {
 func NewEcsRamRoleSigner(credential *credentials.EcsRamRoleCredential, commonApi func(*requests.CommonRequest, interface{}) (response *responses.CommonResponse, err error)) (signer *EcsRamRoleSigner, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	signer = &EcsRamRoleSigner{credential: credential, commonApi: commonApi}
 	signer.credentialUpdater = &credentialUpdater{credentialExpiration: defaultDurationSeconds / 60, buildRequestMethod: signer.buildCommonRequest, responseCallBack: signer.refreshCredential, refreshApi: signer.refreshApi}
 	return
@@ -29,9 +31,13 @@ func NewEcsRamRoleSigner(credential *credentials.EcsRamRoleCredential, commonApi
 func (*EcsRamRoleSigner) GetName() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "HMAC-SHA1"
 }
 func (*EcsRamRoleSigner) GetType() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ""
@@ -39,9 +45,13 @@ func (*EcsRamRoleSigner) GetType() string {
 func (*EcsRamRoleSigner) GetVersion() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "1.0"
 }
 func (signer *EcsRamRoleSigner) GetAccessKeyId() (accessKeyId string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if signer.sessionCredential == nil || signer.needUpdateCredential() {
@@ -55,6 +65,8 @@ func (signer *EcsRamRoleSigner) GetAccessKeyId() (accessKeyId string, err error)
 func (signer *EcsRamRoleSigner) GetExtraParam() map[string]string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if signer.sessionCredential == nil {
 		return make(map[string]string)
 	}
@@ -66,16 +78,22 @@ func (signer *EcsRamRoleSigner) GetExtraParam() map[string]string {
 func (signer *EcsRamRoleSigner) Sign(stringToSign, secretSuffix string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	secret := signer.sessionCredential.AccessKeyId + secretSuffix
 	return ShaHmac1(stringToSign, secret)
 }
 func (signer *EcsRamRoleSigner) buildCommonRequest() (request *requests.CommonRequest, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request = requests.NewCommonRequest()
 	return
 }
 func (signer *EcsRamRoleSigner) refreshApi(request *requests.CommonRequest) (response *responses.CommonResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	requestUrl := "http://100.100.100.200/latest/meta-data/ram/security-credentials/" + signer.credential.RoleName
@@ -95,6 +113,8 @@ func (signer *EcsRamRoleSigner) refreshApi(request *requests.CommonRequest) (res
 	return
 }
 func (signer *EcsRamRoleSigner) refreshCredential(response *responses.CommonResponse) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if response.GetHttpStatus() != http.StatusOK {
@@ -147,9 +167,13 @@ func (signer *EcsRamRoleSigner) refreshCredential(response *responses.CommonResp
 func (signer *EcsRamRoleSigner) GetSessionCredential() *SessionCredential {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return signer.sessionCredential
 }
 func (signer *EcsRamRoleSigner) Shutdown() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }

@@ -61,6 +61,8 @@ type gceManagerImpl struct {
 func CreateGceManager(configReader io.Reader, discoveryOpts cloudprovider.NodeGroupDiscoveryOptions, regional bool) (GceManager, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	tokenSource := google.ComputeTokenSource("")
 	if len(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")) > 0 {
@@ -126,10 +128,14 @@ func CreateGceManager(configReader io.Reader, discoveryOpts cloudprovider.NodeGr
 func (m *gceManagerImpl) Cleanup() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(m.interrupt)
 	return nil
 }
 func (m *gceManagerImpl) registerMig(mig Mig) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	changed := m.cache.RegisterMig(mig)
@@ -143,6 +149,8 @@ func (m *gceManagerImpl) registerMig(mig Mig) bool {
 func (m *gceManagerImpl) GetMigSize(mig Mig) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	targetSize, err := m.GceService.FetchMigTargetSize(mig.GceRef())
 	if err != nil {
 		return -1, err
@@ -152,10 +160,14 @@ func (m *gceManagerImpl) GetMigSize(mig Mig) (int64, error) {
 func (m *gceManagerImpl) SetMigSize(mig Mig, size int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(0).Infof("Setting mig size %s to %d", mig.Id(), size)
 	return m.GceService.ResizeMig(mig.GceRef(), size)
 }
 func (m *gceManagerImpl) DeleteInstances(instances []*GceRef) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(instances) == 0 {
@@ -179,14 +191,20 @@ func (m *gceManagerImpl) DeleteInstances(instances []*GceRef) error {
 func (m *gceManagerImpl) GetMigs() []*MigInformation {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.cache.GetMigs()
 }
 func (m *gceManagerImpl) GetMigForInstance(instance *GceRef) (Mig, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.cache.GetMigForInstance(instance)
 }
 func (m *gceManagerImpl) GetMigNodes(mig Mig) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	instances, err := m.GceService.FetchMigInstances(mig.GceRef())
@@ -202,12 +220,16 @@ func (m *gceManagerImpl) GetMigNodes(mig Mig) ([]string, error) {
 func (m *gceManagerImpl) Refresh() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m.lastRefresh.Add(refreshInterval).After(time.Now()) {
 		return nil
 	}
 	return m.forceRefresh()
 }
 func (m *gceManagerImpl) forceRefresh() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.clearMachinesCache()
@@ -220,6 +242,8 @@ func (m *gceManagerImpl) forceRefresh() error {
 	return nil
 }
 func (m *gceManagerImpl) fetchExplicitMigs(specs []string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	changed := false
@@ -241,6 +265,8 @@ func (m *gceManagerImpl) fetchExplicitMigs(specs []string) error {
 func (m *gceManagerImpl) buildMigFromFlag(flag string) (Mig, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s, err := dynamic.SpecFromString(flag, scaleToZeroSupported)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse node group spec: %v", err)
@@ -250,10 +276,14 @@ func (m *gceManagerImpl) buildMigFromFlag(flag string) (Mig, error) {
 func (m *gceManagerImpl) buildMigFromAutoCfg(link string, cfg cloudprovider.MIGAutoDiscoveryConfig) (Mig, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := &dynamic.NodeGroupSpec{Name: link, MinSize: cfg.MinSize, MaxSize: cfg.MaxSize, SupportScaleToZero: scaleToZeroSupported}
 	return m.buildMigFromSpec(s)
 }
 func (m *gceManagerImpl) buildMigFromSpec(s *dynamic.NodeGroupSpec) (Mig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := s.Validate(); err != nil {
@@ -267,6 +297,8 @@ func (m *gceManagerImpl) buildMigFromSpec(s *dynamic.NodeGroupSpec) (Mig, error)
 	return mig, nil
 }
 func (m *gceManagerImpl) fetchAutoMigs() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	exists := make(map[GceRef]bool)
@@ -306,9 +338,13 @@ func (m *gceManagerImpl) fetchAutoMigs() error {
 func (m *gceManagerImpl) GetResourceLimiter() (*cloudprovider.ResourceLimiter, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.cache.GetResourceLimiter()
 }
 func (m *gceManagerImpl) clearMachinesCache() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m.machinesCacheLastRefresh.Add(machinesRefreshInterval).After(time.Now()) {
@@ -321,6 +357,8 @@ func (m *gceManagerImpl) clearMachinesCache() {
 	klog.V(2).Infof("Cleared machine types cache, next clear after %v", nextRefresh)
 }
 func getProjectAndLocation(regional bool) (string, string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result, err := metadata.Get("instance/zone")
@@ -347,12 +385,16 @@ func getProjectAndLocation(regional bool) (string, string, error) {
 func (m *gceManagerImpl) findMigsNamed(name *regexp.Regexp) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m.regional {
 		return m.findMigsInRegion(m.location, name)
 	}
 	return m.GceService.FetchMigsWithName(m.location, name)
 }
 func (m *gceManagerImpl) getZones(region string) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	zones, err := m.GceService.FetchZones(region)
@@ -362,6 +404,8 @@ func (m *gceManagerImpl) getZones(region string) ([]string, error) {
 	return zones, nil
 }
 func (m *gceManagerImpl) findMigsInRegion(region string, name *regexp.Regexp) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	links := make([]string, 0)
@@ -383,6 +427,8 @@ func (m *gceManagerImpl) findMigsInRegion(region string, name *regexp.Regexp) ([
 func (m *gceManagerImpl) GetMigTemplateNode(mig Mig) (*apiv1.Node, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	template, err := m.GceService.FetchMigTemplate(mig.GceRef())
 	if err != nil {
 		return nil, err
@@ -394,6 +440,8 @@ func (m *gceManagerImpl) GetMigTemplateNode(mig Mig) (*apiv1.Node, error) {
 	return m.templates.BuildNodeFromTemplate(mig, template, cpu, mem)
 }
 func (m *gceManagerImpl) getCpuAndMemoryForMachineType(machineType string, zone string) (cpu int64, mem int64, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if strings.HasPrefix(machineType, "custom-") {
@@ -410,6 +458,8 @@ func (m *gceManagerImpl) getCpuAndMemoryForMachineType(machineType string, zone 
 	return machine.GuestCpus, machine.MemoryMb * units.MiB, nil
 }
 func parseCustomMachineType(machineType string) (cpu, mem int64, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var count int

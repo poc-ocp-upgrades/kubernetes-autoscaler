@@ -11,6 +11,8 @@ import (
 func TestProviderConstructorProperties(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resourceLimits := cloudprovider.ResourceLimiter{}
 	controller, stop := mustCreateTestController(t)
 	defer stop()

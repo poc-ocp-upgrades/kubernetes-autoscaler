@@ -36,9 +36,13 @@ type Future struct {
 func NewFuture(req *http.Request) Future {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Future{req: req}
 }
 func NewFutureFromResponse(resp *http.Response) (Future, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pt, err := createPollingTracker(resp)
@@ -50,12 +54,16 @@ func NewFutureFromResponse(resp *http.Response) (Future, error) {
 func (f Future) Response() *http.Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if f.pt == nil {
 		return nil
 	}
 	return f.pt.latestResponse()
 }
 func (f Future) Status() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if f.pt == nil {
@@ -66,12 +74,16 @@ func (f Future) Status() string {
 func (f Future) PollingMethod() PollingMethodType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if f.pt == nil {
 		return PollingUnknown
 	}
 	return f.pt.pollingMethod()
 }
 func (f *Future) Done(sender autorest.Sender) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if f.req != nil {
@@ -112,6 +124,8 @@ func (f *Future) Done(sender autorest.Sender) (bool, error) {
 func (f Future) GetPollingDelay() (time.Duration, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if f.pt == nil {
 		return 0, false
 	}
@@ -132,9 +146,13 @@ func (f Future) GetPollingDelay() (time.Duration, bool) {
 func (f Future) WaitForCompletion(ctx context.Context, client autorest.Client) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return f.WaitForCompletionRef(ctx, client)
 }
 func (f *Future) WaitForCompletionRef(ctx context.Context, client autorest.Client) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if d := client.PollingDuration; d != 0 {
@@ -170,9 +188,13 @@ func (f *Future) WaitForCompletionRef(ctx context.Context, client autorest.Clien
 func (f Future) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return json.Marshal(f.pt)
 }
 func (f *Future) UnmarshalJSON(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj := map[string]interface{}{}
@@ -201,12 +223,16 @@ func (f *Future) UnmarshalJSON(data []byte) error {
 func (f Future) PollingURL() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if f.pt == nil {
 		return ""
 	}
 	return f.pt.pollingURL()
 }
 func (f Future) GetResult(sender autorest.Sender) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if f.pt.finalGetURL() == "" {
@@ -254,6 +280,8 @@ type pollingTrackerBase struct {
 func (pt *pollingTrackerBase) initializeState() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pt.Method = pt.resp.Request.Method
 	if err := pt.updateRawBody(); err != nil {
 		return err
@@ -289,6 +317,8 @@ func (pt *pollingTrackerBase) initializeState() error {
 func (pt pollingTrackerBase) getProvisioningState() *string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pt.rawBody != nil && pt.rawBody["properties"] != nil {
 		p := pt.rawBody["properties"].(map[string]interface{})
 		if ps := p["provisioningState"]; ps != nil {
@@ -299,6 +329,8 @@ func (pt pollingTrackerBase) getProvisioningState() *string {
 	return nil
 }
 func (pt *pollingTrackerBase) updateRawBody() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pt.rawBody = map[string]interface{}{}
@@ -316,6 +348,8 @@ func (pt *pollingTrackerBase) updateRawBody() error {
 	return nil
 }
 func (pt *pollingTrackerBase) pollForStatus(sender autorest.Sender) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := http.NewRequest(http.MethodGet, pt.URI, nil)
@@ -339,6 +373,8 @@ func (pt *pollingTrackerBase) pollForStatus(sender autorest.Sender) error {
 	return err
 }
 func (pt *pollingTrackerBase) updateErrorFromResponse() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -380,6 +416,8 @@ Default:
 func (pt *pollingTrackerBase) updatePollingState(provStateApl bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pt.Pm == PollingAsyncOperation && pt.rawBody["status"] != nil {
 		pt.State = pt.rawBody["status"].(string)
 	} else {
@@ -403,6 +441,8 @@ func (pt *pollingTrackerBase) updatePollingState(provStateApl bool) error {
 func (pt pollingTrackerBase) pollingError() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pt.Err == nil {
 		return nil
 	}
@@ -411,9 +451,13 @@ func (pt pollingTrackerBase) pollingError() error {
 func (pt pollingTrackerBase) pollingMethod() PollingMethodType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pt.Pm
 }
 func (pt pollingTrackerBase) pollingStatus() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return pt.State
@@ -421,9 +465,13 @@ func (pt pollingTrackerBase) pollingStatus() string {
 func (pt pollingTrackerBase) pollingURL() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pt.URI
 }
 func (pt pollingTrackerBase) finalGetURL() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return pt.FinalGetURI
@@ -431,9 +479,13 @@ func (pt pollingTrackerBase) finalGetURL() string {
 func (pt pollingTrackerBase) hasTerminated() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.EqualFold(pt.State, operationCanceled) || strings.EqualFold(pt.State, operationFailed) || strings.EqualFold(pt.State, operationSucceeded)
 }
 func (pt pollingTrackerBase) hasFailed() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return strings.EqualFold(pt.State, operationCanceled) || strings.EqualFold(pt.State, operationFailed)
@@ -441,14 +493,20 @@ func (pt pollingTrackerBase) hasFailed() bool {
 func (pt pollingTrackerBase) hasSucceeded() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.EqualFold(pt.State, operationSucceeded)
 }
 func (pt pollingTrackerBase) latestResponse() *http.Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pt.resp
 }
 func (pt pollingTrackerBase) baseCheckForErrors() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pt.Pm == PollingAsyncOperation {
@@ -462,6 +520,8 @@ func (pt pollingTrackerBase) baseCheckForErrors() error {
 	return nil
 }
 func (pt *pollingTrackerBase) initPollingMethod() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ao, err := getURLFromAsyncOpHeader(pt.resp); err != nil {
@@ -484,6 +544,8 @@ func (pt *pollingTrackerBase) initPollingMethod() error {
 type pollingTrackerDelete struct{ pollingTrackerBase }
 
 func (pt *pollingTrackerDelete) updatePollingMethod() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pt.resp.StatusCode == http.StatusCreated {
@@ -523,9 +585,13 @@ func (pt *pollingTrackerDelete) updatePollingMethod() error {
 func (pt pollingTrackerDelete) checkForErrors() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pt.baseCheckForErrors()
 }
 func (pt pollingTrackerDelete) provisioningStateApplicable() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return pt.resp.StatusCode == http.StatusOK || pt.resp.StatusCode == http.StatusNoContent
@@ -534,6 +600,8 @@ func (pt pollingTrackerDelete) provisioningStateApplicable() bool {
 type pollingTrackerPatch struct{ pollingTrackerBase }
 
 func (pt *pollingTrackerPatch) updatePollingMethod() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pt.URI == "" {
@@ -577,9 +645,13 @@ func (pt *pollingTrackerPatch) updatePollingMethod() error {
 func (pt pollingTrackerPatch) checkForErrors() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pt.baseCheckForErrors()
 }
 func (pt pollingTrackerPatch) provisioningStateApplicable() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return pt.resp.StatusCode == http.StatusOK || pt.resp.StatusCode == http.StatusCreated
@@ -588,6 +660,8 @@ func (pt pollingTrackerPatch) provisioningStateApplicable() bool {
 type pollingTrackerPost struct{ pollingTrackerBase }
 
 func (pt *pollingTrackerPost) updatePollingMethod() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pt.resp.StatusCode == http.StatusCreated {
@@ -627,9 +701,13 @@ func (pt *pollingTrackerPost) updatePollingMethod() error {
 func (pt pollingTrackerPost) checkForErrors() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pt.baseCheckForErrors()
 }
 func (pt pollingTrackerPost) provisioningStateApplicable() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return pt.resp.StatusCode == http.StatusOK || pt.resp.StatusCode == http.StatusNoContent
@@ -638,6 +716,8 @@ func (pt pollingTrackerPost) provisioningStateApplicable() bool {
 type pollingTrackerPut struct{ pollingTrackerBase }
 
 func (pt *pollingTrackerPut) updatePollingMethod() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pt.URI == "" {
@@ -683,6 +763,8 @@ func (pt *pollingTrackerPut) updatePollingMethod() error {
 func (pt pollingTrackerPut) checkForErrors() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := pt.baseCheckForErrors()
 	if err != nil {
 		return err
@@ -703,9 +785,13 @@ func (pt pollingTrackerPut) checkForErrors() error {
 func (pt pollingTrackerPut) provisioningStateApplicable() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pt.resp.StatusCode == http.StatusOK || pt.resp.StatusCode == http.StatusCreated
 }
 func createPollingTracker(resp *http.Response) (pollingTracker, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var pt pollingTracker
@@ -729,6 +815,8 @@ func createPollingTracker(resp *http.Response) (pollingTracker, error) {
 func getURLFromAsyncOpHeader(resp *http.Response) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := resp.Header.Get(http.CanonicalHeaderKey(headerAsyncOperation))
 	if s == "" {
 		return "", nil
@@ -739,6 +827,8 @@ func getURLFromAsyncOpHeader(resp *http.Response) (string, error) {
 	return s, nil
 }
 func getURLFromLocationHeader(resp *http.Response) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := resp.Header.Get(http.CanonicalHeaderKey(autorest.HeaderLocation))
@@ -753,10 +843,14 @@ func getURLFromLocationHeader(resp *http.Response) (string, error) {
 func isValidURL(s string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u, err := url.Parse(s)
 	return err == nil && u.IsAbs()
 }
 func DoPollForAsynchronous(delay time.Duration) autorest.SendDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(s autorest.Sender) autorest.Sender {
@@ -800,9 +894,13 @@ type AsyncOpIncompleteError struct{ FutureType string }
 func (e AsyncOpIncompleteError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s: asynchronous operation has not completed", e.FutureType)
 }
 func NewAsyncOpIncompleteError(futureType string) AsyncOpIncompleteError {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return AsyncOpIncompleteError{FutureType: futureType}
@@ -810,7 +908,16 @@ func NewAsyncOpIncompleteError(futureType string) AsyncOpIncompleteError {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -13,6 +13,8 @@ import (
 func basicSimilarNodeGroupsTest(t *testing.T, processor NodeGroupSetProcessor) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	context := &context.AutoscalingContext{}
 	n1 := BuildTestNode("n1", 1000, 1000)
 	n2 := BuildTestNode("n2", 1000, 1000)
@@ -48,10 +50,14 @@ func basicSimilarNodeGroupsTest(t *testing.T, processor NodeGroupSetProcessor) {
 func TestFindSimilarNodeGroups(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	processor := &BalancingNodeGroupSetProcessor{}
 	basicSimilarNodeGroupsTest(t, processor)
 }
 func TestBalanceSingleGroup(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	processor := &BalancingNodeGroupSetProcessor{}
@@ -68,6 +74,8 @@ func TestBalanceSingleGroup(t *testing.T) {
 	assert.Equal(t, 5, scaleUpInfo[0].NewSize)
 }
 func TestBalanceUnderMaxSize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	processor := &BalancingNodeGroupSetProcessor{}
@@ -107,6 +115,8 @@ func TestBalanceUnderMaxSize(t *testing.T) {
 	}
 }
 func TestBalanceHittingMaxSize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	processor := &BalancingNodeGroupSetProcessor{}

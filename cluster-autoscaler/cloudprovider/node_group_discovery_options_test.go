@@ -9,6 +9,8 @@ import (
 func TestParseMIGAutoDiscoverySpecs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cases := []struct {
 		name	string
 		specs	[]string
@@ -29,6 +31,8 @@ func TestParseMIGAutoDiscoverySpecs(t *testing.T) {
 	}
 }
 func TestParseASGAutoDiscoverySpecs(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cases := []struct {

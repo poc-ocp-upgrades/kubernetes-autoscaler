@@ -10,6 +10,8 @@ import (
 func TestSingleTimeseries(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := `{"status":"success",
 	       "data":{
 		 "resultType":"matrix",
@@ -27,12 +29,16 @@ func TestSingleTimeseries(t *testing.T) {
 func TestEmptyResponse(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := `{"status":"success", "data":{"resultType":"matrix", "result":[]}}`
 	res, err := decodeTimeseriesFromResponse(strings.NewReader(s))
 	assert.Nil(t, err)
 	assert.Equal(t, res, []Timeseries{})
 }
 func TestResponseError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := `{"status":"error", "error":"my bad", "errorType":"some"}`
@@ -43,12 +49,16 @@ func TestResponseError(t *testing.T) {
 func TestParseError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := `{"status":"success", "other-key":[unparsable], "data":{"resultType":"matrix", "result":[]}}`
 	res, err := decodeTimeseriesFromResponse(strings.NewReader(s))
 	assert.Nil(t, res)
 	assert.NotNil(t, err)
 }
 func TestTwoTimeseries(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := `{"status":"success",

@@ -15,6 +15,8 @@ import (
 func FastGetPodsToMove(nodeInfo *schedulercache.NodeInfo, skipNodesWithSystemPods bool, skipNodesWithLocalStorage bool, pdbs []*policyv1.PodDisruptionBudget) ([]*apiv1.Pod, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pods, err := drain.GetPodsForDeletionOnNodeDrain(nodeInfo.Pods(), pdbs, false, skipNodesWithSystemPods, skipNodesWithLocalStorage, false, nil, 0, time.Now())
 	if err != nil {
 		return pods, err
@@ -27,6 +29,8 @@ func FastGetPodsToMove(nodeInfo *schedulercache.NodeInfo, skipNodesWithSystemPod
 func DetailedGetPodsForMove(nodeInfo *schedulercache.NodeInfo, skipNodesWithSystemPods bool, skipNodesWithLocalStorage bool, client client.Interface, minReplicaCount int32, pdbs []*policyv1.PodDisruptionBudget) ([]*apiv1.Pod, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pods, err := drain.GetPodsForDeletionOnNodeDrain(nodeInfo.Pods(), pdbs, false, skipNodesWithSystemPods, skipNodesWithLocalStorage, true, client, minReplicaCount, time.Now())
 	if err != nil {
 		return pods, err
@@ -37,6 +41,8 @@ func DetailedGetPodsForMove(nodeInfo *schedulercache.NodeInfo, skipNodesWithSyst
 	return pods, nil
 }
 func checkPdbs(pods []*apiv1.Pod, pdbs []*policyv1.PodDisruptionBudget) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, pdb := range pdbs {

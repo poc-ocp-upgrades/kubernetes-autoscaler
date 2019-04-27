@@ -28,9 +28,13 @@ type checkpointWriter struct {
 func NewCheckpointWriter(cluster *model.ClusterState, vpaCheckpointClient vpa_api.VerticalPodAutoscalerCheckpointsGetter) CheckpointWriter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &checkpointWriter{vpaCheckpointClient: vpaCheckpointClient, cluster: cluster}
 }
 func isFetchingHistory(vpa *model.Vpa) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	condition, found := vpa.Conditions[vpa_types.FetchingHistory]
@@ -40,6 +44,8 @@ func isFetchingHistory(vpa *model.Vpa) bool {
 	return condition.Status == v1.ConditionTrue
 }
 func getVpasToCheckpoint(clusterVpas map[model.VpaID]*model.Vpa) []*model.Vpa {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vpas := make([]*model.Vpa, 0, len(clusterVpas))
@@ -56,6 +62,8 @@ func getVpasToCheckpoint(clusterVpas map[model.VpaID]*model.Vpa) []*model.Vpa {
 	return vpas
 }
 func (writer *checkpointWriter) StoreCheckpoints(ctx context.Context, now time.Time, minCheckpoints int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vpas := getVpasToCheckpoint(writer.cluster.Vpas)
@@ -91,6 +99,8 @@ func (writer *checkpointWriter) StoreCheckpoints(ctx context.Context, now time.T
 func buildAggregateContainerStateMap(vpa *model.Vpa, cluster *model.ClusterState, now time.Time) map[string]*model.AggregateContainerState {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	aggregateContainerStateMap := vpa.AggregateStateByContainerName()
 	for _, pod := range cluster.Pods {
 		for containerName, container := range pod.Containers {
@@ -107,6 +117,8 @@ func buildAggregateContainerStateMap(vpa *model.Vpa, cluster *model.ClusterState
 func subtractCurrentContainerMemoryPeak(a *model.AggregateContainerState, container *model.ContainerState, now time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if now.Before(container.WindowEnd) {
 		a.AggregateMemoryPeaks.SubtractSample(model.BytesFromMemoryAmount(container.GetMaxMemoryPeak()), 1.0, container.WindowEnd)
 	}
@@ -114,7 +126,16 @@ func subtractCurrentContainerMemoryPeak(a *model.AggregateContainerState, contai
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -23,6 +23,8 @@ type Signer interface {
 func NewSignerWithCredential(credential Credential, commonApi func(request *requests.CommonRequest, signer interface{}) (response *responses.CommonResponse, err error)) (signer Signer, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch instance := credential.(type) {
 	case *credentials.AccessKeyCredential:
 		{
@@ -63,6 +65,8 @@ func NewSignerWithCredential(credential Credential, commonApi func(request *requ
 	return
 }
 func Sign(request requests.AcsRequest, signer Signer, regionId string) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch request.GetStyle() {

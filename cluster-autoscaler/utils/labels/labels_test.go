@@ -10,6 +10,8 @@ import (
 func TestCalculateNodeSelectorStats(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p1 := BuildTestPod("p1", 500, 0)
 	p1.Spec.NodeSelector = map[string]string{"A": "X", "B": "Y"}
 	p2 := BuildTestPod("p2", 800, 0)
@@ -26,6 +28,8 @@ func TestCalculateNodeSelectorStats(t *testing.T) {
 	assert.Equal(t, int64(600), stats[1].totalCpu.MilliValue())
 }
 func TestBestLabelSet(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p1 := BuildTestPod("p1", 500, 0)

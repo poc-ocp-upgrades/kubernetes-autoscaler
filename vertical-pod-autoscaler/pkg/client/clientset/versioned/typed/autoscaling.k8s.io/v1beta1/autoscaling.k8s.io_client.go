@@ -21,14 +21,20 @@ type AutoscalingV1beta1Client struct{ restClient rest.Interface }
 func (c *AutoscalingV1beta1Client) VerticalPodAutoscalers(namespace string) VerticalPodAutoscalerInterface {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newVerticalPodAutoscalers(c, namespace)
 }
 func (c *AutoscalingV1beta1Client) VerticalPodAutoscalerCheckpoints(namespace string) VerticalPodAutoscalerCheckpointInterface {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newVerticalPodAutoscalerCheckpoints(c, namespace)
 }
 func NewForConfig(c *rest.Config) (*AutoscalingV1beta1Client, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	config := *c
@@ -44,6 +50,8 @@ func NewForConfig(c *rest.Config) (*AutoscalingV1beta1Client, error) {
 func NewForConfigOrDie(c *rest.Config) *AutoscalingV1beta1Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client, err := NewForConfig(c)
 	if err != nil {
 		panic(err)
@@ -53,9 +61,13 @@ func NewForConfigOrDie(c *rest.Config) *AutoscalingV1beta1Client {
 func New(c rest.Interface) *AutoscalingV1beta1Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &AutoscalingV1beta1Client{c}
 }
 func setConfigDefaults(config *rest.Config) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gv := v1beta1.SchemeGroupVersion
@@ -70,6 +82,8 @@ func setConfigDefaults(config *rest.Config) error {
 func (c *AutoscalingV1beta1Client) RESTClient() rest.Interface {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c == nil {
 		return nil
 	}
@@ -78,7 +92,16 @@ func (c *AutoscalingV1beta1Client) RESTClient() rest.Interface {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

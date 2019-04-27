@@ -12,6 +12,8 @@ type SignatureDostNotMatchWrapper struct{}
 func (*SignatureDostNotMatchWrapper) tryWrap(error *ServerError, wrapInfo map[string]string) (bool, *ServerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clientStringToSign := wrapInfo["StringToSign"]
 	if error.errorCode == SignatureDostNotMatchErrorCode && clientStringToSign != "" {
 		message := error.message

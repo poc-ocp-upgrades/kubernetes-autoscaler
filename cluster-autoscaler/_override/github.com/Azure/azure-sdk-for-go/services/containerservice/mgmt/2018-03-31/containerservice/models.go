@@ -18,6 +18,8 @@ const (
 func PossibleNetworkPluginValues() []NetworkPlugin {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []NetworkPlugin{Azure, Kubenet}
 }
 
@@ -28,6 +30,8 @@ const (
 )
 
 func PossibleNetworkPolicyValues() []NetworkPolicy {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return []NetworkPolicy{Calico}
@@ -46,6 +50,8 @@ const (
 func PossibleOrchestratorTypesValues() []OrchestratorTypes {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []OrchestratorTypes{Custom, DCOS, DockerCE, Kubernetes, Swarm}
 }
 
@@ -59,6 +65,8 @@ const (
 func PossibleOSTypeValues() []OSType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []OSType{Linux, Windows}
 }
 
@@ -70,6 +78,8 @@ const (
 )
 
 func PossibleStorageProfileTypesValues() []StorageProfileTypes {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return []StorageProfileTypes{ManagedDisks, StorageAccount}
@@ -257,6 +267,8 @@ const (
 func PossibleVMSizeTypesValues() []VMSizeTypes {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []VMSizeTypes{StandardA1, StandardA10, StandardA11, StandardA1V2, StandardA2, StandardA2mV2, StandardA2V2, StandardA3, StandardA4, StandardA4mV2, StandardA4V2, StandardA5, StandardA6, StandardA7, StandardA8, StandardA8mV2, StandardA8V2, StandardA9, StandardB2ms, StandardB2s, StandardB4ms, StandardB8ms, StandardD1, StandardD11, StandardD11V2, StandardD11V2Promo, StandardD12, StandardD12V2, StandardD12V2Promo, StandardD13, StandardD13V2, StandardD13V2Promo, StandardD14, StandardD14V2, StandardD14V2Promo, StandardD15V2, StandardD16sV3, StandardD16V3, StandardD1V2, StandardD2, StandardD2sV3, StandardD2V2, StandardD2V2Promo, StandardD2V3, StandardD3, StandardD32sV3, StandardD32V3, StandardD3V2, StandardD3V2Promo, StandardD4, StandardD4sV3, StandardD4V2, StandardD4V2Promo, StandardD4V3, StandardD5V2, StandardD5V2Promo, StandardD64sV3, StandardD64V3, StandardD8sV3, StandardD8V3, StandardDS1, StandardDS11, StandardDS11V2, StandardDS11V2Promo, StandardDS12, StandardDS12V2, StandardDS12V2Promo, StandardDS13, StandardDS132V2, StandardDS134V2, StandardDS13V2, StandardDS13V2Promo, StandardDS14, StandardDS144V2, StandardDS148V2, StandardDS14V2, StandardDS14V2Promo, StandardDS15V2, StandardDS1V2, StandardDS2, StandardDS2V2, StandardDS2V2Promo, StandardDS3, StandardDS3V2, StandardDS3V2Promo, StandardDS4, StandardDS4V2, StandardDS4V2Promo, StandardDS5V2, StandardDS5V2Promo, StandardE16sV3, StandardE16V3, StandardE2sV3, StandardE2V3, StandardE3216sV3, StandardE328sV3, StandardE32sV3, StandardE32V3, StandardE4sV3, StandardE4V3, StandardE6416sV3, StandardE6432sV3, StandardE64sV3, StandardE64V3, StandardE8sV3, StandardE8V3, StandardF1, StandardF16, StandardF16s, StandardF16sV2, StandardF1s, StandardF2, StandardF2s, StandardF2sV2, StandardF32sV2, StandardF4, StandardF4s, StandardF4sV2, StandardF64sV2, StandardF72sV2, StandardF8, StandardF8s, StandardF8sV2, StandardG1, StandardG2, StandardG3, StandardG4, StandardG5, StandardGS1, StandardGS2, StandardGS3, StandardGS4, StandardGS44, StandardGS48, StandardGS5, StandardGS516, StandardGS58, StandardH16, StandardH16m, StandardH16mr, StandardH16r, StandardH8, StandardH8m, StandardL16s, StandardL32s, StandardL4s, StandardL8s, StandardM12832ms, StandardM12864ms, StandardM128ms, StandardM128s, StandardM6416ms, StandardM6432ms, StandardM64ms, StandardM64s, StandardNC12, StandardNC12sV2, StandardNC12sV3, StandardNC24, StandardNC24r, StandardNC24rsV2, StandardNC24rsV3, StandardNC24sV2, StandardNC24sV3, StandardNC6, StandardNC6sV2, StandardNC6sV3, StandardND12s, StandardND24rs, StandardND24s, StandardND6s, StandardNV12, StandardNV24, StandardNV6}
 }
 
@@ -288,6 +300,8 @@ type ContainerService struct {
 func (cs ContainerService) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	objectMap := make(map[string]interface{})
 	if cs.Properties != nil {
 		objectMap["properties"] = cs.Properties
@@ -310,6 +324,8 @@ func (cs ContainerService) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 func (cs *ContainerService) UnmarshalJSON(body []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var m map[string]*json.RawMessage
@@ -383,6 +399,8 @@ type ContainerServicesCreateOrUpdateFutureType struct{ azure.Future }
 func (future *ContainerServicesCreateOrUpdateFutureType) Result(client ContainerServicesClient) (cs ContainerService, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var done bool
 	done, err = future.Done(client)
 	if err != nil {
@@ -406,6 +424,8 @@ func (future *ContainerServicesCreateOrUpdateFutureType) Result(client Container
 type ContainerServicesDeleteFutureType struct{ azure.Future }
 
 func (future *ContainerServicesDeleteFutureType) Result(client ContainerServicesClient) (ar autorest.Response, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var done bool
@@ -450,6 +470,8 @@ type ListResultIterator struct {
 func (iter *ListResultIterator) Next() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	iter.i++
 	if iter.i < len(iter.page.Values()) {
 		return nil
@@ -465,14 +487,20 @@ func (iter *ListResultIterator) Next() error {
 func (iter ListResultIterator) NotDone() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return iter.page.NotDone() && iter.i < len(iter.page.Values())
 }
 func (iter ListResultIterator) Response() ListResult {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return iter.page.Response()
 }
 func (iter ListResultIterator) Value() ContainerService {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !iter.page.NotDone() {
@@ -483,9 +511,13 @@ func (iter ListResultIterator) Value() ContainerService {
 func (lr ListResult) IsEmpty() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return lr.Value == nil || len(*lr.Value) == 0
 }
 func (lr ListResult) listResultPreparer() (*http.Request, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if lr.NextLink == nil || len(to.String(lr.NextLink)) < 1 {
@@ -502,6 +534,8 @@ type ListResultPage struct {
 func (page *ListResultPage) Next() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	next, err := page.fn(page.lr)
 	if err != nil {
 		return err
@@ -512,14 +546,20 @@ func (page *ListResultPage) Next() error {
 func (page ListResultPage) NotDone() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return !page.lr.IsEmpty()
 }
 func (page ListResultPage) Response() ListResult {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return page.lr
 }
 func (page ListResultPage) Values() []ContainerService {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if page.lr.IsEmpty() {
@@ -539,6 +579,8 @@ type ManagedCluster struct {
 }
 
 func (mc ManagedCluster) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	objectMap := make(map[string]interface{})
@@ -563,6 +605,8 @@ func (mc ManagedCluster) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 func (mc *ManagedCluster) UnmarshalJSON(body []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var m map[string]*json.RawMessage
@@ -650,6 +694,8 @@ type ManagedClusterAccessProfile struct {
 func (mcap ManagedClusterAccessProfile) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	objectMap := make(map[string]interface{})
 	if mcap.AccessProfile != nil {
 		objectMap["properties"] = mcap.AccessProfile
@@ -672,6 +718,8 @@ func (mcap ManagedClusterAccessProfile) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 func (mcap *ManagedClusterAccessProfile) UnmarshalJSON(body []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var m map[string]*json.RawMessage
@@ -748,6 +796,8 @@ type ManagedClusterAddonProfile struct {
 func (mcap ManagedClusterAddonProfile) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	objectMap := make(map[string]interface{})
 	if mcap.Enabled != nil {
 		objectMap["enabled"] = mcap.Enabled
@@ -784,6 +834,8 @@ type ManagedClusterListResultIterator struct {
 func (iter *ManagedClusterListResultIterator) Next() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	iter.i++
 	if iter.i < len(iter.page.Values()) {
 		return nil
@@ -799,14 +851,20 @@ func (iter *ManagedClusterListResultIterator) Next() error {
 func (iter ManagedClusterListResultIterator) NotDone() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return iter.page.NotDone() && iter.i < len(iter.page.Values())
 }
 func (iter ManagedClusterListResultIterator) Response() ManagedClusterListResult {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return iter.page.Response()
 }
 func (iter ManagedClusterListResultIterator) Value() ManagedCluster {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !iter.page.NotDone() {
@@ -817,9 +875,13 @@ func (iter ManagedClusterListResultIterator) Value() ManagedCluster {
 func (mclr ManagedClusterListResult) IsEmpty() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return mclr.Value == nil || len(*mclr.Value) == 0
 }
 func (mclr ManagedClusterListResult) managedClusterListResultPreparer() (*http.Request, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if mclr.NextLink == nil || len(to.String(mclr.NextLink)) < 1 {
@@ -836,6 +898,8 @@ type ManagedClusterListResultPage struct {
 func (page *ManagedClusterListResultPage) Next() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	next, err := page.fn(page.mclr)
 	if err != nil {
 		return err
@@ -846,14 +910,20 @@ func (page *ManagedClusterListResultPage) Next() error {
 func (page ManagedClusterListResultPage) NotDone() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return !page.mclr.IsEmpty()
 }
 func (page ManagedClusterListResultPage) Response() ManagedClusterListResult {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return page.mclr
 }
 func (page ManagedClusterListResultPage) Values() []ManagedCluster {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if page.mclr.IsEmpty() {
@@ -884,6 +954,8 @@ type ManagedClusterProperties struct {
 }
 
 func (mcp ManagedClusterProperties) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	objectMap := make(map[string]interface{})
@@ -931,6 +1003,8 @@ type ManagedClustersCreateOrUpdateFuture struct{ azure.Future }
 func (future *ManagedClustersCreateOrUpdateFuture) Result(client ManagedClustersClient) (mc ManagedCluster, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var done bool
 	done, err = future.Done(client)
 	if err != nil {
@@ -956,6 +1030,8 @@ type ManagedClustersDeleteFuture struct{ azure.Future }
 func (future *ManagedClustersDeleteFuture) Result(client ManagedClustersClient) (ar autorest.Response, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var done bool
 	done, err = future.Done(client)
 	if err != nil {
@@ -973,6 +1049,8 @@ func (future *ManagedClustersDeleteFuture) Result(client ManagedClustersClient) 
 type ManagedClustersUpdateTagsFuture struct{ azure.Future }
 
 func (future *ManagedClustersUpdateTagsFuture) Result(client ManagedClustersClient) (mc ManagedCluster, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var done bool
@@ -1006,6 +1084,8 @@ type ManagedClusterUpgradeProfile struct {
 func (mcup ManagedClusterUpgradeProfile) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	objectMap := make(map[string]interface{})
 	if mcup.ID != nil {
 		objectMap["id"] = mcup.ID
@@ -1022,6 +1102,8 @@ func (mcup ManagedClusterUpgradeProfile) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 func (mcup *ManagedClusterUpgradeProfile) UnmarshalJSON(body []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var m map[string]*json.RawMessage
@@ -1107,6 +1189,8 @@ type OperationValue struct {
 func (ov OperationValue) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	objectMap := make(map[string]interface{})
 	if ov.Origin != nil {
 		objectMap["origin"] = ov.Origin
@@ -1120,6 +1204,8 @@ func (ov OperationValue) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 func (ov *OperationValue) UnmarshalJSON(body []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var m map[string]*json.RawMessage
@@ -1192,6 +1278,8 @@ type OrchestratorVersionProfileListResult struct {
 func (ovplr OrchestratorVersionProfileListResult) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	objectMap := make(map[string]interface{})
 	if ovplr.ID != nil {
 		objectMap["id"] = ovplr.ID
@@ -1208,6 +1296,8 @@ func (ovplr OrchestratorVersionProfileListResult) MarshalJSON() ([]byte, error) 
 	return json.Marshal(objectMap)
 }
 func (ovplr *OrchestratorVersionProfileListResult) UnmarshalJSON(body []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var m map[string]*json.RawMessage
@@ -1283,6 +1373,8 @@ type Resource struct {
 func (r Resource) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	objectMap := make(map[string]interface{})
 	if r.ID != nil {
 		objectMap["id"] = r.ID
@@ -1318,6 +1410,8 @@ type TagsObject struct {
 }
 
 func (toVar TagsObject) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	objectMap := make(map[string]interface{})

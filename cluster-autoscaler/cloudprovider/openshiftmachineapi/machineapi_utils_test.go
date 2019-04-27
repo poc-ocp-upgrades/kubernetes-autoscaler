@@ -15,6 +15,8 @@ const (
 func TestParseScalingBounds(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i, tc := range []struct {
 		description	string
 		annotations	map[string]string
@@ -47,6 +49,8 @@ func TestParseScalingBounds(t *testing.T) {
 func TestMachineSetIsOwnedByMachineDeployment(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, tc := range []struct {
 		description		string
 		machineSet		v1beta1.MachineSet
@@ -64,6 +68,8 @@ func TestMachineSetIsOwnedByMachineDeployment(t *testing.T) {
 func TestMachineIsOwnedByMachineSet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, tc := range []struct {
 		description	string
 		machine		v1beta1.Machine
@@ -79,6 +85,8 @@ func TestMachineIsOwnedByMachineSet(t *testing.T) {
 	}
 }
 func TestMachineSetMachineDeploymentOwnerRef(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, tc := range []struct {

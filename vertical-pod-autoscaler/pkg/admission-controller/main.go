@@ -24,6 +24,8 @@ var (
 func newReadyVPALister(stopChannel <-chan struct{}) vpa_lister.VerticalPodAutoscalerLister {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	config, err := rest.InClusterConfig()
 	if err != nil {
 		glog.Fatal(err)
@@ -32,6 +34,8 @@ func newReadyVPALister(stopChannel <-chan struct{}) vpa_lister.VerticalPodAutosc
 	return vpa_api_util.NewAllVpasLister(vpaClient, stopChannel)
 }
 func main() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	kube_flag.InitFlags()

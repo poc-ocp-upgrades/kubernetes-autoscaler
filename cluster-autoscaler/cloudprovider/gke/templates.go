@@ -19,6 +19,8 @@ type GkeTemplateBuilder struct {
 func (t *GkeTemplateBuilder) BuildNodeFromMigSpec(mig *GkeMig, cpu int64, mem int64) (*apiv1.Node, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if mig.Spec() == nil {
 		return nil, fmt.Errorf("no spec in mig %s", mig.GceRef().Name)
 	}
@@ -46,6 +48,8 @@ func (t *GkeTemplateBuilder) BuildNodeFromMigSpec(mig *GkeMig, cpu int64, mem in
 func (t *GkeTemplateBuilder) BuildKubeReserved(cpu, physicalMemory int64) apiv1.ResourceList {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cpuReservedMillicores := PredictKubeReservedCpuMillicores(cpu * 1000)
 	memoryReserved := PredictKubeReservedMemory(physicalMemory)
 	reserved := apiv1.ResourceList{}
@@ -54,6 +58,8 @@ func (t *GkeTemplateBuilder) BuildKubeReserved(cpu, physicalMemory int64) apiv1.
 	return reserved
 }
 func buildLabelsForAutoprovisionedMig(mig *GkeMig, nodeName string) (map[string]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	labels, err := gce.BuildGenericLabels(mig.GceRef(), mig.Spec().MachineType, nodeName)

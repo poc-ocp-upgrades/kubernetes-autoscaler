@@ -11,9 +11,13 @@ type AccessKeySigner struct {
 func (signer *AccessKeySigner) GetExtraParam() map[string]string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func NewAccessKeySigner(credential *credentials.AccessKeyCredential) (*AccessKeySigner, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &AccessKeySigner{credential: credential}, nil
@@ -21,9 +25,13 @@ func NewAccessKeySigner(credential *credentials.AccessKeyCredential) (*AccessKey
 func (*AccessKeySigner) GetName() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "HMAC-SHA1"
 }
 func (*AccessKeySigner) GetType() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ""
@@ -31,9 +39,13 @@ func (*AccessKeySigner) GetType() string {
 func (*AccessKeySigner) GetVersion() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "1.0"
 }
 func (signer *AccessKeySigner) GetAccessKeyId() (accessKeyId string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return signer.credential.AccessKeyId, nil
@@ -41,10 +53,14 @@ func (signer *AccessKeySigner) GetAccessKeyId() (accessKeyId string, err error) 
 func (signer *AccessKeySigner) Sign(stringToSign, secretSuffix string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	secret := signer.credential.AccessKeySecret + secretSuffix
 	return ShaHmac1(stringToSign, secret)
 }
 func (signer *AccessKeySigner) Shutdown() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }

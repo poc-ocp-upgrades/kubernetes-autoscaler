@@ -49,6 +49,8 @@ type asgTemplate struct {
 func getRegion(cfg ...*aws.Config) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	region, present := os.LookupEnv("AWS_REGION")
 	if !present {
 		svc := ec2metadata.New(session.New(), cfg...)
@@ -59,6 +61,8 @@ func getRegion(cfg ...*aws.Config) string {
 	return region
 }
 func createAWSManagerInternal(configReader io.Reader, discoveryOpts cloudprovider.NodeGroupDiscoveryOptions, autoScalingService *autoScalingWrapper, ec2Service *ec2Wrapper) (*AwsManager, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if configReader != nil {
@@ -94,9 +98,13 @@ func createAWSManagerInternal(configReader io.Reader, discoveryOpts cloudprovide
 func CreateAwsManager(configReader io.Reader, discoveryOpts cloudprovider.NodeGroupDiscoveryOptions) (*AwsManager, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return createAWSManagerInternal(configReader, discoveryOpts, nil, nil)
 }
 func (m *AwsManager) Refresh() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m.lastRefresh.Add(refreshInterval).After(time.Now()) {
@@ -105,6 +113,8 @@ func (m *AwsManager) Refresh() error {
 	return m.forceRefresh()
 }
 func (m *AwsManager) forceRefresh() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := m.asgCache.regenerate(); err != nil {
@@ -118,9 +128,13 @@ func (m *AwsManager) forceRefresh() error {
 func (m *AwsManager) GetAsgForInstance(instance AwsInstanceRef) *asg {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.asgCache.FindForInstance(instance)
 }
 func (m *AwsManager) Cleanup() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.asgCache.Cleanup()
@@ -128,9 +142,13 @@ func (m *AwsManager) Cleanup() {
 func (m *AwsManager) getAsgs() []*asg {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.asgCache.Get()
 }
 func (m *AwsManager) SetAsgSize(asg *asg, size int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return m.asgCache.SetAsgSize(asg, size)
@@ -138,14 +156,20 @@ func (m *AwsManager) SetAsgSize(asg *asg, size int) error {
 func (m *AwsManager) DeleteInstances(instances []*AwsInstanceRef) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.asgCache.DeleteInstances(instances)
 }
 func (m *AwsManager) GetAsgNodes(ref AwsRef) ([]AwsInstanceRef, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.asgCache.InstancesByAsg(ref)
 }
 func (m *AwsManager) getAsgTemplate(asg *asg) (*asgTemplate, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(asg.AvailabilityZones) < 1 {
@@ -168,6 +192,8 @@ func (m *AwsManager) getAsgTemplate(asg *asg) (*asgTemplate, error) {
 func (m *AwsManager) buildInstanceType(asg *asg) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if asg.LaunchConfigurationName != "" {
 		return m.autoScalingService.getInstanceTypeByLCName(asg.LaunchConfigurationName)
 	} else if asg.LaunchTemplateName != "" && asg.LaunchTemplateVersion != "" {
@@ -176,6 +202,8 @@ func (m *AwsManager) buildInstanceType(asg *asg) (string, error) {
 	return "", errors.New("Unable to get instance type from launch config or launch template")
 }
 func (m *AwsManager) buildNodeFromTemplate(asg *asg, template *asgTemplate) (*apiv1.Node, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	node := apiv1.Node{}
@@ -196,6 +224,8 @@ func (m *AwsManager) buildNodeFromTemplate(asg *asg, template *asgTemplate) (*ap
 func buildGenericLabels(template *asgTemplate, nodeName string) map[string]string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make(map[string]string)
 	result[kubeletapis.LabelArch] = cloudprovider.DefaultArch
 	result[kubeletapis.LabelOS] = cloudprovider.DefaultOS
@@ -206,6 +236,8 @@ func buildGenericLabels(template *asgTemplate, nodeName string) map[string]strin
 	return result
 }
 func extractLabelsFromAsg(tags []*autoscaling.TagDescription) map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(map[string]string)
@@ -223,6 +255,8 @@ func extractLabelsFromAsg(tags []*autoscaling.TagDescription) map[string]string 
 	return result
 }
 func extractTaintsFromAsg(tags []*autoscaling.TagDescription) []apiv1.Taint {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	taints := make([]apiv1.Taint, 0)

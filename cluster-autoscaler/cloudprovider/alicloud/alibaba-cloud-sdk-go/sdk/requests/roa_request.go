@@ -18,9 +18,13 @@ type RoaRequest struct {
 func (*RoaRequest) GetStyle() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ROA
 }
 func (request *RoaRequest) GetBodyReader() io.Reader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if request.FormParams != nil && len(request.FormParams) > 0 {
@@ -35,14 +39,20 @@ func (request *RoaRequest) GetBodyReader() io.Reader {
 func (request *RoaRequest) GetQueries() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return request.queries
 }
 func (request *RoaRequest) BuildQueries() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return request.buildQueries(false)
 }
 func (request *RoaRequest) buildQueries(needParamEncode bool) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	path := request.pathPattern
@@ -88,6 +98,8 @@ func (request *RoaRequest) buildQueries(needParamEncode bool) string {
 func popStandardUrlencode(stringToSign string) (result string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result = strings.Replace(stringToSign, "+", "%20", -1)
 	result = strings.Replace(result, "*", "%2A", -1)
 	result = strings.Replace(result, "%7E", "~", -1)
@@ -96,9 +108,13 @@ func popStandardUrlencode(stringToSign string) (result string) {
 func (request *RoaRequest) GetUrl() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.ToLower(request.Scheme) + "://" + request.Domain + ":" + request.Port + request.GetQueries()
 }
 func (request *RoaRequest) BuildUrl() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return strings.ToLower(request.Scheme) + "://" + request.Domain + ":" + request.Port + request.buildQueries(true)
@@ -106,9 +122,13 @@ func (request *RoaRequest) BuildUrl() string {
 func (request *RoaRequest) addPathParam(key, value string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request.PathParams[key] = value
 }
 func (request *RoaRequest) InitWithApiInfo(product, version, action, uriPattern, serviceCode, endpointType string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	request.baseRequest = defaultBaseRequest()
@@ -119,6 +139,8 @@ func (request *RoaRequest) InitWithApiInfo(product, version, action, uriPattern,
 	request.locationEndpointType = endpointType
 }
 func (request *RoaRequest) initWithCommonRequest(commonRequest *CommonRequest) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	request.baseRequest = commonRequest.baseRequest

@@ -9,6 +9,8 @@ import (
 func (in *ContainerResourcePolicy) DeepCopyInto(out *ContainerResourcePolicy) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*out = *in
 	if in.Mode != nil {
 		in, out := &in.Mode, &out.Mode
@@ -38,6 +40,8 @@ func (in *ContainerResourcePolicy) DeepCopyInto(out *ContainerResourcePolicy) {
 func (in *ContainerResourcePolicy) DeepCopy() *ContainerResourcePolicy {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -46,6 +50,8 @@ func (in *ContainerResourcePolicy) DeepCopy() *ContainerResourcePolicy {
 	return out
 }
 func (in *HistogramCheckpoint) DeepCopyInto(out *HistogramCheckpoint) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -62,6 +68,8 @@ func (in *HistogramCheckpoint) DeepCopyInto(out *HistogramCheckpoint) {
 func (in *HistogramCheckpoint) DeepCopy() *HistogramCheckpoint {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -70,6 +78,8 @@ func (in *HistogramCheckpoint) DeepCopy() *HistogramCheckpoint {
 	return out
 }
 func (in *PodResourcePolicy) DeepCopyInto(out *PodResourcePolicy) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -85,6 +95,8 @@ func (in *PodResourcePolicy) DeepCopyInto(out *PodResourcePolicy) {
 func (in *PodResourcePolicy) DeepCopy() *PodResourcePolicy {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -93,6 +105,8 @@ func (in *PodResourcePolicy) DeepCopy() *PodResourcePolicy {
 	return out
 }
 func (in *PodUpdatePolicy) DeepCopyInto(out *PodUpdatePolicy) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -110,6 +124,8 @@ func (in *PodUpdatePolicy) DeepCopyInto(out *PodUpdatePolicy) {
 func (in *PodUpdatePolicy) DeepCopy() *PodUpdatePolicy {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -118,6 +134,8 @@ func (in *PodUpdatePolicy) DeepCopy() *PodUpdatePolicy {
 	return out
 }
 func (in *RecommendedContainerResources) DeepCopyInto(out *RecommendedContainerResources) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -154,6 +172,8 @@ func (in *RecommendedContainerResources) DeepCopyInto(out *RecommendedContainerR
 func (in *RecommendedContainerResources) DeepCopy() *RecommendedContainerResources {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -162,6 +182,8 @@ func (in *RecommendedContainerResources) DeepCopy() *RecommendedContainerResourc
 	return out
 }
 func (in *RecommendedPodResources) DeepCopyInto(out *RecommendedPodResources) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -177,6 +199,8 @@ func (in *RecommendedPodResources) DeepCopyInto(out *RecommendedPodResources) {
 func (in *RecommendedPodResources) DeepCopy() *RecommendedPodResources {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -185,6 +209,8 @@ func (in *RecommendedPodResources) DeepCopy() *RecommendedPodResources {
 	return out
 }
 func (in *VerticalPodAutoscaler) DeepCopyInto(out *VerticalPodAutoscaler) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -197,6 +223,8 @@ func (in *VerticalPodAutoscaler) DeepCopyInto(out *VerticalPodAutoscaler) {
 func (in *VerticalPodAutoscaler) DeepCopy() *VerticalPodAutoscaler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -207,12 +235,16 @@ func (in *VerticalPodAutoscaler) DeepCopy() *VerticalPodAutoscaler {
 func (in *VerticalPodAutoscaler) DeepCopyObject() runtime.Object {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c := in.DeepCopy(); c != nil {
 		return c
 	}
 	return nil
 }
 func (in *VerticalPodAutoscalerCheckpoint) DeepCopyInto(out *VerticalPodAutoscalerCheckpoint) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -225,6 +257,8 @@ func (in *VerticalPodAutoscalerCheckpoint) DeepCopyInto(out *VerticalPodAutoscal
 func (in *VerticalPodAutoscalerCheckpoint) DeepCopy() *VerticalPodAutoscalerCheckpoint {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -235,12 +269,16 @@ func (in *VerticalPodAutoscalerCheckpoint) DeepCopy() *VerticalPodAutoscalerChec
 func (in *VerticalPodAutoscalerCheckpoint) DeepCopyObject() runtime.Object {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c := in.DeepCopy(); c != nil {
 		return c
 	}
 	return nil
 }
 func (in *VerticalPodAutoscalerCheckpointList) DeepCopyInto(out *VerticalPodAutoscalerCheckpointList) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -258,6 +296,8 @@ func (in *VerticalPodAutoscalerCheckpointList) DeepCopyInto(out *VerticalPodAuto
 func (in *VerticalPodAutoscalerCheckpointList) DeepCopy() *VerticalPodAutoscalerCheckpointList {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -268,6 +308,8 @@ func (in *VerticalPodAutoscalerCheckpointList) DeepCopy() *VerticalPodAutoscaler
 func (in *VerticalPodAutoscalerCheckpointList) DeepCopyObject() runtime.Object {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c := in.DeepCopy(); c != nil {
 		return c
 	}
@@ -276,10 +318,14 @@ func (in *VerticalPodAutoscalerCheckpointList) DeepCopyObject() runtime.Object {
 func (in *VerticalPodAutoscalerCheckpointSpec) DeepCopyInto(out *VerticalPodAutoscalerCheckpointSpec) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*out = *in
 	return
 }
 func (in *VerticalPodAutoscalerCheckpointSpec) DeepCopy() *VerticalPodAutoscalerCheckpointSpec {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if in == nil {
@@ -290,6 +336,8 @@ func (in *VerticalPodAutoscalerCheckpointSpec) DeepCopy() *VerticalPodAutoscaler
 	return out
 }
 func (in *VerticalPodAutoscalerCheckpointStatus) DeepCopyInto(out *VerticalPodAutoscalerCheckpointStatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -303,6 +351,8 @@ func (in *VerticalPodAutoscalerCheckpointStatus) DeepCopyInto(out *VerticalPodAu
 func (in *VerticalPodAutoscalerCheckpointStatus) DeepCopy() *VerticalPodAutoscalerCheckpointStatus {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -313,11 +363,15 @@ func (in *VerticalPodAutoscalerCheckpointStatus) DeepCopy() *VerticalPodAutoscal
 func (in *VerticalPodAutoscalerCondition) DeepCopyInto(out *VerticalPodAutoscalerCondition) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*out = *in
 	in.LastTransitionTime.DeepCopyInto(&out.LastTransitionTime)
 	return
 }
 func (in *VerticalPodAutoscalerCondition) DeepCopy() *VerticalPodAutoscalerCondition {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if in == nil {
@@ -328,6 +382,8 @@ func (in *VerticalPodAutoscalerCondition) DeepCopy() *VerticalPodAutoscalerCondi
 	return out
 }
 func (in *VerticalPodAutoscalerList) DeepCopyInto(out *VerticalPodAutoscalerList) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -345,6 +401,8 @@ func (in *VerticalPodAutoscalerList) DeepCopyInto(out *VerticalPodAutoscalerList
 func (in *VerticalPodAutoscalerList) DeepCopy() *VerticalPodAutoscalerList {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -355,12 +413,16 @@ func (in *VerticalPodAutoscalerList) DeepCopy() *VerticalPodAutoscalerList {
 func (in *VerticalPodAutoscalerList) DeepCopyObject() runtime.Object {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c := in.DeepCopy(); c != nil {
 		return c
 	}
 	return nil
 }
 func (in *VerticalPodAutoscalerSpec) DeepCopyInto(out *VerticalPodAutoscalerSpec) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -396,6 +458,8 @@ func (in *VerticalPodAutoscalerSpec) DeepCopyInto(out *VerticalPodAutoscalerSpec
 func (in *VerticalPodAutoscalerSpec) DeepCopy() *VerticalPodAutoscalerSpec {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if in == nil {
 		return nil
 	}
@@ -404,6 +468,8 @@ func (in *VerticalPodAutoscalerSpec) DeepCopy() *VerticalPodAutoscalerSpec {
 	return out
 }
 func (in *VerticalPodAutoscalerStatus) DeepCopyInto(out *VerticalPodAutoscalerStatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*out = *in
@@ -426,6 +492,8 @@ func (in *VerticalPodAutoscalerStatus) DeepCopyInto(out *VerticalPodAutoscalerSt
 	return
 }
 func (in *VerticalPodAutoscalerStatus) DeepCopy() *VerticalPodAutoscalerStatus {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if in == nil {

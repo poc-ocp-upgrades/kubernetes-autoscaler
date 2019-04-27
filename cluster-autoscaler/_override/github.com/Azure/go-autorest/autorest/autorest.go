@@ -14,6 +14,8 @@ const (
 func ResponseHasStatusCode(resp *http.Response, codes ...int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if resp == nil {
 		return false
 	}
@@ -22,9 +24,13 @@ func ResponseHasStatusCode(resp *http.Response, codes ...int) bool {
 func GetLocation(resp *http.Response) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return resp.Header.Get(HeaderLocation)
 }
 func GetRetryAfter(resp *http.Response, defaultDelay time.Duration) time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	retry := resp.Header.Get(HeaderRetryAfter)
@@ -40,6 +46,8 @@ func GetRetryAfter(resp *http.Response, defaultDelay time.Duration) time.Duratio
 func NewPollingRequest(resp *http.Response, cancel <-chan struct{}) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	location := GetLocation(resp)
 	if location == "" {
 		return nil, NewErrorWithResponse("autorest", "NewPollingRequest", resp, "Location header missing from response that requires polling")
@@ -51,6 +59,8 @@ func NewPollingRequest(resp *http.Response, cancel <-chan struct{}) (*http.Reque
 	return req, nil
 }
 func NewPollingRequestWithContext(ctx context.Context, resp *http.Response) (*http.Request, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	location := GetLocation(resp)

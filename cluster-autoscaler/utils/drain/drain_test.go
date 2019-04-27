@@ -19,6 +19,8 @@ import (
 func TestDrain(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	replicas := int32(5)
 	rc := apiv1.ReplicationController{ObjectMeta: metav1.ObjectMeta{Name: "rc", Namespace: "default", SelfLink: testapi.Default.SelfLink("replicationcontrollers", "rc")}, Spec: apiv1.ReplicationControllerSpec{Replicas: &replicas}}
 	rcPod := &apiv1.Pod{ObjectMeta: metav1.ObjectMeta{Name: "bar", Namespace: "default", OwnerReferences: GenerateOwnerReferences(rc.Name, "ReplicationController", "extensions/v1beta1", "")}, Spec: apiv1.PodSpec{NodeName: "node"}}

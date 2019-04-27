@@ -53,6 +53,8 @@ status:
 func newPod(yaml string) (*v1.Pod, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	decode := legacyscheme.Codecs.UniversalDeserializer().Decode
 	obj, _, err := decode([]byte(yaml), nil, nil)
 	if err != nil {
@@ -63,6 +65,8 @@ func newPod(yaml string) (*v1.Pod, error) {
 func newEvent(yaml string) (*v1.Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	decode := legacyscheme.Codecs.UniversalDeserializer().Decode
 	obj, _, err := decode([]byte(yaml), nil, nil)
 	if err != nil {
@@ -71,6 +75,8 @@ func newEvent(yaml string) (*v1.Event, error) {
 	return obj.(*v1.Event), nil
 }
 func TestOOMReceived(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p1, err := newPod(pod1Yaml)
@@ -89,6 +95,8 @@ func TestOOMReceived(t *testing.T) {
 	assert.Equal(t, timestamp.Unix(), info.Timestamp.Unix())
 }
 func TestParseEvictionEvent(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	parseTimestamp := func(str string) time.Time {

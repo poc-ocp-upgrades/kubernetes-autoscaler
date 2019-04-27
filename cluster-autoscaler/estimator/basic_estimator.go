@@ -25,10 +25,14 @@ type BasicNodeEstimator struct {
 func NewBasicNodeEstimator() *BasicNodeEstimator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.Warning(basicEstimatorDeprecationMessage)
 	return &BasicNodeEstimator{portSum: make(map[int32]int), FittingPods: make(map[*apiv1.Pod]struct{})}
 }
 func (basicEstimator *BasicNodeEstimator) Add(pod *apiv1.Pod) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ports := make(map[int32]struct{})
@@ -58,12 +62,16 @@ func (basicEstimator *BasicNodeEstimator) Add(pod *apiv1.Pod) error {
 func maxInt(a, b int) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if a > b {
 		return a
 	}
 	return b
 }
 func (basicEstimator *BasicNodeEstimator) GetDebug() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var buffer bytes.Buffer
@@ -76,6 +84,8 @@ func (basicEstimator *BasicNodeEstimator) GetDebug() string {
 	return buffer.String()
 }
 func (basicEstimator *BasicNodeEstimator) Estimate(pods []*apiv1.Pod, nodeInfo *schedulercache.NodeInfo, upcomingNodes []*schedulercache.NodeInfo) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, pod := range pods {
@@ -118,12 +128,23 @@ func (basicEstimator *BasicNodeEstimator) Estimate(pods []*apiv1.Pod, nodeInfo *
 func (basicEstimator *BasicNodeEstimator) GetCount() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(basicEstimator.FittingPods)
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -11,6 +11,8 @@ import (
 func Summarize(input io.Reader) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var testSuites api.TestSuites
 	if err := xml.NewDecoder(input).Decode(&testSuites); err != nil {
 		return "", err
@@ -35,6 +37,8 @@ func Summarize(input io.Reader) (string, error) {
 	return summary.String(), nil
 }
 func summarizeTests(testSuite *api.TestSuite, summary *bytes.Buffer) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, testCase := range testSuite.TestCases {

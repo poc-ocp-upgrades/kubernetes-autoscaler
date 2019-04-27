@@ -16,6 +16,8 @@ type HistogramOptions interface {
 func NewLinearHistogramOptions(maxValue float64, bucketSize float64, epsilon float64) (HistogramOptions, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if maxValue <= 0.0 || bucketSize <= 0.0 || epsilon <= 0.0 {
 		return nil, errors.New("maxValue and bucketSize must both be positive")
 	}
@@ -23,6 +25,8 @@ func NewLinearHistogramOptions(maxValue float64, bucketSize float64, epsilon flo
 	return &linearHistogramOptions{numBuckets, bucketSize, epsilon}, nil
 }
 func NewExponentialHistogramOptions(maxValue float64, firstBucketSize float64, ratio float64, epsilon float64) (HistogramOptions, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if maxValue <= 0.0 || firstBucketSize <= 0.0 || ratio <= 1.0 || epsilon <= 0.0 {
@@ -47,9 +51,13 @@ type exponentialHistogramOptions struct {
 func (o *linearHistogramOptions) NumBuckets() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return o.numBuckets
 }
 func (o *linearHistogramOptions) FindBucket(value float64) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bucket := int(value / o.bucketSize)
@@ -64,6 +72,8 @@ func (o *linearHistogramOptions) FindBucket(value float64) int {
 func (o *linearHistogramOptions) GetBucketStart(bucket int) float64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if bucket < 0 || bucket >= o.numBuckets {
 		panic(fmt.Sprintf("index %d out of range [0..%d]", bucket, o.numBuckets-1))
 	}
@@ -72,14 +82,20 @@ func (o *linearHistogramOptions) GetBucketStart(bucket int) float64 {
 func (o *linearHistogramOptions) Epsilon() float64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return o.epsilon
 }
 func (o *exponentialHistogramOptions) NumBuckets() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return o.numBuckets
 }
 func (o *exponentialHistogramOptions) FindBucket(value float64) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if value < o.firstBucketSize {
@@ -94,6 +110,8 @@ func (o *exponentialHistogramOptions) FindBucket(value float64) int {
 func (o *exponentialHistogramOptions) GetBucketStart(bucket int) float64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if bucket < 0 || bucket >= o.numBuckets {
 		panic(fmt.Sprintf("index %d out of range [0..%d]", bucket, o.numBuckets-1))
 	}
@@ -105,9 +123,13 @@ func (o *exponentialHistogramOptions) GetBucketStart(bucket int) float64 {
 func (o *exponentialHistogramOptions) Epsilon() float64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return o.epsilon
 }
 func log(base, x float64) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return math.Log(x) / math.Log(base)

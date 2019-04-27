@@ -10,6 +10,8 @@ import (
 func prepareConditions() (health, scaleUp ClusterAutoscalerCondition) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	healthCondition := ClusterAutoscalerCondition{Type: ClusterAutoscalerHealth, Status: ClusterAutoscalerHealthy, Message: "HEALTH_MESSAGE"}
 	scaleUpCondition := ClusterAutoscalerCondition{Type: ClusterAutoscalerScaleUp, Status: ClusterAutoscalerNotNeeded, Message: "SCALE_UP_MESSAGE"}
 	return healthCondition, scaleUpCondition
@@ -17,10 +19,14 @@ func prepareConditions() (health, scaleUp ClusterAutoscalerCondition) {
 func TestGetStringForEmptyStatus(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var empty ClusterAutoscalerStatus
 	assert.Regexp(t, regexp.MustCompile("\\s*Health:\\s*<unknown>"), empty.GetReadableString())
 }
 func TestGetStringNothingGoingOn(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var status ClusterAutoscalerStatus
@@ -42,6 +48,8 @@ func TestGetStringNothingGoingOn(t *testing.T) {
 func TestGetStringScalingUp(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var status ClusterAutoscalerStatus
 	healthCondition, scaleUpCondition := prepareConditions()
 	scaleUpCondition.Status = ClusterAutoscalerInProgress
@@ -51,6 +59,8 @@ func TestGetStringScalingUp(t *testing.T) {
 	assert.Regexp(t, regexp.MustCompile(fmt.Sprintf("%v:\\s*%v.*SCALE_UP_MESSAGE", ClusterAutoscalerScaleUp, ClusterAutoscalerInProgress)), result)
 }
 func TestGetStringNodeGroups(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var status ClusterAutoscalerStatus

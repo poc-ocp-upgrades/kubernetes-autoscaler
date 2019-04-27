@@ -32,6 +32,8 @@ const (
 func (s *ScaleUpStatus) WasSuccessful() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.Result == ScaleUpSuccessful
 }
 
@@ -44,6 +46,8 @@ type ScaleUpStatusProcessor interface {
 func NewDefaultScaleUpStatusProcessor() ScaleUpStatusProcessor {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &EventingScaleUpStatusProcessor{}
 }
 
@@ -52,8 +56,12 @@ type NoOpScaleUpStatusProcessor struct{}
 func (p *NoOpScaleUpStatusProcessor) Process(context *context.AutoscalingContext, status *ScaleUpStatus) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (p *NoOpScaleUpStatusProcessor) CleanUp() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }

@@ -18,6 +18,8 @@ const (
 func TestSortPriority(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, nil, &test.FakeRecommendationProcessor{})
 	pod1 := test.Pod().WithName("POD1").AddContainer(test.BuildTestContainer(containerName, "2", "")).Get()
 	pod2 := test.Pod().WithName("POD2").AddContainer(test.BuildTestContainer(containerName, "4", "")).Get()
@@ -35,6 +37,8 @@ func TestSortPriority(t *testing.T) {
 func TestSortPriorityMultiResource(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, nil, &test.FakeRecommendationProcessor{})
 	pod1 := test.Pod().WithName("POD1").AddContainer(test.BuildTestContainer(containerName, "4", "60M")).Get()
 	pod2 := test.Pod().WithName("POD2").AddContainer(test.BuildTestContainer(containerName, "3", "90M")).Get()
@@ -46,6 +50,8 @@ func TestSortPriorityMultiResource(t *testing.T) {
 	assert.Exactly(t, []*apiv1.Pod{pod1, pod2}, result, "Wrong priority order")
 }
 func TestSortPriorityMultiContainers(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	containerName2 := "container2"
@@ -72,6 +78,8 @@ func TestSortPriorityMultiContainers(t *testing.T) {
 func TestSortPriorityResourcesDecrease(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, nil, &test.FakeRecommendationProcessor{})
 	pod1 := test.Pod().WithName("POD1").AddContainer(test.BuildTestContainer(containerName, "4", "")).Get()
 	pod2 := test.Pod().WithName("POD2").AddContainer(test.BuildTestContainer(containerName, "7", "")).Get()
@@ -87,6 +95,8 @@ func TestSortPriorityResourcesDecrease(t *testing.T) {
 func TestUpdateNotRequired(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, nil, &test.FakeRecommendationProcessor{})
 	pod1 := test.Pod().WithName("POD1").AddContainer(test.BuildTestContainer(containerName, "4", "")).Get()
 	recommendation := test.Recommendation().WithContainer(containerName).WithTarget("4", "").Get()
@@ -98,6 +108,8 @@ func TestUpdateNotRequired(t *testing.T) {
 func TestUpdateRequiredOnMilliQuantities(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, nil, &test.FakeRecommendationProcessor{})
 	pod1 := test.Pod().WithName("POD1").AddContainer(test.BuildTestContainer(containerName, "10m", "")).Get()
 	recommendation := test.Recommendation().WithContainer(containerName).WithTarget("900m", "").Get()
@@ -107,6 +119,8 @@ func TestUpdateRequiredOnMilliQuantities(t *testing.T) {
 	assert.Exactly(t, []*apiv1.Pod{pod1}, result, "Pod should be updated")
 }
 func TestUseProcessor(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	processedRecommendation := test.Recommendation().WithContainer(containerName).WithTarget("4", "10M").Get()
@@ -123,6 +137,8 @@ func TestUseProcessor(t *testing.T) {
 func TestUpdateLonglivedPods(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, &UpdateConfig{MinChangePriority: 0.5}, &test.FakeRecommendationProcessor{})
 	pods := []*apiv1.Pod{test.Pod().WithName("POD1").AddContainer(test.BuildTestContainer(containerName, "4", "")).Get(), test.Pod().WithName("POD2").AddContainer(test.BuildTestContainer(containerName, "1", "")).Get(), test.Pod().WithName("POD3").AddContainer(test.BuildTestContainer(containerName, "7", "")).Get()}
 	recommendation := test.Recommendation().WithContainer(containerName).WithTarget("5", "").WithLowerBound("1", "").WithUpperBound("6", "").Get()
@@ -134,6 +150,8 @@ func TestUpdateLonglivedPods(t *testing.T) {
 	assert.Exactly(t, []*apiv1.Pod{pods[1], pods[2]}, result, "Exactly POD2 and POD3 should be updated")
 }
 func TestUpdateShortlivedPods(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, &UpdateConfig{MinChangePriority: 0.5}, &test.FakeRecommendationProcessor{})
@@ -149,6 +167,8 @@ func TestUpdateShortlivedPods(t *testing.T) {
 func TestUpdatePodWithQuickOOM(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, &UpdateConfig{MinChangePriority: 0.5}, &test.FakeRecommendationProcessor{})
 	pod := test.Pod().WithName("POD1").AddContainer(test.BuildTestContainer(containerName, "4", "")).Get()
 	timestampNow := pod.Status.StartTime.Time.Add(time.Hour * 11)
@@ -159,6 +179,8 @@ func TestUpdatePodWithQuickOOM(t *testing.T) {
 	assert.Exactly(t, []*apiv1.Pod{pod}, result, "Pod should be updated")
 }
 func TestDontUpdatePodWithOOMAfterLongRun(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, &UpdateConfig{MinChangePriority: 0.5}, &test.FakeRecommendationProcessor{})
@@ -173,6 +195,8 @@ func TestDontUpdatePodWithOOMAfterLongRun(t *testing.T) {
 func TestDontUpdatePodWithOOMOnlyOnOneContainer(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, &UpdateConfig{MinChangePriority: 0.5}, &test.FakeRecommendationProcessor{})
 	pod := test.Pod().WithName("POD1").AddContainer(test.BuildTestContainer(containerName, "4", "")).Get()
 	timestampNow := pod.Status.StartTime.Time.Add(time.Hour * 11)
@@ -185,6 +209,8 @@ func TestDontUpdatePodWithOOMOnlyOnOneContainer(t *testing.T) {
 func TestNoPods(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, nil, &test.FakeRecommendationProcessor{})
 	result := calculator.GetSortedPods(NewDefaultPodEvictionAdmission())
 	assert.Exactly(t, []*apiv1.Pod{}, result)
@@ -195,8 +221,12 @@ type pod1Admission struct{}
 func (p *pod1Admission) LoopInit([]*apiv1.Pod, map[*vpa_types.VerticalPodAutoscaler][]*apiv1.Pod) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (p *pod1Admission) Admit(pod *apiv1.Pod, recommendation *vpa_types.RecommendedPodResources) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return pod.Name == "POD1"
@@ -204,8 +234,12 @@ func (p *pod1Admission) Admit(pod *apiv1.Pod, recommendation *vpa_types.Recommen
 func (p *pod1Admission) CleanUp() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func TestAdmission(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, nil, &test.FakeRecommendationProcessor{})
@@ -223,6 +257,8 @@ func TestAdmission(t *testing.T) {
 	assert.Exactly(t, []*apiv1.Pod{pod1}, result, "Wrong priority order")
 }
 func TestNoRecommendationForContainer(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	calculator := NewUpdatePriorityCalculator(nil, nil, nil, &test.FakeRecommendationProcessor{})

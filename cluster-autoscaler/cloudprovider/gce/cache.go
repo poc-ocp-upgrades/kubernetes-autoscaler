@@ -31,9 +31,13 @@ type GceCache struct {
 func NewGceCache(gceService AutoscalingGceClient) GceCache {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return GceCache{migs: []*MigInformation{}, instancesCache: map[GceRef]Mig{}, machinesCache: map[MachineTypeKey]*gce.MachineType{}, GceService: gceService}
 }
 func (gc *GceCache) RegisterMig(mig Mig) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gc.migsMutex.Lock()
@@ -55,6 +59,8 @@ func (gc *GceCache) RegisterMig(mig Mig) bool {
 func (gc *GceCache) UnregisterMig(toBeRemoved Mig) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gc.migsMutex.Lock()
 	defer gc.migsMutex.Unlock()
 	newMigs := make([]*MigInformation, 0, len(gc.migs))
@@ -73,6 +79,8 @@ func (gc *GceCache) UnregisterMig(toBeRemoved Mig) bool {
 func (gc *GceCache) GetMigs() []*MigInformation {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gc.migsMutex.Lock()
 	defer gc.migsMutex.Unlock()
 	migs := make([]*MigInformation, 0, len(gc.migs))
@@ -84,6 +92,8 @@ func (gc *GceCache) GetMigs() []*MigInformation {
 func (gc *GceCache) updateMigBasename(ref GceRef, basename string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gc.migsMutex.Lock()
 	defer gc.migsMutex.Unlock()
 	for _, mig := range gc.migs {
@@ -93,6 +103,8 @@ func (gc *GceCache) updateMigBasename(ref GceRef, basename string) {
 	}
 }
 func (gc *GceCache) GetMigForInstance(instance *GceRef) (Mig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gc.cacheMutex.Lock()
@@ -116,11 +128,15 @@ func (gc *GceCache) GetMigForInstance(instance *GceRef) (Mig, error) {
 func (gc *GceCache) RegenerateInstancesCache() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gc.cacheMutex.Lock()
 	defer gc.cacheMutex.Unlock()
 	return gc.regenerateCache()
 }
 func (gc *GceCache) regenerateCache() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	newInstancesCache := make(map[GceRef]Mig)
@@ -147,11 +163,15 @@ func (gc *GceCache) regenerateCache() error {
 func (gc *GceCache) SetResourceLimiter(resourceLimiter *cloudprovider.ResourceLimiter) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gc.cacheMutex.Lock()
 	defer gc.cacheMutex.Unlock()
 	gc.resourceLimiter = resourceLimiter
 }
 func (gc *GceCache) GetResourceLimiter() (*cloudprovider.ResourceLimiter, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gc.cacheMutex.Lock()
@@ -161,6 +181,8 @@ func (gc *GceCache) GetResourceLimiter() (*cloudprovider.ResourceLimiter, error)
 func (gc *GceCache) GetMachineFromCache(machineType string, zone string) *gce.MachineType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gc.cacheMutex.Lock()
 	defer gc.cacheMutex.Unlock()
 	return gc.machinesCache[MachineTypeKey{zone, machineType}]
@@ -168,11 +190,15 @@ func (gc *GceCache) GetMachineFromCache(machineType string, zone string) *gce.Ma
 func (gc *GceCache) AddMachineToCache(machineType string, zone string, machine *gce.MachineType) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gc.cacheMutex.Lock()
 	defer gc.cacheMutex.Unlock()
 	gc.machinesCache[MachineTypeKey{zone, machineType}] = machine
 }
 func (gc *GceCache) SetMachinesCache(machinesCache map[MachineTypeKey]*gce.MachineType) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gc.cacheMutex.Lock()

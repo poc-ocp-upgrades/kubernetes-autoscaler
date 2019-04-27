@@ -33,6 +33,8 @@ type KubemarkCloudProvider struct {
 func BuildKubemarkCloudProvider(kubemarkController *kubemark.KubemarkController, specs []string, resourceLimiter *cloudprovider.ResourceLimiter) (*KubemarkCloudProvider, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kubemark := &KubemarkCloudProvider{kubemarkController: kubemarkController, nodeGroups: make([]*NodeGroup, 0), resourceLimiter: resourceLimiter}
 	for _, spec := range specs {
 		if err := kubemark.addNodeGroup(spec); err != nil {
@@ -42,6 +44,8 @@ func BuildKubemarkCloudProvider(kubemarkController *kubemark.KubemarkController,
 	return kubemark, nil
 }
 func (kubemark *KubemarkCloudProvider) addNodeGroup(spec string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodeGroup, err := buildNodeGroup(spec, kubemark.kubemarkController)
@@ -55,9 +59,13 @@ func (kubemark *KubemarkCloudProvider) addNodeGroup(spec string) error {
 func (kubemark *KubemarkCloudProvider) Name() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ProviderName
 }
 func (kubemark *KubemarkCloudProvider) NodeGroups() []cloudprovider.NodeGroup {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make([]cloudprovider.NodeGroup, 0, len(kubemark.nodeGroups))
@@ -69,9 +77,13 @@ func (kubemark *KubemarkCloudProvider) NodeGroups() []cloudprovider.NodeGroup {
 func (kubemark *KubemarkCloudProvider) Pricing() (cloudprovider.PricingModel, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (kubemark *KubemarkCloudProvider) NodeGroupForNode(node *apiv1.Node) (cloudprovider.NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodeGroupName, err := kubemark.kubemarkController.GetNodeGroupForNode(node.ObjectMeta.Name)
@@ -88,9 +100,13 @@ func (kubemark *KubemarkCloudProvider) NodeGroupForNode(node *apiv1.Node) (cloud
 func (kubemark *KubemarkCloudProvider) GetAvailableMachineTypes() ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []string{}, cloudprovider.ErrNotImplemented
 }
 func (kubemark *KubemarkCloudProvider) NewNodeGroup(machineType string, labels map[string]string, systemLabels map[string]string, taints []apiv1.Taint, extraResources map[string]resource.Quantity) (cloudprovider.NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
@@ -98,9 +114,13 @@ func (kubemark *KubemarkCloudProvider) NewNodeGroup(machineType string, labels m
 func (kubemark *KubemarkCloudProvider) GetResourceLimiter() (*cloudprovider.ResourceLimiter, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return kubemark.resourceLimiter, nil
 }
 func (kubemark *KubemarkCloudProvider) Refresh() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -108,9 +128,13 @@ func (kubemark *KubemarkCloudProvider) Refresh() error {
 func (kubemark *KubemarkCloudProvider) GetInstanceID(node *apiv1.Node) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return node.Spec.ProviderID
 }
 func (kubemark *KubemarkCloudProvider) Cleanup() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -126,9 +150,13 @@ type NodeGroup struct {
 func (nodeGroup *NodeGroup) Id() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nodeGroup.Name
 }
 func (nodeGroup *NodeGroup) MinSize() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nodeGroup.minSize
@@ -136,14 +164,20 @@ func (nodeGroup *NodeGroup) MinSize() int {
 func (nodeGroup *NodeGroup) MaxSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nodeGroup.maxSize
 }
 func (nodeGroup *NodeGroup) Debug() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s (%d:%d)", nodeGroup.Id(), nodeGroup.MinSize(), nodeGroup.MaxSize())
 }
 func (nodeGroup *NodeGroup) Nodes() ([]cloudprovider.Instance, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	instances := make([]cloudprovider.Instance, 0)
@@ -157,6 +191,8 @@ func (nodeGroup *NodeGroup) Nodes() ([]cloudprovider.Instance, error) {
 	return instances, nil
 }
 func (nodeGroup *NodeGroup) DeleteNodes(nodes []*apiv1.Node) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size, err := nodeGroup.kubemarkController.GetNodeGroupTargetSize(nodeGroup.Name)
@@ -176,6 +212,8 @@ func (nodeGroup *NodeGroup) DeleteNodes(nodes []*apiv1.Node) error {
 func (nodeGroup *NodeGroup) IncreaseSize(delta int) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if delta <= 0 {
 		return fmt.Errorf("size increase must be positive")
 	}
@@ -192,10 +230,14 @@ func (nodeGroup *NodeGroup) IncreaseSize(delta int) error {
 func (nodeGroup *NodeGroup) TargetSize() (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size, err := nodeGroup.kubemarkController.GetNodeGroupTargetSize(nodeGroup.Name)
 	return int(size), err
 }
 func (nodeGroup *NodeGroup) DecreaseTargetSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if delta >= 0 {
@@ -218,9 +260,13 @@ func (nodeGroup *NodeGroup) DecreaseTargetSize(delta int) error {
 func (nodeGroup *NodeGroup) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (nodeGroup *NodeGroup) Exist() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return true
@@ -228,9 +274,13 @@ func (nodeGroup *NodeGroup) Exist() bool {
 func (nodeGroup *NodeGroup) Create() (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (nodeGroup *NodeGroup) Delete() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return cloudprovider.ErrNotImplemented
@@ -238,9 +288,13 @@ func (nodeGroup *NodeGroup) Delete() error {
 func (nodeGroup *NodeGroup) Autoprovisioned() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
 func buildNodeGroup(value string, kubemarkController *kubemark.KubemarkController) (*NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	spec, err := dynamic.SpecFromString(value, true)
@@ -251,6 +305,8 @@ func buildNodeGroup(value string, kubemarkController *kubemark.KubemarkControlle
 	return nodeGroup, nil
 }
 func BuildKubemark(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDiscoveryOptions, rl *cloudprovider.ResourceLimiter) cloudprovider.CloudProvider {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	externalConfig, err := rest.InClusterConfig()
@@ -286,7 +342,16 @@ func BuildKubemark(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDis
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

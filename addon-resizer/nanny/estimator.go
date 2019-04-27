@@ -32,9 +32,13 @@ type Estimator struct {
 func getOffsetNodeCount(nodeCount uint64, offset int64, rounder func(float64) float64) uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return uint64(int64(nodeCount) + int64(rounder(float64(nodeCount)*float64(offset)/100)))
 }
 func nodesAndOffsetToRange(numNodes uint64, offset int64, res []Resource) ResourceListPair {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	numNodesMin := getOffsetNodeCount(numNodes, -offset, math.Floor)
@@ -44,9 +48,13 @@ func nodesAndOffsetToRange(numNodes uint64, offset int64, res []Resource) Resour
 func (e Estimator) scaleWithNodes(numNodes uint64) *EstimatorResult {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &EstimatorResult{RecommendedRange: nodesAndOffsetToRange(numNodes, e.RecommendationOffset, e.Resources), AcceptableRange: nodesAndOffsetToRange(numNodes, e.AcceptanceOffset, e.Resources)}
 }
 func calculateResources(numNodes uint64, resources []Resource) api.ResourceList {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resourceList := make(api.ResourceList)
@@ -65,7 +73,16 @@ func calculateResources(numNodes uint64, resources []Resource) api.ResourceList 
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

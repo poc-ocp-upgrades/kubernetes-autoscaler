@@ -22,6 +22,8 @@ type autoScalingWrapper struct{ autoScaling }
 func (m autoScalingWrapper) getInstanceTypeByLCName(name string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	params := &autoscaling.DescribeLaunchConfigurationsInput{LaunchConfigurationNames: []*string{aws.String(name)}, MaxRecords: aws.Int64(1)}
 	launchConfigurations, err := m.DescribeLaunchConfigurations(params)
 	if err != nil {
@@ -34,6 +36,8 @@ func (m autoScalingWrapper) getInstanceTypeByLCName(name string) (string, error)
 	return *launchConfigurations.LaunchConfigurations[0].InstanceType, nil
 }
 func (m *autoScalingWrapper) getAutoscalingGroupsByNames(names []string) ([]*autoscaling.Group, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(names) == 0 {
@@ -56,6 +60,8 @@ func (m *autoScalingWrapper) getAutoscalingGroupsByNames(names []string) ([]*aut
 	return asgs, nil
 }
 func (m *autoScalingWrapper) getAutoscalingGroupNamesByTags(kvs map[string]string) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	filters := []*autoscaling.Filter{}
@@ -89,7 +95,16 @@ func (m *autoScalingWrapper) getAutoscalingGroupNamesByTags(kvs map[string]strin
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

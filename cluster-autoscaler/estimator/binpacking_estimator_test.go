@@ -15,6 +15,8 @@ import (
 func TestBinpackingEstimate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	estimator := NewBinpackingNodeEstimator(simulator.NewTestPredicateChecker())
 	cpuPerPod := int64(350)
 	memoryPerPod := int64(1000 * units.MiB)
@@ -34,6 +36,8 @@ func TestBinpackingEstimate(t *testing.T) {
 func TestBinpackingEstimateComingNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	estimator := NewBinpackingNodeEstimator(simulator.NewTestPredicateChecker())
 	cpuPerPod := int64(350)
 	memoryPerPod := int64(1000 * units.MiB)
@@ -51,6 +55,8 @@ func TestBinpackingEstimateComingNodes(t *testing.T) {
 	assert.Equal(t, 3, estimate)
 }
 func TestBinpackingEstimateWithPorts(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	estimator := NewBinpackingNodeEstimator(simulator.NewTestPredicateChecker())

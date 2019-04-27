@@ -12,6 +12,8 @@ type EventingScaleUpStatusProcessor struct{}
 func (p *EventingScaleUpStatusProcessor) Process(context *context.AutoscalingContext, status *ScaleUpStatus) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, noScaleUpInfo := range status.PodsRemainUnschedulable {
 		context.Recorder.Event(noScaleUpInfo.Pod, apiv1.EventTypeNormal, "NotTriggerScaleUp", fmt.Sprintf("pod didn't trigger scale-up (it wouldn't fit if a new node is added): %s", ReasonsMessage(noScaleUpInfo)))
 	}
@@ -24,8 +26,12 @@ func (p *EventingScaleUpStatusProcessor) Process(context *context.AutoscalingCon
 func (p *EventingScaleUpStatusProcessor) CleanUp() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func ReasonsMessage(noScaleUpInfo NoScaleUpInfo) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	messages := []string{}

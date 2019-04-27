@@ -34,6 +34,8 @@ const operationDoneResponse = `{
 func newTestAutoscalingGkeClientV1beta1(t *testing.T, project, location, clusterName, url string) *autoscalingGkeClientV1beta1 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*GkeAPIEndpoint = url
 	client := &http.Client{}
 	gkeClient, err := NewAutoscalingGkeClientV1beta1(client, project, location, clusterName)
@@ -43,6 +45,8 @@ func newTestAutoscalingGkeClientV1beta1(t *testing.T, project, location, cluster
 	return gkeClient
 }
 func TestWaitForGkeOp(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := test_util.NewHttpServerMock()

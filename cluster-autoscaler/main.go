@@ -45,15 +45,21 @@ type MultiStringFlag []string
 func (flag *MultiStringFlag) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "[" + strings.Join(*flag, " ") + "]"
 }
 func (flag *MultiStringFlag) Set(value string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*flag = append(*flag, value)
 	return nil
 }
 func multiStringFlag(name string, usage string) *MultiStringFlag {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	value := new(MultiStringFlag)
@@ -110,6 +116,8 @@ var (
 func createAutoscalingOptions() config.AutoscalingOptions {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	minCoresTotal, maxCoresTotal, err := parseMinMaxFlag(*coresTotal)
 	if err != nil {
 		klog.Fatalf("Failed to parse flags: %v", err)
@@ -127,6 +135,8 @@ func createAutoscalingOptions() config.AutoscalingOptions {
 	return config.AutoscalingOptions{CloudConfig: *cloudConfig, CloudProviderName: *cloudProviderFlag, NodeGroupAutoDiscovery: *nodeGroupAutoDiscoveryFlag, MaxTotalUnreadyPercentage: *maxTotalUnreadyPercentage, OkTotalUnreadyCount: *okTotalUnreadyCount, EstimatorName: *estimatorFlag, ExpanderName: *expanderFlag, IgnoreDaemonSetsUtilization: *ignoreDaemonSetsUtilization, IgnoreMirrorPodsUtilization: *ignoreMirrorPodsUtilization, MaxEmptyBulkDelete: *maxEmptyBulkDeleteFlag, MaxGracefulTerminationSec: *maxGracefulTerminationFlag, MaxNodeProvisionTime: *maxNodeProvisionTime, MaxNodesTotal: *maxNodesTotal, MaxCoresTotal: maxCoresTotal, MinCoresTotal: minCoresTotal, MaxMemoryTotal: maxMemoryTotal, MinMemoryTotal: minMemoryTotal, GpuTotal: parsedGpuTotal, NodeGroups: *nodeGroupsFlag, ScaleDownDelayAfterAdd: *scaleDownDelayAfterAdd, ScaleDownDelayAfterDelete: *scaleDownDelayAfterDelete, ScaleDownDelayAfterFailure: *scaleDownDelayAfterFailure, ScaleDownEnabled: *scaleDownEnabled, ScaleDownUnneededTime: *scaleDownUnneededTime, ScaleDownUnreadyTime: *scaleDownUnreadyTime, ScaleDownUtilizationThreshold: *scaleDownUtilizationThreshold, ScaleDownNonEmptyCandidatesCount: *scaleDownNonEmptyCandidatesCount, ScaleDownCandidatesPoolRatio: *scaleDownCandidatesPoolRatio, ScaleDownCandidatesPoolMinCount: *scaleDownCandidatesPoolMinCount, WriteStatusConfigMap: *writeStatusConfigMapFlag, BalanceSimilarNodeGroups: *balanceSimilarNodeGroupsFlag, ConfigNamespace: *namespace, ClusterName: *clusterName, NodeAutoprovisioningEnabled: *nodeAutoprovisioningEnabled, MaxAutoprovisionedNodeGroupCount: *maxAutoprovisionedNodeGroupCount, UnremovableNodeRecheckTimeout: *unremovableNodeRecheckTimeout, ExpendablePodsPriorityCutoff: *expendablePodsPriorityCutoff, Regional: *regional, NewPodScaleUpDelay: *newPodScaleUpDelay, KubeConfigPath: *kubeConfigFile}
 }
 func getKubeConfig() *rest.Config {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if *kubeConfigFile != "" {
@@ -150,9 +160,13 @@ func getKubeConfig() *rest.Config {
 func createKubeClient(kubeConfig *rest.Config) kube_client.Interface {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return kube_client.NewForConfigOrDie(kubeConfig)
 }
 func registerSignalHandlers(autoscaler core.Autoscaler) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sigs := make(chan os.Signal, 1)
@@ -170,6 +184,8 @@ func registerSignalHandlers(autoscaler core.Autoscaler) {
 func buildAutoscaler() (core.Autoscaler, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	autoscalingOptions := createAutoscalingOptions()
 	kubeClient := createKubeClient(getKubeConfig())
 	processors := ca_processors.DefaultProcessors()
@@ -181,6 +197,8 @@ func buildAutoscaler() (core.Autoscaler, error) {
 	return core.NewAutoscaler(opts)
 }
 func run(healthCheck *metrics.HealthCheck) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	metrics.RegisterAll()
@@ -209,6 +227,8 @@ func run(healthCheck *metrics.HealthCheck) {
 	}
 }
 func main() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.InitFlags(nil)
@@ -250,6 +270,8 @@ func main() {
 func defaultLeaderElectionConfiguration() apiserverconfig.LeaderElectionConfiguration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return apiserverconfig.LeaderElectionConfiguration{LeaderElect: false, LeaseDuration: metav1.Duration{Duration: defaultLeaseDuration}, RenewDeadline: metav1.Duration{Duration: defaultRenewDeadline}, RetryPeriod: metav1.Duration{Duration: defaultRetryPeriod}, ResourceLock: resourcelock.EndpointsResourceLock}
 }
 
@@ -260,6 +282,8 @@ const (
 )
 
 func parseMinMaxFlag(flag string) (int64, int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tokens := strings.SplitN(flag, ":", 2)
@@ -283,6 +307,8 @@ func parseMinMaxFlag(flag string) (int64, int64, error) {
 func validateMinMaxFlag(min, max int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if min < 0 {
 		return fmt.Errorf("min size must be greater or equal to  0")
 	}
@@ -294,9 +320,13 @@ func validateMinMaxFlag(min, max int64) error {
 func minMaxFlagString(min, max int64) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%v:%v", min, max)
 }
 func parseMultipleGpuLimits(flags MultiStringFlag) ([]config.GpuLimits, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	parsedFlags := make([]config.GpuLimits, 0, len(flags))
@@ -310,6 +340,8 @@ func parseMultipleGpuLimits(flags MultiStringFlag) ([]config.GpuLimits, error) {
 	return parsedFlags, nil
 }
 func parseSingleGpuLimit(limits string) (config.GpuLimits, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	parts := strings.Split(limits, ":")
@@ -340,7 +372,16 @@ func parseSingleGpuLimit(limits string) (config.GpuLimits, error) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

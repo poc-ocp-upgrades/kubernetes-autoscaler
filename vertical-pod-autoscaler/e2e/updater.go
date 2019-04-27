@@ -68,6 +68,8 @@ var _ = UpdaterE2eDescribe("Updater", func() {
 func testEvictsPods(f *framework.Framework, controllerKind string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ginkgo.By(fmt.Sprintf("Setting up a hamster %v", controllerKind))
 	setupHamsterController(f, controllerKind, "100m", "100Mi", defaultHamsterReplicas)
 	podList, err := GetHamsterPods(f)
@@ -79,6 +81,8 @@ func testEvictsPods(f *framework.Framework, controllerKind string) {
 	gomega.Expect(err).NotTo(gomega.HaveOccurred())
 }
 func setupHamsterController(f *framework.Framework, controllerKind, cpu, memory string, replicas int32) *apiv1.PodList {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch controllerKind {
@@ -103,6 +107,8 @@ func setupHamsterController(f *framework.Framework, controllerKind, cpu, memory 
 func setupHamsterReplicationController(f *framework.Framework, cpu, memory string, replicas int32) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hamsterContainer := setupHamsterContainer(cpu, memory)
 	rc := framework.RcByNameContainer("hamster-rc", replicas, "k8s.gcr.io/ubuntu-slim:0.1", hamsterLabels, hamsterContainer, nil)
 	rc.Namespace = f.Namespace.Name
@@ -112,6 +118,8 @@ func setupHamsterReplicationController(f *framework.Framework, cpu, memory strin
 	gomega.Expect(err).NotTo(gomega.HaveOccurred())
 }
 func waitForRCPodsRunning(f *framework.Framework, rc *apiv1.ReplicationController) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return wait.PollImmediate(pollInterval, pollTimeout, func() (bool, error) {
@@ -132,6 +140,8 @@ func waitForRCPodsRunning(f *framework.Framework, rc *apiv1.ReplicationControlle
 func setupHamsterJob(f *framework.Framework, cpu, memory string, replicas int32) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	job := framework.NewTestJob("notTerminate", "hamster-job", apiv1.RestartPolicyOnFailure, replicas, replicas, nil, 10)
 	job.Spec.Template.Spec.Containers[0] = setupHamsterContainer(cpu, memory)
 	for label, value := range hamsterLabels {
@@ -145,6 +155,8 @@ func setupHamsterJob(f *framework.Framework, cpu, memory string, replicas int32)
 func setupHamsterRS(f *framework.Framework, cpu, memory string, replicas int32) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs := framework.NewReplicaSet("hamster-rs", f.Namespace.Name, replicas, hamsterLabels, "", "")
 	rs.Spec.Template.Spec.Containers[0] = setupHamsterContainer(cpu, memory)
 	err := createReplicaSetWithRetries(f.ClientSet, f.Namespace.Name, rs)
@@ -153,6 +165,8 @@ func setupHamsterRS(f *framework.Framework, cpu, memory string, replicas int32) 
 	gomega.Expect(err).NotTo(gomega.HaveOccurred())
 }
 func setupHamsterStateful(f *framework.Framework, cpu, memory string, replicas int32) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	stateful := framework.NewStatefulSet("hamster-stateful", f.Namespace.Name, "hamster-service", replicas, nil, nil, hamsterLabels)
@@ -165,11 +179,15 @@ func setupHamsterStateful(f *framework.Framework, cpu, memory string, replicas i
 func setupHamsterContainer(cpu, memory string) apiv1.Container {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cpuQuantity := ParseQuantityOrDie(cpu)
 	memoryQuantity := ParseQuantityOrDie(memory)
 	return apiv1.Container{Name: "hamster", Image: "k8s.gcr.io/ubuntu-slim:0.1", Resources: apiv1.ResourceRequirements{Requests: apiv1.ResourceList{apiv1.ResourceCPU: cpuQuantity, apiv1.ResourceMemory: memoryQuantity}}, Command: []string{"/bin/sh"}, Args: []string{"-c", "while true; do sleep 10 ; done"}}
 }
 func setupPDB(f *framework.Framework, name string, maxUnavailable int) *policyv1beta1.PodDisruptionBudget {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	maxUnavailableIntstr := intstr.FromInt(maxUnavailable)
@@ -181,11 +199,15 @@ func setupPDB(f *framework.Framework, name string, maxUnavailable int) *policyv1
 func getCurrentPodSetForDeployment(c clientset.Interface, d *appsv1.Deployment) PodSet {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	podList, err := framework.GetPodsForDeployment(c, d)
 	gomega.Expect(err).NotTo(gomega.HaveOccurred())
 	return MakePodSet(podList)
 }
 func createReplicaSetWithRetries(c clientset.Interface, namespace string, obj *appsv1.ReplicaSet) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if obj == nil {
@@ -204,6 +226,8 @@ func createReplicaSetWithRetries(c clientset.Interface, namespace string, obj *a
 	return testutils.RetryWithExponentialBackOff(createFunc)
 }
 func createStatefulSetSetWithRetries(c clientset.Interface, namespace string, obj *appsv1.StatefulSet) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if obj == nil {

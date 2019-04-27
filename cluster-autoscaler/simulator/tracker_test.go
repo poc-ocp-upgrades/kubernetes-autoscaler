@@ -10,6 +10,8 @@ import (
 func TestUsageTracker(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tracker := NewUsageTracker()
 	now := time.Now()
 	tracker.RegisterUsage("A", "B", now.Add(-5*time.Minute))
@@ -47,6 +49,8 @@ func TestUsageTracker(t *testing.T) {
 	assert.False(t, foundE)
 }
 func TestRemove(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tracker := NewUsageTracker()

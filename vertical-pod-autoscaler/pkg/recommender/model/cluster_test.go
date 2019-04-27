@@ -22,9 +22,13 @@ var (
 func makeTestUsageSample() *ContainerUsageSampleWithKey {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ContainerUsageSampleWithKey{ContainerUsageSample{MeasureStart: testTimestamp, Usage: 1.0, Request: testRequest[ResourceCPU], Resource: ResourceCPU}, testContainerID}
 }
 func TestClusterAddSample(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := NewClusterState()
@@ -35,6 +39,8 @@ func TestClusterAddSample(t *testing.T) {
 	assert.Equal(t, testTimestamp, containerStats.LastCPUSampleStart)
 }
 func TestClusterGCAggregateContainerStateDeletesOld(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := NewClusterState()
@@ -52,6 +58,8 @@ func TestClusterGCAggregateContainerStateDeletesOld(t *testing.T) {
 func TestClusterGCAggregateContainerStateLeavesValid(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cluster := NewClusterState()
 	vpa := addTestVpa(cluster)
 	addTestPod(cluster)
@@ -65,6 +73,8 @@ func TestClusterGCAggregateContainerStateLeavesValid(t *testing.T) {
 	assert.NotEmpty(t, vpa.aggregateContainerStates)
 }
 func TestAddSampleAfterAggregateContainerStateGCed(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := NewClusterState()
@@ -90,6 +100,8 @@ func TestAddSampleAfterAggregateContainerStateGCed(t *testing.T) {
 func TestClusterRecordOOM(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cluster := NewClusterState()
 	cluster.AddOrUpdatePod(testPodID, testLabels, apiv1.PodRunning)
 	assert.NoError(t, cluster.AddOrUpdateContainer(testContainerID, testRequest))
@@ -98,6 +110,8 @@ func TestClusterRecordOOM(t *testing.T) {
 	assert.NotEmpty(t, aggregation.AggregateMemoryPeaks)
 }
 func TestMissingKeys(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := NewClusterState()
@@ -109,6 +123,8 @@ func TestMissingKeys(t *testing.T) {
 	assert.EqualError(t, err, "KeyError: {namespace-1 pod-1}")
 }
 func addVpa(cluster *ClusterState, id VpaID, selector string) *Vpa {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var apiObject vpa_types.VerticalPodAutoscaler
@@ -124,9 +140,13 @@ func addVpa(cluster *ClusterState, id VpaID, selector string) *Vpa {
 func addTestVpa(cluster *ClusterState) *Vpa {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return addVpa(cluster, testVpaID, testSelectorStr)
 }
 func addTestPod(cluster *ClusterState) *PodState {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster.AddOrUpdatePod(testPodID, testLabels, apiv1.PodRunning)
@@ -135,10 +155,14 @@ func addTestPod(cluster *ClusterState) *PodState {
 func addTestContainer(cluster *ClusterState) *ContainerState {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cluster.AddOrUpdateContainer(testContainerID, testRequest)
 	return cluster.GetContainer(testContainerID)
 }
 func TestAddVpaThenAddPod(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := NewClusterState()
@@ -152,6 +176,8 @@ func TestAddVpaThenAddPod(t *testing.T) {
 func TestAddPodThenAddVpa(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cluster := NewClusterState()
 	addTestPod(cluster)
 	addTestContainer(cluster)
@@ -160,6 +186,8 @@ func TestAddPodThenAddVpa(t *testing.T) {
 	assert.Contains(t, vpa.aggregateContainerStates, aggregateStateKey)
 }
 func TestChangePodLabels(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := NewClusterState()
@@ -173,6 +201,8 @@ func TestChangePodLabels(t *testing.T) {
 	assert.NotContains(t, vpa.aggregateContainerStates, aggregateStateKey)
 }
 func TestUpdatePodSelector(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := NewClusterState()
@@ -189,6 +219,8 @@ func TestUpdatePodSelector(t *testing.T) {
 func TestEqualAggregateStateKey(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cluster := NewClusterState()
 	pod := addTestPod(cluster)
 	key1 := cluster.MakeAggregateStateKey(pod, "container-1")
@@ -196,6 +228,8 @@ func TestEqualAggregateStateKey(t *testing.T) {
 	assert.True(t, key1 == key2)
 }
 func TestTwoPodsWithSameLabels(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	podID1 := PodID{"namespace-1", "pod-1"}
@@ -212,6 +246,8 @@ func TestTwoPodsWithSameLabels(t *testing.T) {
 func TestTwoPodsWithDifferentNamespaces(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	podID1 := PodID{"namespace-1", "foo-pod"}
 	podID2 := PodID{"namespace-2", "foo-pod"}
 	containerID1 := ContainerID{podID1, "foo-container"}
@@ -225,6 +261,8 @@ func TestTwoPodsWithDifferentNamespaces(t *testing.T) {
 	assert.Equal(t, 1, len(cluster.labelSetMap))
 }
 func TestEmptySelector(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := NewClusterState()

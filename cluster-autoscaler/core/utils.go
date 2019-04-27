@@ -42,9 +42,13 @@ type podSchedulableMap map[string][]podSchedulableInfo
 func (psi *podSchedulableInfo) match(pod *apiv1.Pod) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return reflect.DeepEqual(pod.Labels, psi.labels) && apiequality.Semantic.DeepEqual(pod.Spec, psi.spec)
 }
 func (podMap podSchedulableMap) get(pod *apiv1.Pod) (*simulator.PredicateError, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ref := drain.ControllerRef(pod)
@@ -64,6 +68,8 @@ func (podMap podSchedulableMap) get(pod *apiv1.Pod) (*simulator.PredicateError, 
 func (podMap podSchedulableMap) set(pod *apiv1.Pod, err *simulator.PredicateError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ref := drain.ControllerRef(pod)
 	if ref == nil {
 		return
@@ -72,6 +78,8 @@ func (podMap podSchedulableMap) set(pod *apiv1.Pod, err *simulator.PredicateErro
 	podMap[uid] = append(podMap[uid], podSchedulableInfo{spec: pod.Spec, labels: pod.Labels, schedulingError: err})
 }
 func FilterOutSchedulable(unschedulableCandidates []*apiv1.Pod, nodes []*apiv1.Node, allScheduled []*apiv1.Pod, podsWaitingForLowerPriorityPreemption []*apiv1.Pod, predicateChecker *simulator.PredicateChecker, expendablePodsPriorityCutoff int) []*apiv1.Pod {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	unschedulablePods := []*apiv1.Pod{}
@@ -105,6 +113,8 @@ func FilterOutSchedulable(unschedulableCandidates []*apiv1.Pod, nodes []*apiv1.N
 func FilterOutExpendableAndSplit(unschedulableCandidates []*apiv1.Pod, expendablePodsPriorityCutoff int) ([]*apiv1.Pod, []*apiv1.Pod) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	unschedulableNonExpendable := []*apiv1.Pod{}
 	waitingForLowerPriorityPreemption := []*apiv1.Pod{}
 	for _, pod := range unschedulableCandidates {
@@ -122,6 +132,8 @@ func FilterOutExpendableAndSplit(unschedulableCandidates []*apiv1.Pod, expendabl
 func FilterOutExpendablePods(pods []*apiv1.Pod, expendablePodsPriorityCutoff int) []*apiv1.Pod {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := []*apiv1.Pod{}
 	for _, pod := range pods {
 		if pod.Spec.Priority == nil || int(*pod.Spec.Priority) >= expendablePodsPriorityCutoff {
@@ -131,6 +143,8 @@ func FilterOutExpendablePods(pods []*apiv1.Pod, expendablePodsPriorityCutoff int
 	return result
 }
 func CheckPodsSchedulableOnNode(context *context.AutoscalingContext, pods []*apiv1.Pod, nodeGroupId string, nodeInfo *schedulercache.NodeInfo) map[*apiv1.Pod]*simulator.PredicateError {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	schedulingErrors := map[*apiv1.Pod]*simulator.PredicateError{}
@@ -160,6 +174,8 @@ func CheckPodsSchedulableOnNode(context *context.AutoscalingContext, pods []*api
 	return schedulingErrors
 }
 func GetNodeInfosForGroups(nodes []*apiv1.Node, nodeInfoCache map[string]*schedulercache.NodeInfo, cloudProvider cloudprovider.CloudProvider, kubeClient kube_client.Interface, daemonsets []*extensionsv1.DaemonSet, predicateChecker *simulator.PredicateChecker) (map[string]*schedulercache.NodeInfo, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(map[string]*schedulercache.NodeInfo)
@@ -251,6 +267,8 @@ func GetNodeInfosForGroups(nodes []*apiv1.Node, nodeInfoCache map[string]*schedu
 func GetNodeInfoFromTemplate(nodeGroup cloudprovider.NodeGroup, daemonsets []*extensionsv1.DaemonSet, predicateChecker *simulator.PredicateChecker) (*schedulercache.NodeInfo, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	id := nodeGroup.Id()
 	baseNodeInfo, err := nodeGroup.TemplateNodeInfo()
 	if err != nil {
@@ -269,6 +287,8 @@ func GetNodeInfoFromTemplate(nodeGroup cloudprovider.NodeGroup, daemonsets []*ex
 func FilterOutNodesFromNotAutoscaledGroups(nodes []*apiv1.Node, cloudProvider cloudprovider.CloudProvider) ([]*apiv1.Node, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make([]*apiv1.Node, 0)
 	for _, node := range nodes {
 		nodeGroup, err := cloudProvider.NodeGroupForNode(node)
@@ -284,6 +304,8 @@ func FilterOutNodesFromNotAutoscaledGroups(nodes []*apiv1.Node, cloudProvider cl
 func deepCopyNodeInfo(nodeInfo *schedulercache.NodeInfo) (*schedulercache.NodeInfo, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	newPods := make([]*apiv1.Pod, 0)
 	for _, pod := range nodeInfo.Pods() {
 		newPods = append(newPods, pod.DeepCopy())
@@ -295,6 +317,8 @@ func deepCopyNodeInfo(nodeInfo *schedulercache.NodeInfo) (*schedulercache.NodeIn
 	return newNodeInfo, nil
 }
 func sanitizeNodeInfo(nodeInfo *schedulercache.NodeInfo, nodeGroupName string) (*schedulercache.NodeInfo, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sanitizedNode, err := sanitizeTemplateNode(nodeInfo.Node(), nodeGroupName)
@@ -314,6 +338,8 @@ func sanitizeNodeInfo(nodeInfo *schedulercache.NodeInfo, nodeGroupName string) (
 	return sanitizedNodeInfo, nil
 }
 func sanitizeTemplateNode(node *apiv1.Node, nodeGroup string) (*apiv1.Node, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	newNode := node.DeepCopy()
@@ -342,6 +368,8 @@ func sanitizeTemplateNode(node *apiv1.Node, nodeGroup string) (*apiv1.Node, erro
 	return newNode, nil
 }
 func removeOldUnregisteredNodes(unregisteredNodes []clusterstate.UnregisteredNode, context *context.AutoscalingContext, currentTime time.Time, logRecorder *utils.LogEventRecorder) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	removedAny := false
@@ -381,6 +409,8 @@ func removeOldUnregisteredNodes(unregisteredNodes []clusterstate.UnregisteredNod
 func fixNodeGroupSize(context *context.AutoscalingContext, clusterStateRegistry *clusterstate.ClusterStateRegistry, currentTime time.Time) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fixed := false
 	for _, nodeGroup := range context.CloudProvider.NodeGroups() {
 		incorrectSize := clusterStateRegistry.GetIncorrectNodeGroupSize(nodeGroup.Id())
@@ -401,6 +431,8 @@ func fixNodeGroupSize(context *context.AutoscalingContext, clusterStateRegistry 
 	return fixed, nil
 }
 func getPotentiallyUnneededNodes(context *context.AutoscalingContext, nodes []*apiv1.Node) []*apiv1.Node {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make([]*apiv1.Node, 0, len(nodes))
@@ -431,6 +463,8 @@ func getPotentiallyUnneededNodes(context *context.AutoscalingContext, nodes []*a
 func hasHardInterPodAffinity(affinity *apiv1.Affinity) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if affinity == nil {
 		return false
 	}
@@ -449,6 +483,8 @@ func hasHardInterPodAffinity(affinity *apiv1.Affinity) bool {
 func anyPodHasHardInterPodAffinity(pods []*apiv1.Pod) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, pod := range pods {
 		if hasHardInterPodAffinity(pod.Spec.Affinity) {
 			return true
@@ -457,6 +493,8 @@ func anyPodHasHardInterPodAffinity(pods []*apiv1.Pod) bool {
 	return false
 }
 func ConfigurePredicateCheckerForLoop(unschedulablePods []*apiv1.Pod, schedulablePods []*apiv1.Pod, predicateChecker *simulator.PredicateChecker) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	podsWithAffinityFound := anyPodHasHardInterPodAffinity(unschedulablePods)
@@ -471,11 +509,15 @@ func ConfigurePredicateCheckerForLoop(unschedulablePods []*apiv1.Pod, schedulabl
 func getNodeCoresAndMemory(node *apiv1.Node) (int64, int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cores := getNodeResource(node, apiv1.ResourceCPU)
 	memory := getNodeResource(node, apiv1.ResourceMemory)
 	return cores, memory
 }
 func getNodeResource(node *apiv1.Node, resource apiv1.ResourceName) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodeCapacity, found := node.Status.Capacity[resource]
@@ -489,6 +531,8 @@ func getNodeResource(node *apiv1.Node, resource apiv1.ResourceName) int64 {
 	return nodeCapacityValue
 }
 func getNodeGroupSizeMap(cloudProvider cloudprovider.CloudProvider) map[string]int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodeGroupSize := make(map[string]int)
@@ -505,6 +549,8 @@ func getNodeGroupSizeMap(cloudProvider cloudprovider.CloudProvider) map[string]i
 func UpdateClusterStateMetrics(csr *clusterstate.ClusterStateRegistry) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if csr == nil || reflect.ValueOf(csr).IsNil() {
 		return
 	}
@@ -513,6 +559,8 @@ func UpdateClusterStateMetrics(csr *clusterstate.ClusterStateRegistry) {
 	metrics.UpdateNodesCount(readiness.Ready, readiness.Unready+readiness.LongNotStarted, readiness.NotStarted, readiness.LongUnregistered, readiness.Unregistered)
 }
 func getOldestCreateTime(pods []*apiv1.Pod) time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oldest := time.Now()
@@ -524,6 +572,8 @@ func getOldestCreateTime(pods []*apiv1.Pod) time.Time {
 	return oldest
 }
 func getOldestCreateTimeWithGpu(pods []*apiv1.Pod) (bool, time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oldest := time.Now()
@@ -539,6 +589,8 @@ func getOldestCreateTimeWithGpu(pods []*apiv1.Pod) (bool, time.Time) {
 	return gpuFound, oldest
 }
 func UpdateEmptyClusterStateMetrics() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	metrics.UpdateClusterSafeToAutoscale(false)

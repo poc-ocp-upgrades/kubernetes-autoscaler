@@ -26,6 +26,8 @@ type VerticalPodAutoscalerBuilder interface {
 func VerticalPodAutoscaler() VerticalPodAutoscalerBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &verticalPodAutoscalerBuilder{recommendation: Recommendation(), namespace: "default", conditions: []vpa_types.VerticalPodAutoscalerCondition{}}
 }
 
@@ -45,11 +47,15 @@ type verticalPodAutoscalerBuilder struct {
 func (b *verticalPodAutoscalerBuilder) WithName(vpaName string) VerticalPodAutoscalerBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := *b
 	c.vpaName = vpaName
 	return &c
 }
 func (b *verticalPodAutoscalerBuilder) WithContainer(containerName string) VerticalPodAutoscalerBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := *b
@@ -59,11 +65,15 @@ func (b *verticalPodAutoscalerBuilder) WithContainer(containerName string) Verti
 func (b *verticalPodAutoscalerBuilder) WithNamespace(namespace string) VerticalPodAutoscalerBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := *b
 	c.namespace = namespace
 	return &c
 }
 func (b *verticalPodAutoscalerBuilder) WithSelector(labelSelector string) VerticalPodAutoscalerBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := *b
@@ -77,6 +87,8 @@ func (b *verticalPodAutoscalerBuilder) WithSelector(labelSelector string) Vertic
 func (b *verticalPodAutoscalerBuilder) WithUpdateMode(updateMode vpa_types.UpdateMode) VerticalPodAutoscalerBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := *b
 	if c.updatePolicy == nil {
 		c.updatePolicy = &vpa_types.PodUpdatePolicy{}
@@ -87,11 +99,15 @@ func (b *verticalPodAutoscalerBuilder) WithUpdateMode(updateMode vpa_types.Updat
 func (b *verticalPodAutoscalerBuilder) WithCreationTimestamp(timestamp time.Time) VerticalPodAutoscalerBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := *b
 	c.creationTimestamp = timestamp
 	return &c
 }
 func (b *verticalPodAutoscalerBuilder) WithMinAllowed(cpu, memory string) VerticalPodAutoscalerBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := *b
@@ -101,11 +117,15 @@ func (b *verticalPodAutoscalerBuilder) WithMinAllowed(cpu, memory string) Vertic
 func (b *verticalPodAutoscalerBuilder) WithMaxAllowed(cpu, memory string) VerticalPodAutoscalerBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := *b
 	c.maxAllowed = Resources(cpu, memory)
 	return &c
 }
 func (b *verticalPodAutoscalerBuilder) WithTarget(cpu, memory string) VerticalPodAutoscalerBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := *b
@@ -115,11 +135,15 @@ func (b *verticalPodAutoscalerBuilder) WithTarget(cpu, memory string) VerticalPo
 func (b *verticalPodAutoscalerBuilder) WithLowerBound(cpu, memory string) VerticalPodAutoscalerBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := *b
 	c.recommendation = c.recommendation.WithLowerBound(cpu, memory)
 	return &c
 }
 func (b *verticalPodAutoscalerBuilder) WithUpperBound(cpu, memory string) VerticalPodAutoscalerBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := *b
@@ -129,11 +153,15 @@ func (b *verticalPodAutoscalerBuilder) WithUpperBound(cpu, memory string) Vertic
 func (b *verticalPodAutoscalerBuilder) AppendCondition(conditionType vpa_types.VerticalPodAutoscalerConditionType, status core.ConditionStatus, reason, message string, lastTransitionTime time.Time) VerticalPodAutoscalerBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := *b
 	c.conditions = append(c.conditions, vpa_types.VerticalPodAutoscalerCondition{Type: conditionType, Status: status, Reason: reason, Message: message, LastTransitionTime: meta.NewTime(lastTransitionTime)})
 	return &c
 }
 func (b *verticalPodAutoscalerBuilder) Get() *vpa_types.VerticalPodAutoscaler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if b.containerName == "" {

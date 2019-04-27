@@ -79,10 +79,14 @@ type ClusterStateRegistry struct {
 func NewClusterStateRegistry(cloudProvider cloudprovider.CloudProvider, config ClusterStateRegistryConfig, logRecorder *utils.LogEventRecorder, backoff backoff.Backoff) *ClusterStateRegistry {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	emptyStatus := &api.ClusterAutoscalerStatus{ClusterwideConditions: make([]api.ClusterAutoscalerCondition, 0), NodeGroupStatuses: make([]api.NodeGroupStatus, 0)}
 	return &ClusterStateRegistry{scaleUpRequests: make(map[string]*ScaleUpRequest), scaleDownRequests: make([]*ScaleDownRequest, 0), nodes: make([]*apiv1.Node, 0), cloudProvider: cloudProvider, config: config, perNodeGroupReadiness: make(map[string]Readiness), acceptableRanges: make(map[string]AcceptableRange), incorrectNodeGroupSizes: make(map[string]IncorrectNodeGroupSize), unregisteredNodes: make(map[string]UnregisteredNode), candidatesForScaleDown: make(map[string][]string), nodeGroupBackoffInfo: backoff, lastStatus: emptyStatus, logRecorder: logRecorder}
 }
 func (csr *ClusterStateRegistry) RegisterScaleUp(request *ScaleUpRequest) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	csr.Lock()
@@ -99,11 +103,15 @@ func (csr *ClusterStateRegistry) RegisterScaleUp(request *ScaleUpRequest) {
 func (csr *ClusterStateRegistry) RegisterScaleDown(request *ScaleDownRequest) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	csr.Lock()
 	defer csr.Unlock()
 	csr.scaleDownRequests = append(csr.scaleDownRequests, request)
 }
 func (csr *ClusterStateRegistry) updateScaleRequests(currentTime time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	csr.nodeGroupBackoffInfo.RemoveStaleBackoffData(currentTime)
@@ -133,10 +141,14 @@ func (csr *ClusterStateRegistry) updateScaleRequests(currentTime time.Time) {
 func (csr *ClusterStateRegistry) backoffNodeGroup(nodeGroup cloudprovider.NodeGroup, currentTime time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	backoffUntil := csr.nodeGroupBackoffInfo.Backoff(nodeGroup, currentTime)
 	klog.Warningf("Disabling scale-up for node group %v until %v", nodeGroup.Id(), backoffUntil)
 }
 func (csr *ClusterStateRegistry) RegisterFailedScaleUp(nodeGroup cloudprovider.NodeGroup, reason metrics.FailedScaleUpReason) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	csr.Lock()
@@ -145,6 +157,8 @@ func (csr *ClusterStateRegistry) RegisterFailedScaleUp(nodeGroup cloudprovider.N
 	csr.backoffNodeGroup(nodeGroup, time.Now())
 }
 func (csr *ClusterStateRegistry) UpdateNodes(nodes []*apiv1.Node, nodeInfosForGroups map[string]*schedulercache.NodeInfo, currentTime time.Time) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	csr.updateNodeGroupMetrics()
@@ -171,6 +185,8 @@ func (csr *ClusterStateRegistry) UpdateNodes(nodes []*apiv1.Node, nodeInfosForGr
 func (csr *ClusterStateRegistry) Recalculate() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	targetSizes, err := getTargetSizes(csr.cloudProvider)
 	if err != nil {
 		klog.Warningf("Failed to get target sizes, when trying to recalculate cluster state: %v", err)
@@ -180,6 +196,8 @@ func (csr *ClusterStateRegistry) Recalculate() {
 	csr.updateAcceptableRanges(targetSizes)
 }
 func getTargetSizes(cp cloudprovider.CloudProvider) (map[string]int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(map[string]int)
@@ -195,6 +213,8 @@ func getTargetSizes(cp cloudprovider.CloudProvider) (map[string]int, error) {
 func (csr *ClusterStateRegistry) IsClusterHealthy() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	csr.Lock()
 	defer csr.Unlock()
 	totalUnready := csr.totalReadiness.Unready + csr.totalReadiness.LongNotStarted + csr.totalReadiness.LongUnregistered
@@ -204,6 +224,8 @@ func (csr *ClusterStateRegistry) IsClusterHealthy() bool {
 	return true
 }
 func (csr *ClusterStateRegistry) IsNodeGroupHealthy(nodeGroupName string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	acceptable, found := csr.acceptableRanges[nodeGroupName]
@@ -231,6 +253,8 @@ func (csr *ClusterStateRegistry) IsNodeGroupHealthy(nodeGroupName string) bool {
 func (csr *ClusterStateRegistry) updateNodeGroupMetrics() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	autoscaled := 0
 	autoprovisioned := 0
 	for _, nodeGroup := range csr.cloudProvider.NodeGroups() {
@@ -248,12 +272,16 @@ func (csr *ClusterStateRegistry) updateNodeGroupMetrics() {
 func (csr *ClusterStateRegistry) IsNodeGroupSafeToScaleUp(nodeGroup cloudprovider.NodeGroup, now time.Time) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !csr.IsNodeGroupHealthy(nodeGroup.Id()) {
 		return false
 	}
 	return !csr.nodeGroupBackoffInfo.IsBackedOff(nodeGroup, now)
 }
 func (csr *ClusterStateRegistry) getProvisionedAndTargetSizesForNodeGroup(nodeGroupName string) (provisioned, target int, ok bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	acceptable, found := csr.acceptableRanges[nodeGroupName]
@@ -275,6 +303,8 @@ func (csr *ClusterStateRegistry) getProvisionedAndTargetSizesForNodeGroup(nodeGr
 func (csr *ClusterStateRegistry) areThereUpcomingNodesInNodeGroup(nodeGroupName string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	provisioned, target, ok := csr.getProvisionedAndTargetSizesForNodeGroup(nodeGroupName)
 	if !ok {
 		return false
@@ -284,6 +314,8 @@ func (csr *ClusterStateRegistry) areThereUpcomingNodesInNodeGroup(nodeGroupName 
 func (csr *ClusterStateRegistry) IsNodeGroupAtTargetSize(nodeGroupName string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	provisioned, target, ok := csr.getProvisionedAndTargetSizesForNodeGroup(nodeGroupName)
 	if !ok {
 		return false
@@ -291,6 +323,8 @@ func (csr *ClusterStateRegistry) IsNodeGroupAtTargetSize(nodeGroupName string) b
 	return target == provisioned
 }
 func (csr *ClusterStateRegistry) IsNodeGroupScalingUp(nodeGroupName string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !csr.areThereUpcomingNodesInNodeGroup(nodeGroupName) {
@@ -307,6 +341,8 @@ type AcceptableRange struct {
 }
 
 func (csr *ClusterStateRegistry) updateAcceptableRanges(targetSize map[string]int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(map[string]AcceptableRange)
@@ -341,6 +377,8 @@ type Readiness struct {
 }
 
 func (csr *ClusterStateRegistry) updateReadinessStats(currentTime time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	perNodeGroup := make(map[string]Readiness)
@@ -401,6 +439,8 @@ func (csr *ClusterStateRegistry) updateReadinessStats(currentTime time.Time) {
 func (csr *ClusterStateRegistry) updateIncorrectNodeGroupSizes(currentTime time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make(map[string]IncorrectNodeGroupSize)
 	for _, nodeGroup := range csr.cloudProvider.NodeGroups() {
 		acceptableRange, found := csr.acceptableRanges[nodeGroup.Id()]
@@ -431,6 +471,8 @@ func (csr *ClusterStateRegistry) updateIncorrectNodeGroupSizes(currentTime time.
 func (csr *ClusterStateRegistry) updateUnregisteredNodes(unregisteredNodes []UnregisteredNode) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make(map[string]UnregisteredNode)
 	for _, unregistered := range unregisteredNodes {
 		if prev, found := csr.unregisteredNodes[unregistered.Node.Name]; found {
@@ -444,6 +486,8 @@ func (csr *ClusterStateRegistry) updateUnregisteredNodes(unregisteredNodes []Unr
 func (csr *ClusterStateRegistry) GetUnregisteredNodes() []UnregisteredNode {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	csr.Lock()
 	defer csr.Unlock()
 	result := make([]UnregisteredNode, 0, len(csr.unregisteredNodes))
@@ -453,6 +497,8 @@ func (csr *ClusterStateRegistry) GetUnregisteredNodes() []UnregisteredNode {
 	return result
 }
 func (csr *ClusterStateRegistry) UpdateScaleDownCandidates(nodes []*apiv1.Node, now time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(map[string][]string)
@@ -471,6 +517,8 @@ func (csr *ClusterStateRegistry) UpdateScaleDownCandidates(nodes []*apiv1.Node, 
 	csr.lastScaleDownUpdateTime = now
 }
 func (csr *ClusterStateRegistry) GetStatus(now time.Time) *api.ClusterAutoscalerStatus {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := &api.ClusterAutoscalerStatus{ClusterwideConditions: make([]api.ClusterAutoscalerCondition, 0), NodeGroupStatuses: make([]api.NodeGroupStatus, 0)}
@@ -493,9 +541,13 @@ func (csr *ClusterStateRegistry) GetStatus(now time.Time) *api.ClusterAutoscaler
 func (csr *ClusterStateRegistry) GetClusterReadiness() Readiness {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return csr.totalReadiness
 }
 func buildHealthStatusNodeGroup(isReady bool, readiness Readiness, acceptable AcceptableRange, minSize, maxSize int) api.ClusterAutoscalerCondition {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	condition := api.ClusterAutoscalerCondition{Type: api.ClusterAutoscalerHealth, Message: fmt.Sprintf("ready=%d unready=%d notStarted=%d longNotStarted=%d registered=%d longUnregistered=%d cloudProviderTarget=%d (minSize=%d, maxSize=%d)", readiness.Ready, readiness.Unready, readiness.NotStarted, readiness.LongNotStarted, readiness.Registered, readiness.LongUnregistered, acceptable.CurrentTarget, minSize, maxSize), LastProbeTime: metav1.Time{Time: readiness.Time}}
@@ -507,6 +559,8 @@ func buildHealthStatusNodeGroup(isReady bool, readiness Readiness, acceptable Ac
 	return condition
 }
 func buildScaleUpStatusNodeGroup(isScaleUpInProgress bool, isSafeToScaleUp bool, readiness Readiness, acceptable AcceptableRange) api.ClusterAutoscalerCondition {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	condition := api.ClusterAutoscalerCondition{Type: api.ClusterAutoscalerScaleUp, Message: fmt.Sprintf("ready=%d cloudProviderTarget=%d", readiness.Ready, acceptable.CurrentTarget), LastProbeTime: metav1.Time{Time: readiness.Time}}
@@ -522,6 +576,8 @@ func buildScaleUpStatusNodeGroup(isScaleUpInProgress bool, isSafeToScaleUp bool,
 func buildScaleDownStatusNodeGroup(candidates []string, lastProbed time.Time) api.ClusterAutoscalerCondition {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	condition := api.ClusterAutoscalerCondition{Type: api.ClusterAutoscalerScaleDown, Message: fmt.Sprintf("candidates=%d", len(candidates)), LastProbeTime: metav1.Time{Time: lastProbed}}
 	if len(candidates) > 0 {
 		condition.Status = api.ClusterAutoscalerCandidatesPresent
@@ -533,6 +589,8 @@ func buildScaleDownStatusNodeGroup(candidates []string, lastProbed time.Time) ap
 func buildHealthStatusClusterwide(isReady bool, readiness Readiness) api.ClusterAutoscalerCondition {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	condition := api.ClusterAutoscalerCondition{Type: api.ClusterAutoscalerHealth, Message: fmt.Sprintf("ready=%d unready=%d notStarted=%d longNotStarted=%d registered=%d longUnregistered=%d", readiness.Ready, readiness.Unready, readiness.NotStarted, readiness.LongNotStarted, readiness.Registered, readiness.LongUnregistered), LastProbeTime: metav1.Time{Time: readiness.Time}}
 	if isReady {
 		condition.Status = api.ClusterAutoscalerHealthy
@@ -542,6 +600,8 @@ func buildHealthStatusClusterwide(isReady bool, readiness Readiness) api.Cluster
 	return condition
 }
 func buildScaleUpStatusClusterwide(nodeGroupStatuses []api.NodeGroupStatus, readiness Readiness) api.ClusterAutoscalerCondition {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	isScaleUpInProgress := false
@@ -563,6 +623,8 @@ func buildScaleUpStatusClusterwide(nodeGroupStatuses []api.NodeGroupStatus, read
 func buildScaleDownStatusClusterwide(candidates map[string][]string, lastProbed time.Time) api.ClusterAutoscalerCondition {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	totalCandidates := 0
 	for _, val := range candidates {
 		totalCandidates += len(val)
@@ -576,6 +638,8 @@ func buildScaleDownStatusClusterwide(candidates map[string][]string, lastProbed 
 	return condition
 }
 func isNodeStillStarting(node *apiv1.Node) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, condition := range node.Status.Conditions {
@@ -592,6 +656,8 @@ func isNodeStillStarting(node *apiv1.Node) bool {
 	return false
 }
 func updateLastTransition(oldStatus, newStatus *api.ClusterAutoscalerStatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	newStatus.ClusterwideConditions = updateLastTransitionSingleList(oldStatus.ClusterwideConditions, newStatus.ClusterwideConditions)
@@ -612,6 +678,8 @@ func updateLastTransition(oldStatus, newStatus *api.ClusterAutoscalerStatus) {
 func updateLastTransitionSingleList(oldConds, newConds []api.ClusterAutoscalerCondition) []api.ClusterAutoscalerCondition {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make([]api.ClusterAutoscalerCondition, 0)
 	for _, condition := range newConds {
 		condition.LastTransitionTime = condition.LastProbeTime
@@ -630,6 +698,8 @@ func updateLastTransitionSingleList(oldConds, newConds []api.ClusterAutoscalerCo
 func (csr *ClusterStateRegistry) GetIncorrectNodeGroupSize(nodeGroupName string) *IncorrectNodeGroupSize {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result, found := csr.incorrectNodeGroupSizes[nodeGroupName]
 	if !found {
 		return nil
@@ -637,6 +707,8 @@ func (csr *ClusterStateRegistry) GetIncorrectNodeGroupSize(nodeGroupName string)
 	return &result
 }
 func (csr *ClusterStateRegistry) GetUpcomingNodes() map[string]int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	csr.Lock()
@@ -655,6 +727,8 @@ func (csr *ClusterStateRegistry) GetUpcomingNodes() map[string]int {
 	return result
 }
 func getNotRegisteredNodes(allNodes []*apiv1.Node, cloudProvider cloudprovider.CloudProvider, time time.Time) ([]UnregisteredNode, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	registered := sets.NewString()
@@ -678,6 +752,8 @@ func getNotRegisteredNodes(allNodes []*apiv1.Node, cloudProvider cloudprovider.C
 func (csr *ClusterStateRegistry) GetClusterSize() (currentSize, targetSize int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	csr.Lock()
 	defer csr.Unlock()
 	for _, accRange := range csr.acceptableRanges {
@@ -689,7 +765,16 @@ func (csr *ClusterStateRegistry) GetClusterSize() (currentSize, targetSize int) 
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

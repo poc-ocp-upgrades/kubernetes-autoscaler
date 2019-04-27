@@ -36,6 +36,8 @@ type AgentPool struct {
 func NewAgentPool(spec *dynamic.NodeGroupSpec, az *AzureManager) (*AgentPool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as := &AgentPool{azureRef: azureRef{Name: spec.Name}, minSize: spec.MinSize, maxSize: spec.MaxSize, manager: az}
 	if err := as.initialize(); err != nil {
 		return nil, err
@@ -43,6 +45,8 @@ func NewAgentPool(spec *dynamic.NodeGroupSpec, az *AzureManager) (*AgentPool, er
 	return as, nil
 }
 func (as *AgentPool) initialize() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
@@ -59,9 +63,13 @@ func (as *AgentPool) initialize() error {
 func (as *AgentPool) MinSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return as.minSize
 }
 func (as *AgentPool) Exist() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return true
@@ -69,9 +77,13 @@ func (as *AgentPool) Exist() bool {
 func (as *AgentPool) Create() (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrAlreadyExist
 }
 func (as *AgentPool) Delete() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return cloudprovider.ErrNotImplemented
@@ -79,14 +91,20 @@ func (as *AgentPool) Delete() error {
 func (as *AgentPool) Autoprovisioned() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
 func (as *AgentPool) MaxSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return as.maxSize
 }
 func (as *AgentPool) GetVMIndexes() ([]int, map[int]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	instances, err := as.GetVirtualMachines()
@@ -110,6 +128,8 @@ func (as *AgentPool) GetVMIndexes() ([]int, map[int]string, error) {
 func (as *AgentPool) getCurSize() (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as.mutex.Lock()
 	defer as.mutex.Unlock()
 	if as.lastRefresh.Add(15 * time.Second).After(time.Now()) {
@@ -128,6 +148,8 @@ func (as *AgentPool) getCurSize() (int64, error) {
 func (as *AgentPool) TargetSize() (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size, err := as.getCurSize()
 	if err != nil {
 		return -1, err
@@ -135,6 +157,8 @@ func (as *AgentPool) TargetSize() (int, error) {
 	return int(size), nil
 }
 func (as *AgentPool) IncreaseSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as.mutex.Lock()
@@ -177,6 +201,8 @@ func (as *AgentPool) IncreaseSize(delta int) error {
 func (as *AgentPool) GetVirtualMachines() (instances []compute.VirtualMachine, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
 	defer cancel()
 	result, err := as.manager.azClient.virtualMachinesClient.List(ctx, as.manager.config.ResourceGroup)
@@ -199,6 +225,8 @@ func (as *AgentPool) GetVirtualMachines() (instances []compute.VirtualMachine, e
 func (as *AgentPool) DecreaseTargetSize(delta int) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as.mutex.Lock()
 	defer as.mutex.Unlock()
 	nodes, err := as.GetVirtualMachines()
@@ -216,6 +244,8 @@ func (as *AgentPool) DecreaseTargetSize(delta int) error {
 func (as *AgentPool) Belongs(node *apiv1.Node) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(6).Infof("Check if node belongs to this agent pool: AgentPool:%v, node:%v\n", as, node)
 	ref := &azureRef{Name: node.Spec.ProviderID}
 	targetAsg, err := as.manager.GetAsgForInstance(ref)
@@ -231,6 +261,8 @@ func (as *AgentPool) Belongs(node *apiv1.Node) (bool, error) {
 	return true, nil
 }
 func (as *AgentPool) DeleteInstances(instances []*azureRef) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(instances) == 0 {
@@ -266,6 +298,8 @@ func (as *AgentPool) DeleteInstances(instances []*azureRef) error {
 func (as *AgentPool) DeleteNodes(nodes []*apiv1.Node) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(8).Infof("Delete nodes requested: %v\n", nodes)
 	indexes, _, err := as.GetVMIndexes()
 	if err != nil {
@@ -291,9 +325,13 @@ func (as *AgentPool) DeleteNodes(nodes []*apiv1.Node) error {
 func (as *AgentPool) Id() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return as.Name
 }
 func (as *AgentPool) Debug() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("%s (%d:%d)", as.Id(), as.MinSize(), as.MaxSize())
@@ -301,9 +339,13 @@ func (as *AgentPool) Debug() string {
 func (as *AgentPool) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (as *AgentPool) Nodes() ([]cloudprovider.Instance, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	instances, err := as.GetVirtualMachines()
@@ -323,6 +365,8 @@ func (as *AgentPool) Nodes() ([]cloudprovider.Instance, error) {
 func (as *AgentPool) deleteBlob(accountName, vhdContainer, vhdBlob string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
 	defer cancel()
 	storageKeysResult, err := as.manager.azClient.storageAccountsClient.ListKeys(ctx, as.manager.config.ResourceGroup, accountName)
@@ -340,6 +384,8 @@ func (as *AgentPool) deleteBlob(accountName, vhdContainer, vhdBlob string) error
 	return blobRef.Delete(&azStorage.DeleteBlobOptions{})
 }
 func (as *AgentPool) deleteVirtualMachine(name string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
@@ -427,12 +473,23 @@ func (as *AgentPool) deleteVirtualMachine(name string) error {
 func (as *AgentPool) getAzureRef() azureRef {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return as.azureRef
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

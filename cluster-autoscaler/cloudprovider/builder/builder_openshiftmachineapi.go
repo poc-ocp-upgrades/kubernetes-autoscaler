@@ -13,6 +13,8 @@ const DefaultCloudProvider = openshiftmachineapi.ProviderName
 func buildCloudProvider(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDiscoveryOptions, rl *cloudprovider.ResourceLimiter) cloudprovider.CloudProvider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch opts.CloudProviderName {
 	case openshiftmachineapi.ProviderName:
 		return openshiftmachineapi.BuildOpenShiftMachineAPI(opts, do, rl)

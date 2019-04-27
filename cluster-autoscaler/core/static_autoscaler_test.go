@@ -27,6 +27,8 @@ type nodeListerMock struct{ mock.Mock }
 func (l *nodeListerMock) List() ([]*apiv1.Node, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := l.Called()
 	return args.Get(0).([]*apiv1.Node), args.Error(1)
 }
@@ -34,6 +36,8 @@ func (l *nodeListerMock) List() ([]*apiv1.Node, error) {
 type podListerMock struct{ mock.Mock }
 
 func (l *podListerMock) List() ([]*apiv1.Pod, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := l.Called()
@@ -45,6 +49,8 @@ type podDisruptionBudgetListerMock struct{ mock.Mock }
 func (l *podDisruptionBudgetListerMock) List() ([]*policyv1.PodDisruptionBudget, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := l.Called()
 	return args.Get(0).([]*policyv1.PodDisruptionBudget), args.Error(1)
 }
@@ -54,6 +60,8 @@ type daemonSetListerMock struct{ mock.Mock }
 func (l *daemonSetListerMock) List() ([]*extensionsv1.DaemonSet, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := l.Called()
 	return args.Get(0).([]*extensionsv1.DaemonSet), args.Error(1)
 }
@@ -61,6 +69,8 @@ func (l *daemonSetListerMock) List() ([]*extensionsv1.DaemonSet, error) {
 type onScaleUpMock struct{ mock.Mock }
 
 func (m *onScaleUpMock) ScaleUp(id string, delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.Infof("Scale up: %v %v", id, delta)
@@ -73,6 +83,8 @@ type onScaleDownMock struct{ mock.Mock }
 func (m *onScaleDownMock) ScaleDown(id string, name string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.Infof("Scale down: %v %v", id, name)
 	args := m.Called(id, name)
 	return args.Error(0)
@@ -81,6 +93,8 @@ func (m *onScaleDownMock) ScaleDown(id string, name string) error {
 type onNodeGroupCreateMock struct{ mock.Mock }
 
 func (m *onNodeGroupCreateMock) Create(id string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.Infof("Create group: %v", id)
@@ -93,11 +107,15 @@ type onNodeGroupDeleteMock struct{ mock.Mock }
 func (m *onNodeGroupDeleteMock) Delete(id string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.Infof("Delete group: %v", id)
 	args := m.Called(id)
 	return args.Error(0)
 }
 func TestStaticAutoscalerRunOnce(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	readyNodeListerMock := &nodeListerMock{}
@@ -201,6 +219,8 @@ func TestStaticAutoscalerRunOnce(t *testing.T) {
 func TestStaticAutoscalerRunOnceWithAutoprovisionedEnabled(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	readyNodeListerMock := &nodeListerMock{}
 	allNodeListerMock := &nodeListerMock{}
 	scheduledPodMock := &podListerMock{}
@@ -297,6 +317,8 @@ func TestStaticAutoscalerRunOnceWithAutoprovisionedEnabled(t *testing.T) {
 func TestStaticAutoscalerRunOnceWithALongUnregisteredNode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	readyNodeListerMock := &nodeListerMock{}
 	allNodeListerMock := &nodeListerMock{}
 	scheduledPodMock := &podListerMock{}
@@ -358,6 +380,8 @@ func TestStaticAutoscalerRunOnceWithALongUnregisteredNode(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, readyNodeListerMock, allNodeListerMock, scheduledPodMock, unschedulablePodMock, podDisruptionBudgetListerMock, daemonSetListerMock, onScaleUpMock, onScaleDownMock)
 }
 func TestStaticAutoscalerRunOncePodsWithPriorities(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	readyNodeListerMock := &nodeListerMock{}

@@ -16,6 +16,8 @@ type autoscalingGkeClientV1 struct {
 func NewAutoscalingGkeClientV1(client *http.Client, projectId, location, clusterName string) (*autoscalingGkeClientV1, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	autoscalingGkeClient := &autoscalingGkeClientV1{clusterPath: fmt.Sprintf(clusterPathPrefix, projectId, location, clusterName), operationPath: fmt.Sprintf(operationPathPrefix, projectId, location)}
 	gkeService, err := gke_api.New(client)
 	if err != nil {
@@ -28,6 +30,8 @@ func NewAutoscalingGkeClientV1(client *http.Client, projectId, location, cluster
 	return autoscalingGkeClient, nil
 }
 func (m *autoscalingGkeClientV1) GetCluster() (Cluster, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	registerRequest("clusters", "get")
@@ -46,9 +50,13 @@ func (m *autoscalingGkeClientV1) GetCluster() (Cluster, error) {
 func (m *autoscalingGkeClientV1) DeleteNodePool(toBeRemoved string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cloudprovider.ErrNotImplemented
 }
 func (m *autoscalingGkeClientV1) CreateNodePool(mig *GkeMig) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return cloudprovider.ErrNotImplemented

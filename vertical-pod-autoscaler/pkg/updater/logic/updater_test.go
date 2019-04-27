@@ -14,6 +14,8 @@ import (
 func TestRunOnce(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	replicas := int32(5)
 	livePods := 5
 	labels := map[string]string{"app": "testingApp"}
@@ -41,6 +43,8 @@ func TestRunOnce(t *testing.T) {
 	eviction.AssertNumberOfCalls(t, "Evict", 5)
 }
 func TestVPAOff(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	livePods := 5
@@ -71,6 +75,8 @@ func TestVPAOff(t *testing.T) {
 func TestRunOnceNotingToProcess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eviction := &test.PodsEvictionRestrictionMock{}
 	factory := &fakeEvictFactory{eviction}
 	vpaLister := &test.VerticalPodAutoscalerListerMock{}
@@ -85,6 +91,8 @@ type fakeEvictFactory struct {
 }
 
 func (f fakeEvictFactory) NewPodsEvictionRestriction(pods []*apiv1.Pod) eviction.PodsEvictionRestriction {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return f.evict

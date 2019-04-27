@@ -64,14 +64,20 @@ type Token struct {
 func newToken() Token {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Token{ExpiresIn: "0", ExpiresOn: "0", NotBefore: "0"}
 }
 func (t Token) IsZero() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t == Token{}
 }
 func (t Token) Expires() time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s, err := t.ExpiresOn.Float64()
@@ -84,14 +90,20 @@ func (t Token) Expires() time.Time {
 func (t Token) IsExpired() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.WillExpireIn(0)
 }
 func (t Token) WillExpireIn(d time.Duration) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return !t.Expires().After(time.Now().Add(d))
 }
 func (t *Token) OAuthToken() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return t.AccessToken
@@ -105,9 +117,13 @@ type ServicePrincipalNoSecret struct{}
 func (noSecret *ServicePrincipalNoSecret) SetAuthenticationValues(spt *ServicePrincipalToken, v *url.Values) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Errorf("Manually created ServicePrincipalToken does not contain secret material to retrieve a new access token")
 }
 func (noSecret ServicePrincipalNoSecret) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type tokenType struct {
@@ -123,10 +139,14 @@ type ServicePrincipalTokenSecret struct {
 func (tokenSecret *ServicePrincipalTokenSecret) SetAuthenticationValues(spt *ServicePrincipalToken, v *url.Values) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v.Set("client_secret", tokenSecret.ClientSecret)
 	return nil
 }
 func (tokenSecret ServicePrincipalTokenSecret) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type tokenType struct {
@@ -142,6 +162,8 @@ type ServicePrincipalCertificateSecret struct {
 }
 
 func (secret *ServicePrincipalCertificateSecret) SignJwt(spt *ServicePrincipalToken) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hasher := sha1.New()
@@ -166,6 +188,8 @@ func (secret *ServicePrincipalCertificateSecret) SignJwt(spt *ServicePrincipalTo
 func (secret *ServicePrincipalCertificateSecret) SetAuthenticationValues(spt *ServicePrincipalToken, v *url.Values) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	jwt, err := secret.SignJwt(spt)
 	if err != nil {
 		return err
@@ -177,6 +201,8 @@ func (secret *ServicePrincipalCertificateSecret) SetAuthenticationValues(spt *Se
 func (secret ServicePrincipalCertificateSecret) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, errors.New("marshalling ServicePrincipalCertificateSecret is not supported")
 }
 
@@ -185,9 +211,13 @@ type ServicePrincipalMSISecret struct{}
 func (msiSecret *ServicePrincipalMSISecret) SetAuthenticationValues(spt *ServicePrincipalToken, v *url.Values) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (msiSecret ServicePrincipalMSISecret) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, errors.New("marshalling ServicePrincipalMSISecret is not supported")
@@ -201,11 +231,15 @@ type ServicePrincipalUsernamePasswordSecret struct {
 func (secret *ServicePrincipalUsernamePasswordSecret) SetAuthenticationValues(spt *ServicePrincipalToken, v *url.Values) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v.Set("username", secret.Username)
 	v.Set("password", secret.Password)
 	return nil
 }
 func (secret ServicePrincipalUsernamePasswordSecret) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type tokenType struct {
@@ -225,12 +259,16 @@ type ServicePrincipalAuthorizationCodeSecret struct {
 func (secret *ServicePrincipalAuthorizationCodeSecret) SetAuthenticationValues(spt *ServicePrincipalToken, v *url.Values) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v.Set("code", secret.AuthorizationCode)
 	v.Set("client_secret", secret.ClientSecret)
 	v.Set("redirect_uri", secret.RedirectURI)
 	return nil
 }
 func (secret ServicePrincipalAuthorizationCodeSecret) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type tokenType struct {
@@ -253,9 +291,13 @@ type ServicePrincipalToken struct {
 func (spt ServicePrincipalToken) MarshalTokenJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return json.Marshal(spt.inner.Token)
 }
 func (spt *ServicePrincipalToken) SetRefreshCallbacks(callbacks []TokenRefreshCallback) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	spt.refreshCallbacks = callbacks
@@ -263,9 +305,13 @@ func (spt *ServicePrincipalToken) SetRefreshCallbacks(callbacks []TokenRefreshCa
 func (spt ServicePrincipalToken) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return json.Marshal(spt.inner)
 }
 func (spt *ServicePrincipalToken) UnmarshalJSON(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	raw := map[string]interface{}{}
@@ -312,12 +358,16 @@ type servicePrincipalToken struct {
 func validateOAuthConfig(oac OAuthConfig) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if oac.IsZero() {
 		return fmt.Errorf("parameter 'oauthConfig' cannot be zero-initialized")
 	}
 	return nil
 }
 func NewServicePrincipalTokenWithSecret(oauthConfig OAuthConfig, id string, resource string, secret ServicePrincipalSecret, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := validateOAuthConfig(oauthConfig); err != nil {
@@ -336,6 +386,8 @@ func NewServicePrincipalTokenWithSecret(oauthConfig OAuthConfig, id string, reso
 	return spt, nil
 }
 func NewServicePrincipalTokenFromManualToken(oauthConfig OAuthConfig, clientID string, resource string, token Token, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := validateOAuthConfig(oauthConfig); err != nil {
@@ -358,6 +410,8 @@ func NewServicePrincipalTokenFromManualToken(oauthConfig OAuthConfig, clientID s
 	return spt, nil
 }
 func NewServicePrincipalTokenFromManualTokenSecret(oauthConfig OAuthConfig, clientID string, resource string, token Token, secret ServicePrincipalSecret, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := validateOAuthConfig(oauthConfig); err != nil {
@@ -385,6 +439,8 @@ func NewServicePrincipalTokenFromManualTokenSecret(oauthConfig OAuthConfig, clie
 func NewServicePrincipalToken(oauthConfig OAuthConfig, clientID string, secret string, resource string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := validateOAuthConfig(oauthConfig); err != nil {
 		return nil, err
 	}
@@ -400,6 +456,8 @@ func NewServicePrincipalToken(oauthConfig OAuthConfig, clientID string, secret s
 	return NewServicePrincipalTokenWithSecret(oauthConfig, clientID, resource, &ServicePrincipalTokenSecret{ClientSecret: secret}, callbacks...)
 }
 func NewServicePrincipalTokenFromCertificate(oauthConfig OAuthConfig, clientID string, certificate *x509.Certificate, privateKey *rsa.PrivateKey, resource string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := validateOAuthConfig(oauthConfig); err != nil {
@@ -422,6 +480,8 @@ func NewServicePrincipalTokenFromCertificate(oauthConfig OAuthConfig, clientID s
 func NewServicePrincipalTokenFromUsernamePassword(oauthConfig OAuthConfig, clientID string, username string, password string, resource string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := validateOAuthConfig(oauthConfig); err != nil {
 		return nil, err
 	}
@@ -440,6 +500,8 @@ func NewServicePrincipalTokenFromUsernamePassword(oauthConfig OAuthConfig, clien
 	return NewServicePrincipalTokenWithSecret(oauthConfig, clientID, resource, &ServicePrincipalUsernamePasswordSecret{Username: username, Password: password}, callbacks...)
 }
 func NewServicePrincipalTokenFromAuthorizationCode(oauthConfig OAuthConfig, clientID string, clientSecret string, authorizationCode string, redirectURI string, resource string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := validateOAuthConfig(oauthConfig); err != nil {
@@ -465,9 +527,13 @@ func NewServicePrincipalTokenFromAuthorizationCode(oauthConfig OAuthConfig, clie
 func GetMSIVMEndpoint() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return msiEndpoint, nil
 }
 func NewServicePrincipalTokenFromMSI(msiEndpoint, resource string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return newServicePrincipalTokenFromMSI(msiEndpoint, resource, nil, callbacks...)
@@ -475,9 +541,13 @@ func NewServicePrincipalTokenFromMSI(msiEndpoint, resource string, callbacks ...
 func NewServicePrincipalTokenFromMSIWithUserAssignedID(msiEndpoint, resource string, userAssignedID string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newServicePrincipalTokenFromMSI(msiEndpoint, resource, &userAssignedID, callbacks...)
 }
 func newServicePrincipalTokenFromMSI(msiEndpoint, resource string, userAssignedID *string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := validateStringParam(msiEndpoint, "msiEndpoint"); err != nil {
@@ -517,9 +587,13 @@ type tokenRefreshError struct {
 func (tre tokenRefreshError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tre.message
 }
 func (tre tokenRefreshError) Response() *http.Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return tre.resp
@@ -527,14 +601,20 @@ func (tre tokenRefreshError) Response() *http.Response {
 func newTokenRefreshError(message string, resp *http.Response) TokenRefreshError {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tokenRefreshError{message: message, resp: resp}
 }
 func (spt *ServicePrincipalToken) EnsureFresh() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return spt.EnsureFreshWithContext(context.Background())
 }
 func (spt *ServicePrincipalToken) EnsureFreshWithContext(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if spt.inner.AutoRefresh && spt.inner.Token.WillExpireIn(spt.inner.RefreshWithin) {
@@ -547,6 +627,8 @@ func (spt *ServicePrincipalToken) EnsureFreshWithContext(ctx context.Context) er
 	return nil
 }
 func (spt *ServicePrincipalToken) InvokeRefreshCallbacks(token Token) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if spt.refreshCallbacks != nil {
@@ -562,9 +644,13 @@ func (spt *ServicePrincipalToken) InvokeRefreshCallbacks(token Token) error {
 func (spt *ServicePrincipalToken) Refresh() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return spt.RefreshWithContext(context.Background())
 }
 func (spt *ServicePrincipalToken) RefreshWithContext(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	spt.refreshLock.Lock()
@@ -574,9 +660,13 @@ func (spt *ServicePrincipalToken) RefreshWithContext(ctx context.Context) error 
 func (spt *ServicePrincipalToken) RefreshExchange(resource string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return spt.RefreshExchangeWithContext(context.Background(), resource)
 }
 func (spt *ServicePrincipalToken) RefreshExchangeWithContext(ctx context.Context, resource string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	spt.refreshLock.Lock()
@@ -584,6 +674,8 @@ func (spt *ServicePrincipalToken) RefreshExchangeWithContext(ctx context.Context
 	return spt.refreshInternal(ctx, resource)
 }
 func (spt *ServicePrincipalToken) getGrantType() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch spt.inner.Secret.(type) {
@@ -598,6 +690,8 @@ func (spt *ServicePrincipalToken) getGrantType() string {
 func isIMDS(u url.URL) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	imds, err := url.Parse(msiEndpoint)
 	if err != nil {
 		return false
@@ -605,6 +699,8 @@ func isIMDS(u url.URL) bool {
 	return u.Host == imds.Host && u.Path == imds.Path
 }
 func (spt *ServicePrincipalToken) refreshInternal(ctx context.Context, resource string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := http.NewRequest(http.MethodPost, spt.inner.OauthConfig.TokenEndpoint.String(), nil)
@@ -677,6 +773,8 @@ func (spt *ServicePrincipalToken) refreshInternal(ctx context.Context, resource 
 func retryForIMDS(sender Sender, req *http.Request, maxAttempts int) (resp *http.Response, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	retries := []int{http.StatusRequestTimeout, http.StatusTooManyRequests, http.StatusInternalServerError, http.StatusBadGateway, http.StatusServiceUnavailable, http.StatusGatewayTimeout}
 	retries = append(retries, http.StatusNotFound, http.StatusGone, http.StatusNotImplemented, http.StatusHTTPVersionNotSupported, http.StatusVariantAlsoNegotiates, http.StatusInsufficientStorage, http.StatusLoopDetected, http.StatusNotExtended, http.StatusNetworkAuthenticationRequired)
 	const maxDelay time.Duration = 60 * time.Second
@@ -704,12 +802,16 @@ func retryForIMDS(sender Sender, req *http.Request, maxAttempts int) (resp *http
 func isTemporaryNetworkError(err error) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if netErr, ok := err.(net.Error); !ok || (ok && netErr.Temporary()) {
 		return true
 	}
 	return false
 }
 func containsInt(ints []int, n int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, i := range ints {
@@ -722,9 +824,13 @@ func containsInt(ints []int, n int) bool {
 func (spt *ServicePrincipalToken) SetAutoRefresh(autoRefresh bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	spt.inner.AutoRefresh = autoRefresh
 }
 func (spt *ServicePrincipalToken) SetRefreshWithin(d time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	spt.inner.RefreshWithin = d
@@ -733,9 +839,13 @@ func (spt *ServicePrincipalToken) SetRefreshWithin(d time.Duration) {
 func (spt *ServicePrincipalToken) SetSender(s Sender) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	spt.sender = s
 }
 func (spt *ServicePrincipalToken) OAuthToken() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	spt.refreshLock.RLock()
@@ -743,6 +853,8 @@ func (spt *ServicePrincipalToken) OAuthToken() string {
 	return spt.inner.Token.OAuthToken()
 }
 func (spt *ServicePrincipalToken) Token() Token {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	spt.refreshLock.RLock()

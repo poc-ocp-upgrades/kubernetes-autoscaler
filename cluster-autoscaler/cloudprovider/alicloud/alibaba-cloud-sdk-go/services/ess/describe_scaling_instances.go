@@ -8,11 +8,15 @@ import (
 func (client *Client) DescribeScalingInstances(request *DescribeScalingInstancesRequest) (response *DescribeScalingInstancesResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	response = CreateDescribeScalingInstancesResponse()
 	err = client.DoAction(request, response)
 	return
 }
 func (client *Client) DescribeScalingInstancesWithChan(request *DescribeScalingInstancesRequest) (<-chan *DescribeScalingInstancesResponse, <-chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	responseChan := make(chan *DescribeScalingInstancesResponse, 1)
@@ -35,6 +39,8 @@ func (client *Client) DescribeScalingInstancesWithChan(request *DescribeScalingI
 	return responseChan, errChan
 }
 func (client *Client) DescribeScalingInstancesWithCallback(request *DescribeScalingInstancesRequest, callback func(response *DescribeScalingInstancesResponse, err error)) <-chan int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(chan int, 1)
@@ -100,11 +106,15 @@ type DescribeScalingInstancesResponse struct {
 func CreateDescribeScalingInstancesRequest() (request *DescribeScalingInstancesRequest) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request = &DescribeScalingInstancesRequest{RpcRequest: &requests.RpcRequest{}}
 	request.InitWithApiInfo("Ess", "2014-08-28", "DescribeScalingInstances", "ess", "openAPI")
 	return
 }
 func CreateDescribeScalingInstancesResponse() (response *DescribeScalingInstancesResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	response = &DescribeScalingInstancesResponse{BaseResponse: &responses.BaseResponse{}}

@@ -24,6 +24,8 @@ var (
 func addVpa(cluster *model.ClusterState, vpaID model.VpaID, selector string) *model.Vpa {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var apiObject vpa_types.VerticalPodAutoscaler
 	apiObject.Namespace = vpaID.Namespace
 	apiObject.Name = vpaID.VpaName
@@ -32,6 +34,8 @@ func addVpa(cluster *model.ClusterState, vpaID model.VpaID, selector string) *mo
 	return cluster.Vpas[vpaID]
 }
 func TestMergeContainerStateForCheckpointDropsRecentMemoryPeak(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := model.NewClusterState()
@@ -54,6 +58,8 @@ func TestMergeContainerStateForCheckpointDropsRecentMemoryPeak(t *testing.T) {
 func TestIsFetchingHistory(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCases := []struct {
 		vpa			model.Vpa
 		isFetchingHistory	bool
@@ -63,6 +69,8 @@ func TestIsFetchingHistory(t *testing.T) {
 	}
 }
 func TestGetVpasToCheckpointSorts(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	time1 := time.Unix(10000, 0)

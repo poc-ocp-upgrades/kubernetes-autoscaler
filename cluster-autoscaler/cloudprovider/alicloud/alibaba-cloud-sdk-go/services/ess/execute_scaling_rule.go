@@ -8,11 +8,15 @@ import (
 func (client *Client) ExecuteScalingRule(request *ExecuteScalingRuleRequest) (response *ExecuteScalingRuleResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	response = CreateExecuteScalingRuleResponse()
 	err = client.DoAction(request, response)
 	return
 }
 func (client *Client) ExecuteScalingRuleWithChan(request *ExecuteScalingRuleRequest) (<-chan *ExecuteScalingRuleResponse, <-chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	responseChan := make(chan *ExecuteScalingRuleResponse, 1)
@@ -35,6 +39,8 @@ func (client *Client) ExecuteScalingRuleWithChan(request *ExecuteScalingRuleRequ
 	return responseChan, errChan
 }
 func (client *Client) ExecuteScalingRuleWithCallback(request *ExecuteScalingRuleRequest, callback func(response *ExecuteScalingRuleResponse, err error)) <-chan int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(chan int, 1)
@@ -72,11 +78,15 @@ type ExecuteScalingRuleResponse struct {
 func CreateExecuteScalingRuleRequest() (request *ExecuteScalingRuleRequest) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request = &ExecuteScalingRuleRequest{RpcRequest: &requests.RpcRequest{}}
 	request.InitWithApiInfo("Ess", "2014-08-28", "ExecuteScalingRule", "ess", "openAPI")
 	return
 }
 func CreateExecuteScalingRuleResponse() (response *ExecuteScalingRuleResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	response = &ExecuteScalingRuleResponse{BaseResponse: &responses.BaseResponse{}}

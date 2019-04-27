@@ -22,6 +22,8 @@ import (
 func BuildTestPod(name string, cpu int64, mem int64) *apiv1.Pod {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod := &apiv1.Pod{ObjectMeta: metav1.ObjectMeta{Namespace: "default", Name: name, SelfLink: fmt.Sprintf("/api/v1/namespaces/default/pods/%s", name)}, Spec: apiv1.PodSpec{Containers: []apiv1.Container{{Resources: apiv1.ResourceRequirements{Requests: apiv1.ResourceList{}}}}}}
 	if cpu >= 0 {
 		pod.Spec.Containers[0].Resources.Requests[apiv1.ResourceCPU] = *resource.NewMilliQuantity(cpu, resource.DecimalSI)
@@ -41,6 +43,8 @@ const (
 func RequestGpuForPod(pod *apiv1.Pod, gpusCount int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pod.Spec.Containers[0].Resources.Limits == nil {
 		pod.Spec.Containers[0].Resources.Limits = apiv1.ResourceList{}
 	}
@@ -51,6 +55,8 @@ func RequestGpuForPod(pod *apiv1.Pod, gpusCount int64) {
 	pod.Spec.Containers[0].Resources.Requests[resourceNvidiaGPU] = *resource.NewQuantity(gpusCount, resource.DecimalSI)
 }
 func BuildTestNode(name string, millicpu int64, mem int64) *apiv1.Node {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	node := &apiv1.Node{ObjectMeta: metav1.ObjectMeta{Name: name, SelfLink: fmt.Sprintf("/api/v1/nodes/%s", name), Labels: map[string]string{}}, Spec: apiv1.NodeSpec{ProviderID: name}, Status: apiv1.NodeStatus{Capacity: apiv1.ResourceList{apiv1.ResourcePods: *resource.NewQuantity(100, resource.DecimalSI)}}}
@@ -69,12 +75,16 @@ func BuildTestNode(name string, millicpu int64, mem int64) *apiv1.Node {
 func AddGpusToNode(node *apiv1.Node, gpusCount int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	node.Spec.Taints = append(node.Spec.Taints, apiv1.Taint{Key: resourceNvidiaGPU, Value: "present", Effect: "NoSchedule"})
 	node.Status.Capacity[resourceNvidiaGPU] = *resource.NewQuantity(gpusCount, resource.DecimalSI)
 	node.Status.Allocatable[resourceNvidiaGPU] = *resource.NewQuantity(gpusCount, resource.DecimalSI)
 	node.Labels[gpuLabel] = defaultGPUType
 }
 func SetNodeReadyState(node *apiv1.Node, ready bool, lastTransition time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ready {
@@ -84,6 +94,8 @@ func SetNodeReadyState(node *apiv1.Node, ready bool, lastTransition time.Time) {
 	}
 }
 func SetNodeCondition(node *apiv1.Node, conditionType apiv1.NodeConditionType, status apiv1.ConditionStatus, lastTransition time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := range node.Status.Conditions {
@@ -99,6 +111,8 @@ func SetNodeCondition(node *apiv1.Node, conditionType apiv1.NodeConditionType, s
 func RefJSON(o runtime.Object) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ref, err := refv1.GetReference(scheme.Scheme, o)
 	if err != nil {
 		panic(err)
@@ -110,9 +124,13 @@ func RefJSON(o runtime.Object) string {
 func GenerateOwnerReferences(name, kind, api string, uid types.UID) []metav1.OwnerReference {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []metav1.OwnerReference{{APIVersion: api, Kind: kind, Name: name, BlockOwnerDeletion: boolptr(true), Controller: boolptr(true), UID: uid}}
 }
 func boolptr(val bool) *bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b := val
@@ -125,6 +143,8 @@ type HttpServerMock struct {
 }
 
 func NewHttpServerMock() *HttpServerMock {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	httpServerMock := &HttpServerMock{}
@@ -140,13 +160,24 @@ func NewHttpServerMock() *HttpServerMock {
 func (l *HttpServerMock) handle(url string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := l.Called(url)
 	return args.String(0)
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

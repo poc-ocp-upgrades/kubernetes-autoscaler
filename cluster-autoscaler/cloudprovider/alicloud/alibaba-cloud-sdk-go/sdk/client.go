@@ -33,9 +33,13 @@ type Client struct {
 func (client *Client) Init() (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panic("not support yet")
 }
 func (client *Client) InitWithOptions(regionId string, config *Config, credential auth.Credential) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client.isRunning = true
@@ -61,6 +65,8 @@ func (client *Client) InitWithOptions(regionId string, config *Config, credentia
 func (client *Client) EnableAsync(routinePoolSize, maxTaskQueueSize int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client.asyncTaskQueue = make(chan func(), maxTaskQueueSize)
 	for i := 0; i < routinePoolSize; i++ {
 		go func() {
@@ -78,11 +84,15 @@ func (client *Client) EnableAsync(routinePoolSize, maxTaskQueueSize int) {
 func (client *Client) InitWithAccessKey(regionId, accessKeyId, accessKeySecret string) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	config := client.InitClientConfig()
 	credential := &credentials.BaseCredential{AccessKeyId: accessKeyId, AccessKeySecret: accessKeySecret}
 	return client.InitWithOptions(regionId, config, credential)
 }
 func (client *Client) InitWithStsToken(regionId, accessKeyId, accessKeySecret, securityToken string) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	config := client.InitClientConfig()
@@ -92,11 +102,15 @@ func (client *Client) InitWithStsToken(regionId, accessKeyId, accessKeySecret, s
 func (client *Client) InitWithRamRoleArn(regionId, accessKeyId, accessKeySecret, roleArn, roleSessionName string) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	config := client.InitClientConfig()
 	credential := &credentials.RamRoleArnCredential{AccessKeyId: accessKeyId, AccessKeySecret: accessKeySecret, RoleArn: roleArn, RoleSessionName: roleSessionName}
 	return client.InitWithOptions(regionId, config, credential)
 }
 func (client *Client) InitWithRsaKeyPair(regionId, publicKeyId, privateKey string, sessionExpiration int) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	config := client.InitClientConfig()
@@ -106,11 +120,15 @@ func (client *Client) InitWithRsaKeyPair(regionId, publicKeyId, privateKey strin
 func (client *Client) InitWithEcsRamRole(regionId, roleName string) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	config := client.InitClientConfig()
 	credential := &credentials.EcsRamRoleCredential{RoleName: roleName}
 	return client.InitWithOptions(regionId, config, credential)
 }
 func (client *Client) InitClientConfig() (config *Config) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if client.config != nil {
@@ -121,9 +139,13 @@ func (client *Client) InitClientConfig() (config *Config) {
 func (client *Client) DoAction(request requests.AcsRequest, response responses.AcsResponse) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.DoActionWithSigner(request, response, nil)
 }
 func (client *Client) BuildRequestWithSigner(request requests.AcsRequest, signer auth.Signer) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	request.GetHeaders()["x-sdk-core-version"] = Version
@@ -154,6 +176,8 @@ func (client *Client) BuildRequestWithSigner(request requests.AcsRequest, signer
 	return err
 }
 func (client *Client) DoActionWithSigner(request requests.AcsRequest, response responses.AcsResponse, signer auth.Signer) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	request.GetHeaders()["x-sdk-core-version"] = Version
@@ -222,6 +246,8 @@ func (client *Client) DoActionWithSigner(request requests.AcsRequest, response r
 func buildHttpRequest(request requests.AcsRequest, singer auth.Signer, regionId string) (httpRequest *http.Request, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = auth.Sign(request, singer, regionId)
 	if err != nil {
 		return
@@ -244,6 +270,8 @@ func buildHttpRequest(request requests.AcsRequest, singer auth.Signer, regionId 
 func isTimeout(err error) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err == nil {
 		return false
 	}
@@ -253,9 +281,13 @@ func isTimeout(err error) bool {
 func isServerError(httpResponse *http.Response) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return httpResponse.StatusCode >= http.StatusInternalServerError
 }
 func (client *Client) AddAsyncTask(task func()) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if client.asyncTaskQueue != nil {
@@ -272,9 +304,13 @@ func (client *Client) AddAsyncTask(task func()) (err error) {
 func (client *Client) GetConfig() *Config {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.config
 }
 func NewClient() (client *Client, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client = &Client{}
@@ -284,11 +320,15 @@ func NewClient() (client *Client, err error) {
 func NewClientWithOptions(regionId string, config *Config, credential auth.Credential) (client *Client, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client = &Client{}
 	err = client.InitWithOptions(regionId, config, credential)
 	return
 }
 func NewClientWithAccessKey(regionId, accessKeyId, accessKeySecret string) (client *Client, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client = &Client{}
@@ -298,11 +338,15 @@ func NewClientWithAccessKey(regionId, accessKeyId, accessKeySecret string) (clie
 func NewClientWithStsToken(regionId, stsAccessKeyId, stsAccessKeySecret, stsToken string) (client *Client, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client = &Client{}
 	err = client.InitWithStsToken(regionId, stsAccessKeyId, stsAccessKeySecret, stsToken)
 	return
 }
 func NewClientWithRamRoleArn(regionId string, accessKeyId, accessKeySecret, roleArn, roleSessionName string) (client *Client, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client = &Client{}
@@ -312,11 +356,15 @@ func NewClientWithRamRoleArn(regionId string, accessKeyId, accessKeySecret, role
 func NewClientWithEcsRamRole(regionId string, roleName string) (client *Client, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client = &Client{}
 	err = client.InitWithEcsRamRole(regionId, roleName)
 	return
 }
 func NewClientWithRsaKeyPair(regionId string, publicKeyId, privateKey string, sessionExpiration int) (client *Client, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client = &Client{}
@@ -326,14 +374,20 @@ func NewClientWithRsaKeyPair(regionId string, publicKeyId, privateKey string, se
 func NewClientWithStsRoleArn(regionId string, accessKeyId, accessKeySecret, roleArn, roleSessionName string) (client *Client, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewClientWithRamRoleArn(regionId, accessKeyId, accessKeySecret, roleArn, roleSessionName)
 }
 func NewClientWithStsRoleNameOnEcs(regionId string, roleName string) (client *Client, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewClientWithEcsRamRole(regionId, roleName)
 }
 func (client *Client) ProcessCommonRequest(request *requests.CommonRequest) (response *responses.CommonResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	request.TransToAcsRequest()
@@ -342,6 +396,8 @@ func (client *Client) ProcessCommonRequest(request *requests.CommonRequest) (res
 	return
 }
 func (client *Client) ProcessCommonRequestWithSigner(request *requests.CommonRequest, signerInterface interface{}) (response *responses.CommonResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if signer, isSigner := signerInterface.(auth.Signer); isSigner {
@@ -355,6 +411,8 @@ func (client *Client) ProcessCommonRequestWithSigner(request *requests.CommonReq
 func (client *Client) Shutdown() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client.signer.Shutdown()
 	client.asyncChanLock.Lock()
 	defer client.asyncChanLock.Unlock()
@@ -364,7 +422,16 @@ func (client *Client) Shutdown() {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

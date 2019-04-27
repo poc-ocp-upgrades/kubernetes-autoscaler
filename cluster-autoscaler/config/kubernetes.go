@@ -18,6 +18,8 @@ const (
 func getConfigOverrides(uri *url.URL) (*kube_client_cmd.ConfigOverrides, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kubeConfigOverride := kube_client_cmd.ConfigOverrides{}
 	if len(uri.Scheme) != 0 && len(uri.Host) != 0 {
 		kubeConfigOverride.ClusterInfo.Server = fmt.Sprintf("%s://%s", uri.Scheme, uri.Host)
@@ -25,6 +27,8 @@ func getConfigOverrides(uri *url.URL) (*kube_client_cmd.ConfigOverrides, error) 
 	return &kubeConfigOverride, nil
 }
 func GetKubeClientConfig(uri *url.URL) (*kube_rest.Config, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (

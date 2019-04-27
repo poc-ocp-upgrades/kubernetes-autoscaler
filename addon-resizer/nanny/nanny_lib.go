@@ -9,6 +9,8 @@ import (
 func checkResource(estimatorResult *EstimatorResult, actual api.ResourceList, res api.ResourceName) *api.ResourceList {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	val, ok := actual[res]
 	expMinVal, expMinOk := estimatorResult.AcceptableRange.lower[res]
 	expMaxVal, expMaxOk := estimatorResult.AcceptableRange.upper[res]
@@ -27,6 +29,8 @@ func checkResource(estimatorResult *EstimatorResult, actual api.ResourceList, re
 	return nil
 }
 func shouldOverwriteResources(estimatorResult *EstimatorResult, limits, reqs api.ResourceList) *api.ResourceRequirements {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, list := range []api.ResourceList{limits, reqs} {
@@ -51,6 +55,8 @@ type ResourceEstimator interface {
 }
 
 func PollAPIServer(k8s KubernetesClient, est ResourceEstimator, pollPeriod time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := 0; true; i++ {

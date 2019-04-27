@@ -17,9 +17,13 @@ type FakeNodeGroup struct{ id string }
 func (f *FakeNodeGroup) MaxSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 2
 }
 func (f *FakeNodeGroup) MinSize() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return 1
@@ -27,9 +31,13 @@ func (f *FakeNodeGroup) MinSize() int {
 func (f *FakeNodeGroup) TargetSize() (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 2, nil
 }
 func (f *FakeNodeGroup) IncreaseSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -37,9 +45,13 @@ func (f *FakeNodeGroup) IncreaseSize(delta int) error {
 func (f *FakeNodeGroup) DecreaseTargetSize(delta int) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (f *FakeNodeGroup) DeleteNodes([]*apiv1.Node) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -47,9 +59,13 @@ func (f *FakeNodeGroup) DeleteNodes([]*apiv1.Node) error {
 func (f *FakeNodeGroup) Id() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return f.id
 }
 func (f *FakeNodeGroup) Debug() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return f.id
@@ -57,9 +73,13 @@ func (f *FakeNodeGroup) Debug() string {
 func (f *FakeNodeGroup) Nodes() ([]cloudprovider.Instance, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []cloudprovider.Instance{}, nil
 }
 func (f *FakeNodeGroup) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
@@ -67,9 +87,13 @@ func (f *FakeNodeGroup) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
 func (f *FakeNodeGroup) Exist() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return true
 }
 func (f *FakeNodeGroup) Create() (cloudprovider.NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrAlreadyExist
@@ -77,14 +101,20 @@ func (f *FakeNodeGroup) Create() (cloudprovider.NodeGroup, error) {
 func (f *FakeNodeGroup) Delete() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cloudprovider.ErrNotImplemented
 }
 func (f *FakeNodeGroup) Autoprovisioned() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
 func makeNodeInfo(cpu int64, memory int64, pods int64) *schedulercache.NodeInfo {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	node := &apiv1.Node{Status: apiv1.NodeStatus{Capacity: apiv1.ResourceList{apiv1.ResourceCPU: *resource.NewMilliQuantity(cpu, resource.DecimalSI), apiv1.ResourceMemory: *resource.NewQuantity(memory, resource.DecimalSI), apiv1.ResourcePods: *resource.NewQuantity(pods, resource.DecimalSI)}}}
@@ -95,6 +125,8 @@ func makeNodeInfo(cpu int64, memory int64, pods int64) *schedulercache.NodeInfo 
 	return nodeInfo
 }
 func TestLeastWaste(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cpuPerPod := int64(500)

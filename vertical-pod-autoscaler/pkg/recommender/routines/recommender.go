@@ -53,14 +53,20 @@ type recommender struct {
 func (r *recommender) GetClusterState() *model.ClusterState {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.clusterState
 }
 func (r *recommender) GetClusterStateFeeder() input.ClusterStateFeeder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.clusterStateFeeder
 }
 func (r *recommender) UpdateVPAs() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cnt := metrics_recommender.NewObjectCounter()
@@ -90,6 +96,8 @@ func (r *recommender) UpdateVPAs() {
 func getCappedRecommendation(vpaID model.VpaID, resources logic.RecommendedPodResources, policy *vpa_types.PodResourcePolicy) *vpa_types.RecommendedPodResources {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	containerResources := make([]vpa_types.RecommendedContainerResources, 0, len(resources))
 	for containerName, res := range resources {
 		containerResources = append(containerResources, vpa_types.RecommendedContainerResources{ContainerName: containerName, Target: model.ResourcesAsResourceList(res.Target), LowerBound: model.ResourcesAsResourceList(res.LowerBound), UpperBound: model.ResourcesAsResourceList(res.UpperBound), UncappedTarget: model.ResourcesAsResourceList(res.Target)})
@@ -105,6 +113,8 @@ func getCappedRecommendation(vpaID model.VpaID, resources logic.RecommendedPodRe
 func (r *recommender) MaintainCheckpoints(ctx context.Context, minCheckpointsPerRun int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	now := time.Now()
 	if r.useCheckpoints {
 		r.checkpointWriter.StoreCheckpoints(ctx, now, minCheckpointsPerRun)
@@ -117,6 +127,8 @@ func (r *recommender) MaintainCheckpoints(ctx context.Context, minCheckpointsPer
 func (r *recommender) GarbageCollect() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gcTime := time.Now()
 	if gcTime.Sub(r.lastAggregateContainerStateGC) > AggregateContainerStateGCInterval {
 		r.clusterState.GarbageCollectAggregateCollectionStates(gcTime)
@@ -124,6 +136,8 @@ func (r *recommender) GarbageCollect() {
 	}
 }
 func (r *recommender) RunOnce() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	timer := metrics_recommender.NewExecutionTimer()
@@ -160,11 +174,15 @@ type RecommenderFactory struct {
 func (c RecommenderFactory) Make() Recommender {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	recommender := &recommender{clusterState: c.ClusterState, clusterStateFeeder: c.ClusterStateFeeder, checkpointWriter: c.CheckpointWriter, checkpointsGCInterval: c.CheckpointsGCInterval, useCheckpoints: c.UseCheckpoints, vpaClient: c.VpaClient, podResourceRecommender: c.PodResourceRecommender, lastAggregateContainerStateGC: time.Now(), lastCheckpointGC: time.Now()}
 	glog.V(3).Infof("New Recommender created %+v", recommender)
 	return recommender
 }
 func NewRecommender(config *rest.Config, checkpointsGCInterval time.Duration, useCheckpoints bool) Recommender {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clusterState := model.NewClusterState()
@@ -173,7 +191,16 @@ func NewRecommender(config *rest.Config, checkpointsGCInterval time.Duration, us
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

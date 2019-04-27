@@ -26,6 +26,8 @@ type testInfo struct {
 func setUpTest(t *testing.T) *testInfo {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	namespace := "kube-system"
 	result := testInfo{client: &fake.Clientset{}, configMap: &apiv1.ConfigMap{ObjectMeta: metav1.ObjectMeta{Namespace: namespace, Name: StatusConfigMapName}, Data: map[string]string{}}, namespace: namespace, getCalled: false, updateCalled: false, createCalled: false, t: t}
 	result.client.Fake.AddReactor("get", "configmaps", func(action core.Action) (bool, runtime.Object, error) {
@@ -57,6 +59,8 @@ func setUpTest(t *testing.T) *testInfo {
 func TestWriteStatusConfigMapExisting(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ti := setUpTest(t)
 	result, err := WriteStatusConfigMap(ti.client, ti.namespace, "TEST_MSG", nil)
 	assert.Equal(t, ti.configMap, result)
@@ -70,6 +74,8 @@ func TestWriteStatusConfigMapExisting(t *testing.T) {
 func TestWriteStatusConfigMapCreate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ti := setUpTest(t)
 	ti.getError = kube_errors.NewNotFound(apiv1.Resource("configmap"), "nope, not found")
 	result, err := WriteStatusConfigMap(ti.client, ti.namespace, "TEST_MSG", nil)
@@ -81,6 +87,8 @@ func TestWriteStatusConfigMapCreate(t *testing.T) {
 	assert.True(t, ti.createCalled)
 }
 func TestWriteStatusConfigMapError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ti := setUpTest(t)

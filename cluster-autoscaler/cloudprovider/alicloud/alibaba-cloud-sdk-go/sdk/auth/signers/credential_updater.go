@@ -20,12 +20,16 @@ type credentialUpdater struct {
 func (updater *credentialUpdater) needUpdateCredential() (result bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if updater.inAdvanceScale == 0 {
 		updater.inAdvanceScale = defaultInAdvanceScale
 	}
 	return time.Now().Unix()-updater.lastUpdateTimestamp >= int64(float64(updater.credentialExpiration)*updater.inAdvanceScale)
 }
 func (updater *credentialUpdater) updateCredential() (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	request, err := updater.buildRequestMethod()

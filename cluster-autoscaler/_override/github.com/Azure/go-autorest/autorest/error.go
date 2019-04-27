@@ -22,14 +22,20 @@ type DetailedError struct {
 func NewError(packageType string, method string, message string, args ...interface{}) DetailedError {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewErrorWithError(nil, packageType, method, nil, message, args...)
 }
 func NewErrorWithResponse(packageType string, method string, resp *http.Response, message string, args ...interface{}) DetailedError {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewErrorWithError(nil, packageType, method, resp, message, args...)
 }
 func NewErrorWithError(original error, packageType string, method string, resp *http.Response, message string, args ...interface{}) DetailedError {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if v, ok := original.(DetailedError); ok {
@@ -42,6 +48,8 @@ func NewErrorWithError(original error, packageType string, method string, resp *
 	return DetailedError{Original: original, PackageType: packageType, Method: method, StatusCode: statusCode, Message: fmt.Sprintf(message, args...), Response: resp}
 }
 func (e DetailedError) Error() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if e.Original == nil {

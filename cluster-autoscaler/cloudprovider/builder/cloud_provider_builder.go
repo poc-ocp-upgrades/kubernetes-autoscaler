@@ -10,6 +10,8 @@ import (
 func NewCloudProvider(opts config.AutoscalingOptions) cloudprovider.CloudProvider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(1).Infof("Building %s cloud provider.", opts.CloudProviderName)
 	do := cloudprovider.NodeGroupDiscoveryOptions{NodeGroupSpecs: opts.NodeGroups, NodeGroupAutoDiscoverySpecs: opts.NodeGroupAutoDiscovery}
 	rl := context.NewResourceLimiterFromAutoscalingOptions(opts)

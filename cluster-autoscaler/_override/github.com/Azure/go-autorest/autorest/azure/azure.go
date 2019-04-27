@@ -29,6 +29,8 @@ type ServiceError struct {
 func (se ServiceError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := fmt.Sprintf("Code=%q Message=%q", se.Code, se.Message)
 	if se.Target != nil {
 		result += fmt.Sprintf(" Target=%q", *se.Target)
@@ -57,6 +59,8 @@ func (se ServiceError) Error() string {
 	return result
 }
 func (se *ServiceError) UnmarshalJSON(b []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type serviceError1 struct {
@@ -93,6 +97,8 @@ func (se *ServiceError) UnmarshalJSON(b []byte) error {
 func (se *ServiceError) populate(code, message string, target *string, details []map[string]interface{}, inner map[string]interface{}, additional []map[string]interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	se.Code = code
 	se.Message = message
 	se.Target = target
@@ -110,9 +116,13 @@ type RequestError struct {
 func (e RequestError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("autorest/azure: Service returned an error. Status=%v %v", e.StatusCode, e.ServiceError)
 }
 func IsAzureError(e error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, ok := e.(*RequestError)
@@ -130,6 +140,8 @@ type Resource struct {
 func ParseResourceID(resourceID string) (Resource, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	const resourceIDPatternText = `(?i)subscriptions/(.+)/resourceGroups/(.+)/providers/(.+?)/(.+?)/(.+)`
 	resourceIDPattern := regexp.MustCompile(resourceIDPatternText)
 	match := resourceIDPattern.FindStringSubmatch(resourceID)
@@ -144,6 +156,8 @@ func ParseResourceID(resourceID string) (Resource, error) {
 func NewErrorWithError(original error, packageType string, method string, resp *http.Response, message string, args ...interface{}) RequestError {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if v, ok := original.(*RequestError); ok {
 		return *v
 	}
@@ -154,6 +168,8 @@ func NewErrorWithError(original error, packageType string, method string, resp *
 	return RequestError{DetailedError: autorest.DetailedError{Original: original, PackageType: packageType, Method: method, StatusCode: statusCode, Message: fmt.Sprintf(message, args...)}}
 }
 func WithReturningClientID(uuid string) autorest.PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	preparer := autorest.CreatePreparer(WithClientID(uuid), WithReturnClientID(true))
@@ -170,9 +186,13 @@ func WithReturningClientID(uuid string) autorest.PrepareDecorator {
 func WithClientID(uuid string) autorest.PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.WithHeader(HeaderClientID, uuid)
 }
 func WithReturnClientID(b bool) autorest.PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return autorest.WithHeader(HeaderReturnClientID, strconv.FormatBool(b))
@@ -180,14 +200,20 @@ func WithReturnClientID(b bool) autorest.PrepareDecorator {
 func ExtractClientID(resp *http.Response) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.ExtractHeaderValue(HeaderClientID, resp)
 }
 func ExtractRequestID(resp *http.Response) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.ExtractHeaderValue(HeaderRequestID, resp)
 }
 func WithErrorUnlessStatusCode(codes ...int) autorest.RespondDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(r autorest.Responder) autorest.Responder {

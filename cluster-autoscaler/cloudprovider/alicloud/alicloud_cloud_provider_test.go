@@ -8,6 +8,8 @@ import (
 func TestEcsInstanceIdFromProviderId(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	instanceName := "cn-hangzhou.instanceId"
 	instanceId, err := ecsInstanceIdFromProviderId(instanceName)
 	if err != nil {

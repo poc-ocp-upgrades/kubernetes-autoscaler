@@ -77,9 +77,13 @@ type ResourceConsumer struct {
 func GetResourceConsumerImage() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return resourceConsumerImage
 }
 func NewDynamicResourceConsumer(name, nsName string, kind schema.GroupVersionKind, replicas, initCPUTotal, initMemoryTotal, initCustomMetric int, cpuRequest, memRequest resource.Quantity, clientset clientset.Interface, internalClientset *internalclientset.Clientset) *ResourceConsumer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return newResourceConsumer(name, nsName, kind, replicas, initCPUTotal, initMemoryTotal, initCustomMetric, dynamicConsumptionTimeInSeconds, dynamicRequestSizeInMillicores, dynamicRequestSizeInMegabytes, dynamicRequestSizeCustomMetric, cpuRequest, memRequest, clientset, internalClientset)
@@ -87,9 +91,13 @@ func NewDynamicResourceConsumer(name, nsName string, kind schema.GroupVersionKin
 func NewStaticResourceConsumer(name, nsName string, replicas, initCPUTotal, initMemoryTotal, initCustomMetric int, cpuRequest, memRequest resource.Quantity, clientset clientset.Interface, internalClientset *internalclientset.Clientset) *ResourceConsumer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newResourceConsumer(name, nsName, KindRC, replicas, initCPUTotal, initMemoryTotal, initCustomMetric, staticConsumptionTimeInSeconds, initCPUTotal/replicas, initMemoryTotal/replicas, initCustomMetric/replicas, cpuRequest, memRequest, clientset, internalClientset)
 }
 func newResourceConsumer(name, nsName string, kind schema.GroupVersionKind, replicas, initCPUTotal, initMemoryTotal, initCustomMetric, consumptionTimeInSeconds, requestSizeInMillicores, requestSizeInMegabytes int, requestSizeCustomMetric int, cpuRequest, memRequest resource.Quantity, clientset clientset.Interface, internalClientset *internalclientset.Clientset) *ResourceConsumer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	runServiceAndWorkloadForResourceConsumer(clientset, internalClientset, nsName, name, kind, replicas, cpuRequest, memRequest)
@@ -105,10 +113,14 @@ func newResourceConsumer(name, nsName string, kind schema.GroupVersionKind, repl
 func (rc *ResourceConsumer) ConsumeCPU(millicores int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	framework.Logf("RC %s: consume %v millicores in total", rc.name, millicores)
 	rc.cpu <- millicores
 }
 func (rc *ResourceConsumer) ConsumeMem(megabytes int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	framework.Logf("RC %s: consume %v MB in total", rc.name, megabytes)
@@ -117,10 +129,14 @@ func (rc *ResourceConsumer) ConsumeMem(megabytes int) {
 func (rc *ResourceConsumer) ConsumeCustomMetric(amount int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	framework.Logf("RC %s: consume custom metric %v in total", rc.name, amount)
 	rc.customMetric <- amount
 }
 func (rc *ResourceConsumer) makeConsumeCPURequests() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer ginkgo.GinkgoRecover()
@@ -145,6 +161,8 @@ func (rc *ResourceConsumer) makeConsumeCPURequests() {
 func (rc *ResourceConsumer) makeConsumeMemRequests() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer ginkgo.GinkgoRecover()
 	rc.stopWaitGroup.Add(1)
 	defer rc.stopWaitGroup.Done()
@@ -165,6 +183,8 @@ func (rc *ResourceConsumer) makeConsumeMemRequests() {
 	}
 }
 func (rc *ResourceConsumer) makeConsumeCustomMetric() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer ginkgo.GinkgoRecover()
@@ -189,6 +209,8 @@ func (rc *ResourceConsumer) makeConsumeCustomMetric() {
 func (rc *ResourceConsumer) sendConsumeCPURequest(millicores int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.Background(), framework.SingleCallTimeout)
 	defer cancel()
 	err := wait.PollImmediate(serviceInitializationInterval, serviceInitializationTimeout, func() (bool, error) {
@@ -206,6 +228,8 @@ func (rc *ResourceConsumer) sendConsumeCPURequest(millicores int) {
 	framework.ExpectNoError(err)
 }
 func (rc *ResourceConsumer) sendConsumeMemRequest(megabytes int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.Background(), framework.SingleCallTimeout)
@@ -227,6 +251,8 @@ func (rc *ResourceConsumer) sendConsumeMemRequest(megabytes int) {
 func (rc *ResourceConsumer) sendConsumeCustomMetric(delta int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.Background(), framework.SingleCallTimeout)
 	defer cancel()
 	err := wait.PollImmediate(serviceInitializationInterval, serviceInitializationTimeout, func() (bool, error) {
@@ -244,6 +270,8 @@ func (rc *ResourceConsumer) sendConsumeCustomMetric(delta int) {
 	framework.ExpectNoError(err)
 }
 func (rc *ResourceConsumer) GetReplicas() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch rc.kind {
@@ -276,6 +304,8 @@ func (rc *ResourceConsumer) GetReplicas() int {
 func (rc *ResourceConsumer) WaitForReplicas(desiredReplicas int, duration time.Duration) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	interval := 20 * time.Second
 	err := wait.PollImmediate(interval, duration, func() (bool, error) {
 		replicas := rc.GetReplicas()
@@ -285,6 +315,8 @@ func (rc *ResourceConsumer) WaitForReplicas(desiredReplicas int, duration time.D
 	framework.ExpectNoErrorWithOffset(1, err, "timeout waiting %v for %d replicas", duration, desiredReplicas)
 }
 func (rc *ResourceConsumer) EnsureDesiredReplicas(desiredReplicas int, duration time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	interval := 10 * time.Second
@@ -305,6 +337,8 @@ func (rc *ResourceConsumer) EnsureDesiredReplicas(desiredReplicas int, duration 
 func (rc *ResourceConsumer) Pause() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ginkgo.By(fmt.Sprintf("HPA pausing RC %s", rc.name))
 	rc.stopCPU <- 0
 	rc.stopMem <- 0
@@ -314,12 +348,16 @@ func (rc *ResourceConsumer) Pause() {
 func (rc *ResourceConsumer) Resume() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ginkgo.By(fmt.Sprintf("HPA resuming RC %s", rc.name))
 	go rc.makeConsumeCPURequests()
 	go rc.makeConsumeMemRequests()
 	go rc.makeConsumeCustomMetric()
 }
 func (rc *ResourceConsumer) CleanUp() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ginkgo.By(fmt.Sprintf("Removing consuming RC %s", rc.name))
@@ -335,6 +373,8 @@ func (rc *ResourceConsumer) CleanUp() {
 	framework.ExpectNoError(rc.clientSet.CoreV1().Services(rc.nsName).Delete(rc.controllerName, nil))
 }
 func runServiceAndWorkloadForResourceConsumer(c clientset.Interface, internalClient internalclientset.Interface, ns, name string, kind schema.GroupVersionKind, replicas int, cpuLimit, memLimit resource.Quantity) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ginkgo.By(fmt.Sprintf("Running consuming RC %s via %s with %v replicas", name, kind, replicas))
@@ -369,12 +409,16 @@ func runServiceAndWorkloadForResourceConsumer(c clientset.Interface, internalCli
 func CreateCPUHorizontalPodAutoscaler(rc *ResourceConsumer, cpu, minReplicas, maxRepl int32) *autoscalingv1.HorizontalPodAutoscaler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hpa := &autoscalingv1.HorizontalPodAutoscaler{ObjectMeta: metav1.ObjectMeta{Name: rc.name, Namespace: rc.nsName}, Spec: autoscalingv1.HorizontalPodAutoscalerSpec{ScaleTargetRef: autoscalingv1.CrossVersionObjectReference{APIVersion: rc.kind.GroupVersion().String(), Kind: rc.kind.Kind, Name: rc.name}, MinReplicas: &minReplicas, MaxReplicas: maxRepl, TargetCPUUtilizationPercentage: &cpu}}
 	hpa, errHPA := rc.clientSet.AutoscalingV1().HorizontalPodAutoscalers(rc.nsName).Create(hpa)
 	framework.ExpectNoError(errHPA)
 	return hpa
 }
 func DeleteHorizontalPodAutoscaler(rc *ResourceConsumer, autoscalerName string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rc.clientSet.AutoscalingV1().HorizontalPodAutoscalers(rc.nsName).Delete(autoscalerName, nil)

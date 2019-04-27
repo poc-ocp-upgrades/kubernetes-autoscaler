@@ -44,6 +44,8 @@ type LoggingInspector struct{ Logger *log.Logger }
 func (li LoggingInspector) WithInspection() PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
 		return PreparerFunc(func(r *http.Request) (*http.Request, error) {
 			var body, b bytes.Buffer
@@ -59,6 +61,8 @@ func (li LoggingInspector) WithInspection() PrepareDecorator {
 	}
 }
 func (li LoggingInspector) ByInspecting() RespondDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(r Responder) Responder {
@@ -93,12 +97,16 @@ type Client struct {
 func NewClientWithUserAgent(ua string) Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := Client{PollingDelay: DefaultPollingDelay, PollingDuration: DefaultPollingDuration, RetryAttempts: DefaultRetryAttempts, RetryDuration: DefaultRetryDuration, UserAgent: version.UserAgent()}
 	c.Sender = c.sender()
 	c.AddToUserAgent(ua)
 	return c
 }
 func (c *Client) AddToUserAgent(extension string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if extension != "" {
@@ -108,6 +116,8 @@ func (c *Client) AddToUserAgent(extension string) error {
 	return fmt.Errorf("Extension was empty, User Agent stayed as %s", c.UserAgent)
 }
 func (c Client) Do(r *http.Request) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.UserAgent() == "" {
@@ -135,6 +145,8 @@ func (c Client) Do(r *http.Request) (*http.Response, error) {
 func (c Client) sender() Sender {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.Sender == nil {
 		j, _ := cookiejar.New(nil)
 		return &http.Client{Jar: j}
@@ -144,9 +156,13 @@ func (c Client) sender() Sender {
 func (c Client) WithAuthorization() PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.authorizer().WithAuthorization()
 }
 func (c Client) authorizer() Authorizer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.Authorizer == nil {
@@ -157,12 +173,16 @@ func (c Client) authorizer() Authorizer {
 func (c Client) WithInspection() PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.RequestInspector == nil {
 		return WithNothing()
 	}
 	return c.RequestInspector
 }
 func (c Client) ByInspecting() RespondDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.ResponseInspector == nil {

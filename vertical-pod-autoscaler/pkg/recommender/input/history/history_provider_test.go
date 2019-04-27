@@ -20,6 +20,8 @@ type mockPrometheusClient struct{ mock.Mock }
 func (m *mockPrometheusClient) GetTimeseries(query string) ([]Timeseries, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(query)
 	var returnArg []Timeseries
 	if args.Get(0) != nil {
@@ -28,6 +30,8 @@ func (m *mockPrometheusClient) GetTimeseries(query string) ([]Timeseries, error)
 	return returnArg, args.Error(1)
 }
 func TestGetEmptyClusterHistory(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mockClient := mockPrometheusClient{}
@@ -41,6 +45,8 @@ func TestGetEmptyClusterHistory(t *testing.T) {
 func TestPrometheusError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mockClient := mockPrometheusClient{}
 	historyProvider := prometheusHistoryProvider{prometheusClient: &mockClient}
 	mockClient.On("GetTimeseries", mock.AnythingOfType("string")).Times(3).Return(nil, fmt.Errorf("bla"))
@@ -48,6 +54,8 @@ func TestPrometheusError(t *testing.T) {
 	assert.NotNil(t, err)
 }
 func TestGetCPUSamples(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mockClient := mockPrometheusClient{}
@@ -64,6 +72,8 @@ func TestGetCPUSamples(t *testing.T) {
 func TestGetMemorySamples(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mockClient := mockPrometheusClient{}
 	historyProvider := prometheusHistoryProvider{prometheusClient: &mockClient}
 	mockClient.On("GetTimeseries", cpuQuery).Return([]Timeseries{}, nil)
@@ -76,6 +86,8 @@ func TestGetMemorySamples(t *testing.T) {
 	assert.Equal(t, histories, map[model.PodID]*PodHistory{podID: podHistory})
 }
 func TestGetLabels(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mockClient := mockPrometheusClient{}

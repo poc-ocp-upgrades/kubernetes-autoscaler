@@ -27,6 +27,8 @@ var (
 func (model *GcePriceModel) NodePrice(node *apiv1.Node, startTime time.Time, endTime time.Time) (float64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	price := 0.0
 	basePriceFound := false
 	if node.Labels != nil {
@@ -55,11 +57,15 @@ func (model *GcePriceModel) NodePrice(node *apiv1.Node, startTime time.Time, end
 func getHours(startTime time.Time, endTime time.Time) float64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	minutes := math.Ceil(float64(endTime.Sub(startTime)) / float64(time.Minute))
 	hours := minutes / 60.0
 	return hours
 }
 func (model *GcePriceModel) PodPrice(pod *apiv1.Pod, startTime time.Time, endTime time.Time) (float64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	price := 0.0
@@ -70,6 +76,8 @@ func (model *GcePriceModel) PodPrice(pod *apiv1.Pod, startTime time.Time, endTim
 	return price, nil
 }
 func getBasePrice(resources apiv1.ResourceList, startTime time.Time, endTime time.Time) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(resources) == 0 {
@@ -84,6 +92,8 @@ func getBasePrice(resources apiv1.ResourceList, startTime time.Time, endTime tim
 	return price
 }
 func getAdditionalPrice(resources apiv1.ResourceList, startTime time.Time, endTime time.Time) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(resources) == 0 {

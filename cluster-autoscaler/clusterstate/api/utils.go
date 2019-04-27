@@ -8,6 +8,8 @@ import (
 func GetConditionByType(conditionType ClusterAutoscalerConditionType, conditions []ClusterAutoscalerCondition) *ClusterAutoscalerCondition {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := range conditions {
 		if conditions[i].Type == conditionType {
 			return &conditions[i]
@@ -16,6 +18,8 @@ func GetConditionByType(conditionType ClusterAutoscalerConditionType, conditions
 	return nil
 }
 func getConditionsString(autoscalerConditions []ClusterAutoscalerCondition, prefix string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	health := fmt.Sprintf("%v%-12v <unknown>", prefix, ClusterAutoscalerHealth+":")
@@ -50,6 +54,8 @@ func getConditionsString(autoscalerConditions []ClusterAutoscalerCondition, pref
 	return buffer.String()
 }
 func (status ClusterAutoscalerStatus) GetReadableString() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var buffer bytes.Buffer

@@ -31,9 +31,13 @@ type verticalPodAutoscalerCheckpoints struct {
 func newVerticalPodAutoscalerCheckpoints(c *AutoscalingV1beta1Client, namespace string) *verticalPodAutoscalerCheckpoints {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &verticalPodAutoscalerCheckpoints{client: c.RESTClient(), ns: namespace}
 }
 func (c *verticalPodAutoscalerCheckpoints) Get(name string, options v1.GetOptions) (result *v1beta1.VerticalPodAutoscalerCheckpoint, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result = &v1beta1.VerticalPodAutoscalerCheckpoint{}
@@ -43,6 +47,8 @@ func (c *verticalPodAutoscalerCheckpoints) Get(name string, options v1.GetOption
 func (c *verticalPodAutoscalerCheckpoints) List(opts v1.ListOptions) (result *v1beta1.VerticalPodAutoscalerCheckpointList, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result = &v1beta1.VerticalPodAutoscalerCheckpointList{}
 	err = c.client.Get().Namespace(c.ns).Resource("verticalpodautoscalercheckpoints").VersionedParams(&opts, scheme.ParameterCodec).Do().Into(result)
 	return
@@ -50,10 +56,14 @@ func (c *verticalPodAutoscalerCheckpoints) List(opts v1.ListOptions) (result *v1
 func (c *verticalPodAutoscalerCheckpoints) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	opts.Watch = true
 	return c.client.Get().Namespace(c.ns).Resource("verticalpodautoscalercheckpoints").VersionedParams(&opts, scheme.ParameterCodec).Watch()
 }
 func (c *verticalPodAutoscalerCheckpoints) Create(verticalPodAutoscalerCheckpoint *v1beta1.VerticalPodAutoscalerCheckpoint) (result *v1beta1.VerticalPodAutoscalerCheckpoint, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result = &v1beta1.VerticalPodAutoscalerCheckpoint{}
@@ -63,6 +73,8 @@ func (c *verticalPodAutoscalerCheckpoints) Create(verticalPodAutoscalerCheckpoin
 func (c *verticalPodAutoscalerCheckpoints) Update(verticalPodAutoscalerCheckpoint *v1beta1.VerticalPodAutoscalerCheckpoint) (result *v1beta1.VerticalPodAutoscalerCheckpoint, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result = &v1beta1.VerticalPodAutoscalerCheckpoint{}
 	err = c.client.Put().Namespace(c.ns).Resource("verticalpodautoscalercheckpoints").Name(verticalPodAutoscalerCheckpoint.Name).Body(verticalPodAutoscalerCheckpoint).Do().Into(result)
 	return
@@ -70,14 +82,20 @@ func (c *verticalPodAutoscalerCheckpoints) Update(verticalPodAutoscalerCheckpoin
 func (c *verticalPodAutoscalerCheckpoints) Delete(name string, options *v1.DeleteOptions) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.client.Delete().Namespace(c.ns).Resource("verticalpodautoscalercheckpoints").Name(name).Body(options).Do().Error()
 }
 func (c *verticalPodAutoscalerCheckpoints) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.client.Delete().Namespace(c.ns).Resource("verticalpodautoscalercheckpoints").VersionedParams(&listOptions, scheme.ParameterCodec).Body(options).Do().Error()
 }
 func (c *verticalPodAutoscalerCheckpoints) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1beta1.VerticalPodAutoscalerCheckpoint, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result = &v1beta1.VerticalPodAutoscalerCheckpoint{}

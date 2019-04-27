@@ -35,9 +35,13 @@ type GkeCloudProvider struct {
 func BuildGkeCloudProvider(gkeManager GkeManager, resourceLimiter *cloudprovider.ResourceLimiter) (*GkeCloudProvider, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &GkeCloudProvider{gkeManager: gkeManager, resourceLimiterFromFlags: resourceLimiter}, nil
 }
 func (gke *GkeCloudProvider) Cleanup() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gke.gkeManager.Cleanup()
@@ -46,9 +50,13 @@ func (gke *GkeCloudProvider) Cleanup() error {
 func (gke *GkeCloudProvider) Name() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ProviderNameGKE
 }
 func (gke *GkeCloudProvider) NodeGroups() []cloudprovider.NodeGroup {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	migs := gke.gkeManager.GetMigs()
@@ -61,6 +69,8 @@ func (gke *GkeCloudProvider) NodeGroups() []cloudprovider.NodeGroup {
 func (gke *GkeCloudProvider) NodeGroupForNode(node *apiv1.Node) (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ref, err := gce.GceRefFromProviderId(node.Spec.ProviderID)
 	if err != nil {
 		return nil, err
@@ -71,14 +81,20 @@ func (gke *GkeCloudProvider) NodeGroupForNode(node *apiv1.Node) (cloudprovider.N
 func (gke *GkeCloudProvider) Pricing() (cloudprovider.PricingModel, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &gce.GcePriceModel{}, nil
 }
 func (gke *GkeCloudProvider) GetAvailableMachineTypes() ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autoprovisionedMachineTypes, nil
 }
 func (gke *GkeCloudProvider) NewNodeGroup(machineType string, labels map[string]string, systemLabels map[string]string, taints []apiv1.Taint, extraResources map[string]resource.Quantity) (cloudprovider.NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodePoolName := fmt.Sprintf("%s-%s-%d", nodeAutoprovisioningPrefix, machineType, time.Now().Unix())
@@ -114,6 +130,8 @@ func (gke *GkeCloudProvider) NewNodeGroup(machineType string, labels map[string]
 func (gke *GkeCloudProvider) GetResourceLimiter() (*cloudprovider.ResourceLimiter, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resourceLimiter, err := gke.gkeManager.GetResourceLimiter()
 	if err != nil {
 		return nil, err
@@ -126,9 +144,13 @@ func (gke *GkeCloudProvider) GetResourceLimiter() (*cloudprovider.ResourceLimite
 func (gke *GkeCloudProvider) Refresh() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return gke.gkeManager.Refresh()
 }
 func (gke *GkeCloudProvider) GetClusterInfo() (projectId, location, clusterName string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return gke.gkeManager.GetProjectId(), gke.gkeManager.GetLocation(), gke.gkeManager.GetClusterName()
@@ -136,9 +158,13 @@ func (gke *GkeCloudProvider) GetClusterInfo() (projectId, location, clusterName 
 func (gke *GkeCloudProvider) GetNodeLocations() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return gke.gkeManager.GetNodeLocations()
 }
 func (gke *GkeCloudProvider) GetInstanceID(node *apiv1.Node) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return node.Spec.ProviderID
@@ -164,9 +190,13 @@ type GkeMig struct {
 func (mig *GkeMig) GceRef() gce.GceRef {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return mig.gceRef
 }
 func (mig *GkeMig) NodePoolName() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return mig.nodePoolName
@@ -174,9 +204,13 @@ func (mig *GkeMig) NodePoolName() string {
 func (mig *GkeMig) Spec() *MigSpec {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return mig.spec
 }
 func (mig *GkeMig) MaxSize() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return mig.maxSize
@@ -184,9 +218,13 @@ func (mig *GkeMig) MaxSize() int {
 func (mig *GkeMig) MinSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return mig.minSize
 }
 func (mig *GkeMig) TargetSize() (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !mig.exist {
@@ -196,6 +234,8 @@ func (mig *GkeMig) TargetSize() (int, error) {
 	return int(size), err
 }
 func (mig *GkeMig) IncreaseSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if delta <= 0 {
@@ -211,6 +251,8 @@ func (mig *GkeMig) IncreaseSize(delta int) error {
 	return mig.gkeManager.SetMigSize(mig, size+int64(delta))
 }
 func (mig *GkeMig) DecreaseTargetSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if delta >= 0 {
@@ -232,6 +274,8 @@ func (mig *GkeMig) DecreaseTargetSize(delta int) error {
 func (mig *GkeMig) Belongs(node *apiv1.Node) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ref, err := gce.GceRefFromProviderId(node.Spec.ProviderID)
 	if err != nil {
 		return false, err
@@ -249,6 +293,8 @@ func (mig *GkeMig) Belongs(node *apiv1.Node) (bool, error) {
 	return true, nil
 }
 func (mig *GkeMig) DeleteNodes(nodes []*apiv1.Node) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size, err := mig.gkeManager.GetMigSize(mig)
@@ -278,14 +324,20 @@ func (mig *GkeMig) DeleteNodes(nodes []*apiv1.Node) error {
 func (mig *GkeMig) Id() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return gce.GenerateMigUrl(mig.gceRef)
 }
 func (mig *GkeMig) Debug() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s (%d:%d)", mig.Id(), mig.MinSize(), mig.MaxSize())
 }
 func (mig *GkeMig) Nodes() ([]cloudprovider.Instance, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	instanceNames, err := mig.gkeManager.GetMigNodes(mig)
@@ -301,9 +353,13 @@ func (mig *GkeMig) Nodes() ([]cloudprovider.Instance, error) {
 func (mig *GkeMig) Exist() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return mig.exist
 }
 func (mig *GkeMig) Create() (cloudprovider.NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !mig.exist && mig.autoprovisioned {
@@ -314,6 +370,8 @@ func (mig *GkeMig) Create() (cloudprovider.NodeGroup, error) {
 func (mig *GkeMig) Delete() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if mig.exist && mig.autoprovisioned {
 		return mig.gkeManager.DeleteNodePool(mig)
 	}
@@ -322,9 +380,13 @@ func (mig *GkeMig) Delete() error {
 func (mig *GkeMig) Autoprovisioned() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return mig.autoprovisioned
 }
 func (mig *GkeMig) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	node, err := mig.gkeManager.GetMigTemplateNode(mig)
@@ -336,6 +398,8 @@ func (mig *GkeMig) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
 	return nodeInfo, nil
 }
 func BuildGKE(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDiscoveryOptions, rl *cloudprovider.ResourceLimiter) cloudprovider.CloudProvider {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if do.DiscoverySpecified() {

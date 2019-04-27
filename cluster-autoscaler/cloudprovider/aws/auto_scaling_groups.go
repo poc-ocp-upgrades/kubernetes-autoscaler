@@ -39,6 +39,8 @@ type asg struct {
 func newASGCache(service autoScalingWrapper, explicitSpecs []string, autoDiscoverySpecs []cloudprovider.ASGAutoDiscoveryConfig) (*asgCache, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registry := &asgCache{registeredAsgs: make([]*asg, 0), service: service, asgToInstances: make(map[AwsRef][]AwsInstanceRef), instanceToAsg: make(map[AwsInstanceRef]*asg), interrupt: make(chan struct{}), asgAutoDiscoverySpecs: autoDiscoverySpecs, explicitlyConfigured: make(map[AwsRef]bool)}
 	if err := registry.parseExplicitAsgs(explicitSpecs); err != nil {
 		return nil, err
@@ -46,6 +48,8 @@ func newASGCache(service autoScalingWrapper, explicitSpecs []string, autoDiscove
 	return registry, nil
 }
 func (m *asgCache) parseExplicitAsgs(specs []string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, spec := range specs {
@@ -59,6 +63,8 @@ func (m *asgCache) parseExplicitAsgs(specs []string) error {
 	return nil
 }
 func (m *asgCache) register(asg *asg) *asg {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := range m.registeredAsgs {
@@ -87,6 +93,8 @@ func (m *asgCache) register(asg *asg) *asg {
 func (m *asgCache) unregister(a *asg) *asg {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	updated := make([]*asg, 0, len(m.registeredAsgs))
 	var changed *asg
 	for _, existing := range m.registeredAsgs {
@@ -103,6 +111,8 @@ func (m *asgCache) unregister(a *asg) *asg {
 func (m *asgCache) buildAsgFromSpec(spec string) (*asg, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s, err := dynamic.SpecFromString(spec, scaleToZeroSupported)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse node group spec: %v", err)
@@ -113,6 +123,8 @@ func (m *asgCache) buildAsgFromSpec(spec string) (*asg, error) {
 func (m *asgCache) Get() []*asg {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
 	return m.registeredAsgs
@@ -120,11 +132,15 @@ func (m *asgCache) Get() []*asg {
 func (m *asgCache) FindForInstance(instance AwsInstanceRef) *asg {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
 	return m.findForInstance(instance)
 }
 func (m *asgCache) findForInstance(instance AwsInstanceRef) *asg {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if asg, found := m.instanceToAsg[instance]; found {
@@ -135,6 +151,8 @@ func (m *asgCache) findForInstance(instance AwsInstanceRef) *asg {
 func (m *asgCache) InstancesByAsg(ref AwsRef) ([]AwsInstanceRef, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
 	if instances, found := m.asgToInstances[ref]; found {
@@ -143,6 +161,8 @@ func (m *asgCache) InstancesByAsg(ref AwsRef) ([]AwsInstanceRef, error) {
 	return nil, fmt.Errorf("Error while looking for instances of ASG: %s", ref)
 }
 func (m *asgCache) SetAsgSize(asg *asg, size int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.mutex.Lock()
@@ -157,6 +177,8 @@ func (m *asgCache) SetAsgSize(asg *asg, size int) error {
 	return nil
 }
 func (m *asgCache) DeleteInstances(instances []*AwsInstanceRef) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.mutex.Lock()
@@ -192,6 +214,8 @@ func (m *asgCache) DeleteInstances(instances []*AwsInstanceRef) error {
 func (m *asgCache) fetchAutoAsgNames() ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	groupNames := make([]string, 0)
 	for _, spec := range m.asgAutoDiscoverySpecs {
 		names, err := m.service.getAutoscalingGroupNamesByTags(spec.Tags)
@@ -203,6 +227,8 @@ func (m *asgCache) fetchAutoAsgNames() ([]string, error) {
 	return groupNames, nil
 }
 func (m *asgCache) buildAsgNames() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	refreshNames := make([]string, len(m.explicitlyConfigured))
@@ -225,6 +251,8 @@ func (m *asgCache) buildAsgNames() ([]string, error) {
 	return refreshNames, nil
 }
 func (m *asgCache) regenerate() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.mutex.Lock()
@@ -267,6 +295,8 @@ func (m *asgCache) regenerate() error {
 func (m *asgCache) buildAsgFromAWS(g *autoscaling.Group) (*asg, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	spec := dynamic.NodeGroupSpec{Name: aws.StringValue(g.AutoScalingGroupName), MinSize: int(aws.Int64Value(g.MinSize)), MaxSize: int(aws.Int64Value(g.MaxSize)), SupportScaleToZero: scaleToZeroSupported}
 	if verr := spec.Validate(); verr != nil {
 		return nil, fmt.Errorf("failed to create node group spec: %v", verr)
@@ -278,6 +308,8 @@ func (m *asgCache) buildAsgFromAWS(g *autoscaling.Group) (*asg, error) {
 func (m *asgCache) buildLaunchTemplateParams(g *autoscaling.Group) (string, string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if g.LaunchTemplate != nil {
 		return aws.StringValue(g.LaunchTemplate.LaunchTemplateName), aws.StringValue(g.LaunchTemplate.Version)
 	}
@@ -286,10 +318,14 @@ func (m *asgCache) buildLaunchTemplateParams(g *autoscaling.Group) (string, stri
 func (m *asgCache) buildInstanceRefFromAWS(instance *autoscaling.Instance) AwsInstanceRef {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	providerID := fmt.Sprintf("aws:///%s/%s", aws.StringValue(instance.AvailabilityZone), aws.StringValue(instance.InstanceId))
 	return AwsInstanceRef{ProviderID: providerID, Name: aws.StringValue(instance.InstanceId)}
 }
 func (m *asgCache) Cleanup() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	close(m.interrupt)

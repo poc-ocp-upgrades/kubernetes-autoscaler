@@ -8,12 +8,16 @@ import (
 func NewSequentialProcessor(processors []RecommendationProcessor) RecommendationProcessor {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &sequentialRecommendationProcessor{processors: processors}
 }
 
 type sequentialRecommendationProcessor struct{ processors []RecommendationProcessor }
 
 func (p *sequentialRecommendationProcessor) Apply(podRecommendation *vpa_types.RecommendedPodResources, policy *vpa_types.PodResourcePolicy, conditions []vpa_types.VerticalPodAutoscalerCondition, pod *v1.Pod) (*vpa_types.RecommendedPodResources, ContainerToAnnotationsMap, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	recommendation := podRecommendation

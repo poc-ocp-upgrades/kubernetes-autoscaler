@@ -13,6 +13,8 @@ import (
 func TestIsGkeNodeInfoSimilar(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n1 := BuildTestNode("node1", 1000, 2000)
 	n1.ObjectMeta.Labels["test-label"] = "test-value"
 	n1.ObjectMeta.Labels["character"] = "winnie the pooh"
@@ -38,10 +40,14 @@ func TestIsGkeNodeInfoSimilar(t *testing.T) {
 func TestFindSimilarNodeGroupsGkeBasic(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	processor := &BalancingNodeGroupSetProcessor{Comparator: IsGkeNodeInfoSimilar}
 	basicSimilarNodeGroupsTest(t, processor)
 }
 func TestFindSimilarNodeGroupsGkeByLabel(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	processor := &BalancingNodeGroupSetProcessor{Comparator: IsGkeNodeInfoSimilar}

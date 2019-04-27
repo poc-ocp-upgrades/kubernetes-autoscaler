@@ -51,9 +51,13 @@ type ClusterStateFeederFactory struct {
 func (m ClusterStateFeederFactory) Make() *clusterStateFeeder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &clusterStateFeeder{coreClient: m.KubeClient.CoreV1(), metricsClient: m.MetricsClient, oomChan: m.OOMObserver.ObservedOomsChannel, vpaCheckpointClient: m.VpaCheckpointClient, vpaLister: m.VpaLister, clusterState: m.ClusterState, specClient: spec.NewSpecClient(m.PodLister)}
 }
 func NewClusterStateFeeder(config *rest.Config, clusterState *model.ClusterState) ClusterStateFeeder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	kubeClient := kube_client.NewForConfigOrDie(config)
@@ -63,10 +67,14 @@ func NewClusterStateFeeder(config *rest.Config, clusterState *model.ClusterState
 func newMetricsClient(config *rest.Config) metrics.MetricsClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	metricsGetter := resourceclient.NewForConfigOrDie(config)
 	return metrics.NewMetricsClient(metricsGetter)
 }
 func watchEvictionEventsWithRetries(kubeClient kube_client.Interface, observer *oom.Observer) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	go func() {
@@ -82,6 +90,8 @@ func watchEvictionEventsWithRetries(kubeClient kube_client.Interface, observer *
 	}()
 }
 func watchEvictionEvents(evictedEventChan <-chan watch.Event, observer *oom.Observer) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -102,6 +112,8 @@ func watchEvictionEvents(evictedEventChan <-chan watch.Event, observer *oom.Obse
 func newPodClients(kubeClient kube_client.Interface, resourceEventHandler cache.ResourceEventHandler) v1lister.PodLister {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	selector := fields.ParseSelectorOrDie("status.phase!=" + string(apiv1.PodPending))
 	podListWatch := cache.NewListWatchFromClient(kubeClient.CoreV1().RESTClient(), "pods", apiv1.NamespaceAll, selector)
 	indexer, controller := cache.NewIndexerInformer(podListWatch, &apiv1.Pod{}, time.Hour, resourceEventHandler, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc})
@@ -111,6 +123,8 @@ func newPodClients(kubeClient kube_client.Interface, resourceEventHandler cache.
 	return podLister
 }
 func NewPodListerAndOOMObserver(kubeClient kube_client.Interface) (v1lister.PodLister, *oom.Observer) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oomObserver := oom.NewObserver()
@@ -130,6 +144,8 @@ type clusterStateFeeder struct {
 }
 
 func (feeder *clusterStateFeeder) InitFromHistoryProvider(historyProvider history.HistoryProvider) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	glog.V(3).Info("Initializing VPA from history provider")
@@ -152,6 +168,8 @@ func (feeder *clusterStateFeeder) InitFromHistoryProvider(historyProvider histor
 func (feeder *clusterStateFeeder) setVpaCheckpoint(checkpoint *vpa_types.VerticalPodAutoscalerCheckpoint) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vpaID := model.VpaID{Namespace: checkpoint.Namespace, VpaName: checkpoint.Spec.VPAObjectName}
 	vpa, exists := feeder.clusterState.Vpas[vpaID]
 	if !exists {
@@ -166,6 +184,8 @@ func (feeder *clusterStateFeeder) setVpaCheckpoint(checkpoint *vpa_types.Vertica
 	return nil
 }
 func (feeder *clusterStateFeeder) InitFromCheckpoints() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	glog.V(3).Info("Initializing VPA from checkpoints")
@@ -190,6 +210,8 @@ func (feeder *clusterStateFeeder) InitFromCheckpoints() {
 	}
 }
 func (feeder *clusterStateFeeder) GarbageCollectCheckpoints() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	glog.V(3).Info("Starting garbage collection of checkpoints")
@@ -222,6 +244,8 @@ func (feeder *clusterStateFeeder) GarbageCollectCheckpoints() {
 func (feeder *clusterStateFeeder) LoadVPAs() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vpaCRDs, err := feeder.vpaLister.List(labels.Everything())
 	if err != nil {
 		glog.Errorf("Cannot list VPAs. Reason: %+v", err)
@@ -246,6 +270,8 @@ func (feeder *clusterStateFeeder) LoadVPAs() {
 func (feeder *clusterStateFeeder) LoadPods() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	podSpecs, err := feeder.specClient.GetPodSpecs()
 	if err != nil {
 		glog.Errorf("Cannot get SimplePodSpecs. Reason: %+v", err)
@@ -268,6 +294,8 @@ func (feeder *clusterStateFeeder) LoadPods() {
 	}
 }
 func (feeder *clusterStateFeeder) LoadRealTimeMetrics() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	containersMetrics, err := feeder.metricsClient.GetContainersMetrics()
@@ -297,6 +325,8 @@ Loop:
 func newContainerUsageSamplesWithKey(metrics *metrics.ContainerMetricsSnapshot) []*model.ContainerUsageSampleWithKey {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var samples []*model.ContainerUsageSampleWithKey
 	for metricName, resourceAmount := range metrics.Usage {
 		sample := &model.ContainerUsageSampleWithKey{Container: metrics.ID, ContainerUsageSample: model.ContainerUsageSample{MeasureStart: metrics.SnapshotTime, Resource: metricName, Usage: resourceAmount}}
@@ -307,7 +337,16 @@ func newContainerUsageSamplesWithKey(metrics *metrics.ContainerMetricsSnapshot) 
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

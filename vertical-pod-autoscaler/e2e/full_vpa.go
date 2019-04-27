@@ -65,6 +65,8 @@ var _ = FullVpaE2eDescribe("Pods under VPA", func() {
 func waitForPodsMatch(f *framework.Framework, listOptions metav1.ListOptions, matcher func(pod apiv1.Pod) bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return wait.PollImmediate(pollInterval, pollTimeout, func() (bool, error) {
 		ns := f.Namespace.Name
 		c := f.ClientSet
@@ -86,6 +88,8 @@ func waitForPodsMatch(f *framework.Framework, listOptions metav1.ListOptions, ma
 func deletePods(f *framework.Framework, listOptions metav1.ListOptions) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ns := f.Namespace.Name
 	c := f.ClientSet
 	podList, err := c.CoreV1().Pods(ns).List(listOptions)
@@ -101,6 +105,8 @@ func deletePods(f *framework.Framework, listOptions metav1.ListOptions) error {
 	return nil
 }
 func waitForResourceRequestAboveThresholdInPods(f *framework.Framework, listOptions metav1.ListOptions, resourceName apiv1.ResourceName, threshold resource.Quantity) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := waitForPodsMatch(f, listOptions, func(pod apiv1.Pod) bool {

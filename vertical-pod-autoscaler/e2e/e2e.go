@@ -100,6 +100,8 @@ var _ = ginkgo.SynchronizedAfterSuite(func() {
 func gatherTestSuiteMetrics() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	framework.Logf("Gathering metrics")
 	c, err := framework.LoadClientset()
 	if err != nil {
@@ -126,6 +128,8 @@ func gatherTestSuiteMetrics() error {
 	return nil
 }
 func RunE2ETests(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	runtimeutils.ReallyCrash = true

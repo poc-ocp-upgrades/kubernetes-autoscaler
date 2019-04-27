@@ -17,6 +17,8 @@ type ResponderFunc func(*http.Response) error
 func (rf ResponderFunc) Respond(r *http.Response) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rf(r)
 }
 
@@ -25,11 +27,15 @@ type RespondDecorator func(Responder) Responder
 func CreateResponder(decorators ...RespondDecorator) Responder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return DecorateResponder(Responder(ResponderFunc(func(r *http.Response) error {
 		return nil
 	})), decorators...)
 }
 func DecorateResponder(r Responder, decorators ...RespondDecorator) Responder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, decorate := range decorators {
@@ -40,12 +46,16 @@ func DecorateResponder(r Responder, decorators ...RespondDecorator) Responder {
 func Respond(r *http.Response, decorators ...RespondDecorator) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if r == nil {
 		return nil
 	}
 	return CreateResponder(decorators...).Respond(r)
 }
 func ByIgnoring() RespondDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(r Responder) Responder {
@@ -55,6 +65,8 @@ func ByIgnoring() RespondDecorator {
 	}
 }
 func ByCopying(b *bytes.Buffer) RespondDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(r Responder) Responder {
@@ -68,6 +80,8 @@ func ByCopying(b *bytes.Buffer) RespondDecorator {
 	}
 }
 func ByDiscardingBody() RespondDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(r Responder) Responder {
@@ -85,6 +99,8 @@ func ByDiscardingBody() RespondDecorator {
 func ByClosing() RespondDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(r Responder) Responder {
 		return ResponderFunc(func(resp *http.Response) error {
 			err := r.Respond(resp)
@@ -100,6 +116,8 @@ func ByClosing() RespondDecorator {
 func ByClosingIfError() RespondDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(r Responder) Responder {
 		return ResponderFunc(func(resp *http.Response) error {
 			err := r.Respond(resp)
@@ -113,6 +131,8 @@ func ByClosingIfError() RespondDecorator {
 	}
 }
 func ByUnmarshallingJSON(v interface{}) RespondDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(r Responder) Responder {
@@ -137,6 +157,8 @@ func ByUnmarshallingJSON(v interface{}) RespondDecorator {
 func ByUnmarshallingXML(v interface{}) RespondDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(r Responder) Responder {
 		return ResponderFunc(func(resp *http.Response) error {
 			err := r.Respond(resp)
@@ -156,6 +178,8 @@ func ByUnmarshallingXML(v interface{}) RespondDecorator {
 	}
 }
 func WithErrorUnlessStatusCode(codes ...int) RespondDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(r Responder) Responder {
@@ -178,9 +202,13 @@ func WithErrorUnlessStatusCode(codes ...int) RespondDecorator {
 func WithErrorUnlessOK() RespondDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithErrorUnlessStatusCode(http.StatusOK)
 }
 func ExtractHeader(header string, resp *http.Response) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if resp != nil && resp.Header != nil {
@@ -189,6 +217,8 @@ func ExtractHeader(header string, resp *http.Response) []string {
 	return nil
 }
 func ExtractHeaderValue(header string, resp *http.Response) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := ExtractHeader(header, resp)

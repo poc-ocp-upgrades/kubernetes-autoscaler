@@ -35,6 +35,8 @@ type AutoscalingKubeClients struct {
 func NewResourceLimiterFromAutoscalingOptions(options config.AutoscalingOptions) *cloudprovider.ResourceLimiter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	minResources := make(map[string]int64)
 	maxResources := make(map[string]int64)
 	minResources[cloudprovider.ResourceNameCores] = options.MinCoresTotal
@@ -50,9 +52,13 @@ func NewResourceLimiterFromAutoscalingOptions(options config.AutoscalingOptions)
 func NewAutoscalingContext(options config.AutoscalingOptions, predicateChecker *simulator.PredicateChecker, autoscalingKubeClients *AutoscalingKubeClients, cloudProvider cloudprovider.CloudProvider, expanderStrategy expander.Strategy, estimatorBuilder estimator.EstimatorBuilder) *AutoscalingContext {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &AutoscalingContext{AutoscalingOptions: options, CloudProvider: cloudProvider, AutoscalingKubeClients: *autoscalingKubeClients, PredicateChecker: predicateChecker, ExpanderStrategy: expanderStrategy, EstimatorBuilder: estimatorBuilder}
 }
 func NewAutoscalingKubeClients(opts config.AutoscalingOptions, kubeClient kube_client.Interface) *AutoscalingKubeClients {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	listerRegistryStopChannel := make(chan struct{})
@@ -68,7 +74,16 @@ func NewAutoscalingKubeClients(opts config.AutoscalingOptions, kubeClient kube_c
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

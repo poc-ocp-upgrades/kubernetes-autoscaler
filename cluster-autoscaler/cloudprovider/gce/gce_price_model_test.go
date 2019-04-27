@@ -14,6 +14,8 @@ import (
 func TestGetNodePrice(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	labels1, _ := BuildGenericLabels(GceRef{Name: "kubernetes-minion-group", Project: "mwielgus-proj", Zone: "us-central1-b"}, "n1-standard-8", "sillyname")
 	labels2, _ := BuildGenericLabels(GceRef{Name: "kubernetes-minion-group", Project: "mwielgus-proj", Zone: "us-central1-b"}, "n1-standard-8", "sillyname")
 	labels2[preemptibleLabel] = "true"
@@ -50,6 +52,8 @@ func TestGetNodePrice(t *testing.T) {
 	assert.True(t, math.Abs(price3-8*price6) < 0.1)
 }
 func TestGetPodPrice(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod1 := BuildTestPod("a1", 100, 500*units.MiB)

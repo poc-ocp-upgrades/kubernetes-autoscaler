@@ -17,9 +17,13 @@ type verticalPodAutoscalerLister struct{ indexer cache.Indexer }
 func NewVerticalPodAutoscalerLister(indexer cache.Indexer) VerticalPodAutoscalerLister {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &verticalPodAutoscalerLister{indexer: indexer}
 }
 func (s *verticalPodAutoscalerLister) List(selector labels.Selector) (ret []*v1beta1.VerticalPodAutoscaler, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = cache.ListAll(s.indexer, selector, func(m interface{}) {
@@ -28,6 +32,8 @@ func (s *verticalPodAutoscalerLister) List(selector labels.Selector) (ret []*v1b
 	return ret, err
 }
 func (s *verticalPodAutoscalerLister) VerticalPodAutoscalers(namespace string) VerticalPodAutoscalerNamespaceLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return verticalPodAutoscalerNamespaceLister{indexer: s.indexer, namespace: namespace}
@@ -46,12 +52,16 @@ type verticalPodAutoscalerNamespaceLister struct {
 func (s verticalPodAutoscalerNamespaceLister) List(selector labels.Selector) (ret []*v1beta1.VerticalPodAutoscaler, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = cache.ListAllByNamespace(s.indexer, s.namespace, selector, func(m interface{}) {
 		ret = append(ret, m.(*v1beta1.VerticalPodAutoscaler))
 	})
 	return ret, err
 }
 func (s verticalPodAutoscalerNamespaceLister) Get(name string) (*v1beta1.VerticalPodAutoscaler, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj, exists, err := s.indexer.GetByKey(s.namespace + "/" + name)

@@ -18,6 +18,8 @@ type ScaleUpInfo struct {
 func (s ScaleUpInfo) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("{%v %v->%v (max: %v)}", s.Group.Id(), s.CurrentSize, s.NewSize, s.MaxSize)
 }
 
@@ -31,9 +33,13 @@ type NoOpNodeGroupSetProcessor struct{}
 func (n *NoOpNodeGroupSetProcessor) FindSimilarNodeGroups(context *context.AutoscalingContext, nodeGroup cloudprovider.NodeGroup, nodeInfosForGroups map[string]*schedulercache.NodeInfo) ([]cloudprovider.NodeGroup, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []cloudprovider.NodeGroup{}, nil
 }
 func (n *NoOpNodeGroupSetProcessor) BalanceScaleUpBetweenGroups(context *context.AutoscalingContext, groups []cloudprovider.NodeGroup, newNodes int) ([]ScaleUpInfo, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return []ScaleUpInfo{}, nil
@@ -41,8 +47,12 @@ func (n *NoOpNodeGroupSetProcessor) BalanceScaleUpBetweenGroups(context *context
 func (n *NoOpNodeGroupSetProcessor) CleanUp() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func NewDefaultNodeGroupSetProcessor() NodeGroupSetProcessor {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &BalancingNodeGroupSetProcessor{}

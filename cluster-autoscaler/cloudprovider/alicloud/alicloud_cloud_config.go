@@ -22,6 +22,8 @@ type cloudConfig struct {
 func (cc *cloudConfig) isValid() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if cc.AccessKeyID == "" {
 		cc.AccessKeyID = os.Getenv(accessKeyId)
 	}
@@ -47,6 +49,8 @@ func (cc *cloudConfig) isValid() bool {
 func (cc *cloudConfig) validateSTSToken() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := metadata.NewMetaData(nil)
 	r, err := m.RoleName()
 	if err != nil || r == "" {
@@ -56,6 +60,8 @@ func (cc *cloudConfig) validateSTSToken() bool {
 	return true
 }
 func (cc *cloudConfig) getSTSToken() (metadata.RoleAuth, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := metadata.NewMetaData(nil)
@@ -70,6 +76,8 @@ func (cc *cloudConfig) getSTSToken() (metadata.RoleAuth, error) {
 	return auth, nil
 }
 func (cc *cloudConfig) getRegion() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cc.RegionId != "" {

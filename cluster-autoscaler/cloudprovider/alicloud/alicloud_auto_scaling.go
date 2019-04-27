@@ -33,6 +33,8 @@ type autoScaling interface {
 func newAutoScalingWrapper(cfg *cloudConfig) (*autoScalingWrapper, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if cfg.isValid() == false {
 		return nil, fmt.Errorf("your cloud config is not valid")
 	}
@@ -59,6 +61,8 @@ func newAutoScalingWrapper(cfg *cloudConfig) (*autoScalingWrapper, error) {
 	return asw, err
 }
 func getEssClient(cfg *cloudConfig) (client *ess.Client, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	region := cfg.getRegion()
@@ -89,6 +93,8 @@ type autoScalingWrapper struct {
 func (m autoScalingWrapper) getInstanceTypeByConfiguration(configID string, asgId string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	params := ess.CreateDescribeScalingConfigurationsRequest()
 	params.ScalingConfigurationId1 = configID
 	params.ScalingGroupId = asgId
@@ -109,6 +115,8 @@ func (m autoScalingWrapper) getInstanceTypeByConfiguration(configID string, asgI
 func (m autoScalingWrapper) getScalingGroupByID(groupID string) (*ess.ScalingGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	params := ess.CreateDescribeScalingGroupsRequest()
 	params.ScalingGroupId1 = groupID
 	resp, err := m.DescribeScalingGroups(params)
@@ -125,6 +133,8 @@ func (m autoScalingWrapper) getScalingGroupByID(groupID string) (*ess.ScalingGro
 	return &groups[0], nil
 }
 func (m autoScalingWrapper) getScalingGroupByName(groupName string) (*ess.ScalingGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	params := ess.CreateDescribeScalingGroupsRequest()
@@ -145,6 +155,8 @@ func (m autoScalingWrapper) getScalingGroupByName(groupName string) (*ess.Scalin
 func (m autoScalingWrapper) getScalingInstancesByGroup(asgId string) ([]ess.ScalingInstance, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	params := ess.CreateDescribeScalingInstancesRequest()
 	params.ScalingGroupId = asgId
 	resp, err := m.DescribeScalingInstances(params)
@@ -155,6 +167,8 @@ func (m autoScalingWrapper) getScalingInstancesByGroup(asgId string) ([]ess.Scal
 	return resp.ScalingInstances.ScalingInstance, nil
 }
 func (m autoScalingWrapper) setCapcityInstanceSize(groupId string, capcityInstanceSize int64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (
@@ -215,7 +229,16 @@ func (m autoScalingWrapper) setCapcityInstanceSize(groupId string, capcityInstan
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -8,6 +8,8 @@ import (
 func TestBuildAsg(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	asgCache := &asgCache{}
 	asg, err := asgCache.buildAsgFromSpec("1:5:test-asg")
 	assert.NoError(t, err)
@@ -24,6 +26,8 @@ func TestBuildAsg(t *testing.T) {
 	assert.Error(t, err)
 }
 func validateAsg(t *testing.T, asg *asg, name string, minSize int, maxSize int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	assert.Equal(t, name, asg.Name)

@@ -15,12 +15,16 @@ var (
 func TestPercentilesEmptyDecayingHistogram(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h := NewDecayingHistogram(testHistogramOptions, time.Hour)
 	for p := -0.5; p <= 1.5; p += 0.5 {
 		assert.Equal(t, 0.0, h.Percentile(p))
 	}
 }
 func TestSimpleDecay(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := NewDecayingHistogram(testHistogramOptions, time.Hour)
@@ -32,12 +36,16 @@ func TestSimpleDecay(t *testing.T) {
 func TestLongtermDecay(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h := NewDecayingHistogram(testHistogramOptions, time.Hour)
 	h.AddSample(2, 1, startTime)
 	h.AddSample(1, 1, startTime.Add(time.Hour*101))
 	assert.InEpsilon(t, 2, h.Percentile(1.0), valueEpsilon)
 }
 func TestDecayingHistogramPercentiles(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := NewDecayingHistogram(testHistogramOptions, time.Hour)
@@ -56,6 +64,8 @@ func TestDecayingHistogramPercentiles(t *testing.T) {
 	assert.InEpsilon(t, 5, h.Percentile(1.00), valueEpsilon)
 }
 func TestNoDecay(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := NewDecayingHistogram(testHistogramOptions, time.Hour)
@@ -77,6 +87,8 @@ func TestNoDecay(t *testing.T) {
 func TestDecayingHistogramMerge(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h1 := NewDecayingHistogram(testHistogramOptions, time.Hour)
 	h1.AddSample(1, 1, startTime)
 	h1.AddSample(2, 1, startTime.Add(time.Hour))
@@ -94,6 +106,8 @@ func TestDecayingHistogramMerge(t *testing.T) {
 func TestDecayingHistogramSaveToCheckpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d := &decayingHistogram{histogram: *NewHistogram(testHistogramOptions).(*histogram), halfLife: time.Hour, referenceTimestamp: time.Time{}}
 	d.AddSample(2, 1, startTime.Add(time.Hour*100))
 	assert.NotEqual(t, d.referenceTimestamp, time.Time{})
@@ -104,6 +118,8 @@ func TestDecayingHistogramSaveToCheckpoint(t *testing.T) {
 	assert.NotZero(t, checkpoint.TotalWeight)
 }
 func TestDecayingHistogramLoadFromCheckpoint(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	location, _ := time.LoadLocation("UTC")

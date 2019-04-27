@@ -14,6 +14,8 @@ type ContainerResources struct{ Requests v1.ResourceList }
 func newContainerResources() ContainerResources {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ContainerResources{Requests: v1.ResourceList{}}
 }
 
@@ -28,9 +30,13 @@ type recommendationProvider struct {
 func NewRecommendationProvider(vpaLister vpa_lister.VerticalPodAutoscalerLister, recommendationProcessor vpa_api_util.RecommendationProcessor) *recommendationProvider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &recommendationProvider{vpaLister: vpaLister, recommendationProcessor: recommendationProcessor}
 }
 func getContainersResources(pod *v1.Pod, podRecommendation vpa_types.RecommendedPodResources) []ContainerResources {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resources := make([]ContainerResources, len(pod.Spec.Containers))
@@ -46,6 +52,8 @@ func getContainersResources(pod *v1.Pod, podRecommendation vpa_types.Recommended
 	return resources
 }
 func (p *recommendationProvider) getMatchingVPA(pod *v1.Pod) *vpa_types.VerticalPodAutoscaler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	configs, err := p.vpaLister.VerticalPodAutoscalers(pod.Namespace).List(labels.Everything())
@@ -64,6 +72,8 @@ func (p *recommendationProvider) getMatchingVPA(pod *v1.Pod) *vpa_types.Vertical
 	return vpa_api_util.GetControllingVPAForPod(pod, onConfigs)
 }
 func (p *recommendationProvider) GetContainersResourcesForPod(pod *v1.Pod) ([]ContainerResources, vpa_api_util.ContainerToAnnotationsMap, string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	glog.V(2).Infof("updating requirements for pod %s.", pod.Name)

@@ -27,10 +27,14 @@ type awsCloudProvider struct {
 func BuildAwsCloudProvider(awsManager *AwsManager, resourceLimiter *cloudprovider.ResourceLimiter) (cloudprovider.CloudProvider, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	aws := &awsCloudProvider{awsManager: awsManager, resourceLimiter: resourceLimiter}
 	return aws, nil
 }
 func (aws *awsCloudProvider) Cleanup() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	aws.awsManager.Cleanup()
@@ -39,9 +43,13 @@ func (aws *awsCloudProvider) Cleanup() error {
 func (aws *awsCloudProvider) Name() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ProviderName
 }
 func (aws *awsCloudProvider) NodeGroups() []cloudprovider.NodeGroup {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	asgs := aws.awsManager.getAsgs()
@@ -52,6 +60,8 @@ func (aws *awsCloudProvider) NodeGroups() []cloudprovider.NodeGroup {
 	return ngs
 }
 func (aws *awsCloudProvider) NodeGroupForNode(node *apiv1.Node) (cloudprovider.NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(node.Spec.ProviderID) == 0 {
@@ -71,9 +81,13 @@ func (aws *awsCloudProvider) NodeGroupForNode(node *apiv1.Node) (cloudprovider.N
 func (aws *awsCloudProvider) Pricing() (cloudprovider.PricingModel, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (aws *awsCloudProvider) GetAvailableMachineTypes() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return []string{}, nil
@@ -81,9 +95,13 @@ func (aws *awsCloudProvider) GetAvailableMachineTypes() ([]string, error) {
 func (aws *awsCloudProvider) NewNodeGroup(machineType string, labels map[string]string, systemLabels map[string]string, taints []apiv1.Taint, extraResources map[string]resource.Quantity) (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (aws *awsCloudProvider) GetResourceLimiter() (*cloudprovider.ResourceLimiter, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return aws.resourceLimiter, nil
@@ -91,9 +109,13 @@ func (aws *awsCloudProvider) GetResourceLimiter() (*cloudprovider.ResourceLimite
 func (aws *awsCloudProvider) Refresh() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return aws.awsManager.Refresh()
 }
 func (aws *awsCloudProvider) GetInstanceID(node *apiv1.Node) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return node.Spec.ProviderID
@@ -108,6 +130,8 @@ type AwsInstanceRef struct {
 var validAwsRefIdRegex = regexp.MustCompile(`^aws\:\/\/\/[-0-9a-z]*\/[-0-9a-z]*$`)
 
 func AwsRefFromProviderId(id string) (*AwsInstanceRef, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if validAwsRefIdRegex.FindStringSubmatch(id) == nil {
@@ -125,9 +149,13 @@ type AwsNodeGroup struct {
 func (ng *AwsNodeGroup) MaxSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ng.asg.maxSize
 }
 func (ng *AwsNodeGroup) MinSize() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ng.asg.minSize
@@ -135,9 +163,13 @@ func (ng *AwsNodeGroup) MinSize() int {
 func (ng *AwsNodeGroup) TargetSize() (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ng.asg.curSize, nil
 }
 func (ng *AwsNodeGroup) Exist() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return true
@@ -145,9 +177,13 @@ func (ng *AwsNodeGroup) Exist() bool {
 func (ng *AwsNodeGroup) Create() (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrAlreadyExist
 }
 func (ng *AwsNodeGroup) Autoprovisioned() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return false
@@ -155,9 +191,13 @@ func (ng *AwsNodeGroup) Autoprovisioned() bool {
 func (ng *AwsNodeGroup) Delete() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cloudprovider.ErrNotImplemented
 }
 func (ng *AwsNodeGroup) IncreaseSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if delta <= 0 {
@@ -170,6 +210,8 @@ func (ng *AwsNodeGroup) IncreaseSize(delta int) error {
 	return ng.awsManager.SetAsgSize(ng.asg, size+delta)
 }
 func (ng *AwsNodeGroup) DecreaseTargetSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if delta >= 0 {
@@ -188,6 +230,8 @@ func (ng *AwsNodeGroup) DecreaseTargetSize(delta int) error {
 func (ng *AwsNodeGroup) Belongs(node *apiv1.Node) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ref, err := AwsRefFromProviderId(node.Spec.ProviderID)
 	if err != nil {
 		return false, err
@@ -202,6 +246,8 @@ func (ng *AwsNodeGroup) Belongs(node *apiv1.Node) (bool, error) {
 	return true, nil
 }
 func (ng *AwsNodeGroup) DeleteNodes(nodes []*apiv1.Node) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := ng.asg.curSize
@@ -228,14 +274,20 @@ func (ng *AwsNodeGroup) DeleteNodes(nodes []*apiv1.Node) error {
 func (ng *AwsNodeGroup) Id() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ng.asg.Name
 }
 func (ng *AwsNodeGroup) Debug() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s (%d:%d)", ng.Id(), ng.MinSize(), ng.MaxSize())
 }
 func (ng *AwsNodeGroup) Nodes() ([]cloudprovider.Instance, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	asgNodes, err := ng.awsManager.GetAsgNodes(ng.asg.AwsRef)
@@ -251,6 +303,8 @@ func (ng *AwsNodeGroup) Nodes() ([]cloudprovider.Instance, error) {
 func (ng *AwsNodeGroup) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	template, err := ng.awsManager.getAsgTemplate(ng.asg)
 	if err != nil {
 		return nil, err
@@ -264,6 +318,8 @@ func (ng *AwsNodeGroup) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
 	return nodeInfo, nil
 }
 func BuildAWS(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDiscoveryOptions, rl *cloudprovider.ResourceLimiter) cloudprovider.CloudProvider {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var config io.ReadCloser

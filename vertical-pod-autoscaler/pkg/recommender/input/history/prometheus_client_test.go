@@ -23,6 +23,8 @@ type mockHTTPGetter struct{ mock.Mock }
 func (m mockHTTPGetter) Get(url string) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(url)
 	var returnArg http.Response
 	if args.Get(0) != nil {
@@ -36,14 +38,20 @@ type readerPseudoCloser struct{ *strings.Reader }
 func (r readerPseudoCloser) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Errorf("readerPseudoCloser cannot really close anything")
 }
 func newReaderPseudoCloser(s string) readerPseudoCloser {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return readerPseudoCloser{strings.NewReader(s)}
 }
 func TestUrl(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	retryDelay = time.Hour
@@ -58,6 +66,8 @@ func TestUrl(t *testing.T) {
 func TestSuccessfulRetry(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	retryDelay = 100 * time.Millisecond
 	mockGetter := mockHTTPGetter{}
 	client := NewPrometheusClient(&mockGetter, "http://bla.com")
@@ -69,6 +79,8 @@ func TestSuccessfulRetry(t *testing.T) {
 	assert.Empty(t, tss)
 }
 func TestUnsuccessfulRetries(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	retryDelay = 10 * time.Millisecond

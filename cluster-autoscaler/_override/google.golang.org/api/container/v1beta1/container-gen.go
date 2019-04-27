@@ -43,6 +43,8 @@ const (
 func New(client *http.Client) (*Service, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if client == nil {
 		return nil, errors.New("client is nil")
 	}
@@ -61,12 +63,16 @@ type Service struct {
 func (s *Service) userAgent() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.UserAgent == "" {
 		return googleapi.UserAgent
 	}
 	return googleapi.UserAgent + " " + s.UserAgent
 }
 func NewProjectsService(s *Service) *ProjectsService {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rs := &ProjectsService{s: s}
@@ -86,6 +92,8 @@ type ProjectsService struct {
 func NewProjectsAggregatedService(s *Service) *ProjectsAggregatedService {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs := &ProjectsAggregatedService{s: s}
 	rs.UsableSubnetworks = NewProjectsAggregatedUsableSubnetworksService(s)
 	return rs
@@ -99,6 +107,8 @@ type ProjectsAggregatedService struct {
 func NewProjectsAggregatedUsableSubnetworksService(s *Service) *ProjectsAggregatedUsableSubnetworksService {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs := &ProjectsAggregatedUsableSubnetworksService{s: s}
 	return rs
 }
@@ -106,6 +116,8 @@ func NewProjectsAggregatedUsableSubnetworksService(s *Service) *ProjectsAggregat
 type ProjectsAggregatedUsableSubnetworksService struct{ s *Service }
 
 func NewProjectsLocationsService(s *Service) *ProjectsLocationsService {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rs := &ProjectsLocationsService{s: s}
@@ -123,6 +135,8 @@ type ProjectsLocationsService struct {
 func NewProjectsLocationsClustersService(s *Service) *ProjectsLocationsClustersService {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs := &ProjectsLocationsClustersService{s: s}
 	rs.NodePools = NewProjectsLocationsClustersNodePoolsService(s)
 	return rs
@@ -136,6 +150,8 @@ type ProjectsLocationsClustersService struct {
 func NewProjectsLocationsClustersNodePoolsService(s *Service) *ProjectsLocationsClustersNodePoolsService {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs := &ProjectsLocationsClustersNodePoolsService{s: s}
 	return rs
 }
@@ -145,6 +161,8 @@ type ProjectsLocationsClustersNodePoolsService struct{ s *Service }
 func NewProjectsLocationsOperationsService(s *Service) *ProjectsLocationsOperationsService {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs := &ProjectsLocationsOperationsService{s: s}
 	return rs
 }
@@ -152,6 +170,8 @@ func NewProjectsLocationsOperationsService(s *Service) *ProjectsLocationsOperati
 type ProjectsLocationsOperationsService struct{ s *Service }
 
 func NewProjectsZonesService(s *Service) *ProjectsZonesService {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rs := &ProjectsZonesService{s: s}
@@ -169,6 +189,8 @@ type ProjectsZonesService struct {
 func NewProjectsZonesClustersService(s *Service) *ProjectsZonesClustersService {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs := &ProjectsZonesClustersService{s: s}
 	rs.NodePools = NewProjectsZonesClustersNodePoolsService(s)
 	return rs
@@ -182,6 +204,8 @@ type ProjectsZonesClustersService struct {
 func NewProjectsZonesClustersNodePoolsService(s *Service) *ProjectsZonesClustersNodePoolsService {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs := &ProjectsZonesClustersNodePoolsService{s: s}
 	return rs
 }
@@ -189,6 +213,8 @@ func NewProjectsZonesClustersNodePoolsService(s *Service) *ProjectsZonesClusters
 type ProjectsZonesClustersNodePoolsService struct{ s *Service }
 
 func NewProjectsZonesOperationsService(s *Service) *ProjectsZonesOperationsService {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rs := &ProjectsZonesOperationsService{s: s}
@@ -204,6 +230,8 @@ type AcceleratorConfig struct {
 }
 
 func (s *AcceleratorConfig) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod AcceleratorConfig
@@ -223,6 +251,8 @@ type AddonsConfig struct {
 func (s *AddonsConfig) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod AddonsConfig
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -238,6 +268,8 @@ type AutoUpgradeOptions struct {
 func (s *AutoUpgradeOptions) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod AutoUpgradeOptions
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -250,6 +282,8 @@ type BinaryAuthorization struct {
 }
 
 func (s *BinaryAuthorization) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod BinaryAuthorization
@@ -269,6 +303,8 @@ type CancelOperationRequest struct {
 func (s *CancelOperationRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod CancelOperationRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -284,6 +320,8 @@ type CidrBlock struct {
 func (s *CidrBlock) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod CidrBlock
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -296,6 +334,8 @@ type ClientCertificateConfig struct {
 }
 
 func (s *ClientCertificateConfig) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod ClientCertificateConfig
@@ -354,6 +394,8 @@ type Cluster struct {
 func (s *Cluster) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod Cluster
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -367,6 +409,8 @@ type ClusterAutoscaling struct {
 }
 
 func (s *ClusterAutoscaling) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod ClusterAutoscaling
@@ -394,6 +438,8 @@ type ClusterUpdate struct {
 func (s *ClusterUpdate) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod ClusterUpdate
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -411,6 +457,8 @@ type CompleteIPRotationRequest struct {
 func (s *CompleteIPRotationRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod CompleteIPRotationRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -426,6 +474,8 @@ type CreateClusterRequest struct {
 }
 
 func (s *CreateClusterRequest) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod CreateClusterRequest
@@ -446,6 +496,8 @@ type CreateNodePoolRequest struct {
 func (s *CreateNodePoolRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod CreateNodePoolRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -459,6 +511,8 @@ type DailyMaintenanceWindow struct {
 }
 
 func (s *DailyMaintenanceWindow) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod DailyMaintenanceWindow
@@ -478,6 +532,8 @@ type HorizontalPodAutoscaling struct {
 func (s *HorizontalPodAutoscaling) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod HorizontalPodAutoscaling
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -490,6 +546,8 @@ type HttpLoadBalancing struct {
 }
 
 func (s *HttpLoadBalancing) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod HttpLoadBalancing
@@ -517,6 +575,8 @@ type IPAllocationPolicy struct {
 func (s *IPAllocationPolicy) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod IPAllocationPolicy
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -531,6 +591,8 @@ type KubernetesDashboard struct {
 func (s *KubernetesDashboard) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod KubernetesDashboard
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -543,6 +605,8 @@ type LegacyAbac struct {
 }
 
 func (s *LegacyAbac) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod LegacyAbac
@@ -561,6 +625,8 @@ type ListClustersResponse struct {
 func (s *ListClustersResponse) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod ListClustersResponse
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -577,6 +643,8 @@ type ListLocationsResponse struct {
 func (s *ListLocationsResponse) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod ListLocationsResponse
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -590,6 +658,8 @@ type ListNodePoolsResponse struct {
 }
 
 func (s *ListNodePoolsResponse) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod ListNodePoolsResponse
@@ -608,6 +678,8 @@ type ListOperationsResponse struct {
 func (s *ListOperationsResponse) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod ListOperationsResponse
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -622,6 +694,8 @@ type ListUsableSubnetworksResponse struct {
 }
 
 func (s *ListUsableSubnetworksResponse) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod ListUsableSubnetworksResponse
@@ -640,6 +714,8 @@ type Location struct {
 func (s *Location) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod Location
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -654,6 +730,8 @@ type MaintenancePolicy struct {
 func (s *MaintenancePolicy) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod MaintenancePolicy
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -666,6 +744,8 @@ type MaintenanceWindow struct {
 }
 
 func (s *MaintenanceWindow) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod MaintenanceWindow
@@ -687,6 +767,8 @@ type MasterAuth struct {
 func (s *MasterAuth) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod MasterAuth
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -700,6 +782,8 @@ type MasterAuthorizedNetworksConfig struct {
 }
 
 func (s *MasterAuthorizedNetworksConfig) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod MasterAuthorizedNetworksConfig
@@ -719,11 +803,15 @@ type Metric struct {
 func (s *Metric) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod Metric
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 func (s *Metric) UnmarshalJSON(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod Metric
@@ -749,6 +837,8 @@ type NetworkConfig struct {
 func (s *NetworkConfig) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod NetworkConfig
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -764,6 +854,8 @@ type NetworkPolicy struct {
 func (s *NetworkPolicy) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod NetworkPolicy
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -776,6 +868,8 @@ type NetworkPolicyConfig struct {
 }
 
 func (s *NetworkPolicyConfig) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod NetworkPolicyConfig
@@ -806,6 +900,8 @@ type NodeConfig struct {
 func (s *NodeConfig) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod NodeConfig
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -820,6 +916,8 @@ type NodeManagement struct {
 }
 
 func (s *NodeManagement) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod NodeManagement
@@ -846,6 +944,8 @@ type NodePool struct {
 func (s *NodePool) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod NodePool
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -863,6 +963,8 @@ type NodePoolAutoscaling struct {
 func (s *NodePoolAutoscaling) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod NodePoolAutoscaling
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -877,6 +979,8 @@ type NodeTaint struct {
 }
 
 func (s *NodeTaint) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod NodeTaint
@@ -905,6 +1009,8 @@ type Operation struct {
 func (s *Operation) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod Operation
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -922,6 +1028,8 @@ type OperationProgress struct {
 func (s *OperationProgress) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod OperationProgress
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -934,6 +1042,8 @@ type PodSecurityPolicyConfig struct {
 }
 
 func (s *PodSecurityPolicyConfig) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod PodSecurityPolicyConfig
@@ -952,6 +1062,8 @@ type ResourceLimit struct {
 func (s *ResourceLimit) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod ResourceLimit
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -968,6 +1080,8 @@ type RollbackNodePoolUpgradeRequest struct {
 }
 
 func (s *RollbackNodePoolUpgradeRequest) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod RollbackNodePoolUpgradeRequest
@@ -989,6 +1103,8 @@ type ServerConfig struct {
 func (s *ServerConfig) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod ServerConfig
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -1005,6 +1121,8 @@ type SetAddonsConfigRequest struct {
 }
 
 func (s *SetAddonsConfigRequest) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod SetAddonsConfigRequest
@@ -1026,6 +1144,8 @@ type SetLabelsRequest struct {
 func (s *SetLabelsRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod SetLabelsRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -1042,6 +1162,8 @@ type SetLegacyAbacRequest struct {
 }
 
 func (s *SetLegacyAbacRequest) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod SetLegacyAbacRequest
@@ -1062,6 +1184,8 @@ type SetLocationsRequest struct {
 func (s *SetLocationsRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod SetLocationsRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -1080,6 +1204,8 @@ type SetLoggingServiceRequest struct {
 func (s *SetLoggingServiceRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod SetLoggingServiceRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -1096,6 +1222,8 @@ type SetMaintenancePolicyRequest struct {
 }
 
 func (s *SetMaintenancePolicyRequest) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod SetMaintenancePolicyRequest
@@ -1117,6 +1245,8 @@ type SetMasterAuthRequest struct {
 func (s *SetMasterAuthRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod SetMasterAuthRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -1135,6 +1265,8 @@ type SetMonitoringServiceRequest struct {
 func (s *SetMonitoringServiceRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod SetMonitoringServiceRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -1151,6 +1283,8 @@ type SetNetworkPolicyRequest struct {
 }
 
 func (s *SetNetworkPolicyRequest) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod SetNetworkPolicyRequest
@@ -1172,6 +1306,8 @@ type SetNodePoolAutoscalingRequest struct {
 func (s *SetNodePoolAutoscalingRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod SetNodePoolAutoscalingRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -1189,6 +1325,8 @@ type SetNodePoolManagementRequest struct {
 }
 
 func (s *SetNodePoolManagementRequest) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod SetNodePoolManagementRequest
@@ -1210,6 +1348,8 @@ type SetNodePoolSizeRequest struct {
 func (s *SetNodePoolSizeRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod SetNodePoolSizeRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -1226,6 +1366,8 @@ type StartIPRotationRequest struct {
 }
 
 func (s *StartIPRotationRequest) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod StartIPRotationRequest
@@ -1246,6 +1388,8 @@ type UpdateClusterRequest struct {
 func (s *UpdateClusterRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod UpdateClusterRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -1262,6 +1406,8 @@ type UpdateMasterRequest struct {
 }
 
 func (s *UpdateMasterRequest) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod UpdateMasterRequest
@@ -1284,6 +1430,8 @@ type UpdateNodePoolRequest struct {
 func (s *UpdateNodePoolRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod UpdateNodePoolRequest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -1300,6 +1448,8 @@ type UsableSubnetwork struct {
 func (s *UsableSubnetwork) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type NoMethod UsableSubnetwork
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
@@ -1312,6 +1462,8 @@ type WorkloadMetadataConfig struct {
 }
 
 func (s *WorkloadMetadataConfig) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type NoMethod WorkloadMetadataConfig
@@ -1331,11 +1483,15 @@ type ProjectsAggregatedUsableSubnetworksListCall struct {
 func (r *ProjectsAggregatedUsableSubnetworksService) List(parent string) *ProjectsAggregatedUsableSubnetworksListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsAggregatedUsableSubnetworksListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
 	return c
 }
 func (c *ProjectsAggregatedUsableSubnetworksListCall) Filter(filter string) *ProjectsAggregatedUsableSubnetworksListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("filter", filter)
@@ -1344,10 +1500,14 @@ func (c *ProjectsAggregatedUsableSubnetworksListCall) Filter(filter string) *Pro
 func (c *ProjectsAggregatedUsableSubnetworksListCall) PageSize(pageSize int64) *ProjectsAggregatedUsableSubnetworksListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("pageSize", fmt.Sprint(pageSize))
 	return c
 }
 func (c *ProjectsAggregatedUsableSubnetworksListCall) PageToken(pageToken string) *ProjectsAggregatedUsableSubnetworksListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("pageToken", pageToken)
@@ -1356,10 +1516,14 @@ func (c *ProjectsAggregatedUsableSubnetworksListCall) PageToken(pageToken string
 func (c *ProjectsAggregatedUsableSubnetworksListCall) Fields(s ...googleapi.Field) *ProjectsAggregatedUsableSubnetworksListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsAggregatedUsableSubnetworksListCall) IfNoneMatch(entityTag string) *ProjectsAggregatedUsableSubnetworksListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
@@ -1368,10 +1532,14 @@ func (c *ProjectsAggregatedUsableSubnetworksListCall) IfNoneMatch(entityTag stri
 func (c *ProjectsAggregatedUsableSubnetworksListCall) Context(ctx context.Context) *ProjectsAggregatedUsableSubnetworksListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ctx_ = ctx
 	return c
 }
 func (c *ProjectsAggregatedUsableSubnetworksListCall) Header() http.Header {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.header_ == nil {
@@ -1380,6 +1548,8 @@ func (c *ProjectsAggregatedUsableSubnetworksListCall) Header() http.Header {
 	return c.header_
 }
 func (c *ProjectsAggregatedUsableSubnetworksListCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -1400,6 +1570,8 @@ func (c *ProjectsAggregatedUsableSubnetworksListCall) doRequest(alt string) (*ht
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsAggregatedUsableSubnetworksListCall) Do(opts ...googleapi.CallOption) (*ListUsableSubnetworksResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -1425,6 +1597,8 @@ func (c *ProjectsAggregatedUsableSubnetworksListCall) Do(opts ...googleapi.CallO
 	return ret, nil
 }
 func (c *ProjectsAggregatedUsableSubnetworksListCall) Pages(ctx context.Context, f func(*ListUsableSubnetworksResponse) error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -1456,11 +1630,15 @@ type ProjectsLocationsGetServerConfigCall struct {
 func (r *ProjectsLocationsService) GetServerConfig(name string) *ProjectsLocationsGetServerConfigCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsGetServerConfigCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	return c
 }
 func (c *ProjectsLocationsGetServerConfigCall) ProjectId(projectId string) *ProjectsLocationsGetServerConfigCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("projectId", projectId)
@@ -1469,10 +1647,14 @@ func (c *ProjectsLocationsGetServerConfigCall) ProjectId(projectId string) *Proj
 func (c *ProjectsLocationsGetServerConfigCall) Zone(zone string) *ProjectsLocationsGetServerConfigCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("zone", zone)
 	return c
 }
 func (c *ProjectsLocationsGetServerConfigCall) Fields(s ...googleapi.Field) *ProjectsLocationsGetServerConfigCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -1481,10 +1663,14 @@ func (c *ProjectsLocationsGetServerConfigCall) Fields(s ...googleapi.Field) *Pro
 func (c *ProjectsLocationsGetServerConfigCall) IfNoneMatch(entityTag string) *ProjectsLocationsGetServerConfigCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsLocationsGetServerConfigCall) Context(ctx context.Context) *ProjectsLocationsGetServerConfigCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -1493,12 +1679,16 @@ func (c *ProjectsLocationsGetServerConfigCall) Context(ctx context.Context) *Pro
 func (c *ProjectsLocationsGetServerConfigCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsGetServerConfigCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -1519,6 +1709,8 @@ func (c *ProjectsLocationsGetServerConfigCall) doRequest(alt string) (*http.Resp
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsGetServerConfigCall) Do(opts ...googleapi.CallOption) (*ServerConfig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -1556,11 +1748,15 @@ type ProjectsLocationsListCall struct {
 func (r *ProjectsLocationsService) List(parent string) *ProjectsLocationsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
 	return c
 }
 func (c *ProjectsLocationsListCall) Fields(s ...googleapi.Field) *ProjectsLocationsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -1569,10 +1765,14 @@ func (c *ProjectsLocationsListCall) Fields(s ...googleapi.Field) *ProjectsLocati
 func (c *ProjectsLocationsListCall) IfNoneMatch(entityTag string) *ProjectsLocationsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsLocationsListCall) Context(ctx context.Context) *ProjectsLocationsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -1581,12 +1781,16 @@ func (c *ProjectsLocationsListCall) Context(ctx context.Context) *ProjectsLocati
 func (c *ProjectsLocationsListCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsListCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -1607,6 +1811,8 @@ func (c *ProjectsLocationsListCall) doRequest(alt string) (*http.Response, error
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsListCall) Do(opts ...googleapi.CallOption) (*ListLocationsResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -1644,6 +1850,8 @@ type ProjectsLocationsClustersCompleteIpRotationCall struct {
 func (r *ProjectsLocationsClustersService) CompleteIpRotation(name string, completeiprotationrequest *CompleteIPRotationRequest) *ProjectsLocationsClustersCompleteIpRotationCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersCompleteIpRotationCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.completeiprotationrequest = completeiprotationrequest
@@ -1652,10 +1860,14 @@ func (r *ProjectsLocationsClustersService) CompleteIpRotation(name string, compl
 func (c *ProjectsLocationsClustersCompleteIpRotationCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersCompleteIpRotationCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersCompleteIpRotationCall) Context(ctx context.Context) *ProjectsLocationsClustersCompleteIpRotationCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -1664,12 +1876,16 @@ func (c *ProjectsLocationsClustersCompleteIpRotationCall) Context(ctx context.Co
 func (c *ProjectsLocationsClustersCompleteIpRotationCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersCompleteIpRotationCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -1692,6 +1908,8 @@ func (c *ProjectsLocationsClustersCompleteIpRotationCall) doRequest(alt string) 
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersCompleteIpRotationCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -1729,6 +1947,8 @@ type ProjectsLocationsClustersCreateCall struct {
 func (r *ProjectsLocationsClustersService) Create(parent string, createclusterrequest *CreateClusterRequest) *ProjectsLocationsClustersCreateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersCreateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
 	c.createclusterrequest = createclusterrequest
@@ -1737,10 +1957,14 @@ func (r *ProjectsLocationsClustersService) Create(parent string, createclusterre
 func (c *ProjectsLocationsClustersCreateCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersCreateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersCreateCall) Context(ctx context.Context) *ProjectsLocationsClustersCreateCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -1749,12 +1973,16 @@ func (c *ProjectsLocationsClustersCreateCall) Context(ctx context.Context) *Proj
 func (c *ProjectsLocationsClustersCreateCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersCreateCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -1777,6 +2005,8 @@ func (c *ProjectsLocationsClustersCreateCall) doRequest(alt string) (*http.Respo
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersCreateCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -1813,11 +2043,15 @@ type ProjectsLocationsClustersDeleteCall struct {
 func (r *ProjectsLocationsClustersService) Delete(name string) *ProjectsLocationsClustersDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersDeleteCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	return c
 }
 func (c *ProjectsLocationsClustersDeleteCall) ClusterId(clusterId string) *ProjectsLocationsClustersDeleteCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("clusterId", clusterId)
@@ -1826,10 +2060,14 @@ func (c *ProjectsLocationsClustersDeleteCall) ClusterId(clusterId string) *Proje
 func (c *ProjectsLocationsClustersDeleteCall) ProjectId(projectId string) *ProjectsLocationsClustersDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("projectId", projectId)
 	return c
 }
 func (c *ProjectsLocationsClustersDeleteCall) Zone(zone string) *ProjectsLocationsClustersDeleteCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("zone", zone)
@@ -1838,10 +2076,14 @@ func (c *ProjectsLocationsClustersDeleteCall) Zone(zone string) *ProjectsLocatio
 func (c *ProjectsLocationsClustersDeleteCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersDeleteCall) Context(ctx context.Context) *ProjectsLocationsClustersDeleteCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -1850,12 +2092,16 @@ func (c *ProjectsLocationsClustersDeleteCall) Context(ctx context.Context) *Proj
 func (c *ProjectsLocationsClustersDeleteCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersDeleteCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -1873,6 +2119,8 @@ func (c *ProjectsLocationsClustersDeleteCall) doRequest(alt string) (*http.Respo
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersDeleteCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -1910,11 +2158,15 @@ type ProjectsLocationsClustersGetCall struct {
 func (r *ProjectsLocationsClustersService) Get(name string) *ProjectsLocationsClustersGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	return c
 }
 func (c *ProjectsLocationsClustersGetCall) ClusterId(clusterId string) *ProjectsLocationsClustersGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("clusterId", clusterId)
@@ -1923,10 +2175,14 @@ func (c *ProjectsLocationsClustersGetCall) ClusterId(clusterId string) *Projects
 func (c *ProjectsLocationsClustersGetCall) ProjectId(projectId string) *ProjectsLocationsClustersGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("projectId", projectId)
 	return c
 }
 func (c *ProjectsLocationsClustersGetCall) Zone(zone string) *ProjectsLocationsClustersGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("zone", zone)
@@ -1935,10 +2191,14 @@ func (c *ProjectsLocationsClustersGetCall) Zone(zone string) *ProjectsLocationsC
 func (c *ProjectsLocationsClustersGetCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersGetCall) IfNoneMatch(entityTag string) *ProjectsLocationsClustersGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
@@ -1947,10 +2207,14 @@ func (c *ProjectsLocationsClustersGetCall) IfNoneMatch(entityTag string) *Projec
 func (c *ProjectsLocationsClustersGetCall) Context(ctx context.Context) *ProjectsLocationsClustersGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ctx_ = ctx
 	return c
 }
 func (c *ProjectsLocationsClustersGetCall) Header() http.Header {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.header_ == nil {
@@ -1959,6 +2223,8 @@ func (c *ProjectsLocationsClustersGetCall) Header() http.Header {
 	return c.header_
 }
 func (c *ProjectsLocationsClustersGetCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -1979,6 +2245,8 @@ func (c *ProjectsLocationsClustersGetCall) doRequest(alt string) (*http.Response
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersGetCall) Do(opts ...googleapi.CallOption) (*Cluster, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2016,11 +2284,15 @@ type ProjectsLocationsClustersListCall struct {
 func (r *ProjectsLocationsClustersService) List(parent string) *ProjectsLocationsClustersListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
 	return c
 }
 func (c *ProjectsLocationsClustersListCall) ProjectId(projectId string) *ProjectsLocationsClustersListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("projectId", projectId)
@@ -2029,10 +2301,14 @@ func (c *ProjectsLocationsClustersListCall) ProjectId(projectId string) *Project
 func (c *ProjectsLocationsClustersListCall) Zone(zone string) *ProjectsLocationsClustersListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("zone", zone)
 	return c
 }
 func (c *ProjectsLocationsClustersListCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -2041,10 +2317,14 @@ func (c *ProjectsLocationsClustersListCall) Fields(s ...googleapi.Field) *Projec
 func (c *ProjectsLocationsClustersListCall) IfNoneMatch(entityTag string) *ProjectsLocationsClustersListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsLocationsClustersListCall) Context(ctx context.Context) *ProjectsLocationsClustersListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2053,12 +2333,16 @@ func (c *ProjectsLocationsClustersListCall) Context(ctx context.Context) *Projec
 func (c *ProjectsLocationsClustersListCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersListCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -2079,6 +2363,8 @@ func (c *ProjectsLocationsClustersListCall) doRequest(alt string) (*http.Respons
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersListCall) Do(opts ...googleapi.CallOption) (*ListClustersResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2116,6 +2402,8 @@ type ProjectsLocationsClustersSetAddonsCall struct {
 func (r *ProjectsLocationsClustersService) SetAddons(name string, setaddonsconfigrequest *SetAddonsConfigRequest) *ProjectsLocationsClustersSetAddonsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersSetAddonsCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setaddonsconfigrequest = setaddonsconfigrequest
@@ -2124,10 +2412,14 @@ func (r *ProjectsLocationsClustersService) SetAddons(name string, setaddonsconfi
 func (c *ProjectsLocationsClustersSetAddonsCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersSetAddonsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersSetAddonsCall) Context(ctx context.Context) *ProjectsLocationsClustersSetAddonsCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2136,12 +2428,16 @@ func (c *ProjectsLocationsClustersSetAddonsCall) Context(ctx context.Context) *P
 func (c *ProjectsLocationsClustersSetAddonsCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersSetAddonsCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -2164,6 +2460,8 @@ func (c *ProjectsLocationsClustersSetAddonsCall) doRequest(alt string) (*http.Re
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersSetAddonsCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2201,6 +2499,8 @@ type ProjectsLocationsClustersSetLegacyAbacCall struct {
 func (r *ProjectsLocationsClustersService) SetLegacyAbac(name string, setlegacyabacrequest *SetLegacyAbacRequest) *ProjectsLocationsClustersSetLegacyAbacCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersSetLegacyAbacCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setlegacyabacrequest = setlegacyabacrequest
@@ -2209,10 +2509,14 @@ func (r *ProjectsLocationsClustersService) SetLegacyAbac(name string, setlegacya
 func (c *ProjectsLocationsClustersSetLegacyAbacCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersSetLegacyAbacCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersSetLegacyAbacCall) Context(ctx context.Context) *ProjectsLocationsClustersSetLegacyAbacCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2221,12 +2525,16 @@ func (c *ProjectsLocationsClustersSetLegacyAbacCall) Context(ctx context.Context
 func (c *ProjectsLocationsClustersSetLegacyAbacCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersSetLegacyAbacCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -2249,6 +2557,8 @@ func (c *ProjectsLocationsClustersSetLegacyAbacCall) doRequest(alt string) (*htt
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersSetLegacyAbacCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2286,6 +2596,8 @@ type ProjectsLocationsClustersSetLocationsCall struct {
 func (r *ProjectsLocationsClustersService) SetLocations(name string, setlocationsrequest *SetLocationsRequest) *ProjectsLocationsClustersSetLocationsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersSetLocationsCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setlocationsrequest = setlocationsrequest
@@ -2294,10 +2606,14 @@ func (r *ProjectsLocationsClustersService) SetLocations(name string, setlocation
 func (c *ProjectsLocationsClustersSetLocationsCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersSetLocationsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersSetLocationsCall) Context(ctx context.Context) *ProjectsLocationsClustersSetLocationsCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2306,12 +2622,16 @@ func (c *ProjectsLocationsClustersSetLocationsCall) Context(ctx context.Context)
 func (c *ProjectsLocationsClustersSetLocationsCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersSetLocationsCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -2334,6 +2654,8 @@ func (c *ProjectsLocationsClustersSetLocationsCall) doRequest(alt string) (*http
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersSetLocationsCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2371,6 +2693,8 @@ type ProjectsLocationsClustersSetLoggingCall struct {
 func (r *ProjectsLocationsClustersService) SetLogging(name string, setloggingservicerequest *SetLoggingServiceRequest) *ProjectsLocationsClustersSetLoggingCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersSetLoggingCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setloggingservicerequest = setloggingservicerequest
@@ -2379,10 +2703,14 @@ func (r *ProjectsLocationsClustersService) SetLogging(name string, setloggingser
 func (c *ProjectsLocationsClustersSetLoggingCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersSetLoggingCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersSetLoggingCall) Context(ctx context.Context) *ProjectsLocationsClustersSetLoggingCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2391,12 +2719,16 @@ func (c *ProjectsLocationsClustersSetLoggingCall) Context(ctx context.Context) *
 func (c *ProjectsLocationsClustersSetLoggingCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersSetLoggingCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -2419,6 +2751,8 @@ func (c *ProjectsLocationsClustersSetLoggingCall) doRequest(alt string) (*http.R
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersSetLoggingCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2456,6 +2790,8 @@ type ProjectsLocationsClustersSetMaintenancePolicyCall struct {
 func (r *ProjectsLocationsClustersService) SetMaintenancePolicy(name string, setmaintenancepolicyrequest *SetMaintenancePolicyRequest) *ProjectsLocationsClustersSetMaintenancePolicyCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersSetMaintenancePolicyCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setmaintenancepolicyrequest = setmaintenancepolicyrequest
@@ -2464,10 +2800,14 @@ func (r *ProjectsLocationsClustersService) SetMaintenancePolicy(name string, set
 func (c *ProjectsLocationsClustersSetMaintenancePolicyCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersSetMaintenancePolicyCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersSetMaintenancePolicyCall) Context(ctx context.Context) *ProjectsLocationsClustersSetMaintenancePolicyCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2476,12 +2816,16 @@ func (c *ProjectsLocationsClustersSetMaintenancePolicyCall) Context(ctx context.
 func (c *ProjectsLocationsClustersSetMaintenancePolicyCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersSetMaintenancePolicyCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -2504,6 +2848,8 @@ func (c *ProjectsLocationsClustersSetMaintenancePolicyCall) doRequest(alt string
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersSetMaintenancePolicyCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2541,6 +2887,8 @@ type ProjectsLocationsClustersSetMasterAuthCall struct {
 func (r *ProjectsLocationsClustersService) SetMasterAuth(name string, setmasterauthrequest *SetMasterAuthRequest) *ProjectsLocationsClustersSetMasterAuthCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersSetMasterAuthCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setmasterauthrequest = setmasterauthrequest
@@ -2549,10 +2897,14 @@ func (r *ProjectsLocationsClustersService) SetMasterAuth(name string, setmastera
 func (c *ProjectsLocationsClustersSetMasterAuthCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersSetMasterAuthCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersSetMasterAuthCall) Context(ctx context.Context) *ProjectsLocationsClustersSetMasterAuthCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2561,12 +2913,16 @@ func (c *ProjectsLocationsClustersSetMasterAuthCall) Context(ctx context.Context
 func (c *ProjectsLocationsClustersSetMasterAuthCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersSetMasterAuthCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -2589,6 +2945,8 @@ func (c *ProjectsLocationsClustersSetMasterAuthCall) doRequest(alt string) (*htt
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersSetMasterAuthCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2626,6 +2984,8 @@ type ProjectsLocationsClustersSetMonitoringCall struct {
 func (r *ProjectsLocationsClustersService) SetMonitoring(name string, setmonitoringservicerequest *SetMonitoringServiceRequest) *ProjectsLocationsClustersSetMonitoringCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersSetMonitoringCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setmonitoringservicerequest = setmonitoringservicerequest
@@ -2634,10 +2994,14 @@ func (r *ProjectsLocationsClustersService) SetMonitoring(name string, setmonitor
 func (c *ProjectsLocationsClustersSetMonitoringCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersSetMonitoringCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersSetMonitoringCall) Context(ctx context.Context) *ProjectsLocationsClustersSetMonitoringCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2646,12 +3010,16 @@ func (c *ProjectsLocationsClustersSetMonitoringCall) Context(ctx context.Context
 func (c *ProjectsLocationsClustersSetMonitoringCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersSetMonitoringCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -2674,6 +3042,8 @@ func (c *ProjectsLocationsClustersSetMonitoringCall) doRequest(alt string) (*htt
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersSetMonitoringCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2711,6 +3081,8 @@ type ProjectsLocationsClustersSetNetworkPolicyCall struct {
 func (r *ProjectsLocationsClustersService) SetNetworkPolicy(name string, setnetworkpolicyrequest *SetNetworkPolicyRequest) *ProjectsLocationsClustersSetNetworkPolicyCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersSetNetworkPolicyCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setnetworkpolicyrequest = setnetworkpolicyrequest
@@ -2719,10 +3091,14 @@ func (r *ProjectsLocationsClustersService) SetNetworkPolicy(name string, setnetw
 func (c *ProjectsLocationsClustersSetNetworkPolicyCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersSetNetworkPolicyCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersSetNetworkPolicyCall) Context(ctx context.Context) *ProjectsLocationsClustersSetNetworkPolicyCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2731,12 +3107,16 @@ func (c *ProjectsLocationsClustersSetNetworkPolicyCall) Context(ctx context.Cont
 func (c *ProjectsLocationsClustersSetNetworkPolicyCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersSetNetworkPolicyCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -2759,6 +3139,8 @@ func (c *ProjectsLocationsClustersSetNetworkPolicyCall) doRequest(alt string) (*
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersSetNetworkPolicyCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2796,6 +3178,8 @@ type ProjectsLocationsClustersSetResourceLabelsCall struct {
 func (r *ProjectsLocationsClustersService) SetResourceLabels(name string, setlabelsrequest *SetLabelsRequest) *ProjectsLocationsClustersSetResourceLabelsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersSetResourceLabelsCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setlabelsrequest = setlabelsrequest
@@ -2804,10 +3188,14 @@ func (r *ProjectsLocationsClustersService) SetResourceLabels(name string, setlab
 func (c *ProjectsLocationsClustersSetResourceLabelsCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersSetResourceLabelsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersSetResourceLabelsCall) Context(ctx context.Context) *ProjectsLocationsClustersSetResourceLabelsCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2816,12 +3204,16 @@ func (c *ProjectsLocationsClustersSetResourceLabelsCall) Context(ctx context.Con
 func (c *ProjectsLocationsClustersSetResourceLabelsCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersSetResourceLabelsCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -2844,6 +3236,8 @@ func (c *ProjectsLocationsClustersSetResourceLabelsCall) doRequest(alt string) (
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersSetResourceLabelsCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2881,6 +3275,8 @@ type ProjectsLocationsClustersStartIpRotationCall struct {
 func (r *ProjectsLocationsClustersService) StartIpRotation(name string, startiprotationrequest *StartIPRotationRequest) *ProjectsLocationsClustersStartIpRotationCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersStartIpRotationCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.startiprotationrequest = startiprotationrequest
@@ -2889,10 +3285,14 @@ func (r *ProjectsLocationsClustersService) StartIpRotation(name string, startipr
 func (c *ProjectsLocationsClustersStartIpRotationCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersStartIpRotationCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersStartIpRotationCall) Context(ctx context.Context) *ProjectsLocationsClustersStartIpRotationCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2901,12 +3301,16 @@ func (c *ProjectsLocationsClustersStartIpRotationCall) Context(ctx context.Conte
 func (c *ProjectsLocationsClustersStartIpRotationCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersStartIpRotationCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -2929,6 +3333,8 @@ func (c *ProjectsLocationsClustersStartIpRotationCall) doRequest(alt string) (*h
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersStartIpRotationCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -2966,6 +3372,8 @@ type ProjectsLocationsClustersUpdateCall struct {
 func (r *ProjectsLocationsClustersService) Update(name string, updateclusterrequest *UpdateClusterRequest) *ProjectsLocationsClustersUpdateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersUpdateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.updateclusterrequest = updateclusterrequest
@@ -2974,10 +3382,14 @@ func (r *ProjectsLocationsClustersService) Update(name string, updateclusterrequ
 func (c *ProjectsLocationsClustersUpdateCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersUpdateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersUpdateCall) Context(ctx context.Context) *ProjectsLocationsClustersUpdateCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -2986,12 +3398,16 @@ func (c *ProjectsLocationsClustersUpdateCall) Context(ctx context.Context) *Proj
 func (c *ProjectsLocationsClustersUpdateCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersUpdateCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -3014,6 +3430,8 @@ func (c *ProjectsLocationsClustersUpdateCall) doRequest(alt string) (*http.Respo
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersUpdateCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -3051,6 +3469,8 @@ type ProjectsLocationsClustersUpdateMasterCall struct {
 func (r *ProjectsLocationsClustersService) UpdateMaster(name string, updatemasterrequest *UpdateMasterRequest) *ProjectsLocationsClustersUpdateMasterCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersUpdateMasterCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.updatemasterrequest = updatemasterrequest
@@ -3059,10 +3479,14 @@ func (r *ProjectsLocationsClustersService) UpdateMaster(name string, updatemaste
 func (c *ProjectsLocationsClustersUpdateMasterCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersUpdateMasterCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersUpdateMasterCall) Context(ctx context.Context) *ProjectsLocationsClustersUpdateMasterCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -3071,12 +3495,16 @@ func (c *ProjectsLocationsClustersUpdateMasterCall) Context(ctx context.Context)
 func (c *ProjectsLocationsClustersUpdateMasterCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersUpdateMasterCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -3099,6 +3527,8 @@ func (c *ProjectsLocationsClustersUpdateMasterCall) doRequest(alt string) (*http
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersUpdateMasterCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -3136,6 +3566,8 @@ type ProjectsLocationsClustersNodePoolsCreateCall struct {
 func (r *ProjectsLocationsClustersNodePoolsService) Create(parent string, createnodepoolrequest *CreateNodePoolRequest) *ProjectsLocationsClustersNodePoolsCreateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersNodePoolsCreateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
 	c.createnodepoolrequest = createnodepoolrequest
@@ -3144,10 +3576,14 @@ func (r *ProjectsLocationsClustersNodePoolsService) Create(parent string, create
 func (c *ProjectsLocationsClustersNodePoolsCreateCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersNodePoolsCreateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsCreateCall) Context(ctx context.Context) *ProjectsLocationsClustersNodePoolsCreateCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -3156,12 +3592,16 @@ func (c *ProjectsLocationsClustersNodePoolsCreateCall) Context(ctx context.Conte
 func (c *ProjectsLocationsClustersNodePoolsCreateCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersNodePoolsCreateCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -3184,6 +3624,8 @@ func (c *ProjectsLocationsClustersNodePoolsCreateCall) doRequest(alt string) (*h
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersNodePoolsCreateCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -3220,11 +3662,15 @@ type ProjectsLocationsClustersNodePoolsDeleteCall struct {
 func (r *ProjectsLocationsClustersNodePoolsService) Delete(name string) *ProjectsLocationsClustersNodePoolsDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersNodePoolsDeleteCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsDeleteCall) ClusterId(clusterId string) *ProjectsLocationsClustersNodePoolsDeleteCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("clusterId", clusterId)
@@ -3233,10 +3679,14 @@ func (c *ProjectsLocationsClustersNodePoolsDeleteCall) ClusterId(clusterId strin
 func (c *ProjectsLocationsClustersNodePoolsDeleteCall) NodePoolId(nodePoolId string) *ProjectsLocationsClustersNodePoolsDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("nodePoolId", nodePoolId)
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsDeleteCall) ProjectId(projectId string) *ProjectsLocationsClustersNodePoolsDeleteCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("projectId", projectId)
@@ -3245,10 +3695,14 @@ func (c *ProjectsLocationsClustersNodePoolsDeleteCall) ProjectId(projectId strin
 func (c *ProjectsLocationsClustersNodePoolsDeleteCall) Zone(zone string) *ProjectsLocationsClustersNodePoolsDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("zone", zone)
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsDeleteCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersNodePoolsDeleteCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -3257,10 +3711,14 @@ func (c *ProjectsLocationsClustersNodePoolsDeleteCall) Fields(s ...googleapi.Fie
 func (c *ProjectsLocationsClustersNodePoolsDeleteCall) Context(ctx context.Context) *ProjectsLocationsClustersNodePoolsDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ctx_ = ctx
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsDeleteCall) Header() http.Header {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.header_ == nil {
@@ -3269,6 +3727,8 @@ func (c *ProjectsLocationsClustersNodePoolsDeleteCall) Header() http.Header {
 	return c.header_
 }
 func (c *ProjectsLocationsClustersNodePoolsDeleteCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -3286,6 +3746,8 @@ func (c *ProjectsLocationsClustersNodePoolsDeleteCall) doRequest(alt string) (*h
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersNodePoolsDeleteCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -3323,11 +3785,15 @@ type ProjectsLocationsClustersNodePoolsGetCall struct {
 func (r *ProjectsLocationsClustersNodePoolsService) Get(name string) *ProjectsLocationsClustersNodePoolsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersNodePoolsGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsGetCall) ClusterId(clusterId string) *ProjectsLocationsClustersNodePoolsGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("clusterId", clusterId)
@@ -3336,10 +3802,14 @@ func (c *ProjectsLocationsClustersNodePoolsGetCall) ClusterId(clusterId string) 
 func (c *ProjectsLocationsClustersNodePoolsGetCall) NodePoolId(nodePoolId string) *ProjectsLocationsClustersNodePoolsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("nodePoolId", nodePoolId)
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsGetCall) ProjectId(projectId string) *ProjectsLocationsClustersNodePoolsGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("projectId", projectId)
@@ -3348,10 +3818,14 @@ func (c *ProjectsLocationsClustersNodePoolsGetCall) ProjectId(projectId string) 
 func (c *ProjectsLocationsClustersNodePoolsGetCall) Zone(zone string) *ProjectsLocationsClustersNodePoolsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("zone", zone)
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsGetCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersNodePoolsGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -3360,10 +3834,14 @@ func (c *ProjectsLocationsClustersNodePoolsGetCall) Fields(s ...googleapi.Field)
 func (c *ProjectsLocationsClustersNodePoolsGetCall) IfNoneMatch(entityTag string) *ProjectsLocationsClustersNodePoolsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsGetCall) Context(ctx context.Context) *ProjectsLocationsClustersNodePoolsGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -3372,12 +3850,16 @@ func (c *ProjectsLocationsClustersNodePoolsGetCall) Context(ctx context.Context)
 func (c *ProjectsLocationsClustersNodePoolsGetCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersNodePoolsGetCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -3398,6 +3880,8 @@ func (c *ProjectsLocationsClustersNodePoolsGetCall) doRequest(alt string) (*http
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersNodePoolsGetCall) Do(opts ...googleapi.CallOption) (*NodePool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -3435,11 +3919,15 @@ type ProjectsLocationsClustersNodePoolsListCall struct {
 func (r *ProjectsLocationsClustersNodePoolsService) List(parent string) *ProjectsLocationsClustersNodePoolsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersNodePoolsListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsListCall) ClusterId(clusterId string) *ProjectsLocationsClustersNodePoolsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("clusterId", clusterId)
@@ -3448,10 +3936,14 @@ func (c *ProjectsLocationsClustersNodePoolsListCall) ClusterId(clusterId string)
 func (c *ProjectsLocationsClustersNodePoolsListCall) ProjectId(projectId string) *ProjectsLocationsClustersNodePoolsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("projectId", projectId)
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsListCall) Zone(zone string) *ProjectsLocationsClustersNodePoolsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("zone", zone)
@@ -3460,10 +3952,14 @@ func (c *ProjectsLocationsClustersNodePoolsListCall) Zone(zone string) *Projects
 func (c *ProjectsLocationsClustersNodePoolsListCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersNodePoolsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsListCall) IfNoneMatch(entityTag string) *ProjectsLocationsClustersNodePoolsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
@@ -3472,10 +3968,14 @@ func (c *ProjectsLocationsClustersNodePoolsListCall) IfNoneMatch(entityTag strin
 func (c *ProjectsLocationsClustersNodePoolsListCall) Context(ctx context.Context) *ProjectsLocationsClustersNodePoolsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ctx_ = ctx
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsListCall) Header() http.Header {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.header_ == nil {
@@ -3484,6 +3984,8 @@ func (c *ProjectsLocationsClustersNodePoolsListCall) Header() http.Header {
 	return c.header_
 }
 func (c *ProjectsLocationsClustersNodePoolsListCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -3504,6 +4006,8 @@ func (c *ProjectsLocationsClustersNodePoolsListCall) doRequest(alt string) (*htt
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersNodePoolsListCall) Do(opts ...googleapi.CallOption) (*ListNodePoolsResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -3541,6 +4045,8 @@ type ProjectsLocationsClustersNodePoolsRollbackCall struct {
 func (r *ProjectsLocationsClustersNodePoolsService) Rollback(name string, rollbacknodepoolupgraderequest *RollbackNodePoolUpgradeRequest) *ProjectsLocationsClustersNodePoolsRollbackCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersNodePoolsRollbackCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.rollbacknodepoolupgraderequest = rollbacknodepoolupgraderequest
@@ -3549,10 +4055,14 @@ func (r *ProjectsLocationsClustersNodePoolsService) Rollback(name string, rollba
 func (c *ProjectsLocationsClustersNodePoolsRollbackCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersNodePoolsRollbackCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsRollbackCall) Context(ctx context.Context) *ProjectsLocationsClustersNodePoolsRollbackCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -3561,12 +4071,16 @@ func (c *ProjectsLocationsClustersNodePoolsRollbackCall) Context(ctx context.Con
 func (c *ProjectsLocationsClustersNodePoolsRollbackCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersNodePoolsRollbackCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -3589,6 +4103,8 @@ func (c *ProjectsLocationsClustersNodePoolsRollbackCall) doRequest(alt string) (
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersNodePoolsRollbackCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -3626,6 +4142,8 @@ type ProjectsLocationsClustersNodePoolsSetAutoscalingCall struct {
 func (r *ProjectsLocationsClustersNodePoolsService) SetAutoscaling(name string, setnodepoolautoscalingrequest *SetNodePoolAutoscalingRequest) *ProjectsLocationsClustersNodePoolsSetAutoscalingCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersNodePoolsSetAutoscalingCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setnodepoolautoscalingrequest = setnodepoolautoscalingrequest
@@ -3634,10 +4152,14 @@ func (r *ProjectsLocationsClustersNodePoolsService) SetAutoscaling(name string, 
 func (c *ProjectsLocationsClustersNodePoolsSetAutoscalingCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersNodePoolsSetAutoscalingCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsSetAutoscalingCall) Context(ctx context.Context) *ProjectsLocationsClustersNodePoolsSetAutoscalingCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -3646,12 +4168,16 @@ func (c *ProjectsLocationsClustersNodePoolsSetAutoscalingCall) Context(ctx conte
 func (c *ProjectsLocationsClustersNodePoolsSetAutoscalingCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersNodePoolsSetAutoscalingCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -3674,6 +4200,8 @@ func (c *ProjectsLocationsClustersNodePoolsSetAutoscalingCall) doRequest(alt str
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersNodePoolsSetAutoscalingCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -3711,6 +4239,8 @@ type ProjectsLocationsClustersNodePoolsSetManagementCall struct {
 func (r *ProjectsLocationsClustersNodePoolsService) SetManagement(name string, setnodepoolmanagementrequest *SetNodePoolManagementRequest) *ProjectsLocationsClustersNodePoolsSetManagementCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersNodePoolsSetManagementCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setnodepoolmanagementrequest = setnodepoolmanagementrequest
@@ -3719,10 +4249,14 @@ func (r *ProjectsLocationsClustersNodePoolsService) SetManagement(name string, s
 func (c *ProjectsLocationsClustersNodePoolsSetManagementCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersNodePoolsSetManagementCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsSetManagementCall) Context(ctx context.Context) *ProjectsLocationsClustersNodePoolsSetManagementCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -3731,12 +4265,16 @@ func (c *ProjectsLocationsClustersNodePoolsSetManagementCall) Context(ctx contex
 func (c *ProjectsLocationsClustersNodePoolsSetManagementCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersNodePoolsSetManagementCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -3759,6 +4297,8 @@ func (c *ProjectsLocationsClustersNodePoolsSetManagementCall) doRequest(alt stri
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersNodePoolsSetManagementCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -3796,6 +4336,8 @@ type ProjectsLocationsClustersNodePoolsSetSizeCall struct {
 func (r *ProjectsLocationsClustersNodePoolsService) SetSize(name string, setnodepoolsizerequest *SetNodePoolSizeRequest) *ProjectsLocationsClustersNodePoolsSetSizeCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersNodePoolsSetSizeCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.setnodepoolsizerequest = setnodepoolsizerequest
@@ -3804,10 +4346,14 @@ func (r *ProjectsLocationsClustersNodePoolsService) SetSize(name string, setnode
 func (c *ProjectsLocationsClustersNodePoolsSetSizeCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersNodePoolsSetSizeCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsSetSizeCall) Context(ctx context.Context) *ProjectsLocationsClustersNodePoolsSetSizeCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -3816,12 +4362,16 @@ func (c *ProjectsLocationsClustersNodePoolsSetSizeCall) Context(ctx context.Cont
 func (c *ProjectsLocationsClustersNodePoolsSetSizeCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersNodePoolsSetSizeCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -3844,6 +4394,8 @@ func (c *ProjectsLocationsClustersNodePoolsSetSizeCall) doRequest(alt string) (*
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersNodePoolsSetSizeCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -3881,6 +4433,8 @@ type ProjectsLocationsClustersNodePoolsUpdateCall struct {
 func (r *ProjectsLocationsClustersNodePoolsService) Update(name string, updatenodepoolrequest *UpdateNodePoolRequest) *ProjectsLocationsClustersNodePoolsUpdateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsClustersNodePoolsUpdateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.updatenodepoolrequest = updatenodepoolrequest
@@ -3889,10 +4443,14 @@ func (r *ProjectsLocationsClustersNodePoolsService) Update(name string, updateno
 func (c *ProjectsLocationsClustersNodePoolsUpdateCall) Fields(s ...googleapi.Field) *ProjectsLocationsClustersNodePoolsUpdateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsClustersNodePoolsUpdateCall) Context(ctx context.Context) *ProjectsLocationsClustersNodePoolsUpdateCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -3901,12 +4459,16 @@ func (c *ProjectsLocationsClustersNodePoolsUpdateCall) Context(ctx context.Conte
 func (c *ProjectsLocationsClustersNodePoolsUpdateCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsClustersNodePoolsUpdateCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -3929,6 +4491,8 @@ func (c *ProjectsLocationsClustersNodePoolsUpdateCall) doRequest(alt string) (*h
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsClustersNodePoolsUpdateCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -3966,6 +4530,8 @@ type ProjectsLocationsOperationsCancelCall struct {
 func (r *ProjectsLocationsOperationsService) Cancel(name string, canceloperationrequest *CancelOperationRequest) *ProjectsLocationsOperationsCancelCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsOperationsCancelCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	c.canceloperationrequest = canceloperationrequest
@@ -3974,10 +4540,14 @@ func (r *ProjectsLocationsOperationsService) Cancel(name string, canceloperation
 func (c *ProjectsLocationsOperationsCancelCall) Fields(s ...googleapi.Field) *ProjectsLocationsOperationsCancelCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsOperationsCancelCall) Context(ctx context.Context) *ProjectsLocationsOperationsCancelCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -3986,12 +4556,16 @@ func (c *ProjectsLocationsOperationsCancelCall) Context(ctx context.Context) *Pr
 func (c *ProjectsLocationsOperationsCancelCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsOperationsCancelCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -4014,6 +4588,8 @@ func (c *ProjectsLocationsOperationsCancelCall) doRequest(alt string) (*http.Res
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsOperationsCancelCall) Do(opts ...googleapi.CallOption) (*Empty, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -4051,11 +4627,15 @@ type ProjectsLocationsOperationsGetCall struct {
 func (r *ProjectsLocationsOperationsService) Get(name string) *ProjectsLocationsOperationsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsOperationsGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
 	return c
 }
 func (c *ProjectsLocationsOperationsGetCall) OperationId(operationId string) *ProjectsLocationsOperationsGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("operationId", operationId)
@@ -4064,10 +4644,14 @@ func (c *ProjectsLocationsOperationsGetCall) OperationId(operationId string) *Pr
 func (c *ProjectsLocationsOperationsGetCall) ProjectId(projectId string) *ProjectsLocationsOperationsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("projectId", projectId)
 	return c
 }
 func (c *ProjectsLocationsOperationsGetCall) Zone(zone string) *ProjectsLocationsOperationsGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("zone", zone)
@@ -4076,10 +4660,14 @@ func (c *ProjectsLocationsOperationsGetCall) Zone(zone string) *ProjectsLocation
 func (c *ProjectsLocationsOperationsGetCall) Fields(s ...googleapi.Field) *ProjectsLocationsOperationsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsLocationsOperationsGetCall) IfNoneMatch(entityTag string) *ProjectsLocationsOperationsGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
@@ -4088,10 +4676,14 @@ func (c *ProjectsLocationsOperationsGetCall) IfNoneMatch(entityTag string) *Proj
 func (c *ProjectsLocationsOperationsGetCall) Context(ctx context.Context) *ProjectsLocationsOperationsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ctx_ = ctx
 	return c
 }
 func (c *ProjectsLocationsOperationsGetCall) Header() http.Header {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.header_ == nil {
@@ -4100,6 +4692,8 @@ func (c *ProjectsLocationsOperationsGetCall) Header() http.Header {
 	return c.header_
 }
 func (c *ProjectsLocationsOperationsGetCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -4120,6 +4714,8 @@ func (c *ProjectsLocationsOperationsGetCall) doRequest(alt string) (*http.Respon
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsOperationsGetCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -4157,11 +4753,15 @@ type ProjectsLocationsOperationsListCall struct {
 func (r *ProjectsLocationsOperationsService) List(parent string) *ProjectsLocationsOperationsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsLocationsOperationsListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
 	return c
 }
 func (c *ProjectsLocationsOperationsListCall) ProjectId(projectId string) *ProjectsLocationsOperationsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("projectId", projectId)
@@ -4170,10 +4770,14 @@ func (c *ProjectsLocationsOperationsListCall) ProjectId(projectId string) *Proje
 func (c *ProjectsLocationsOperationsListCall) Zone(zone string) *ProjectsLocationsOperationsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("zone", zone)
 	return c
 }
 func (c *ProjectsLocationsOperationsListCall) Fields(s ...googleapi.Field) *ProjectsLocationsOperationsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -4182,10 +4786,14 @@ func (c *ProjectsLocationsOperationsListCall) Fields(s ...googleapi.Field) *Proj
 func (c *ProjectsLocationsOperationsListCall) IfNoneMatch(entityTag string) *ProjectsLocationsOperationsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsLocationsOperationsListCall) Context(ctx context.Context) *ProjectsLocationsOperationsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -4194,12 +4802,16 @@ func (c *ProjectsLocationsOperationsListCall) Context(ctx context.Context) *Proj
 func (c *ProjectsLocationsOperationsListCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsLocationsOperationsListCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -4220,6 +4832,8 @@ func (c *ProjectsLocationsOperationsListCall) doRequest(alt string) (*http.Respo
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsLocationsOperationsListCall) Do(opts ...googleapi.CallOption) (*ListOperationsResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -4258,6 +4872,8 @@ type ProjectsZonesGetServerconfigCall struct {
 func (r *ProjectsZonesService) GetServerconfig(projectId string, zone string) *ProjectsZonesGetServerconfigCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesGetServerconfigCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -4266,10 +4882,14 @@ func (r *ProjectsZonesService) GetServerconfig(projectId string, zone string) *P
 func (c *ProjectsZonesGetServerconfigCall) Name(name string) *ProjectsZonesGetServerconfigCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("name", name)
 	return c
 }
 func (c *ProjectsZonesGetServerconfigCall) Fields(s ...googleapi.Field) *ProjectsZonesGetServerconfigCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -4278,10 +4898,14 @@ func (c *ProjectsZonesGetServerconfigCall) Fields(s ...googleapi.Field) *Project
 func (c *ProjectsZonesGetServerconfigCall) IfNoneMatch(entityTag string) *ProjectsZonesGetServerconfigCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsZonesGetServerconfigCall) Context(ctx context.Context) *ProjectsZonesGetServerconfigCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -4290,12 +4914,16 @@ func (c *ProjectsZonesGetServerconfigCall) Context(ctx context.Context) *Project
 func (c *ProjectsZonesGetServerconfigCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesGetServerconfigCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -4316,6 +4944,8 @@ func (c *ProjectsZonesGetServerconfigCall) doRequest(alt string) (*http.Response
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesGetServerconfigCall) Do(opts ...googleapi.CallOption) (*ServerConfig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -4355,6 +4985,8 @@ type ProjectsZonesClustersAddonsCall struct {
 func (r *ProjectsZonesClustersService) Addons(projectId string, zone string, clusterId string, setaddonsconfigrequest *SetAddonsConfigRequest) *ProjectsZonesClustersAddonsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersAddonsCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -4365,10 +4997,14 @@ func (r *ProjectsZonesClustersService) Addons(projectId string, zone string, clu
 func (c *ProjectsZonesClustersAddonsCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersAddonsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersAddonsCall) Context(ctx context.Context) *ProjectsZonesClustersAddonsCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -4377,12 +5013,16 @@ func (c *ProjectsZonesClustersAddonsCall) Context(ctx context.Context) *Projects
 func (c *ProjectsZonesClustersAddonsCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersAddonsCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -4405,6 +5045,8 @@ func (c *ProjectsZonesClustersAddonsCall) doRequest(alt string) (*http.Response,
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersAddonsCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -4444,6 +5086,8 @@ type ProjectsZonesClustersCompleteIpRotationCall struct {
 func (r *ProjectsZonesClustersService) CompleteIpRotation(projectId string, zone string, clusterId string, completeiprotationrequest *CompleteIPRotationRequest) *ProjectsZonesClustersCompleteIpRotationCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersCompleteIpRotationCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -4454,10 +5098,14 @@ func (r *ProjectsZonesClustersService) CompleteIpRotation(projectId string, zone
 func (c *ProjectsZonesClustersCompleteIpRotationCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersCompleteIpRotationCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersCompleteIpRotationCall) Context(ctx context.Context) *ProjectsZonesClustersCompleteIpRotationCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -4466,12 +5114,16 @@ func (c *ProjectsZonesClustersCompleteIpRotationCall) Context(ctx context.Contex
 func (c *ProjectsZonesClustersCompleteIpRotationCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersCompleteIpRotationCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -4494,6 +5146,8 @@ func (c *ProjectsZonesClustersCompleteIpRotationCall) doRequest(alt string) (*ht
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersCompleteIpRotationCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -4532,6 +5186,8 @@ type ProjectsZonesClustersCreateCall struct {
 func (r *ProjectsZonesClustersService) Create(projectId string, zone string, createclusterrequest *CreateClusterRequest) *ProjectsZonesClustersCreateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersCreateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -4541,10 +5197,14 @@ func (r *ProjectsZonesClustersService) Create(projectId string, zone string, cre
 func (c *ProjectsZonesClustersCreateCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersCreateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersCreateCall) Context(ctx context.Context) *ProjectsZonesClustersCreateCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -4553,12 +5213,16 @@ func (c *ProjectsZonesClustersCreateCall) Context(ctx context.Context) *Projects
 func (c *ProjectsZonesClustersCreateCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersCreateCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -4581,6 +5245,8 @@ func (c *ProjectsZonesClustersCreateCall) doRequest(alt string) (*http.Response,
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersCreateCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -4619,6 +5285,8 @@ type ProjectsZonesClustersDeleteCall struct {
 func (r *ProjectsZonesClustersService) Delete(projectId string, zone string, clusterId string) *ProjectsZonesClustersDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersDeleteCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -4628,10 +5296,14 @@ func (r *ProjectsZonesClustersService) Delete(projectId string, zone string, clu
 func (c *ProjectsZonesClustersDeleteCall) Name(name string) *ProjectsZonesClustersDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("name", name)
 	return c
 }
 func (c *ProjectsZonesClustersDeleteCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersDeleteCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -4640,10 +5312,14 @@ func (c *ProjectsZonesClustersDeleteCall) Fields(s ...googleapi.Field) *Projects
 func (c *ProjectsZonesClustersDeleteCall) Context(ctx context.Context) *ProjectsZonesClustersDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ctx_ = ctx
 	return c
 }
 func (c *ProjectsZonesClustersDeleteCall) Header() http.Header {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.header_ == nil {
@@ -4652,6 +5328,8 @@ func (c *ProjectsZonesClustersDeleteCall) Header() http.Header {
 	return c.header_
 }
 func (c *ProjectsZonesClustersDeleteCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -4669,6 +5347,8 @@ func (c *ProjectsZonesClustersDeleteCall) doRequest(alt string) (*http.Response,
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersDeleteCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -4708,6 +5388,8 @@ type ProjectsZonesClustersGetCall struct {
 func (r *ProjectsZonesClustersService) Get(projectId string, zone string, clusterId string) *ProjectsZonesClustersGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -4717,10 +5399,14 @@ func (r *ProjectsZonesClustersService) Get(projectId string, zone string, cluste
 func (c *ProjectsZonesClustersGetCall) Name(name string) *ProjectsZonesClustersGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("name", name)
 	return c
 }
 func (c *ProjectsZonesClustersGetCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -4729,10 +5415,14 @@ func (c *ProjectsZonesClustersGetCall) Fields(s ...googleapi.Field) *ProjectsZon
 func (c *ProjectsZonesClustersGetCall) IfNoneMatch(entityTag string) *ProjectsZonesClustersGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsZonesClustersGetCall) Context(ctx context.Context) *ProjectsZonesClustersGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -4741,12 +5431,16 @@ func (c *ProjectsZonesClustersGetCall) Context(ctx context.Context) *ProjectsZon
 func (c *ProjectsZonesClustersGetCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersGetCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -4767,6 +5461,8 @@ func (c *ProjectsZonesClustersGetCall) doRequest(alt string) (*http.Response, er
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersGetCall) Do(opts ...googleapi.CallOption) (*Cluster, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -4806,6 +5502,8 @@ type ProjectsZonesClustersLegacyAbacCall struct {
 func (r *ProjectsZonesClustersService) LegacyAbac(projectId string, zone string, clusterId string, setlegacyabacrequest *SetLegacyAbacRequest) *ProjectsZonesClustersLegacyAbacCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersLegacyAbacCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -4816,10 +5514,14 @@ func (r *ProjectsZonesClustersService) LegacyAbac(projectId string, zone string,
 func (c *ProjectsZonesClustersLegacyAbacCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersLegacyAbacCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersLegacyAbacCall) Context(ctx context.Context) *ProjectsZonesClustersLegacyAbacCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -4828,12 +5530,16 @@ func (c *ProjectsZonesClustersLegacyAbacCall) Context(ctx context.Context) *Proj
 func (c *ProjectsZonesClustersLegacyAbacCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersLegacyAbacCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -4856,6 +5562,8 @@ func (c *ProjectsZonesClustersLegacyAbacCall) doRequest(alt string) (*http.Respo
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersLegacyAbacCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -4894,6 +5602,8 @@ type ProjectsZonesClustersListCall struct {
 func (r *ProjectsZonesClustersService) List(projectId string, zone string) *ProjectsZonesClustersListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -4902,10 +5612,14 @@ func (r *ProjectsZonesClustersService) List(projectId string, zone string) *Proj
 func (c *ProjectsZonesClustersListCall) Parent(parent string) *ProjectsZonesClustersListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("parent", parent)
 	return c
 }
 func (c *ProjectsZonesClustersListCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -4914,10 +5628,14 @@ func (c *ProjectsZonesClustersListCall) Fields(s ...googleapi.Field) *ProjectsZo
 func (c *ProjectsZonesClustersListCall) IfNoneMatch(entityTag string) *ProjectsZonesClustersListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsZonesClustersListCall) Context(ctx context.Context) *ProjectsZonesClustersListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -4926,12 +5644,16 @@ func (c *ProjectsZonesClustersListCall) Context(ctx context.Context) *ProjectsZo
 func (c *ProjectsZonesClustersListCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersListCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -4952,6 +5674,8 @@ func (c *ProjectsZonesClustersListCall) doRequest(alt string) (*http.Response, e
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersListCall) Do(opts ...googleapi.CallOption) (*ListClustersResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -4991,6 +5715,8 @@ type ProjectsZonesClustersLocationsCall struct {
 func (r *ProjectsZonesClustersService) Locations(projectId string, zone string, clusterId string, setlocationsrequest *SetLocationsRequest) *ProjectsZonesClustersLocationsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersLocationsCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5001,10 +5727,14 @@ func (r *ProjectsZonesClustersService) Locations(projectId string, zone string, 
 func (c *ProjectsZonesClustersLocationsCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersLocationsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersLocationsCall) Context(ctx context.Context) *ProjectsZonesClustersLocationsCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5013,12 +5743,16 @@ func (c *ProjectsZonesClustersLocationsCall) Context(ctx context.Context) *Proje
 func (c *ProjectsZonesClustersLocationsCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersLocationsCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -5041,6 +5775,8 @@ func (c *ProjectsZonesClustersLocationsCall) doRequest(alt string) (*http.Respon
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersLocationsCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -5080,6 +5816,8 @@ type ProjectsZonesClustersLoggingCall struct {
 func (r *ProjectsZonesClustersService) Logging(projectId string, zone string, clusterId string, setloggingservicerequest *SetLoggingServiceRequest) *ProjectsZonesClustersLoggingCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersLoggingCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5090,10 +5828,14 @@ func (r *ProjectsZonesClustersService) Logging(projectId string, zone string, cl
 func (c *ProjectsZonesClustersLoggingCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersLoggingCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersLoggingCall) Context(ctx context.Context) *ProjectsZonesClustersLoggingCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5102,12 +5844,16 @@ func (c *ProjectsZonesClustersLoggingCall) Context(ctx context.Context) *Project
 func (c *ProjectsZonesClustersLoggingCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersLoggingCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -5130,6 +5876,8 @@ func (c *ProjectsZonesClustersLoggingCall) doRequest(alt string) (*http.Response
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersLoggingCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -5169,6 +5917,8 @@ type ProjectsZonesClustersMasterCall struct {
 func (r *ProjectsZonesClustersService) Master(projectId string, zone string, clusterId string, updatemasterrequest *UpdateMasterRequest) *ProjectsZonesClustersMasterCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersMasterCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5179,10 +5929,14 @@ func (r *ProjectsZonesClustersService) Master(projectId string, zone string, clu
 func (c *ProjectsZonesClustersMasterCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersMasterCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersMasterCall) Context(ctx context.Context) *ProjectsZonesClustersMasterCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5191,12 +5945,16 @@ func (c *ProjectsZonesClustersMasterCall) Context(ctx context.Context) *Projects
 func (c *ProjectsZonesClustersMasterCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersMasterCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -5219,6 +5977,8 @@ func (c *ProjectsZonesClustersMasterCall) doRequest(alt string) (*http.Response,
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersMasterCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -5258,6 +6018,8 @@ type ProjectsZonesClustersMonitoringCall struct {
 func (r *ProjectsZonesClustersService) Monitoring(projectId string, zone string, clusterId string, setmonitoringservicerequest *SetMonitoringServiceRequest) *ProjectsZonesClustersMonitoringCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersMonitoringCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5268,10 +6030,14 @@ func (r *ProjectsZonesClustersService) Monitoring(projectId string, zone string,
 func (c *ProjectsZonesClustersMonitoringCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersMonitoringCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersMonitoringCall) Context(ctx context.Context) *ProjectsZonesClustersMonitoringCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5280,12 +6046,16 @@ func (c *ProjectsZonesClustersMonitoringCall) Context(ctx context.Context) *Proj
 func (c *ProjectsZonesClustersMonitoringCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersMonitoringCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -5308,6 +6078,8 @@ func (c *ProjectsZonesClustersMonitoringCall) doRequest(alt string) (*http.Respo
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersMonitoringCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -5347,6 +6119,8 @@ type ProjectsZonesClustersResourceLabelsCall struct {
 func (r *ProjectsZonesClustersService) ResourceLabels(projectId string, zone string, clusterId string, setlabelsrequest *SetLabelsRequest) *ProjectsZonesClustersResourceLabelsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersResourceLabelsCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5357,10 +6131,14 @@ func (r *ProjectsZonesClustersService) ResourceLabels(projectId string, zone str
 func (c *ProjectsZonesClustersResourceLabelsCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersResourceLabelsCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersResourceLabelsCall) Context(ctx context.Context) *ProjectsZonesClustersResourceLabelsCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5369,12 +6147,16 @@ func (c *ProjectsZonesClustersResourceLabelsCall) Context(ctx context.Context) *
 func (c *ProjectsZonesClustersResourceLabelsCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersResourceLabelsCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -5397,6 +6179,8 @@ func (c *ProjectsZonesClustersResourceLabelsCall) doRequest(alt string) (*http.R
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersResourceLabelsCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -5436,6 +6220,8 @@ type ProjectsZonesClustersSetMaintenancePolicyCall struct {
 func (r *ProjectsZonesClustersService) SetMaintenancePolicy(projectId string, zone string, clusterId string, setmaintenancepolicyrequest *SetMaintenancePolicyRequest) *ProjectsZonesClustersSetMaintenancePolicyCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersSetMaintenancePolicyCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5446,10 +6232,14 @@ func (r *ProjectsZonesClustersService) SetMaintenancePolicy(projectId string, zo
 func (c *ProjectsZonesClustersSetMaintenancePolicyCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersSetMaintenancePolicyCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersSetMaintenancePolicyCall) Context(ctx context.Context) *ProjectsZonesClustersSetMaintenancePolicyCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5458,12 +6248,16 @@ func (c *ProjectsZonesClustersSetMaintenancePolicyCall) Context(ctx context.Cont
 func (c *ProjectsZonesClustersSetMaintenancePolicyCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersSetMaintenancePolicyCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -5486,6 +6280,8 @@ func (c *ProjectsZonesClustersSetMaintenancePolicyCall) doRequest(alt string) (*
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersSetMaintenancePolicyCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -5525,6 +6321,8 @@ type ProjectsZonesClustersSetMasterAuthCall struct {
 func (r *ProjectsZonesClustersService) SetMasterAuth(projectId string, zone string, clusterId string, setmasterauthrequest *SetMasterAuthRequest) *ProjectsZonesClustersSetMasterAuthCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersSetMasterAuthCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5535,10 +6333,14 @@ func (r *ProjectsZonesClustersService) SetMasterAuth(projectId string, zone stri
 func (c *ProjectsZonesClustersSetMasterAuthCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersSetMasterAuthCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersSetMasterAuthCall) Context(ctx context.Context) *ProjectsZonesClustersSetMasterAuthCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5547,12 +6349,16 @@ func (c *ProjectsZonesClustersSetMasterAuthCall) Context(ctx context.Context) *P
 func (c *ProjectsZonesClustersSetMasterAuthCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersSetMasterAuthCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -5575,6 +6381,8 @@ func (c *ProjectsZonesClustersSetMasterAuthCall) doRequest(alt string) (*http.Re
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersSetMasterAuthCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -5614,6 +6422,8 @@ type ProjectsZonesClustersSetNetworkPolicyCall struct {
 func (r *ProjectsZonesClustersService) SetNetworkPolicy(projectId string, zone string, clusterId string, setnetworkpolicyrequest *SetNetworkPolicyRequest) *ProjectsZonesClustersSetNetworkPolicyCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersSetNetworkPolicyCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5624,10 +6434,14 @@ func (r *ProjectsZonesClustersService) SetNetworkPolicy(projectId string, zone s
 func (c *ProjectsZonesClustersSetNetworkPolicyCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersSetNetworkPolicyCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersSetNetworkPolicyCall) Context(ctx context.Context) *ProjectsZonesClustersSetNetworkPolicyCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5636,12 +6450,16 @@ func (c *ProjectsZonesClustersSetNetworkPolicyCall) Context(ctx context.Context)
 func (c *ProjectsZonesClustersSetNetworkPolicyCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersSetNetworkPolicyCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -5664,6 +6482,8 @@ func (c *ProjectsZonesClustersSetNetworkPolicyCall) doRequest(alt string) (*http
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersSetNetworkPolicyCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -5703,6 +6523,8 @@ type ProjectsZonesClustersStartIpRotationCall struct {
 func (r *ProjectsZonesClustersService) StartIpRotation(projectId string, zone string, clusterId string, startiprotationrequest *StartIPRotationRequest) *ProjectsZonesClustersStartIpRotationCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersStartIpRotationCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5713,10 +6535,14 @@ func (r *ProjectsZonesClustersService) StartIpRotation(projectId string, zone st
 func (c *ProjectsZonesClustersStartIpRotationCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersStartIpRotationCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersStartIpRotationCall) Context(ctx context.Context) *ProjectsZonesClustersStartIpRotationCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5725,12 +6551,16 @@ func (c *ProjectsZonesClustersStartIpRotationCall) Context(ctx context.Context) 
 func (c *ProjectsZonesClustersStartIpRotationCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersStartIpRotationCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -5753,6 +6583,8 @@ func (c *ProjectsZonesClustersStartIpRotationCall) doRequest(alt string) (*http.
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersStartIpRotationCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -5792,6 +6624,8 @@ type ProjectsZonesClustersUpdateCall struct {
 func (r *ProjectsZonesClustersService) Update(projectId string, zone string, clusterId string, updateclusterrequest *UpdateClusterRequest) *ProjectsZonesClustersUpdateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersUpdateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5802,10 +6636,14 @@ func (r *ProjectsZonesClustersService) Update(projectId string, zone string, clu
 func (c *ProjectsZonesClustersUpdateCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersUpdateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersUpdateCall) Context(ctx context.Context) *ProjectsZonesClustersUpdateCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5814,12 +6652,16 @@ func (c *ProjectsZonesClustersUpdateCall) Context(ctx context.Context) *Projects
 func (c *ProjectsZonesClustersUpdateCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersUpdateCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -5842,6 +6684,8 @@ func (c *ProjectsZonesClustersUpdateCall) doRequest(alt string) (*http.Response,
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersUpdateCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -5882,6 +6726,8 @@ type ProjectsZonesClustersNodePoolsAutoscalingCall struct {
 func (r *ProjectsZonesClustersNodePoolsService) Autoscaling(projectId string, zone string, clusterId string, nodePoolId string, setnodepoolautoscalingrequest *SetNodePoolAutoscalingRequest) *ProjectsZonesClustersNodePoolsAutoscalingCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersNodePoolsAutoscalingCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5893,10 +6739,14 @@ func (r *ProjectsZonesClustersNodePoolsService) Autoscaling(projectId string, zo
 func (c *ProjectsZonesClustersNodePoolsAutoscalingCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersNodePoolsAutoscalingCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsAutoscalingCall) Context(ctx context.Context) *ProjectsZonesClustersNodePoolsAutoscalingCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5905,12 +6755,16 @@ func (c *ProjectsZonesClustersNodePoolsAutoscalingCall) Context(ctx context.Cont
 func (c *ProjectsZonesClustersNodePoolsAutoscalingCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersNodePoolsAutoscalingCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -5933,6 +6787,8 @@ func (c *ProjectsZonesClustersNodePoolsAutoscalingCall) doRequest(alt string) (*
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersNodePoolsAutoscalingCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -5972,6 +6828,8 @@ type ProjectsZonesClustersNodePoolsCreateCall struct {
 func (r *ProjectsZonesClustersNodePoolsService) Create(projectId string, zone string, clusterId string, createnodepoolrequest *CreateNodePoolRequest) *ProjectsZonesClustersNodePoolsCreateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersNodePoolsCreateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -5982,10 +6840,14 @@ func (r *ProjectsZonesClustersNodePoolsService) Create(projectId string, zone st
 func (c *ProjectsZonesClustersNodePoolsCreateCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersNodePoolsCreateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsCreateCall) Context(ctx context.Context) *ProjectsZonesClustersNodePoolsCreateCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -5994,12 +6856,16 @@ func (c *ProjectsZonesClustersNodePoolsCreateCall) Context(ctx context.Context) 
 func (c *ProjectsZonesClustersNodePoolsCreateCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersNodePoolsCreateCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -6022,6 +6888,8 @@ func (c *ProjectsZonesClustersNodePoolsCreateCall) doRequest(alt string) (*http.
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersNodePoolsCreateCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -6061,6 +6929,8 @@ type ProjectsZonesClustersNodePoolsDeleteCall struct {
 func (r *ProjectsZonesClustersNodePoolsService) Delete(projectId string, zone string, clusterId string, nodePoolId string) *ProjectsZonesClustersNodePoolsDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersNodePoolsDeleteCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -6071,10 +6941,14 @@ func (r *ProjectsZonesClustersNodePoolsService) Delete(projectId string, zone st
 func (c *ProjectsZonesClustersNodePoolsDeleteCall) Name(name string) *ProjectsZonesClustersNodePoolsDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("name", name)
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsDeleteCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersNodePoolsDeleteCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -6083,10 +6957,14 @@ func (c *ProjectsZonesClustersNodePoolsDeleteCall) Fields(s ...googleapi.Field) 
 func (c *ProjectsZonesClustersNodePoolsDeleteCall) Context(ctx context.Context) *ProjectsZonesClustersNodePoolsDeleteCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ctx_ = ctx
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsDeleteCall) Header() http.Header {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.header_ == nil {
@@ -6095,6 +6973,8 @@ func (c *ProjectsZonesClustersNodePoolsDeleteCall) Header() http.Header {
 	return c.header_
 }
 func (c *ProjectsZonesClustersNodePoolsDeleteCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -6112,6 +6992,8 @@ func (c *ProjectsZonesClustersNodePoolsDeleteCall) doRequest(alt string) (*http.
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersNodePoolsDeleteCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -6152,6 +7034,8 @@ type ProjectsZonesClustersNodePoolsGetCall struct {
 func (r *ProjectsZonesClustersNodePoolsService) Get(projectId string, zone string, clusterId string, nodePoolId string) *ProjectsZonesClustersNodePoolsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersNodePoolsGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -6162,10 +7046,14 @@ func (r *ProjectsZonesClustersNodePoolsService) Get(projectId string, zone strin
 func (c *ProjectsZonesClustersNodePoolsGetCall) Name(name string) *ProjectsZonesClustersNodePoolsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("name", name)
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsGetCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersNodePoolsGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -6174,10 +7062,14 @@ func (c *ProjectsZonesClustersNodePoolsGetCall) Fields(s ...googleapi.Field) *Pr
 func (c *ProjectsZonesClustersNodePoolsGetCall) IfNoneMatch(entityTag string) *ProjectsZonesClustersNodePoolsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsGetCall) Context(ctx context.Context) *ProjectsZonesClustersNodePoolsGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -6186,12 +7078,16 @@ func (c *ProjectsZonesClustersNodePoolsGetCall) Context(ctx context.Context) *Pr
 func (c *ProjectsZonesClustersNodePoolsGetCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersNodePoolsGetCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -6212,6 +7108,8 @@ func (c *ProjectsZonesClustersNodePoolsGetCall) doRequest(alt string) (*http.Res
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersNodePoolsGetCall) Do(opts ...googleapi.CallOption) (*NodePool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -6251,6 +7149,8 @@ type ProjectsZonesClustersNodePoolsListCall struct {
 func (r *ProjectsZonesClustersNodePoolsService) List(projectId string, zone string, clusterId string) *ProjectsZonesClustersNodePoolsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersNodePoolsListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -6260,10 +7160,14 @@ func (r *ProjectsZonesClustersNodePoolsService) List(projectId string, zone stri
 func (c *ProjectsZonesClustersNodePoolsListCall) Parent(parent string) *ProjectsZonesClustersNodePoolsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("parent", parent)
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsListCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersNodePoolsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -6272,10 +7176,14 @@ func (c *ProjectsZonesClustersNodePoolsListCall) Fields(s ...googleapi.Field) *P
 func (c *ProjectsZonesClustersNodePoolsListCall) IfNoneMatch(entityTag string) *ProjectsZonesClustersNodePoolsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsListCall) Context(ctx context.Context) *ProjectsZonesClustersNodePoolsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -6284,12 +7192,16 @@ func (c *ProjectsZonesClustersNodePoolsListCall) Context(ctx context.Context) *P
 func (c *ProjectsZonesClustersNodePoolsListCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersNodePoolsListCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -6310,6 +7222,8 @@ func (c *ProjectsZonesClustersNodePoolsListCall) doRequest(alt string) (*http.Re
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersNodePoolsListCall) Do(opts ...googleapi.CallOption) (*ListNodePoolsResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -6350,6 +7264,8 @@ type ProjectsZonesClustersNodePoolsRollbackCall struct {
 func (r *ProjectsZonesClustersNodePoolsService) Rollback(projectId string, zone string, clusterId string, nodePoolId string, rollbacknodepoolupgraderequest *RollbackNodePoolUpgradeRequest) *ProjectsZonesClustersNodePoolsRollbackCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersNodePoolsRollbackCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -6361,10 +7277,14 @@ func (r *ProjectsZonesClustersNodePoolsService) Rollback(projectId string, zone 
 func (c *ProjectsZonesClustersNodePoolsRollbackCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersNodePoolsRollbackCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsRollbackCall) Context(ctx context.Context) *ProjectsZonesClustersNodePoolsRollbackCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -6373,12 +7293,16 @@ func (c *ProjectsZonesClustersNodePoolsRollbackCall) Context(ctx context.Context
 func (c *ProjectsZonesClustersNodePoolsRollbackCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersNodePoolsRollbackCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -6401,6 +7325,8 @@ func (c *ProjectsZonesClustersNodePoolsRollbackCall) doRequest(alt string) (*htt
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersNodePoolsRollbackCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -6441,6 +7367,8 @@ type ProjectsZonesClustersNodePoolsSetManagementCall struct {
 func (r *ProjectsZonesClustersNodePoolsService) SetManagement(projectId string, zone string, clusterId string, nodePoolId string, setnodepoolmanagementrequest *SetNodePoolManagementRequest) *ProjectsZonesClustersNodePoolsSetManagementCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersNodePoolsSetManagementCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -6452,10 +7380,14 @@ func (r *ProjectsZonesClustersNodePoolsService) SetManagement(projectId string, 
 func (c *ProjectsZonesClustersNodePoolsSetManagementCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersNodePoolsSetManagementCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsSetManagementCall) Context(ctx context.Context) *ProjectsZonesClustersNodePoolsSetManagementCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -6464,12 +7396,16 @@ func (c *ProjectsZonesClustersNodePoolsSetManagementCall) Context(ctx context.Co
 func (c *ProjectsZonesClustersNodePoolsSetManagementCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersNodePoolsSetManagementCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -6492,6 +7428,8 @@ func (c *ProjectsZonesClustersNodePoolsSetManagementCall) doRequest(alt string) 
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersNodePoolsSetManagementCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -6532,6 +7470,8 @@ type ProjectsZonesClustersNodePoolsSetSizeCall struct {
 func (r *ProjectsZonesClustersNodePoolsService) SetSize(projectId string, zone string, clusterId string, nodePoolId string, setnodepoolsizerequest *SetNodePoolSizeRequest) *ProjectsZonesClustersNodePoolsSetSizeCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersNodePoolsSetSizeCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -6543,10 +7483,14 @@ func (r *ProjectsZonesClustersNodePoolsService) SetSize(projectId string, zone s
 func (c *ProjectsZonesClustersNodePoolsSetSizeCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersNodePoolsSetSizeCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsSetSizeCall) Context(ctx context.Context) *ProjectsZonesClustersNodePoolsSetSizeCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -6555,12 +7499,16 @@ func (c *ProjectsZonesClustersNodePoolsSetSizeCall) Context(ctx context.Context)
 func (c *ProjectsZonesClustersNodePoolsSetSizeCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersNodePoolsSetSizeCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -6583,6 +7531,8 @@ func (c *ProjectsZonesClustersNodePoolsSetSizeCall) doRequest(alt string) (*http
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersNodePoolsSetSizeCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -6623,6 +7573,8 @@ type ProjectsZonesClustersNodePoolsUpdateCall struct {
 func (r *ProjectsZonesClustersNodePoolsService) Update(projectId string, zone string, clusterId string, nodePoolId string, updatenodepoolrequest *UpdateNodePoolRequest) *ProjectsZonesClustersNodePoolsUpdateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesClustersNodePoolsUpdateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -6634,10 +7586,14 @@ func (r *ProjectsZonesClustersNodePoolsService) Update(projectId string, zone st
 func (c *ProjectsZonesClustersNodePoolsUpdateCall) Fields(s ...googleapi.Field) *ProjectsZonesClustersNodePoolsUpdateCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesClustersNodePoolsUpdateCall) Context(ctx context.Context) *ProjectsZonesClustersNodePoolsUpdateCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -6646,12 +7602,16 @@ func (c *ProjectsZonesClustersNodePoolsUpdateCall) Context(ctx context.Context) 
 func (c *ProjectsZonesClustersNodePoolsUpdateCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesClustersNodePoolsUpdateCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -6674,6 +7634,8 @@ func (c *ProjectsZonesClustersNodePoolsUpdateCall) doRequest(alt string) (*http.
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesClustersNodePoolsUpdateCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -6713,6 +7675,8 @@ type ProjectsZonesOperationsCancelCall struct {
 func (r *ProjectsZonesOperationsService) Cancel(projectId string, zone string, operationId string, canceloperationrequest *CancelOperationRequest) *ProjectsZonesOperationsCancelCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesOperationsCancelCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -6723,10 +7687,14 @@ func (r *ProjectsZonesOperationsService) Cancel(projectId string, zone string, o
 func (c *ProjectsZonesOperationsCancelCall) Fields(s ...googleapi.Field) *ProjectsZonesOperationsCancelCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 func (c *ProjectsZonesOperationsCancelCall) Context(ctx context.Context) *ProjectsZonesOperationsCancelCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -6735,12 +7703,16 @@ func (c *ProjectsZonesOperationsCancelCall) Context(ctx context.Context) *Projec
 func (c *ProjectsZonesOperationsCancelCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesOperationsCancelCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -6763,6 +7735,8 @@ func (c *ProjectsZonesOperationsCancelCall) doRequest(alt string) (*http.Respons
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesOperationsCancelCall) Do(opts ...googleapi.CallOption) (*Empty, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -6802,6 +7776,8 @@ type ProjectsZonesOperationsGetCall struct {
 func (r *ProjectsZonesOperationsService) Get(projectId string, zone string, operationId string) *ProjectsZonesOperationsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesOperationsGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -6811,10 +7787,14 @@ func (r *ProjectsZonesOperationsService) Get(projectId string, zone string, oper
 func (c *ProjectsZonesOperationsGetCall) Name(name string) *ProjectsZonesOperationsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("name", name)
 	return c
 }
 func (c *ProjectsZonesOperationsGetCall) Fields(s ...googleapi.Field) *ProjectsZonesOperationsGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -6823,10 +7803,14 @@ func (c *ProjectsZonesOperationsGetCall) Fields(s ...googleapi.Field) *ProjectsZ
 func (c *ProjectsZonesOperationsGetCall) IfNoneMatch(entityTag string) *ProjectsZonesOperationsGetCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsZonesOperationsGetCall) Context(ctx context.Context) *ProjectsZonesOperationsGetCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -6835,12 +7819,16 @@ func (c *ProjectsZonesOperationsGetCall) Context(ctx context.Context) *ProjectsZ
 func (c *ProjectsZonesOperationsGetCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesOperationsGetCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -6861,6 +7849,8 @@ func (c *ProjectsZonesOperationsGetCall) doRequest(alt string) (*http.Response, 
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesOperationsGetCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -6899,6 +7889,8 @@ type ProjectsZonesOperationsListCall struct {
 func (r *ProjectsZonesOperationsService) List(projectId string, zone string) *ProjectsZonesOperationsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ProjectsZonesOperationsListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
 	c.zone = zone
@@ -6907,10 +7899,14 @@ func (r *ProjectsZonesOperationsService) List(projectId string, zone string) *Pr
 func (c *ProjectsZonesOperationsListCall) Parent(parent string) *ProjectsZonesOperationsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.urlParams_.Set("parent", parent)
 	return c
 }
 func (c *ProjectsZonesOperationsListCall) Fields(s ...googleapi.Field) *ProjectsZonesOperationsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
@@ -6919,10 +7915,14 @@ func (c *ProjectsZonesOperationsListCall) Fields(s ...googleapi.Field) *Projects
 func (c *ProjectsZonesOperationsListCall) IfNoneMatch(entityTag string) *ProjectsZonesOperationsListCall {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.ifNoneMatch_ = entityTag
 	return c
 }
 func (c *ProjectsZonesOperationsListCall) Context(ctx context.Context) *ProjectsZonesOperationsListCall {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.ctx_ = ctx
@@ -6931,12 +7931,16 @@ func (c *ProjectsZonesOperationsListCall) Context(ctx context.Context) *Projects
 func (c *ProjectsZonesOperationsListCall) Header() http.Header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 func (c *ProjectsZonesOperationsListCall) doRequest(alt string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqHeaders := make(http.Header)
@@ -6957,6 +7961,8 @@ func (c *ProjectsZonesOperationsListCall) doRequest(alt string) (*http.Response,
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 func (c *ProjectsZonesOperationsListCall) Do(opts ...googleapi.CallOption) (*ListOperationsResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gensupport.SetOptions(c.urlParams_, opts...)
@@ -6984,7 +7990,16 @@ func (c *ProjectsZonesOperationsListCall) Do(opts ...googleapi.CallOption) (*Lis
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

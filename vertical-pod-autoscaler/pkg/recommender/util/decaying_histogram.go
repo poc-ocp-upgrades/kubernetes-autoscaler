@@ -24,9 +24,13 @@ type decayingHistogram struct {
 func NewDecayingHistogram(options HistogramOptions, halfLife time.Duration) Histogram {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &decayingHistogram{histogram: *NewHistogram(options).(*histogram), halfLife: halfLife, referenceTimestamp: time.Time{}}
 }
 func (h *decayingHistogram) Percentile(percentile float64) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return h.histogram.Percentile(percentile)
@@ -34,14 +38,20 @@ func (h *decayingHistogram) Percentile(percentile float64) float64 {
 func (h *decayingHistogram) AddSample(value float64, weight float64, time time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h.histogram.AddSample(value, weight*h.decayFactor(time), time)
 }
 func (h *decayingHistogram) SubtractSample(value float64, weight float64, time time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h.histogram.SubtractSample(value, weight*h.decayFactor(time), time)
 }
 func (h *decayingHistogram) Merge(other Histogram) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	o := other.(*decayingHistogram)
@@ -58,10 +68,14 @@ func (h *decayingHistogram) Merge(other Histogram) {
 func (h *decayingHistogram) Equals(other Histogram) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h2, typesMatch := (other).(*decayingHistogram)
 	return typesMatch && h.halfLife == h2.halfLife && h.referenceTimestamp == h2.referenceTimestamp && h.histogram.Equals(&h2.histogram)
 }
 func (h *decayingHistogram) IsEmpty() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return h.histogram.IsEmpty()
@@ -69,9 +83,13 @@ func (h *decayingHistogram) IsEmpty() bool {
 func (h *decayingHistogram) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("referenceTimestamp: %v, halfLife: %v\n%s", h.referenceTimestamp, h.halfLife, h.histogram.String())
 }
 func (h *decayingHistogram) shiftReferenceTimestamp(newreferenceTimestamp time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	newreferenceTimestamp = newreferenceTimestamp.Round(h.halfLife)
@@ -82,6 +100,8 @@ func (h *decayingHistogram) shiftReferenceTimestamp(newreferenceTimestamp time.T
 func (h *decayingHistogram) decayFactor(timestamp time.Time) float64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	maxAllowedTimestamp := h.referenceTimestamp.Add(time.Duration(int64(h.halfLife) * int64(maxDecayExponent)))
 	if timestamp.After(maxAllowedTimestamp) {
 		h.shiftReferenceTimestamp(timestamp)
@@ -89,6 +109,8 @@ func (h *decayingHistogram) decayFactor(timestamp time.Time) float64 {
 	return math.Exp2(float64(timestamp.Sub(h.referenceTimestamp)) / float64(h.halfLife))
 }
 func (h *decayingHistogram) SaveToChekpoint() (*vpa_types.HistogramCheckpoint, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	checkpoint, err := h.histogram.SaveToChekpoint()
@@ -101,6 +123,8 @@ func (h *decayingHistogram) SaveToChekpoint() (*vpa_types.HistogramCheckpoint, e
 func (h *decayingHistogram) LoadFromCheckpoint(checkpoint *vpa_types.HistogramCheckpoint) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := h.histogram.LoadFromCheckpoint(checkpoint)
 	if err != nil {
 		return err
@@ -111,12 +135,23 @@ func (h *decayingHistogram) LoadFromCheckpoint(checkpoint *vpa_types.HistogramCh
 func round(x float64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return int(math.Floor(x + 0.5))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

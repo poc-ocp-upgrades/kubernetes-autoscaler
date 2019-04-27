@@ -55,6 +55,8 @@ type deviceToken struct {
 func InitiateDeviceAuth(sender Sender, oauthConfig OAuthConfig, clientID, resource string) (*DeviceCode, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v := url.Values{"client_id": []string{clientID}, "resource": []string{resource}}
 	s := v.Encode()
 	body := ioutil.NopCloser(strings.NewReader(s))
@@ -90,6 +92,8 @@ func InitiateDeviceAuth(sender Sender, oauthConfig OAuthConfig, clientID, resour
 	return &code, nil
 }
 func CheckForUserCompletion(sender Sender, code *DeviceCode) (*Token, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	v := url.Values{"client_id": []string{code.ClientID}, "code": []string{*code.DeviceCode}, "grant_type": []string{OAuthGrantTypeDeviceCode}, "resource": []string{code.Resource}}
@@ -138,6 +142,8 @@ func CheckForUserCompletion(sender Sender, code *DeviceCode) (*Token, error) {
 	}
 }
 func WaitForUserCompletion(sender Sender, code *DeviceCode) (*Token, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	intervalDuration := time.Duration(*code.Interval) * time.Second

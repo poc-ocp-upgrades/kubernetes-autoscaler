@@ -16,6 +16,8 @@ type RecommendationBuilder interface {
 func Recommendation() RecommendationBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &recommendationBuilder{}
 }
 
@@ -29,11 +31,15 @@ type recommendationBuilder struct {
 func (b *recommendationBuilder) WithContainer(containerName string) RecommendationBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := *b
 	c.containerName = containerName
 	return &c
 }
 func (b *recommendationBuilder) WithTarget(cpu, memory string) RecommendationBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := *b
@@ -43,6 +49,8 @@ func (b *recommendationBuilder) WithTarget(cpu, memory string) RecommendationBui
 func (b *recommendationBuilder) WithLowerBound(cpu, memory string) RecommendationBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := *b
 	c.lowerBound = Resources(cpu, memory)
 	return &c
@@ -50,11 +58,15 @@ func (b *recommendationBuilder) WithLowerBound(cpu, memory string) Recommendatio
 func (b *recommendationBuilder) WithUpperBound(cpu, memory string) RecommendationBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := *b
 	c.upperBound = Resources(cpu, memory)
 	return &c
 }
 func (b *recommendationBuilder) Get() *vpa_types.RecommendedPodResources {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if b.containerName == "" {

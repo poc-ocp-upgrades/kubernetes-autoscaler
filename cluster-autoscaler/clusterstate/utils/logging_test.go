@@ -9,6 +9,8 @@ import (
 func TestLogCollectorNoCompaction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	logCollector := NewLogCollector()
 	logCollector.Log("Event1", Debug)
 	logCollector.Log("Event2", Info)
@@ -24,6 +26,8 @@ func TestLogCollectorNoCompaction(t *testing.T) {
 func TestLogCollectorSizeCompaction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	logCollector := NewLogCollector()
 	logCollector.maxItems = 2
 	logCollector.Log("Event1", Info)
@@ -35,6 +39,8 @@ func TestLogCollectorSizeCompaction(t *testing.T) {
 	assert.Equal(t, "Event3", log[1].Log)
 }
 func TestLogCollectorTimeCompaction(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	logCollector := NewLogCollector()

@@ -23,6 +23,8 @@ const (
 func cpuHistogramOptions() util.HistogramOptions {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	options, err := util.NewExponentialHistogramOptions(1000.0, 0.01, 1.+HistogramBucketSizeGrowth, epsilon)
 	if err != nil {
 		panic("Invalid CPU histogram options")
@@ -30,6 +32,8 @@ func cpuHistogramOptions() util.HistogramOptions {
 	return options
 }
 func memoryHistogramOptions() util.HistogramOptions {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	options, err := util.NewExponentialHistogramOptions(1e12, 1e7, 1.+HistogramBucketSizeGrowth, epsilon)

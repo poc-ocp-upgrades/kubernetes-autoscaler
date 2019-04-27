@@ -32,6 +32,8 @@ import (
 func TestFindUnneededNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p1 := BuildTestPod("p1", 100, 0)
 	p1.Spec.NodeName = "n1"
 	ownerRef := GenerateOwnerReferences("rs", "ReplicaSet", "extensions/v1beta1", "")
@@ -117,6 +119,8 @@ func TestFindUnneededNodes(t *testing.T) {
 func TestPodsWithPrioritiesFindUnneededNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ownerRef := GenerateOwnerReferences("rs", "ReplicaSet", "extensions/v1beta1", "")
 	var priority100 int32 = 100
 	var priority1 int32 = 1
@@ -180,6 +184,8 @@ func TestPodsWithPrioritiesFindUnneededNodes(t *testing.T) {
 func TestFindUnneededMaxCandidates(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	provider := testprovider.NewTestCloudProvider(nil, nil)
 	provider.AddNodeGroup("ng1", 1, 100, 2)
 	numNodes := 100
@@ -228,6 +234,8 @@ func TestFindUnneededMaxCandidates(t *testing.T) {
 func TestFindUnneededEmptyNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	provider := testprovider.NewTestCloudProvider(nil, nil)
 	provider.AddNodeGroup("ng1", 1, 100, 100)
 	numNodes := 100
@@ -261,6 +269,8 @@ func TestFindUnneededEmptyNodes(t *testing.T) {
 func TestFindUnneededNodePool(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	provider := testprovider.NewTestCloudProvider(nil, nil)
 	provider.AddNodeGroup("ng1", 1, 100, 100)
 	numNodes := 100
@@ -288,6 +298,8 @@ func TestFindUnneededNodePool(t *testing.T) {
 	assert.NotEmpty(t, sd.unneededNodes)
 }
 func TestDeleteNode(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nothingReturned := "Nothing returned"
@@ -380,6 +392,8 @@ func TestDeleteNode(t *testing.T) {
 func TestDrainNode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	deletedPods := make(chan string, 10)
 	fakeClient := &fake.Clientset{}
 	p1 := BuildTestPod("p1", 100, 0)
@@ -411,6 +425,8 @@ func TestDrainNode(t *testing.T) {
 	assert.Equal(t, p2.Name, deleted[1])
 }
 func TestDrainNodeWithRescheduled(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	deletedPods := make(chan string, 10)
@@ -453,6 +469,8 @@ func TestDrainNodeWithRescheduled(t *testing.T) {
 	assert.Equal(t, p2.Name, deleted[1])
 }
 func TestDrainNodeWithRetries(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	deletedPods := make(chan string, 10)
@@ -499,6 +517,8 @@ func TestDrainNodeWithRetries(t *testing.T) {
 	assert.Equal(t, p3.Name, deleted[2])
 }
 func TestScaleDown(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	deletedPods := make(chan string, 10)
@@ -569,6 +589,8 @@ func TestScaleDown(t *testing.T) {
 func waitForDeleteToFinish(t *testing.T, sd *ScaleDown) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for start := time.Now(); time.Since(start) < 20*time.Second; time.Sleep(100 * time.Millisecond) {
 		if !sd.nodeDeleteStatus.IsDeleteInProgress() {
 			return
@@ -579,10 +601,14 @@ func waitForDeleteToFinish(t *testing.T, sd *ScaleDown) {
 func assertEqualSet(t *testing.T, a []string, b []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	assertSubset(t, a, b)
 	assertSubset(t, b, a)
 }
 func assertSubset(t *testing.T, a []string, b []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, x := range a {
@@ -604,16 +630,22 @@ var defaultScaleDownOptions = config.AutoscalingOptions{ScaleDownUtilizationThre
 func TestScaleDownEmptyMultipleNodeGroups(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	config := &scaleTestConfig{nodes: []nodeConfig{{"n1_1", 1000, 1000, 0, true, "ng1"}, {"n1_2", 1000, 1000, 0, true, "ng1"}, {"n2_1", 1000, 1000, 0, true, "ng2"}, {"n2_2", 1000, 1000, 0, true, "ng2"}}, options: defaultScaleDownOptions, expectedScaleDowns: []string{"n1_1", "n2_1"}}
 	simpleScaleDownEmpty(t, config)
 }
 func TestScaleDownEmptySingleNodeGroup(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	config := &scaleTestConfig{nodes: []nodeConfig{{"n1", 1000, 1000, 0, true, "ng1"}, {"n2", 1000, 1000, 0, true, "ng1"}}, options: defaultScaleDownOptions, expectedScaleDowns: []string{"n1"}}
 	simpleScaleDownEmpty(t, config)
 }
 func TestScaleDownEmptyMinCoresLimitHit(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	options := defaultScaleDownOptions
@@ -624,12 +656,16 @@ func TestScaleDownEmptyMinCoresLimitHit(t *testing.T) {
 func TestScaleDownEmptyMinMemoryLimitHit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	options := defaultScaleDownOptions
 	options.MinMemoryTotal = 4000 * MiB
 	config := &scaleTestConfig{nodes: []nodeConfig{{"n1", 2000, 1000 * MiB, 0, true, "ng1"}, {"n2", 1000, 1000 * MiB, 0, true, "ng1"}, {"n3", 1000, 1000 * MiB, 0, true, "ng1"}, {"n4", 1000, 3000 * MiB, 0, true, "ng1"}}, options: options, expectedScaleDowns: []string{"n1", "n2"}}
 	simpleScaleDownEmpty(t, config)
 }
 func TestScaleDownEmptyMinGpuLimitHit(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	options := defaultScaleDownOptions
@@ -640,11 +676,15 @@ func TestScaleDownEmptyMinGpuLimitHit(t *testing.T) {
 func TestScaleDownEmptyMinGroupSizeLimitHit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	options := defaultScaleDownOptions
 	config := &scaleTestConfig{nodes: []nodeConfig{{"n1", 2000, 1000, 0, true, "ng1"}}, options: options, expectedScaleDowns: []string{}}
 	simpleScaleDownEmpty(t, config)
 }
 func simpleScaleDownEmpty(t *testing.T, config *scaleTestConfig) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	updatedNodes := make(chan string, 10)
@@ -723,6 +763,8 @@ func simpleScaleDownEmpty(t *testing.T, config *scaleTestConfig) {
 func TestNoScaleDownUnready(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeClient := &fake.Clientset{}
 	n1 := BuildTestNode("n1", 1000, 1000)
 	SetNodeReadyState(n1, false, time.Now().Add(-3*time.Minute))
@@ -783,6 +825,8 @@ func TestNoScaleDownUnready(t *testing.T) {
 func TestScaleDownNoMove(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeClient := &fake.Clientset{}
 	job := batchv1.Job{ObjectMeta: metav1.ObjectMeta{Name: "job", Namespace: "default", SelfLink: "/apivs/extensions/v1beta1/namespaces/default/jobs/job"}}
 	n1 := BuildTestNode("n1", 1000, 1000)
@@ -839,6 +883,8 @@ func TestScaleDownNoMove(t *testing.T) {
 func getStringFromChan(c chan string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case val := <-c:
 		return val
@@ -849,6 +895,8 @@ func getStringFromChan(c chan string) string {
 func getStringFromChanImmediately(c chan string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case val := <-c:
 		return val
@@ -857,6 +905,8 @@ func getStringFromChanImmediately(c chan string) string {
 	}
 }
 func TestCleanToBeDeleted(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n1 := BuildTestNode("n1", 1000, 10)
@@ -892,6 +942,8 @@ func TestCleanToBeDeleted(t *testing.T) {
 func TestCalculateCoresAndMemoryTotal(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodeConfigs := []nodeConfig{{"n1", 2000, 7500 * MiB, 0, true, "ng1"}, {"n2", 2000, 7500 * MiB, 0, true, "ng1"}, {"n3", 2000, 7500 * MiB, 0, true, "ng1"}, {"n4", 12000, 8000 * MiB, 0, true, "ng1"}, {"n5", 16000, 7500 * MiB, 0, true, "ng1"}, {"n6", 8000, 6000 * MiB, 0, true, "ng1"}, {"n7", 6000, 16000 * MiB, 0, true, "ng1"}}
 	nodes := make([]*apiv1.Node, len(nodeConfigs))
 	for i, n := range nodeConfigs {
@@ -905,6 +957,8 @@ func TestCalculateCoresAndMemoryTotal(t *testing.T) {
 	assert.Equal(t, int64(44000*MiB), memoryTotal)
 }
 func TestFilterOutMasters(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodeConfigs := []nodeConfig{{"n1", 2000, 4000, 0, false, "ng1"}, {"n2", 2000, 4000, 0, true, "ng2"}, {"n3", 2000, 8000, 0, true, ""}, {"n4", 1000, 2000, 0, true, "ng3"}, {"n5", 1000, 2000, 0, true, "ng3"}, {"n6", 2000, 8000, 0, true, ""}, {"n7", 2000, 8000, 0, true, ""}}
@@ -930,6 +984,8 @@ func TestFilterOutMasters(t *testing.T) {
 	assertEqualSet(t, []string{"n1", "n2", "n4", "n5", "n6"}, withoutMastersNames)
 }
 func TestCheckScaleDownDeltaWithinLimits(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testcase struct {

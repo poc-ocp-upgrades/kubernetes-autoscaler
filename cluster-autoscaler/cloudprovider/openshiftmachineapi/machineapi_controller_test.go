@@ -38,6 +38,8 @@ type testSpec struct {
 func mustCreateTestController(t *testing.T, testConfigs ...*testConfig) (*machineController, testControllerShutdownFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Helper()
 	nodeObjects := make([]runtime.Object, 0)
 	machineObjects := make([]runtime.Object, 0)
@@ -70,9 +72,13 @@ func mustCreateTestController(t *testing.T, testConfigs ...*testConfig) (*machin
 func createMachineSetTestConfig(namespace string, nodeCount int, replicaCount int32, annotations map[string]string) *testConfig {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return createTestConfigs(createTestSpecs(namespace, 1, nodeCount, replicaCount, false, annotations)...)[0]
 }
 func createMachineSetTestConfigs(namespace string, configCount, nodeCount int, replicaCount int32, annotations map[string]string) []*testConfig {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return createTestConfigs(createTestSpecs(namespace, configCount, nodeCount, replicaCount, false, annotations)...)
@@ -80,14 +86,20 @@ func createMachineSetTestConfigs(namespace string, configCount, nodeCount int, r
 func createMachineDeploymentTestConfig(namespace string, nodeCount int, replicaCount int32, annotations map[string]string) *testConfig {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return createTestConfigs(createTestSpecs(namespace, 1, nodeCount, replicaCount, true, annotations)...)[0]
 }
 func createMachineDeploymentTestConfigs(namespace string, configCount, nodeCount int, replicaCount int32, annotations map[string]string) []*testConfig {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return createTestConfigs(createTestSpecs(namespace, configCount, nodeCount, replicaCount, true, annotations)...)
 }
 func createTestSpecs(namespace string, scalableResourceCount, nodeCount int, replicaCount int32, isMachineDeployment bool, annotations map[string]string) []testSpec {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var specs []testSpec
@@ -97,6 +109,8 @@ func createTestSpecs(namespace string, scalableResourceCount, nodeCount int, rep
 	return specs
 }
 func createTestConfigs(specs ...testSpec) []*testConfig {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var result []*testConfig
@@ -122,6 +136,8 @@ func createTestConfigs(specs ...testSpec) []*testConfig {
 func makeLinkedNodeAndMachine(i int, namespace string, owner v1.OwnerReference) (*apiv1.Node, *v1beta1.Machine) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	node := &apiv1.Node{TypeMeta: v1.TypeMeta{Kind: "Node"}, ObjectMeta: v1.ObjectMeta{Name: fmt.Sprintf("%s-%s-node-%d", namespace, owner.Name, i), Annotations: map[string]string{machineAnnotationKey: fmt.Sprintf("%s/%s-%s-machine-%d", namespace, namespace, owner.Name, i)}}, Spec: apiv1.NodeSpec{ProviderID: fmt.Sprintf("%s-%s-nodeid-%d", namespace, owner.Name, i)}}
 	machine := &v1beta1.Machine{TypeMeta: v1.TypeMeta{Kind: "Machine"}, ObjectMeta: v1.ObjectMeta{Name: fmt.Sprintf("%s-%s-machine-%d", namespace, owner.Name, i), Namespace: namespace, OwnerReferences: []v1.OwnerReference{{Name: owner.Name, Kind: owner.Kind, UID: owner.UID}}}, Status: v1beta1.MachineStatus{NodeRef: &apiv1.ObjectReference{Kind: node.Kind, Name: node.Name}}}
 	return node, machine
@@ -129,9 +145,13 @@ func makeLinkedNodeAndMachine(i int, namespace string, owner v1.OwnerReference) 
 func int32ptr(v int32) *int32 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &v
 }
 func addTestConfigs(t *testing.T, controller *machineController, testConfigs ...*testConfig) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.Helper()
@@ -160,6 +180,8 @@ func addTestConfigs(t *testing.T, controller *machineController, testConfigs ...
 func deleteTestConfigs(t *testing.T, controller *machineController, testConfigs ...*testConfig) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Helper()
 	for _, config := range testConfigs {
 		for i := range config.nodes {
@@ -184,6 +206,8 @@ func deleteTestConfigs(t *testing.T, controller *machineController, testConfigs 
 	return nil
 }
 func TestControllerFindMachineByID(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testCase struct {
@@ -228,6 +252,8 @@ func TestControllerFindMachineByID(t *testing.T) {
 func TestControllerFindMachineOwner(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testConfig := createMachineSetTestConfig(testNamespace, 1, 1, map[string]string{nodeGroupMinSizeAnnotationKey: "1", nodeGroupMaxSizeAnnotationKey: "10"})
 	controller, stop := mustCreateTestController(t, testConfig)
 	defer stop()
@@ -262,6 +288,8 @@ func TestControllerFindMachineOwner(t *testing.T) {
 	}
 }
 func TestControllerFindMachineByNodeProviderID(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testConfig := createMachineSetTestConfig(testNamespace, 1, 1, map[string]string{nodeGroupMinSizeAnnotationKey: "1", nodeGroupMaxSizeAnnotationKey: "10"})
@@ -302,6 +330,8 @@ func TestControllerFindMachineByNodeProviderID(t *testing.T) {
 func TestControllerFindNodeByNodeName(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testConfig := createMachineSetTestConfig(testNamespace, 1, 1, map[string]string{nodeGroupMinSizeAnnotationKey: "1", nodeGroupMaxSizeAnnotationKey: "10"})
 	controller, stop := mustCreateTestController(t, testConfig)
 	defer stop()
@@ -321,6 +351,8 @@ func TestControllerFindNodeByNodeName(t *testing.T) {
 	}
 }
 func TestControllerMachinesInMachineSet(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testConfig1 := createMachineSetTestConfig("testConfig1", 5, 5, map[string]string{nodeGroupMinSizeAnnotationKey: "1", nodeGroupMaxSizeAnnotationKey: "10"})
@@ -375,6 +407,8 @@ func TestControllerMachinesInMachineSet(t *testing.T) {
 func TestControllerLookupNodeGroupForNonExistentNode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testConfig := createMachineSetTestConfig(testNamespace, 1, 1, map[string]string{nodeGroupMinSizeAnnotationKey: "1", nodeGroupMaxSizeAnnotationKey: "10"})
 	controller, stop := mustCreateTestController(t, testConfig)
 	defer stop()
@@ -389,6 +423,8 @@ func TestControllerLookupNodeGroupForNonExistentNode(t *testing.T) {
 	}
 }
 func TestControllerNodeGroupForNodeWithMissingMachineOwner(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	test := func(t *testing.T, testConfig *testConfig) {
@@ -419,6 +455,8 @@ func TestControllerNodeGroupForNodeWithMissingMachineOwner(t *testing.T) {
 func TestControllerNodeGroupForNodeWithPositiveScalingBounds(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	test := func(t *testing.T, testConfig *testConfig) {
 		controller, stop := mustCreateTestController(t, testConfig)
 		defer stop()
@@ -440,6 +478,8 @@ func TestControllerNodeGroupForNodeWithPositiveScalingBounds(t *testing.T) {
 	})
 }
 func TestControllerNodeGroups(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	assertNodegroupLen := func(t *testing.T, controller *machineController, expected int) {
@@ -502,6 +542,8 @@ func TestControllerNodeGroups(t *testing.T) {
 	}
 }
 func TestControllerNodeGroupsNodeCount(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testCase struct {

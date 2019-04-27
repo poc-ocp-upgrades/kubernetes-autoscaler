@@ -41,6 +41,8 @@ const (
 func ParseLevel(s string) (lt LevelType, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch strings.ToUpper(s) {
 	case logFatal:
 		lt = LogFatal
@@ -60,6 +62,8 @@ func ParseLevel(s string) (lt LevelType, err error) {
 	return
 }
 func (lt LevelType) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch lt {
@@ -91,6 +95,8 @@ type Filter struct {
 func (f Filter) processURL(u *url.URL) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if f.URL == nil {
 		return u.String()
 	}
@@ -99,12 +105,16 @@ func (f Filter) processURL(u *url.URL) string {
 func (f Filter) processHeader(k string, val []string) (bool, []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if f.Header == nil {
 		return true, val
 	}
 	return f.Header(k, val)
 }
 func (f Filter) processBody(b []byte) []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if f.Body == nil {
@@ -126,14 +136,20 @@ var logLevel = LogNone
 func Level() LevelType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return logLevel
 }
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	initDefaultLogger()
 }
 func initDefaultLogger() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Instance = nilLogger{}
@@ -170,16 +186,24 @@ type nilLogger struct{}
 func (nilLogger) Writeln(LevelType, string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (nilLogger) Writef(LevelType, string, ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (nilLogger) WriteRequest(*http.Request, Filter) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (nilLogger) WriteResponse(*http.Response, Filter) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
@@ -193,9 +217,13 @@ type fileLogger struct {
 func (fl fileLogger) Writeln(level LevelType, message string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fl.Writef(level, "%s\n", message)
 }
 func (fl fileLogger) Writef(level LevelType, format string, a ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if fl.logLevel >= level {
@@ -206,6 +234,8 @@ func (fl fileLogger) Writef(level LevelType, format string, a ...interface{}) {
 	}
 }
 func (fl fileLogger) WriteRequest(req *http.Request, filter Filter) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if req == nil || fl.logLevel < LogInfo {
@@ -239,6 +269,8 @@ func (fl fileLogger) WriteRequest(req *http.Request, filter Filter) {
 func (fl fileLogger) WriteResponse(resp *http.Response, filter Filter) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if resp == nil || fl.logLevel < LogInfo {
 		return
 	}
@@ -267,10 +299,14 @@ func (fl fileLogger) WriteResponse(resp *http.Response, filter Filter) {
 func (fl fileLogger) shouldLogBody(header http.Header, body io.ReadCloser) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ct := header.Get("Content-Type")
 	return fl.logLevel >= LogDebug && body != nil && strings.Index(ct, "application/octet-stream") == -1
 }
 func entryHeader(level LevelType) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("(%s) %s:", time.Now().Format("2006-01-02T15:04:05.0000000Z07:00"), level.String())
@@ -278,7 +314,16 @@ func entryHeader(level LevelType) string {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

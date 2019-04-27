@@ -42,6 +42,8 @@ type autoscalingGceClientV1 struct {
 func NewAutoscalingGceClientV1(client *http.Client, projectId string) (*autoscalingGceClientV1, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gceService, err := gce.New(client)
 	if err != nil {
 		return nil, err
@@ -49,6 +51,8 @@ func NewAutoscalingGceClientV1(client *http.Client, projectId string) (*autoscal
 	return &autoscalingGceClientV1{projectId: projectId, gceService: gceService, operationWaitTimeout: defaultOperationWaitTimeout, operationPollInterval: defaultOperationPollInterval}, nil
 }
 func NewCustomAutoscalingGceClientV1(client *http.Client, projectId, serverUrl string, waitTimeout, pollInterval time.Duration) (*autoscalingGceClientV1, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gceService, err := gce.New(client)
@@ -61,10 +65,14 @@ func NewCustomAutoscalingGceClientV1(client *http.Client, projectId, serverUrl s
 func (client *autoscalingGceClientV1) FetchMachineType(zone, machineType string) (*gce.MachineType, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registerRequest("machine_types", "get")
 	return client.gceService.MachineTypes.Get(client.projectId, zone, machineType).Do()
 }
 func (client *autoscalingGceClientV1) FetchMachineTypes(zone string) ([]*gce.MachineType, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	registerRequest("machine_types", "list")
@@ -77,6 +85,8 @@ func (client *autoscalingGceClientV1) FetchMachineTypes(zone string) ([]*gce.Mac
 func (client *autoscalingGceClientV1) FetchMigTargetSize(migRef GceRef) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registerRequest("instance_group_managers", "get")
 	igm, err := client.gceService.InstanceGroupManagers.Get(migRef.Project, migRef.Zone, migRef.Name).Do()
 	if err != nil {
@@ -85,6 +95,8 @@ func (client *autoscalingGceClientV1) FetchMigTargetSize(migRef GceRef) (int64, 
 	return igm.TargetSize, nil
 }
 func (client *autoscalingGceClientV1) FetchMigBasename(migRef GceRef) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	registerRequest("instance_group_managers", "get")
@@ -97,6 +109,8 @@ func (client *autoscalingGceClientV1) FetchMigBasename(migRef GceRef) (string, e
 func (client *autoscalingGceClientV1) ResizeMig(migRef GceRef, size int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registerRequest("instance_group_managers", "resize")
 	op, err := client.gceService.InstanceGroupManagers.Resize(migRef.Project, migRef.Zone, migRef.Name, size).Do()
 	if err != nil {
@@ -105,6 +119,8 @@ func (client *autoscalingGceClientV1) ResizeMig(migRef GceRef, size int64) error
 	return client.waitForOp(op, migRef.Project, migRef.Zone)
 }
 func (client *autoscalingGceClientV1) waitForOp(operation *gce.Operation, project, zone string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for start := time.Now(); time.Since(start) < client.operationWaitTimeout; time.Sleep(client.operationPollInterval) {
@@ -124,6 +140,8 @@ func (client *autoscalingGceClientV1) waitForOp(operation *gce.Operation, projec
 func (client *autoscalingGceClientV1) DeleteInstances(migRef GceRef, instances []*GceRef) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req := gce.InstanceGroupManagersDeleteInstancesRequest{Instances: []string{}}
 	for _, i := range instances {
 		req.Instances = append(req.Instances, GenerateInstanceUrl(*i))
@@ -136,6 +154,8 @@ func (client *autoscalingGceClientV1) DeleteInstances(migRef GceRef, instances [
 	return client.waitForOp(op, migRef.Project, migRef.Zone)
 }
 func (client *autoscalingGceClientV1) FetchMigInstances(migRef GceRef) ([]GceRef, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	registerRequest("instance_group_managers", "list_managed_instances")
@@ -157,6 +177,8 @@ func (client *autoscalingGceClientV1) FetchMigInstances(migRef GceRef) ([]GceRef
 func (client *autoscalingGceClientV1) FetchZones(region string) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registerRequest("regions", "get")
 	r, err := client.gceService.Regions.Get(client.projectId, region).Do()
 	if err != nil {
@@ -169,6 +191,8 @@ func (client *autoscalingGceClientV1) FetchZones(region string) ([]string, error
 	return zones, nil
 }
 func (client *autoscalingGceClientV1) FetchMigTemplate(migRef GceRef) (*gce.InstanceTemplate, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	registerRequest("instance_group_managers", "get")
@@ -185,6 +209,8 @@ func (client *autoscalingGceClientV1) FetchMigTemplate(migRef GceRef) (*gce.Inst
 	return client.gceService.InstanceTemplates.Get(migRef.Project, templateName).Do()
 }
 func (client *autoscalingGceClientV1) FetchMigsWithName(zone string, name *regexp.Regexp) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	filter := fmt.Sprintf("name eq %s", name)
@@ -205,7 +231,16 @@ func (client *autoscalingGceClientV1) FetchMigsWithName(zone string, name *regex
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

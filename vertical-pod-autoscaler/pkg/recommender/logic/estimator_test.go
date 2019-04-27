@@ -16,6 +16,8 @@ var (
 func TestPercentileEstimator(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cpuHistogram := util.NewHistogram(model.CPUHistogramOptions)
 	cpuHistogram.AddSample(1.0, 1.0, anyTime)
 	cpuHistogram.AddSample(2.0, 1.0, anyTime)
@@ -35,6 +37,8 @@ func TestPercentileEstimator(t *testing.T) {
 func TestConfidenceMultiplier(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	baseEstimator := NewConstEstimator(model.Resources{model.ResourceCPU: model.CPUAmountFromCores(3.14), model.ResourceMemory: model.MemoryAmountFromBytes(3.14e9)})
 	testedEstimator := &confidenceMultiplier{0.1, 2.0, baseEstimator}
 	s := model.NewAggregateContainerState()
@@ -50,6 +54,8 @@ func TestConfidenceMultiplier(t *testing.T) {
 func TestConfidenceMultiplierNoHistory(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	baseEstimator := NewConstEstimator(model.Resources{model.ResourceCPU: model.CPUAmountFromCores(3.14), model.ResourceMemory: model.MemoryAmountFromBytes(3.14e9)})
 	testedEstimator1 := &confidenceMultiplier{1.0, 1.0, baseEstimator}
 	testedEstimator2 := &confidenceMultiplier{1.0, -1.0, baseEstimator}
@@ -58,6 +64,8 @@ func TestConfidenceMultiplierNoHistory(t *testing.T) {
 	assert.Equal(t, model.ResourceAmount(0), testedEstimator2.GetResourceEstimation(s)[model.ResourceCPU])
 }
 func TestMarginEstimator(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	marginFraction := 0.1
@@ -69,6 +77,8 @@ func TestMarginEstimator(t *testing.T) {
 	assert.Equal(t, 3.14e9*1.1, model.BytesFromMemoryAmount(resourceEstimation[model.ResourceMemory]))
 }
 func TestMinResourcesEstimator(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	minResources := model.Resources{model.ResourceCPU: model.CPUAmountFromCores(0.2), model.ResourceMemory: model.MemoryAmountFromBytes(4e8)}

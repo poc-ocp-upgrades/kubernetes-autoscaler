@@ -25,6 +25,8 @@ type asgCache struct {
 func newAsgCache() (*asgCache, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cache := &asgCache{registeredAsgs: make([]cloudprovider.NodeGroup, 0), instanceToAsg: make(map[azureRef]cloudprovider.NodeGroup), notInRegisteredAsg: make(map[azureRef]bool), interrupt: make(chan struct{})}
 	go wait.Until(func() {
 		cache.mutex.Lock()
@@ -36,6 +38,8 @@ func newAsgCache() (*asgCache, error) {
 	return cache, nil
 }
 func (m *asgCache) Register(asg cloudprovider.NodeGroup) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.mutex.Lock()
@@ -59,10 +63,14 @@ func (m *asgCache) Register(asg cloudprovider.NodeGroup) bool {
 func (m *asgCache) invalidateUnownedInstanceCache() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(4).Info("Invalidating unowned instance cache")
 	m.notInRegisteredAsg = make(map[azureRef]bool)
 }
 func (m *asgCache) Unregister(asg cloudprovider.NodeGroup) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.mutex.Lock()
@@ -83,11 +91,15 @@ func (m *asgCache) Unregister(asg cloudprovider.NodeGroup) bool {
 func (m *asgCache) get() []cloudprovider.NodeGroup {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
 	return m.registeredAsgs
 }
 func (m *asgCache) FindForInstance(instance *azureRef, vmType string) (cloudprovider.NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.mutex.Lock()
@@ -125,9 +137,13 @@ func (m *asgCache) FindForInstance(instance *azureRef, vmType string) (cloudprov
 func (m *asgCache) Cleanup() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(m.interrupt)
 }
 func (m *asgCache) regenerate() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	newCache := make(map[azureRef]cloudprovider.NodeGroup)
@@ -145,6 +161,8 @@ func (m *asgCache) regenerate() error {
 	return nil
 }
 func (m *asgCache) getInstanceFromCache(providerID string) cloudprovider.NodeGroup {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for instanceID, asg := range m.instanceToAsg {

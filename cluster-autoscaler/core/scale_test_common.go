@@ -56,6 +56,8 @@ type scaleTestConfig struct {
 func NewScaleTestAutoscalingContext(options config.AutoscalingOptions, fakeClient kube_client.Interface, provider cloudprovider.CloudProvider) context.AutoscalingContext {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeRecorder := kube_record.NewFakeRecorder(5)
 	fakeLogRecorder, _ := utils.NewStatusMapRecorder(fakeClient, "kube-system", fakeRecorder, false)
 	estimatorBuilder, _ := estimator.NewEstimatorBuilder(options.EstimatorName)
@@ -67,6 +69,8 @@ type mockAutoprovisioningNodeGroupManager struct{ t *testing.T }
 func (p *mockAutoprovisioningNodeGroupManager) CreateNodeGroup(context *context.AutoscalingContext, nodeGroup cloudprovider.NodeGroup) (nodegroups.CreateNodeGroupResult, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	newNodeGroup, err := nodeGroup.Create()
 	assert.NoError(p.t, err)
 	metrics.RegisterNodeGroupCreation()
@@ -74,6 +78,8 @@ func (p *mockAutoprovisioningNodeGroupManager) CreateNodeGroup(context *context.
 	return result, nil
 }
 func (p *mockAutoprovisioningNodeGroupManager) RemoveUnneededNodeGroups(context *context.AutoscalingContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !context.AutoscalingOptions.NodeAutoprovisioningEnabled {
@@ -102,11 +108,15 @@ func (p *mockAutoprovisioningNodeGroupManager) RemoveUnneededNodeGroups(context 
 func (p *mockAutoprovisioningNodeGroupManager) CleanUp() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 
 type mockAutoprovisioningNodeGroupListProcessor struct{ t *testing.T }
 
 func (p *mockAutoprovisioningNodeGroupListProcessor) Process(context *context.AutoscalingContext, nodeGroups []cloudprovider.NodeGroup, nodeInfos map[string]*schedulercache.NodeInfo, unschedulablePods []*apiv1.Pod) ([]cloudprovider.NodeGroup, map[string]*schedulercache.NodeInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	machines, err := context.CloudProvider.GetAvailableMachineTypes()
@@ -125,8 +135,12 @@ func (p *mockAutoprovisioningNodeGroupListProcessor) Process(context *context.Au
 func (p *mockAutoprovisioningNodeGroupListProcessor) CleanUp() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func newBackoff() backoff.Backoff {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return backoff.NewIdBasedExponentialBackoff(clusterstate.InitialNodeGroupBackoffDuration, clusterstate.MaxNodeGroupBackoffDuration, clusterstate.NodeGroupBackoffResetTimeout)

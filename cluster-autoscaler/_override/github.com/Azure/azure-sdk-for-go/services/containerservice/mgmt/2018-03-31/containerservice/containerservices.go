@@ -13,14 +13,20 @@ type ContainerServicesClient struct{ BaseClient }
 func NewContainerServicesClient(subscriptionID string) ContainerServicesClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewContainerServicesClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 func NewContainerServicesClientWithBaseURI(baseURI string, subscriptionID string) ContainerServicesClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ContainerServicesClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 func (client ContainerServicesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, containerServiceName string, parameters ContainerService) (result ContainerServicesCreateOrUpdateFutureType, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := validation.Validate([]validation.Validation{{TargetValue: parameters, Constraints: []validation.Constraint{{Target: "parameters.Properties", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.Properties.OrchestratorProfile", Name: validation.Null, Rule: true, Chain: nil}, {Target: "parameters.Properties.CustomProfile", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.Properties.CustomProfile.Orchestrator", Name: validation.Null, Rule: true, Chain: nil}}}, {Target: "parameters.Properties.ServicePrincipalProfile", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.Properties.ServicePrincipalProfile.ClientID", Name: validation.Null, Rule: true, Chain: nil}, {Target: "parameters.Properties.ServicePrincipalProfile.KeyVaultSecretRef", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.Properties.ServicePrincipalProfile.KeyVaultSecretRef.VaultID", Name: validation.Null, Rule: true, Chain: nil}, {Target: "parameters.Properties.ServicePrincipalProfile.KeyVaultSecretRef.SecretName", Name: validation.Null, Rule: true, Chain: nil}}}}}, {Target: "parameters.Properties.MasterProfile", Name: validation.Null, Rule: true, Chain: []validation.Constraint{{Target: "parameters.Properties.MasterProfile.DNSPrefix", Name: validation.Null, Rule: true, Chain: nil}}}, {Target: "parameters.Properties.WindowsProfile", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.Properties.WindowsProfile.AdminUsername", Name: validation.Null, Rule: true, Chain: []validation.Constraint{{Target: "parameters.Properties.WindowsProfile.AdminUsername", Name: validation.Pattern, Rule: `^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$`, Chain: nil}}}, {Target: "parameters.Properties.WindowsProfile.AdminPassword", Name: validation.Null, Rule: true, Chain: nil}}}, {Target: "parameters.Properties.LinuxProfile", Name: validation.Null, Rule: true, Chain: []validation.Constraint{{Target: "parameters.Properties.LinuxProfile.AdminUsername", Name: validation.Null, Rule: true, Chain: []validation.Constraint{{Target: "parameters.Properties.LinuxProfile.AdminUsername", Name: validation.Pattern, Rule: `^[a-z][a-z0-9_-]*$`, Chain: nil}}}, {Target: "parameters.Properties.LinuxProfile.SSH", Name: validation.Null, Rule: true, Chain: []validation.Constraint{{Target: "parameters.Properties.LinuxProfile.SSH.PublicKeys", Name: validation.Null, Rule: true, Chain: nil}}}}}, {Target: "parameters.Properties.DiagnosticsProfile", Name: validation.Null, Rule: false, Chain: []validation.Constraint{{Target: "parameters.Properties.DiagnosticsProfile.VMDiagnostics", Name: validation.Null, Rule: true, Chain: []validation.Constraint{{Target: "parameters.Properties.DiagnosticsProfile.VMDiagnostics.Enabled", Name: validation.Null, Rule: true, Chain: nil}}}}}}}}}}); err != nil {
@@ -41,6 +47,8 @@ func (client ContainerServicesClient) CreateOrUpdate(ctx context.Context, resour
 func (client ContainerServicesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, containerServiceName string, parameters ContainerService) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"containerServiceName": autorest.Encode("path", containerServiceName), "resourceGroupName": autorest.Encode("path", resourceGroupName), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2017-07-01"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -48,6 +56,8 @@ func (client ContainerServicesClient) CreateOrUpdatePreparer(ctx context.Context
 	return preparer.Prepare((&http.Request{}).WithContext(ctx))
 }
 func (client ContainerServicesClient) CreateOrUpdateSender(req *http.Request) (future ContainerServicesCreateOrUpdateFutureType, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var resp *http.Response
@@ -65,11 +75,15 @@ func (client ContainerServicesClient) CreateOrUpdateSender(req *http.Request) (f
 func (client ContainerServicesClient) CreateOrUpdateResponder(resp *http.Response) (result ContainerService, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated, http.StatusAccepted), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
 	return
 }
 func (client ContainerServicesClient) Delete(ctx context.Context, resourceGroupName string, containerServiceName string) (result ContainerServicesDeleteFutureType, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := client.DeletePreparer(ctx, resourceGroupName, containerServiceName)
@@ -87,6 +101,8 @@ func (client ContainerServicesClient) Delete(ctx context.Context, resourceGroupN
 func (client ContainerServicesClient) DeletePreparer(ctx context.Context, resourceGroupName string, containerServiceName string) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"containerServiceName": autorest.Encode("path", containerServiceName), "resourceGroupName": autorest.Encode("path", resourceGroupName), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2017-07-01"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -94,6 +110,8 @@ func (client ContainerServicesClient) DeletePreparer(ctx context.Context, resour
 	return preparer.Prepare((&http.Request{}).WithContext(ctx))
 }
 func (client ContainerServicesClient) DeleteSender(req *http.Request) (future ContainerServicesDeleteFutureType, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var resp *http.Response
@@ -111,11 +129,15 @@ func (client ContainerServicesClient) DeleteSender(req *http.Request) (future Co
 func (client ContainerServicesClient) DeleteResponder(resp *http.Response) (result autorest.Response, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent), autorest.ByClosing())
 	result.Response = resp
 	return
 }
 func (client ContainerServicesClient) Get(ctx context.Context, resourceGroupName string, containerServiceName string) (result ContainerService, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := client.GetPreparer(ctx, resourceGroupName, containerServiceName)
@@ -138,6 +160,8 @@ func (client ContainerServicesClient) Get(ctx context.Context, resourceGroupName
 func (client ContainerServicesClient) GetPreparer(ctx context.Context, resourceGroupName string, containerServiceName string) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"containerServiceName": autorest.Encode("path", containerServiceName), "resourceGroupName": autorest.Encode("path", resourceGroupName), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2017-07-01"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -147,9 +171,13 @@ func (client ContainerServicesClient) GetPreparer(ctx context.Context, resourceG
 func (client ContainerServicesClient) GetSender(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.SendWithSender(client, req, azure.DoRetryWithRegistration(client.Client))
 }
 func (client ContainerServicesClient) GetResponder(resp *http.Response) (result ContainerService, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())
@@ -157,6 +185,8 @@ func (client ContainerServicesClient) GetResponder(resp *http.Response) (result 
 	return
 }
 func (client ContainerServicesClient) List(ctx context.Context) (result ListResultPage, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result.fn = client.listNextResults
@@ -180,6 +210,8 @@ func (client ContainerServicesClient) List(ctx context.Context) (result ListResu
 func (client ContainerServicesClient) ListPreparer(ctx context.Context) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2017-07-01"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -189,9 +221,13 @@ func (client ContainerServicesClient) ListPreparer(ctx context.Context) (*http.R
 func (client ContainerServicesClient) ListSender(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.SendWithSender(client, req, azure.DoRetryWithRegistration(client.Client))
 }
 func (client ContainerServicesClient) ListResponder(resp *http.Response) (result ListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())
@@ -199,6 +235,8 @@ func (client ContainerServicesClient) ListResponder(resp *http.Response) (result
 	return
 }
 func (client ContainerServicesClient) listNextResults(lastResults ListResult) (result ListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := lastResults.listResultPreparer()
@@ -222,10 +260,14 @@ func (client ContainerServicesClient) listNextResults(lastResults ListResult) (r
 func (client ContainerServicesClient) ListComplete(ctx context.Context) (result ListResultIterator, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result.page, err = client.List(ctx)
 	return
 }
 func (client ContainerServicesClient) ListByResourceGroup(ctx context.Context, resourceGroupName string) (result ListResultPage, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result.fn = client.listByResourceGroupNextResults
@@ -249,6 +291,8 @@ func (client ContainerServicesClient) ListByResourceGroup(ctx context.Context, r
 func (client ContainerServicesClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"resourceGroupName": autorest.Encode("path", resourceGroupName), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2017-07-01"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -258,9 +302,13 @@ func (client ContainerServicesClient) ListByResourceGroupPreparer(ctx context.Co
 func (client ContainerServicesClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.SendWithSender(client, req, azure.DoRetryWithRegistration(client.Client))
 }
 func (client ContainerServicesClient) ListByResourceGroupResponder(resp *http.Response) (result ListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())
@@ -268,6 +316,8 @@ func (client ContainerServicesClient) ListByResourceGroupResponder(resp *http.Re
 	return
 }
 func (client ContainerServicesClient) listByResourceGroupNextResults(lastResults ListResult) (result ListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := lastResults.listResultPreparer()
@@ -291,10 +341,14 @@ func (client ContainerServicesClient) listByResourceGroupNextResults(lastResults
 func (client ContainerServicesClient) ListByResourceGroupComplete(ctx context.Context, resourceGroupName string) (result ListResultIterator, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result.page, err = client.ListByResourceGroup(ctx, resourceGroupName)
 	return
 }
 func (client ContainerServicesClient) ListOrchestrators(ctx context.Context, location string, resourceType string) (result OrchestratorVersionProfileListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := client.ListOrchestratorsPreparer(ctx, location, resourceType)
@@ -317,6 +371,8 @@ func (client ContainerServicesClient) ListOrchestrators(ctx context.Context, loc
 func (client ContainerServicesClient) ListOrchestratorsPreparer(ctx context.Context, location string, resourceType string) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pathParameters := map[string]interface{}{"location": autorest.Encode("path", location), "subscriptionId": autorest.Encode("path", client.SubscriptionID)}
 	const APIVersion = "2017-09-30"
 	queryParameters := map[string]interface{}{"api-version": APIVersion}
@@ -329,9 +385,13 @@ func (client ContainerServicesClient) ListOrchestratorsPreparer(ctx context.Cont
 func (client ContainerServicesClient) ListOrchestratorsSender(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return autorest.SendWithSender(client, req, azure.DoRetryWithRegistration(client.Client))
 }
 func (client ContainerServicesClient) ListOrchestratorsResponder(resp *http.Response) (result OrchestratorVersionProfileListResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = autorest.Respond(resp, client.ByInspecting(), azure.WithErrorUnlessStatusCode(http.StatusOK), autorest.ByUnmarshallingJSON(&result), autorest.ByClosing())

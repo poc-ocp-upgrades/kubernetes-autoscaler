@@ -13,6 +13,8 @@ import (
 func DoRetryWithRegistration(client autorest.Client) autorest.SendDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(s autorest.Sender) autorest.Sender {
 		return autorest.SenderFunc(func(r *http.Request) (resp *http.Response, err error) {
 			rr := autorest.NewRetriableRequest(r)
@@ -48,12 +50,16 @@ func DoRetryWithRegistration(client autorest.Client) autorest.SendDecorator {
 func getProvider(re RequestError) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if re.ServiceError != nil && len(re.ServiceError.Details) > 0 {
 		return re.ServiceError.Details[0]["target"].(string), nil
 	}
 	return "", errors.New("provider was not found in the response")
 }
 func register(client autorest.Client, originalReq *http.Request, re RequestError) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	subID := getSubscription(originalReq.URL.Path)
@@ -116,6 +122,8 @@ func register(client autorest.Client, originalReq *http.Request, re RequestError
 	return err
 }
 func getSubscription(path string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	parts := strings.Split(path, "/")

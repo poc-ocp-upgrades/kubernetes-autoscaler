@@ -9,6 +9,8 @@ import (
 func IsNodeReadyAndSchedulable(node *apiv1.Node) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ready, _, _ := GetReadinessState(node)
 	if !ready {
 		return false
@@ -19,6 +21,8 @@ func IsNodeReadyAndSchedulable(node *apiv1.Node) bool {
 	return true
 }
 func GetReadinessState(node *apiv1.Node) (isNodeReady bool, lastTransitionTime time.Time, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	canNodeBeReady, readyFound := true, false

@@ -440,9 +440,13 @@ const getClusterResponseTemplate = `{
 func getInstanceGroupManager(zone string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getInstanceGroupManagerNamed(defaultPoolMig, zone)
 }
 func getInstanceGroupManagerNamed(name, zone string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf(instanceGroupManager, name, zone, name, zone, name, zone, name)
@@ -450,9 +454,13 @@ func getInstanceGroupManagerNamed(name, zone string) string {
 func getManagedInstancesResponse1(zone string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getManagedInstancesResponse1Named(defaultPoolMig, zone)
 }
 func getManagedInstancesResponse1Named(name, zone string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf(managedInstancesResponse1, zone, name, zone, name, zone, name, zone, name)
@@ -460,14 +468,20 @@ func getManagedInstancesResponse1Named(name, zone string) string {
 func getManagedInstancesResponse2(zone string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getManagedInstancesResponse2Named(autoprovisionedPoolMig, zone)
 }
 func getManagedInstancesResponse2Named(name, zone string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf(managedInstancesResponse2, zone, name)
 }
 func newTestAutoscalingGceClient(t *testing.T, projectId, url string, waitTimeout, pollInterval time.Duration) gce.AutoscalingGceClient {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client := &http.Client{}
@@ -478,6 +492,8 @@ func newTestAutoscalingGceClient(t *testing.T, projectId, url string, waitTimeou
 	return gceClient
 }
 func newTestGkeManager(t *testing.T, testServerURL string, mode GcpCloudProviderMode, regional bool) *gkeManagerImpl {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	waitTimeout := 50 * time.Millisecond
@@ -507,6 +523,8 @@ func newTestGkeManager(t *testing.T, testServerURL string, mode GcpCloudProvider
 func validateMig(t *testing.T, mig gce.Mig, zone string, name string, minSize int, maxSize int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	assert.Equal(t, name, mig.GceRef().Name)
 	assert.Equal(t, zone, mig.GceRef().Zone)
 	assert.Equal(t, projectId, mig.GceRef().Project)
@@ -514,6 +532,8 @@ func validateMig(t *testing.T, mig gce.Mig, zone string, name string, minSize in
 	assert.Equal(t, maxSize, mig.MaxSize())
 }
 func TestRefreshNodePools(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -554,6 +574,8 @@ func TestRefreshNodePools(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestFetchAllNodePoolsRegional(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -601,6 +623,8 @@ const deleteNodePoolOperationResponse = `{
 func TestDeleteNodePool(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	server := NewHttpServerMock()
 	defer server.Close()
 	g := newTestGkeManager(t, server.URL, ModeGKENAP, false)
@@ -642,6 +666,8 @@ const createNodePoolOperationResponse = `{
 }`
 
 func TestCreateNodePool(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -705,16 +731,22 @@ const deleteInstancesOperationResponse = `
 func setupTestNodePool(manager *gkeManagerImpl) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mig := &GkeMig{gceRef: gce.GceRef{Name: defaultPoolMig, Zone: zoneB, Project: projectId}, gkeManager: manager, exist: true, autoprovisioned: false, nodePoolName: defaultPool, minSize: 1, maxSize: 11}
 	manager.cache.RegisterMig(mig)
 }
 func setupTestAutoprovisionedPool(manager *gkeManagerImpl) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mig := &GkeMig{gceRef: gce.GceRef{Name: autoprovisionedPoolMig, Zone: zoneB, Project: projectId}, gkeManager: manager, exist: true, autoprovisioned: true, nodePoolName: autoprovisionedPool, minSize: minAutoprovisionedSize, maxSize: maxAutoprovisionedSize}
 	manager.cache.RegisterMig(mig)
 }
 func TestDeleteInstances(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -739,6 +771,8 @@ func TestDeleteInstances(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestGetMigSize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -788,6 +822,8 @@ const setMigSizeOperationResponse = `{
 func TestSetMigSize(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	server := NewHttpServerMock()
 	defer server.Close()
 	g := newTestGkeManager(t, server.URL, ModeGKE, false)
@@ -799,6 +835,8 @@ func TestSetMigSize(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestGetMigForInstance(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -817,6 +855,8 @@ func TestGetMigForInstance(t *testing.T) {
 func TestGetMigNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	server := NewHttpServerMock()
 	defer server.Close()
 	g := newTestGkeManager(t, server.URL, ModeGKE, false)
@@ -832,6 +872,8 @@ func TestGetMigNodes(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestFetchResourceLimiter(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -887,6 +929,8 @@ const listMachineTypesResponse = `{
 func TestRefreshMachinesCache(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	server := NewHttpServerMock()
 	defer server.Close()
 	g := newTestGkeManager(t, server.URL, ModeGKENAP, false)
@@ -907,6 +951,8 @@ func TestRefreshMachinesCache(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestGetMigTemplateNode(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -940,6 +986,8 @@ const getMachineTypeResponse = `{
 func TestGetCpuAndMemoryForMachineType(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	server := NewHttpServerMock()
 	defer server.Close()
 	regional := false
@@ -971,6 +1019,8 @@ func TestGetCpuAndMemoryForMachineType(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, server)
 }
 func TestParseCustomMachineType(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cpu, mem, err := parseCustomMachineType("custom-2-2816")

@@ -14,6 +14,8 @@ type vpaConditionsMap map[vpa_types.VerticalPodAutoscalerConditionType]vpa_types
 func (conditionsMap *vpaConditionsMap) Set(conditionType vpa_types.VerticalPodAutoscalerConditionType, status bool, reason string, message string) *vpaConditionsMap {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	oldCondition, alreadyPresent := (*conditionsMap)[conditionType]
 	condition := vpa_types.VerticalPodAutoscalerCondition{Type: conditionType, Reason: reason, Message: message}
 	if status {
@@ -30,6 +32,8 @@ func (conditionsMap *vpaConditionsMap) Set(conditionType vpa_types.VerticalPodAu
 	return conditionsMap
 }
 func (conditionsMap *vpaConditionsMap) AsList() []vpa_types.VerticalPodAutoscalerCondition {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	conditions := make([]vpa_types.VerticalPodAutoscalerCondition, 0, len(*conditionsMap))
@@ -58,10 +62,14 @@ type Vpa struct {
 func NewVpa(id VpaID, selector labels.Selector, created time.Time) *Vpa {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vpa := &Vpa{ID: id, PodSelector: selector, aggregateContainerStates: make(aggregateContainerStatesMap), ContainersInitialAggregateState: make(ContainerNameToAggregateStateMap), Created: created, Conditions: make(vpaConditionsMap)}
 	return vpa
 }
 func (vpa *Vpa) UseAggregationIfMatching(aggregationKey AggregateStateKey, aggregation *AggregateContainerState) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !vpa.UsesAggregation(aggregationKey) && vpa.matchesAggregation(aggregationKey) {
@@ -71,15 +79,21 @@ func (vpa *Vpa) UseAggregationIfMatching(aggregationKey AggregateStateKey, aggre
 func (vpa *Vpa) UsesAggregation(aggregationKey AggregateStateKey) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, exists := vpa.aggregateContainerStates[aggregationKey]
 	return exists
 }
 func (vpa *Vpa) DeleteAggregation(aggregationKey AggregateStateKey) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	delete(vpa.aggregateContainerStates, aggregationKey)
 }
 func (vpa *Vpa) MergeCheckpointedState(aggregateContainerStateMap ContainerNameToAggregateStateMap) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for containerName, aggregation := range vpa.ContainersInitialAggregateState {
@@ -94,6 +108,8 @@ func (vpa *Vpa) MergeCheckpointedState(aggregateContainerStateMap ContainerNameT
 func (vpa *Vpa) AggregateStateByContainerName() ContainerNameToAggregateStateMap {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	containerNameToAggregateStateMap := AggregateStateByContainerName(vpa.aggregateContainerStates)
 	vpa.MergeCheckpointedState(containerNameToAggregateStateMap)
 	return containerNameToAggregateStateMap
@@ -101,9 +117,13 @@ func (vpa *Vpa) AggregateStateByContainerName() ContainerNameToAggregateStateMap
 func (vpa *Vpa) HasRecommendation() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return (vpa.Recommendation != nil) && len(vpa.Recommendation.ContainerRecommendations) > 0
 }
 func (vpa *Vpa) matchesAggregation(aggregationKey AggregateStateKey) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if vpa.ID.Namespace != aggregationKey.Namespace() {

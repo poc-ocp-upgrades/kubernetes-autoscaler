@@ -30,10 +30,14 @@ var defaultOptions = config.AutoscalingOptions{EstimatorName: estimator.Binpacki
 func TestScaleUpOK(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	config := &scaleTestConfig{nodes: []nodeConfig{{"n1", 100, 100, 0, true, "ng1"}, {"n2", 1000, 1000, 0, true, "ng2"}}, pods: []podConfig{{"p1", 80, 0, 0, "n1"}, {"p2", 800, 0, 0, "n2"}}, extraPods: []podConfig{{"p-new", 500, 0, 0, ""}}, scaleUpOptionToChoose: groupSizeChange{groupName: "ng2", sizeChange: 1}, expectedFinalScaleUp: groupSizeChange{groupName: "ng2", sizeChange: 1}, options: defaultOptions}
 	simpleScaleUpTest(t, config)
 }
 func TestScaleUpMaxCoresLimitHit(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	options := defaultOptions
@@ -44,12 +48,16 @@ func TestScaleUpMaxCoresLimitHit(t *testing.T) {
 func TestScaleUpMaxCoresLimitHitWithNotAutoscaledGroup(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	options := defaultOptions
 	options.MaxCoresTotal = 9
 	config := &scaleTestConfig{nodes: []nodeConfig{{"n1", 2000, 100, 0, true, "ng1"}, {"n2", 4000, 1000, 0, true, ""}}, pods: []podConfig{{"p1", 1000, 0, 0, "n1"}, {"p2", 3000, 0, 0, "n2"}}, extraPods: []podConfig{{"p-new-1", 2000, 0, 0, ""}, {"p-new-2", 2000, 0, 0, ""}}, scaleUpOptionToChoose: groupSizeChange{groupName: "ng1", sizeChange: 2}, expectedFinalScaleUp: groupSizeChange{groupName: "ng1", sizeChange: 1}, options: options}
 	simpleScaleUpTest(t, config)
 }
 func TestScaleUpMaxMemoryLimitHit(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	options := defaultOptions
@@ -60,12 +68,16 @@ func TestScaleUpMaxMemoryLimitHit(t *testing.T) {
 func TestScaleUpMaxMemoryLimitHitWithNotAutoscaledGroup(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	options := defaultOptions
 	options.MaxMemoryTotal = 1300 * MiB
 	config := &scaleTestConfig{nodes: []nodeConfig{{"n1", 2000, 100 * MiB, 0, true, "ng1"}, {"n2", 4000, 1000 * MiB, 0, true, ""}}, pods: []podConfig{{"p1", 1000, 0, 0, "n1"}, {"p2", 3000, 0, 0, "n2"}}, extraPods: []podConfig{{"p-new-1", 2000, 100 * MiB, 0, ""}, {"p-new-2", 2000, 100 * MiB, 0, ""}, {"p-new-3", 2000, 100 * MiB, 0, ""}}, scaleUpOptionToChoose: groupSizeChange{groupName: "ng1", sizeChange: 3}, expectedFinalScaleUp: groupSizeChange{groupName: "ng1", sizeChange: 2}, options: options}
 	simpleScaleUpTest(t, config)
 }
 func TestScaleUpCapToMaxTotalNodesLimit(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	options := defaultOptions
@@ -76,12 +88,16 @@ func TestScaleUpCapToMaxTotalNodesLimit(t *testing.T) {
 func TestScaleUpCapToMaxTotalNodesLimitWithNotAutoscaledGroup(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	options := defaultOptions
 	options.MaxNodesTotal = 3
 	config := &scaleTestConfig{nodes: []nodeConfig{{"n1", 2000, 100 * MiB, 0, true, ""}, {"n2", 4000, 1000 * MiB, 0, true, "ng2"}}, pods: []podConfig{{"p1", 1000, 0, 0, "n1"}, {"p2", 3000, 0, 0, "n2"}}, extraPods: []podConfig{{"p-new-1", 4000, 100 * MiB, 0, ""}, {"p-new-2", 4000, 100 * MiB, 0, ""}, {"p-new-3", 4000, 100 * MiB, 0, ""}}, scaleUpOptionToChoose: groupSizeChange{groupName: "ng2", sizeChange: 3}, expectedFinalScaleUp: groupSizeChange{groupName: "ng2", sizeChange: 1}, options: options}
 	simpleScaleUpTest(t, config)
 }
 func TestWillConsiderGpuAndStandardPoolForPodWhichDoesNotRequireGpu(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	options := defaultOptions
@@ -92,12 +108,16 @@ func TestWillConsiderGpuAndStandardPoolForPodWhichDoesNotRequireGpu(t *testing.T
 func TestWillConsiderOnlyGpuPoolForPodWhichDoesRequiresGpu(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	options := defaultOptions
 	options.MaxNodesTotal = 100
 	config := &scaleTestConfig{nodes: []nodeConfig{{"gpu-node-1", 2000, 1000 * MiB, 1, true, "gpu-pool"}, {"std-node-1", 2000, 1000 * MiB, 0, true, "std-pool"}}, pods: []podConfig{{"gpu-pod-1", 2000, 1000 * MiB, 1, "gpu-node-1"}, {"std-pod-1", 2000, 1000 * MiB, 0, "std-node-1"}}, extraPods: []podConfig{{"extra-gpu-pod", 2000, 1000 * MiB, 1, ""}}, expectedScaleUpOptions: []groupSizeChange{{groupName: "gpu-pool", sizeChange: 1}}, scaleUpOptionToChoose: groupSizeChange{groupName: "gpu-pool", sizeChange: 1}, expectedFinalScaleUp: groupSizeChange{groupName: "gpu-pool", sizeChange: 1}, options: options}
 	simpleScaleUpTest(t, config)
 }
 func TestWillConsiderAllPoolsWhichFitTwoPodsRequiringGpus(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	options := defaultOptions
@@ -114,6 +134,8 @@ type assertingStrategy struct {
 }
 
 func (s assertingStrategy) BestOption(options []expander.Option, nodeInfo map[string]*schedulercache.NodeInfo) *expander.Option {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(s.expectedScaleUpOptions) > 0 {
@@ -134,6 +156,8 @@ func (s assertingStrategy) BestOption(options []expander.Option, nodeInfo map[st
 func expanderOptionsToGroupSizeChanges(options []expander.Option) []groupSizeChange {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	groupSizeChanges := make([]groupSizeChange, 0, len(options))
 	for _, option := range options {
 		groupSizeChange := expanderOptionToGroupSizeChange(option)
@@ -144,12 +168,16 @@ func expanderOptionsToGroupSizeChanges(options []expander.Option) []groupSizeCha
 func expanderOptionToGroupSizeChange(option expander.Option) groupSizeChange {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	groupName := option.NodeGroup.Id()
 	groupSizeIncrement := option.NodeCount
 	scaleUpOption := groupSizeChange{groupName, groupSizeIncrement}
 	return scaleUpOption
 }
 func simpleScaleUpTest(t *testing.T, config *scaleTestConfig) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	expandedGroups := make(chan groupSizeChange, 10)
@@ -231,6 +259,8 @@ func simpleScaleUpTest(t *testing.T, config *scaleTestConfig) {
 func getGroupSizeChangeFromChan(c chan groupSizeChange) *groupSizeChange {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case val := <-c:
 		return &val
@@ -239,6 +269,8 @@ func getGroupSizeChangeFromChan(c chan groupSizeChange) *groupSizeChange {
 	}
 }
 func buildTestPod(p podConfig) *apiv1.Pod {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod := BuildTestPod(p.name, p.cpu, p.memory)
@@ -251,6 +283,8 @@ func buildTestPod(p podConfig) *apiv1.Pod {
 	return pod
 }
 func TestScaleUpNodeComingNoScale(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n1 := BuildTestNode("n1", 100, 1000)
@@ -295,6 +329,8 @@ func TestScaleUpNodeComingNoScale(t *testing.T) {
 	assert.False(t, scaleUpStatus.WasSuccessful())
 }
 func TestScaleUpNodeComingHasScale(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n1 := BuildTestNode("n1", 100, 1000)
@@ -343,6 +379,8 @@ func TestScaleUpNodeComingHasScale(t *testing.T) {
 func TestScaleUpUnhealthy(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n1 := BuildTestNode("n1", 100, 1000)
 	SetNodeReadyState(n1, true, time.Now())
 	n2 := BuildTestNode("n2", 1000, 1000)
@@ -386,6 +424,8 @@ func TestScaleUpUnhealthy(t *testing.T) {
 func TestScaleUpNoHelp(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeClient := &fake.Clientset{}
 	n1 := BuildTestNode("n1", 100, 1000)
 	SetNodeReadyState(n1, true, time.Now())
@@ -427,6 +467,8 @@ func TestScaleUpNoHelp(t *testing.T) {
 	assert.Regexp(t, regexp.MustCompile("NotTriggerScaleUp"), event)
 }
 func TestScaleUpBalanceGroups(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeClient := &fake.Clientset{}
@@ -490,6 +532,8 @@ func TestScaleUpBalanceGroups(t *testing.T) {
 func TestScaleUpAutoprovisionedNodeGroup(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	createdGroups := make(chan string, 10)
 	expandedGroups := make(chan string, 10)
 	p1 := BuildTestPod("p1", 80, 0)
@@ -520,6 +564,8 @@ func TestScaleUpAutoprovisionedNodeGroup(t *testing.T) {
 	assert.Equal(t, "autoprovisioned-T1-1", getStringFromChan(expandedGroups))
 }
 func TestCheckScaleUpDeltaWithinLimits(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testcase struct {

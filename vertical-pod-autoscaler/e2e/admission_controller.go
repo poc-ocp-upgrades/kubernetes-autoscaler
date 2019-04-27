@@ -95,6 +95,8 @@ var _ = AdmissionControllerE2eDescribe("Admission-controller", func() {
 func startDeploymentPods(f *framework.Framework, deployment *appsv1.Deployment) *apiv1.PodList {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c, ns := f.ClientSet, f.Namespace.Name
 	deployment, err := c.AppsV1().Deployments(ns).Create(deployment)
 	gomega.Expect(err).NotTo(gomega.HaveOccurred())

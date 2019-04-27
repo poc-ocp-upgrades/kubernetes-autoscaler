@@ -39,6 +39,8 @@ type ScaleDownStatusProcessor interface {
 func NewDefaultScaleDownStatusProcessor() ScaleDownStatusProcessor {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &NoOpScaleDownStatusProcessor{}
 }
 
@@ -47,8 +49,12 @@ type NoOpScaleDownStatusProcessor struct{}
 func (p *NoOpScaleDownStatusProcessor) Process(context *context.AutoscalingContext, status *ScaleDownStatus) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (p *NoOpScaleDownStatusProcessor) CleanUp() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }

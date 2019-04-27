@@ -19,6 +19,8 @@ type containerSpecs []requests
 func testContainer(requests requests) apiv1.Container {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	container := apiv1.Container{Resources: apiv1.ResourceRequirements{Requests: apiv1.ResourceList{}}}
 	for res, request := range requests {
 		container.Resources.Requests[res] = *resource.NewQuantity(request, resource.DecimalSI)
@@ -28,6 +30,8 @@ func testContainer(requests requests) apiv1.Container {
 func testPod(name string, containers ...requests) *apiv1.Pod {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod := BuildTestPod(name, 0, 0)
 	for _, requests := range containers[1:] {
 		pod.Spec.Containers = append(pod.Spec.Containers, testContainer(requests))
@@ -35,6 +39,8 @@ func testPod(name string, containers ...requests) *apiv1.Pod {
 	return pod
 }
 func TestClearTPURequests(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cpuPod := testPod("cpuPod", requests{apiv1.ResourceCPU: 10})

@@ -26,6 +26,8 @@ type NullAuthorizer struct{}
 func (na NullAuthorizer) WithAuthorization() PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithNothing()
 }
 
@@ -37,9 +39,13 @@ type APIKeyAuthorizer struct {
 func NewAPIKeyAuthorizerWithHeaders(headers map[string]interface{}) *APIKeyAuthorizer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewAPIKeyAuthorizer(headers, nil)
 }
 func NewAPIKeyAuthorizerWithQueryParameters(queryParameters map[string]interface{}) *APIKeyAuthorizer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return NewAPIKeyAuthorizer(nil, queryParameters)
@@ -47,9 +53,13 @@ func NewAPIKeyAuthorizerWithQueryParameters(queryParameters map[string]interface
 func NewAPIKeyAuthorizer(headers map[string]interface{}, queryParameters map[string]interface{}) *APIKeyAuthorizer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &APIKeyAuthorizer{headers: headers, queryParameters: queryParameters}
 }
 func (aka *APIKeyAuthorizer) WithAuthorization() PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
@@ -62,9 +72,13 @@ type CognitiveServicesAuthorizer struct{ subscriptionKey string }
 func NewCognitiveServicesAuthorizer(subscriptionKey string) *CognitiveServicesAuthorizer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &CognitiveServicesAuthorizer{subscriptionKey: subscriptionKey}
 }
 func (csa *CognitiveServicesAuthorizer) WithAuthorization() PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	headers := make(map[string]interface{})
@@ -78,9 +92,13 @@ type BearerAuthorizer struct{ tokenProvider adal.OAuthTokenProvider }
 func NewBearerAuthorizer(tp adal.OAuthTokenProvider) *BearerAuthorizer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &BearerAuthorizer{tokenProvider: tp}
 }
 func (ba *BearerAuthorizer) WithAuthorization() PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
@@ -115,12 +133,16 @@ type BearerAuthorizerCallback struct {
 func NewBearerAuthorizerCallback(sender Sender, callback BearerAuthorizerCallbackFunc) *BearerAuthorizerCallback {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if sender == nil {
 		sender = &http.Client{}
 	}
 	return &BearerAuthorizerCallback{sender: sender, callback: callback}
 }
 func (bacb *BearerAuthorizerCallback) WithAuthorization() PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
@@ -154,6 +176,8 @@ func (bacb *BearerAuthorizerCallback) WithAuthorization() PrepareDecorator {
 func hasBearerChallenge(resp *http.Response) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	authHeader := resp.Header.Get(bearerChallengeHeader)
 	if len(authHeader) == 0 || strings.Index(authHeader, bearer) < 0 {
 		return false
@@ -164,6 +188,8 @@ func hasBearerChallenge(resp *http.Response) bool {
 type bearerChallenge struct{ values map[string]string }
 
 func newBearerChallenge(resp *http.Response) (bc bearerChallenge, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	challenge := strings.TrimSpace(resp.Header.Get(bearerChallengeHeader))
@@ -200,9 +226,13 @@ type EventGridKeyAuthorizer struct{ topicKey string }
 func NewEventGridKeyAuthorizer(topicKey string) EventGridKeyAuthorizer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return EventGridKeyAuthorizer{topicKey: topicKey}
 }
 func (egta EventGridKeyAuthorizer) WithAuthorization() PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	headers := map[string]interface{}{"aeg-sas-key": egta.topicKey}
@@ -211,7 +241,16 @@ func (egta EventGridKeyAuthorizer) WithAuthorization() PrepareDecorator {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

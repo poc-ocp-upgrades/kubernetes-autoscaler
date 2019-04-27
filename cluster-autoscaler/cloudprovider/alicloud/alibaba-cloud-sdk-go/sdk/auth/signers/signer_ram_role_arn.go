@@ -28,6 +28,8 @@ type RamRoleArnSigner struct {
 func NewRamRoleArnSigner(credential *credentials.RamRoleArnCredential, commonApi func(request *requests.CommonRequest, signer interface{}) (response *responses.CommonResponse, err error)) (signer *RamRoleArnSigner, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	signer = &RamRoleArnSigner{credential: credential, commonApi: commonApi}
 	signer.credentialUpdater = &credentialUpdater{credentialExpiration: credential.RoleSessionExpiration, buildRequestMethod: signer.buildCommonRequest, responseCallBack: signer.refreshCredential, refreshApi: signer.refreshApi}
 	if len(credential.RoleSessionName) > 0 {
@@ -49,9 +51,13 @@ func NewRamRoleArnSigner(credential *credentials.RamRoleArnCredential, commonApi
 func (*RamRoleArnSigner) GetName() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "HMAC-SHA1"
 }
 func (*RamRoleArnSigner) GetType() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ""
@@ -59,9 +65,13 @@ func (*RamRoleArnSigner) GetType() string {
 func (*RamRoleArnSigner) GetVersion() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "1.0"
 }
 func (signer *RamRoleArnSigner) GetAccessKeyId() (accessKeyId string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if signer.sessionCredential == nil || signer.needUpdateCredential() {
@@ -75,6 +85,8 @@ func (signer *RamRoleArnSigner) GetAccessKeyId() (accessKeyId string, err error)
 func (signer *RamRoleArnSigner) GetExtraParam() map[string]string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if signer.sessionCredential == nil || signer.needUpdateCredential() {
 		signer.updateCredential()
 	}
@@ -86,10 +98,14 @@ func (signer *RamRoleArnSigner) GetExtraParam() map[string]string {
 func (signer *RamRoleArnSigner) Sign(stringToSign, secretSuffix string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	secret := signer.sessionCredential.AccessKeySecret + secretSuffix
 	return ShaHmac1(stringToSign, secret)
 }
 func (signer *RamRoleArnSigner) buildCommonRequest() (request *requests.CommonRequest, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	request = requests.NewCommonRequest()
@@ -105,11 +121,15 @@ func (signer *RamRoleArnSigner) buildCommonRequest() (request *requests.CommonRe
 func (signer *RamRoleArnSigner) refreshApi(request *requests.CommonRequest) (response *responses.CommonResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	credential := &credentials.AccessKeyCredential{AccessKeyId: signer.credential.AccessKeyId, AccessKeySecret: signer.credential.AccessKeySecret}
 	signerV1, err := NewAccessKeySigner(credential)
 	return signer.commonApi(request, signerV1)
 }
 func (signer *RamRoleArnSigner) refreshCredential(response *responses.CommonResponse) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if response.GetHttpStatus() != http.StatusOK {
@@ -147,9 +167,13 @@ func (signer *RamRoleArnSigner) refreshCredential(response *responses.CommonResp
 func (signer *RamRoleArnSigner) GetSessionCredential() *SessionCredential {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return signer.sessionCredential
 }
 func (signer *RamRoleArnSigner) Shutdown() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }

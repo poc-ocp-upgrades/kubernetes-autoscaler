@@ -10,6 +10,8 @@ import (
 func TestCreateNodeNameToInfoMap(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p1 := BuildTestPod("p1", 1500, 200000)
 	p1.Spec.NodeName = "node1"
 	p2 := BuildTestPod("p2", 3000, 200000)

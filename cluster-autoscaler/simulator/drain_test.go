@@ -15,6 +15,8 @@ import (
 func TestFastGetPodsToMove(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod1 := &apiv1.Pod{ObjectMeta: metav1.ObjectMeta{Name: "pod1", Namespace: "ns"}}
 	_, err := FastGetPodsToMove(schedulercache.NewNodeInfo(pod1), true, true, nil)
 	assert.Error(t, err)

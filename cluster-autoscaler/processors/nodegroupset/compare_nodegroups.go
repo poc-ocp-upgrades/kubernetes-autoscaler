@@ -18,6 +18,8 @@ type NodeInfoComparator func(n1, n2 *schedulercache.NodeInfo) bool
 func compareResourceMapsWithTolerance(resources map[apiv1.ResourceName][]resource.Quantity, maxDifferenceRatio float64) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, qtyList := range resources {
 		if len(qtyList) != 2 {
 			return false
@@ -31,6 +33,8 @@ func compareResourceMapsWithTolerance(resources map[apiv1.ResourceName][]resourc
 	return true
 }
 func IsNodeInfoSimilar(n1, n2 *schedulercache.NodeInfo) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	capacity := make(map[apiv1.ResourceName][]resource.Quantity)

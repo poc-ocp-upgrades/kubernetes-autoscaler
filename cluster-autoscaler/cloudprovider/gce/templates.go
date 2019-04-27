@@ -21,6 +21,8 @@ type GceTemplateBuilder struct{}
 func (t *GceTemplateBuilder) getAcceleratorCount(accelerators []*gce.AcceleratorConfig) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	count := int64(0)
 	for _, accelerator := range accelerators {
 		if strings.HasPrefix(accelerator.AcceleratorType, "nvidia-") {
@@ -30,6 +32,8 @@ func (t *GceTemplateBuilder) getAcceleratorCount(accelerators []*gce.Accelerator
 	return count
 }
 func (t *GceTemplateBuilder) BuildCapacity(cpu int64, mem int64, accelerators []*gce.AcceleratorConfig) (apiv1.ResourceList, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	capacity := apiv1.ResourceList{}
@@ -45,6 +49,8 @@ func (t *GceTemplateBuilder) BuildCapacity(cpu int64, mem int64, accelerators []
 func (t *GceTemplateBuilder) BuildAllocatableFromKubeEnv(capacity apiv1.ResourceList, kubeEnv string) (apiv1.ResourceList, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kubeReserved, err := extractKubeReservedFromKubeEnv(kubeEnv)
 	if err != nil {
 		return nil, err
@@ -56,6 +62,8 @@ func (t *GceTemplateBuilder) BuildAllocatableFromKubeEnv(capacity apiv1.Resource
 	return t.CalculateAllocatable(capacity, reserved), nil
 }
 func (t *GceTemplateBuilder) CalculateAllocatable(capacity, kubeReserved apiv1.ResourceList) apiv1.ResourceList {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	allocatable := apiv1.ResourceList{}
@@ -72,6 +80,8 @@ func (t *GceTemplateBuilder) CalculateAllocatable(capacity, kubeReserved apiv1.R
 	return allocatable
 }
 func (t *GceTemplateBuilder) BuildNodeFromTemplate(mig Mig, template *gce.InstanceTemplate, cpu int64, mem int64) (*apiv1.Node, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if template.Properties == nil {
@@ -126,6 +136,8 @@ func (t *GceTemplateBuilder) BuildNodeFromTemplate(mig Mig, template *gce.Instan
 func BuildGenericLabels(ref GceRef, machineType string, nodeName string) (map[string]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make(map[string]string)
 	result[kubeletapis.LabelArch] = cloudprovider.DefaultArch
 	result[kubeletapis.LabelOS] = cloudprovider.DefaultOS
@@ -140,6 +152,8 @@ func BuildGenericLabels(ref GceRef, machineType string, nodeName string) (map[st
 	return result, nil
 }
 func parseKubeReserved(kubeReserved string) (apiv1.ResourceList, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resourcesMap, err := parseKeyValueListToMap(kubeReserved)
@@ -162,6 +176,8 @@ func parseKubeReserved(kubeReserved string) (apiv1.ResourceList, error) {
 func extractLabelsFromKubeEnv(kubeEnv string) (map[string]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	labels, err := extractAutoscalerVarFromKubeEnv(kubeEnv, "node_labels")
 	if err != nil {
 		klog.Errorf("node_labels not found via AUTOSCALER_ENV_VARS due to error, will try NODE_LABELS: %v", err)
@@ -173,6 +189,8 @@ func extractLabelsFromKubeEnv(kubeEnv string) (map[string]string, error) {
 	return parseKeyValueListToMap(labels)
 }
 func extractTaintsFromKubeEnv(kubeEnv string) ([]apiv1.Taint, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	taints, err := extractAutoscalerVarFromKubeEnv(kubeEnv, "node_taints")
@@ -192,6 +210,8 @@ func extractTaintsFromKubeEnv(kubeEnv string) ([]apiv1.Taint, error) {
 func extractKubeReservedFromKubeEnv(kubeEnv string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kubeReserved, err := extractAutoscalerVarFromKubeEnv(kubeEnv, "kube_reserved")
 	if err != nil {
 		klog.Errorf("kube_reserved not found via AUTOSCALER_ENV_VARS due to error, will try kube-reserved in KUBELET_TEST_ARGS: %v", err)
@@ -209,6 +229,8 @@ func extractKubeReservedFromKubeEnv(kubeEnv string) (string, error) {
 	return kubeReserved, nil
 }
 func extractAutoscalerVarFromKubeEnv(kubeEnv, name string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	const autoscalerVars = "AUTOSCALER_ENV_VARS"
@@ -231,6 +253,8 @@ func extractAutoscalerVarFromKubeEnv(kubeEnv, name string) (string, error) {
 func extractFromKubeEnv(kubeEnv, resource string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kubeEnvMap := make(map[string]string)
 	err := yaml.Unmarshal([]byte(kubeEnv), &kubeEnvMap)
 	if err != nil {
@@ -239,6 +263,8 @@ func extractFromKubeEnv(kubeEnv, resource string) (string, error) {
 	return kubeEnvMap[resource], nil
 }
 func parseKeyValueListToMap(kvList string) (map[string]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(map[string]string)
@@ -255,6 +281,8 @@ func parseKeyValueListToMap(kvList string) (map[string]string, error) {
 	return result, nil
 }
 func buildTaints(kubeEnvTaints map[string]string) ([]apiv1.Taint, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	taints := make([]apiv1.Taint, 0)

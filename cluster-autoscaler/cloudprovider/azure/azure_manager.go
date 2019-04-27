@@ -54,6 +54,8 @@ type Config struct {
 func (c *Config) TrimSpace() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.Cloud = strings.TrimSpace(c.Cloud)
 	c.TenantID = strings.TrimSpace(c.TenantID)
 	c.SubscriptionID = strings.TrimSpace(c.SubscriptionID)
@@ -68,6 +70,8 @@ func (c *Config) TrimSpace() {
 	c.NodeResourceGroup = strings.TrimSpace(c.NodeResourceGroup)
 }
 func CreateAzureManager(configReader io.Reader, discoveryOpts cloudprovider.NodeGroupDiscoveryOptions) (*AzureManager, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -147,6 +151,8 @@ func CreateAzureManager(configReader io.Reader, discoveryOpts cloudprovider.Node
 func (m *AzureManager) fetchExplicitAsgs(specs []string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	changed := false
 	for _, spec := range specs {
 		asg, err := m.buildAsgFromSpec(spec)
@@ -166,6 +172,8 @@ func (m *AzureManager) fetchExplicitAsgs(specs []string) error {
 	return nil
 }
 func (m *AzureManager) buildAsgFromSpec(spec string) (cloudprovider.NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scaleToZeroSupported := scaleToZeroSupportedStandard
@@ -192,12 +200,16 @@ func (m *AzureManager) buildAsgFromSpec(spec string) (cloudprovider.NodeGroup, e
 func (m *AzureManager) Refresh() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m.lastRefresh.Add(refreshInterval).After(time.Now()) {
 		return nil
 	}
 	return m.forceRefresh()
 }
 func (m *AzureManager) forceRefresh() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := m.fetchAutoAsgs(); err != nil {
@@ -209,6 +221,8 @@ func (m *AzureManager) forceRefresh() error {
 	return nil
 }
 func (m *AzureManager) fetchAutoAsgs() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	groups, err := m.getFilteredAutoscalingGroups(m.asgAutoDiscoverySpecs)
@@ -246,9 +260,13 @@ func (m *AzureManager) fetchAutoAsgs() error {
 func (m *AzureManager) getAsgs() []cloudprovider.NodeGroup {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.asgCache.get()
 }
 func (m *AzureManager) RegisterAsg(asg cloudprovider.NodeGroup) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return m.asgCache.Register(asg)
@@ -256,14 +274,20 @@ func (m *AzureManager) RegisterAsg(asg cloudprovider.NodeGroup) bool {
 func (m *AzureManager) UnregisterAsg(asg cloudprovider.NodeGroup) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.asgCache.Unregister(asg)
 }
 func (m *AzureManager) GetAsgForInstance(instance *azureRef) (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.asgCache.FindForInstance(instance, m.config.VMType)
 }
 func (m *AzureManager) regenerateCache() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.asgCache.mutex.Lock()
@@ -273,9 +297,13 @@ func (m *AzureManager) regenerateCache() error {
 func (m *AzureManager) Cleanup() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.asgCache.Cleanup()
 }
 func (m *AzureManager) getFilteredAutoscalingGroups(filter []cloudprovider.LabelAutoDiscoveryConfig) (asgs []cloudprovider.NodeGroup, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(filter) == 0 {
@@ -298,6 +326,8 @@ func (m *AzureManager) getFilteredAutoscalingGroups(filter []cloudprovider.Label
 	return asgs, nil
 }
 func (m *AzureManager) listScaleSets(filter []cloudprovider.LabelAutoDiscoveryConfig) (asgs []cloudprovider.NodeGroup, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()
@@ -323,6 +353,8 @@ func (m *AzureManager) listScaleSets(filter []cloudprovider.LabelAutoDiscoveryCo
 	return asgs, nil
 }
 func (m *AzureManager) listAgentPools(filter []cloudprovider.LabelAutoDiscoveryConfig) (asgs []cloudprovider.NodeGroup, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := getContextWithCancel()

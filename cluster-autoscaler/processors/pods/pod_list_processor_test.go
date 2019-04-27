@@ -10,6 +10,8 @@ import (
 func TestPodListProcessor(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	context := &context.AutoscalingContext{}
 	p1 := BuildTestPod("p1", 40, 0)
 	p2 := BuildTestPod("p2", 400, 0)

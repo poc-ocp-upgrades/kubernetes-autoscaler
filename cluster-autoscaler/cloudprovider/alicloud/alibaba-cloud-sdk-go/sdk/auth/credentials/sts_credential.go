@@ -9,5 +9,7 @@ type StsTokenCredential struct {
 func NewStsTokenCredential(accessKeyId, accessKeySecret, accessKeyStsToken string) *StsTokenCredential {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &StsTokenCredential{AccessKeyId: accessKeyId, AccessKeySecret: accessKeySecret, AccessKeyStsToken: accessKeyStsToken}
 }

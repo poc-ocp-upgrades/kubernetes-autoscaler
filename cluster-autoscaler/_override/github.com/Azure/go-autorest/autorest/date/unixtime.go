@@ -14,9 +14,13 @@ type UnixTime time.Time
 func (t UnixTime) Duration() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return time.Time(t).Sub(unixEpoch)
 }
 func NewUnixTimeFromSeconds(seconds float64) UnixTime {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return NewUnixTimeFromDuration(time.Duration(seconds * float64(time.Second)))
@@ -24,9 +28,13 @@ func NewUnixTimeFromSeconds(seconds float64) UnixTime {
 func NewUnixTimeFromNanoseconds(nanoseconds int64) UnixTime {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewUnixTimeFromDuration(time.Duration(nanoseconds))
 }
 func NewUnixTimeFromDuration(dur time.Duration) UnixTime {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return UnixTime(unixEpoch.Add(dur))
@@ -34,9 +42,13 @@ func NewUnixTimeFromDuration(dur time.Duration) UnixTime {
 func UnixEpoch() time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return unixEpoch
 }
 func (t UnixTime) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	buffer := &bytes.Buffer{}
@@ -50,6 +62,8 @@ func (t UnixTime) MarshalJSON() ([]byte, error) {
 func (t *UnixTime) UnmarshalJSON(text []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dec := json.NewDecoder(bytes.NewReader(text))
 	var secondsSinceEpoch float64
 	if err := dec.Decode(&secondsSinceEpoch); err != nil {
@@ -61,10 +75,14 @@ func (t *UnixTime) UnmarshalJSON(text []byte) error {
 func (t UnixTime) MarshalText() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cast := time.Time(t)
 	return cast.MarshalText()
 }
 func (t *UnixTime) UnmarshalText(raw []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var unmarshaled time.Time
@@ -77,6 +95,8 @@ func (t *UnixTime) UnmarshalText(raw []byte) error {
 func (t UnixTime) MarshalBinary() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	buf := &bytes.Buffer{}
 	payload := int64(t.Duration())
 	if err := binary.Write(buf, binary.LittleEndian, &payload); err != nil {
@@ -85,6 +105,8 @@ func (t UnixTime) MarshalBinary() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 func (t *UnixTime) UnmarshalBinary(raw []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var nanosecondsSinceEpoch int64

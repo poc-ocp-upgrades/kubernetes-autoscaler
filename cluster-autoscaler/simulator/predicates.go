@@ -34,9 +34,13 @@ var priorityPredicates = []string{"PodFitsResources", "GeneralPredicates", "PodT
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	algorithmprovider.ApplyFeatureGates()
 }
 func NewPredicateChecker(kubeClient kube_client.Interface, stop <-chan struct{}) (*PredicateChecker, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	provider, err := factory.GetAlgorithmProvider(factory.DefaultProvider)
@@ -76,6 +80,8 @@ func NewPredicateChecker(kubeClient kube_client.Interface, stop <-chan struct{})
 func isNodeReadyAndSchedulablePredicate(pod *apiv1.Pod, meta algorithm.PredicateMetadata, nodeInfo *schedulercache.NodeInfo) (bool, []algorithm.PredicateFailureReason, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ready := kube_util.IsNodeReadyAndSchedulable(nodeInfo.Node())
 	if !ready {
 		return false, []algorithm.PredicateFailureReason{predicates.NewFailureReason("node is unready")}, nil
@@ -85,6 +91,8 @@ func isNodeReadyAndSchedulablePredicate(pod *apiv1.Pod, meta algorithm.Predicate
 func NewTestPredicateChecker() *PredicateChecker {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &PredicateChecker{predicates: []predicateInfo{{name: "default", predicate: predicates.GeneralPredicates}, {name: "ready", predicate: isNodeReadyAndSchedulablePredicate}}, predicateMetadataProducer: func(_ *apiv1.Pod, _ map[string]*schedulercache.NodeInfo) algorithm.PredicateMetadata {
 		return nil
 	}}
@@ -92,14 +100,20 @@ func NewTestPredicateChecker() *PredicateChecker {
 func (p *PredicateChecker) SetAffinityPredicateEnabled(enable bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.enableAffinityPredicate = enable
 }
 func (p *PredicateChecker) IsAffinityPredicateEnabled() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return p.enableAffinityPredicate
 }
 func (p *PredicateChecker) GetPredicateMetadata(pod *apiv1.Pod, nodeInfos map[string]*schedulercache.NodeInfo) algorithm.PredicateMetadata {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !p.enableAffinityPredicate {
@@ -108,6 +122,8 @@ func (p *PredicateChecker) GetPredicateMetadata(pod *apiv1.Pod, nodeInfos map[st
 	return p.predicateMetadataProducer(pod, nodeInfos)
 }
 func (p *PredicateChecker) FitsAny(pod *apiv1.Pod, nodeInfos map[string]*schedulercache.NodeInfo) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for name, nodeInfo := range nodeInfos {
@@ -132,12 +148,16 @@ type PredicateError struct {
 func (pe *PredicateError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pe.message != "" {
 		return pe.message
 	}
 	return "Predicates failed"
 }
 func (pe *PredicateError) VerboseError() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pe.message != "" {
@@ -153,9 +173,13 @@ func (pe *PredicateError) VerboseError() string {
 func NewPredicateError(name string, err error, reasons []string, originalReasons []algorithm.PredicateFailureReason) *PredicateError {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &PredicateError{predicateName: name, err: err, reasons: reasons, failureReasons: originalReasons}
 }
 func (pe *PredicateError) Reasons() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pe.reasons != nil {
@@ -170,14 +194,20 @@ func (pe *PredicateError) Reasons() []string {
 func (pe *PredicateError) OriginalReasons() []algorithm.PredicateFailureReason {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pe.failureReasons
 }
 func (pe *PredicateError) PredicateName() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pe.predicateName
 }
 func (p *PredicateChecker) CheckPredicates(pod *apiv1.Pod, predicateMetadata algorithm.PredicateMetadata, nodeInfo *schedulercache.NodeInfo) *PredicateError {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, predInfo := range p.predicates {

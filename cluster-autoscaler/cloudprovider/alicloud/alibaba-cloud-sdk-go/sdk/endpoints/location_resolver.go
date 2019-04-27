@@ -25,6 +25,8 @@ type LocationResolver struct{}
 func (resolver *LocationResolver) TryResolve(param *ResolveParam) (endpoint string, support bool, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(param.LocationProduct) <= 0 {
 		support = false
 		return
@@ -79,6 +81,8 @@ func (resolver *LocationResolver) TryResolve(param *ResolveParam) (endpoint stri
 	return
 }
 func CheckCacheIsExpire(cacheKey string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lastClearTime := lastClearTimePerProduct.cache[cacheKey]

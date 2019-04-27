@@ -29,14 +29,20 @@ type provider struct {
 func (p *provider) Name() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return p.providerName
 }
 func (p *provider) GetResourceLimiter() (*cloudprovider.ResourceLimiter, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return p.resourceLimiter, nil
 }
 func (p *provider) NodeGroups() []cloudprovider.NodeGroup {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var result []cloudprovider.NodeGroup
@@ -54,6 +60,8 @@ func (p *provider) NodeGroups() []cloudprovider.NodeGroup {
 func (p *provider) NodeGroupForNode(node *apiv1.Node) (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ng, err := p.controller.nodeGroupForNode(node)
 	if err != nil {
 		return nil, err
@@ -66,9 +74,13 @@ func (p *provider) NodeGroupForNode(node *apiv1.Node) (cloudprovider.NodeGroup, 
 func (*provider) Pricing() (cloudprovider.PricingModel, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (*provider) GetAvailableMachineTypes() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return []string{}, nil
@@ -76,9 +88,13 @@ func (*provider) GetAvailableMachineTypes() ([]string, error) {
 func (*provider) NewNodeGroup(machineType string, labels map[string]string, systemLabels map[string]string, taints []apiv1.Taint, extraResources map[string]resource.Quantity) (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (*provider) Cleanup() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -86,9 +102,13 @@ func (*provider) Cleanup() error {
 func (p *provider) Refresh() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (p *provider) GetInstanceID(node *apiv1.Node) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return node.Spec.ProviderID
@@ -96,9 +116,13 @@ func (p *provider) GetInstanceID(node *apiv1.Node) string {
 func newProvider(name string, rl *cloudprovider.ResourceLimiter, controller *machineController) (cloudprovider.CloudProvider, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &provider{providerName: name, resourceLimiter: rl, controller: controller}, nil
 }
 func BuildOpenShiftMachineAPI(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDiscoveryOptions, rl *cloudprovider.ResourceLimiter) cloudprovider.CloudProvider {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error

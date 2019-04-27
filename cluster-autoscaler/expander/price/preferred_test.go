@@ -12,9 +12,13 @@ type testNodeLister struct{ list []*apiv1.Node }
 func (n *testNodeLister) List() ([]*apiv1.Node, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.list, nil
 }
 func testPreferredNodeSingleCase(t *testing.T, currentNodes int, expectedNodeSize int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodes := []*apiv1.Node{}
@@ -30,6 +34,8 @@ func testPreferredNodeSingleCase(t *testing.T, currentNodes int, expectedNodeSiz
 func TestPreferredNode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testPreferredNodeSingleCase(t, 1, 1)
 	testPreferredNodeSingleCase(t, 3, 2)
 	testPreferredNodeSingleCase(t, 9, 4)
@@ -39,6 +45,8 @@ func TestPreferredNode(t *testing.T) {
 	testPreferredNodeSingleCase(t, 500, 32)
 }
 func TestSimpleNodeUnfitness(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n1 := BuildTestNode("n1", 1000, 1000)

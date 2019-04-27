@@ -21,6 +21,8 @@ const (
 func newUsageSample(timestamp time.Time, usage int64, resource ResourceName) *ContainerUsageSample {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ContainerUsageSample{MeasureStart: timestamp, Usage: ResourceAmount(usage), Request: TestRequest[resource], Resource: resource}
 }
 
@@ -34,6 +36,8 @@ type ContainerTest struct {
 func newContainerTest() ContainerTest {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mockCPUHistogram := new(util.MockHistogram)
 	mockMemoryHistogram := new(util.MockHistogram)
 	aggregateContainerState := &AggregateContainerState{AggregateCPUUsage: mockCPUHistogram, AggregateMemoryPeaks: mockMemoryHistogram}
@@ -41,6 +45,8 @@ func newContainerTest() ContainerTest {
 	return ContainerTest{mockCPUHistogram: mockCPUHistogram, mockMemoryHistogram: mockMemoryHistogram, aggregateContainerState: aggregateContainerState, container: container}
 }
 func TestAggregateContainerUsageSamples(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	test := newContainerTest()
@@ -68,12 +74,16 @@ func TestAggregateContainerUsageSamples(t *testing.T) {
 func TestRecordOOMIncreasedByBumpUp(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	test := newContainerTest()
 	memoryAggregationWindowEnd := testTimestamp.Add(MemoryAggregationInterval)
 	test.mockMemoryHistogram.On("AddSample", 1200.0*mb, 1.0, memoryAggregationWindowEnd)
 	assert.NoError(t, test.container.RecordOOM(testTimestamp, ResourceAmount(1000*mb)))
 }
 func TestRecordOOMDontRunAway(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	test := newContainerTest()
@@ -89,12 +99,16 @@ func TestRecordOOMDontRunAway(t *testing.T) {
 func TestRecordOOMIncreasedByMin(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	test := newContainerTest()
 	memoryAggregationWindowEnd := testTimestamp.Add(MemoryAggregationInterval)
 	test.mockMemoryHistogram.On("AddSample", 101.0*mb, 1.0, memoryAggregationWindowEnd)
 	assert.NoError(t, test.container.RecordOOM(testTimestamp, ResourceAmount(1*mb)))
 }
 func TestRecordOOMMaxedWithKnownSample(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	test := newContainerTest()
@@ -108,6 +122,8 @@ func TestRecordOOMMaxedWithKnownSample(t *testing.T) {
 func TestRecordOOMDiscardsOldSample(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	test := newContainerTest()
 	memoryAggregationWindowEnd := testTimestamp.Add(MemoryAggregationInterval)
 	test.mockMemoryHistogram.On("AddSample", 1000.0*mb, 1.0, memoryAggregationWindowEnd)
@@ -115,6 +131,8 @@ func TestRecordOOMDiscardsOldSample(t *testing.T) {
 	assert.Error(t, test.container.RecordOOM(testTimestamp.Add(-30*time.Hour), ResourceAmount(1000*mb)))
 }
 func TestRecordOOMInNewWindow(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	test := newContainerTest()

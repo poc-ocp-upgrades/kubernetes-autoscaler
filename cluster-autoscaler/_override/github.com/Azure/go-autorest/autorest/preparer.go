@@ -29,6 +29,8 @@ type PreparerFunc func(*http.Request) (*http.Request, error)
 func (pf PreparerFunc) Prepare(r *http.Request) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pf(r)
 }
 
@@ -37,11 +39,15 @@ type PrepareDecorator func(Preparer) Preparer
 func CreatePreparer(decorators ...PrepareDecorator) Preparer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return DecoratePreparer(Preparer(PreparerFunc(func(r *http.Request) (*http.Request, error) {
 		return r, nil
 	})), decorators...)
 }
 func DecoratePreparer(p Preparer, decorators ...PrepareDecorator) Preparer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, decorate := range decorators {
@@ -52,12 +58,16 @@ func DecoratePreparer(p Preparer, decorators ...PrepareDecorator) Preparer {
 func Prepare(r *http.Request, decorators ...PrepareDecorator) (*http.Request, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if r == nil {
 		return nil, NewError("autorest", "Prepare", "Invoked without an http.Request")
 	}
 	return CreatePreparer(decorators...).Prepare(r)
 }
 func WithNothing() PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
@@ -67,6 +77,8 @@ func WithNothing() PrepareDecorator {
 	}
 }
 func WithHeader(header string, value string) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
@@ -83,6 +95,8 @@ func WithHeader(header string, value string) PrepareDecorator {
 	}
 }
 func WithHeaders(headers map[string]interface{}) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := ensureValueStrings(headers)
@@ -104,9 +118,13 @@ func WithHeaders(headers map[string]interface{}) PrepareDecorator {
 func WithBearerAuthorization(token string) PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithHeader(headerAuthorization, fmt.Sprintf("Bearer %s", token))
 }
 func AsContentType(contentType string) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return WithHeader(headerContentType, contentType)
@@ -114,9 +132,13 @@ func AsContentType(contentType string) PrepareDecorator {
 func WithUserAgent(ua string) PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithHeader(headerUserAgent, ua)
 }
 func AsFormURLEncoded() PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return AsContentType(mimeTypeFormPost)
@@ -124,14 +146,20 @@ func AsFormURLEncoded() PrepareDecorator {
 func AsJSON() PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return AsContentType(mimeTypeJSON)
 }
 func AsOctetStream() PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return AsContentType(mimeTypeOctetStream)
 }
 func WithMethod(method string) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
@@ -144,9 +172,13 @@ func WithMethod(method string) PrepareDecorator {
 func AsDelete() PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithMethod("DELETE")
 }
 func AsGet() PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return WithMethod("GET")
@@ -154,9 +186,13 @@ func AsGet() PrepareDecorator {
 func AsHead() PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithMethod("HEAD")
 }
 func AsOptions() PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return WithMethod("OPTIONS")
@@ -164,9 +200,13 @@ func AsOptions() PrepareDecorator {
 func AsPatch() PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithMethod("PATCH")
 }
 func AsPost() PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return WithMethod("POST")
@@ -174,9 +214,13 @@ func AsPost() PrepareDecorator {
 func AsPut() PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithMethod("PUT")
 }
 func WithBaseURL(baseURL string) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
@@ -201,6 +245,8 @@ func WithBaseURL(baseURL string) PrepareDecorator {
 func WithCustomBaseURL(baseURL string, urlParameters map[string]interface{}) PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	parameters := ensureValueStrings(urlParameters)
 	for key, value := range parameters {
 		baseURL = strings.Replace(baseURL, "{"+key+"}", value, -1)
@@ -208,6 +254,8 @@ func WithCustomBaseURL(baseURL string, urlParameters map[string]interface{}) Pre
 	return WithBaseURL(baseURL)
 }
 func WithFormData(v url.Values) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
@@ -227,6 +275,8 @@ func WithFormData(v url.Values) PrepareDecorator {
 	}
 }
 func WithMultiPartFormData(formDataParameters map[string]interface{}) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
@@ -268,6 +318,8 @@ func WithMultiPartFormData(formDataParameters map[string]interface{}) PrepareDec
 func WithFile(f io.ReadCloser) PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
 		return PreparerFunc(func(r *http.Request) (*http.Request, error) {
 			r, err := p.Prepare(r)
@@ -286,9 +338,13 @@ func WithFile(f io.ReadCloser) PrepareDecorator {
 func WithBool(v bool) PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithString(fmt.Sprintf("%v", v))
 }
 func WithFloat32(v float32) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return WithString(fmt.Sprintf("%v", v))
@@ -296,9 +352,13 @@ func WithFloat32(v float32) PrepareDecorator {
 func WithFloat64(v float64) PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithString(fmt.Sprintf("%v", v))
 }
 func WithInt32(v int32) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return WithString(fmt.Sprintf("%v", v))
@@ -306,9 +366,13 @@ func WithInt32(v int32) PrepareDecorator {
 func WithInt64(v int64) PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithString(fmt.Sprintf("%v", v))
 }
 func WithString(v string) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
@@ -323,6 +387,8 @@ func WithString(v string) PrepareDecorator {
 	}
 }
 func WithJSON(v interface{}) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
@@ -342,6 +408,8 @@ func WithJSON(v interface{}) PrepareDecorator {
 func WithPath(path string) PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(p Preparer) Preparer {
 		return PreparerFunc(func(r *http.Request) (*http.Request, error) {
 			r, err := p.Prepare(r)
@@ -358,6 +426,8 @@ func WithPath(path string) PrepareDecorator {
 	}
 }
 func WithEscapedPathParameters(path string, pathParameters map[string]interface{}) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	parameters := escapeValueStrings(ensureValueStrings(pathParameters))
@@ -382,6 +452,8 @@ func WithEscapedPathParameters(path string, pathParameters map[string]interface{
 func WithPathParameters(path string, pathParameters map[string]interface{}) PrepareDecorator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	parameters := ensureValueStrings(pathParameters)
 	return func(p Preparer) Preparer {
 		return PreparerFunc(func(r *http.Request) (*http.Request, error) {
@@ -404,6 +476,8 @@ func WithPathParameters(path string, pathParameters map[string]interface{}) Prep
 func parseURL(u *url.URL, path string) (*url.URL, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p := strings.TrimRight(u.String(), "/")
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
@@ -411,6 +485,8 @@ func parseURL(u *url.URL, path string) (*url.URL, error) {
 	return url.Parse(p + path)
 }
 func WithQueryParameters(queryParameters map[string]interface{}) PrepareDecorator {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	parameters := ensureValueStrings(queryParameters)

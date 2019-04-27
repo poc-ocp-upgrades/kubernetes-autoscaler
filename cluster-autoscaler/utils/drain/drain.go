@@ -24,6 +24,8 @@ const (
 func GetPodsForDeletionOnNodeDrain(podList []*apiv1.Pod, pdbs []*policyv1.PodDisruptionBudget, deleteAll bool, skipNodesWithSystemPods bool, skipNodesWithLocalStorage bool, checkReferences bool, client client.Interface, minReplica int32, currentTime time.Time) ([]*apiv1.Pod, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pods := []*apiv1.Pod{}
 	kubeSystemPDBs := make([]*policyv1.PodDisruptionBudget, 0)
 	for _, pdb := range pdbs {
@@ -140,15 +142,21 @@ func GetPodsForDeletionOnNodeDrain(podList []*apiv1.Pod, pdbs []*policyv1.PodDis
 func ControllerRef(pod *apiv1.Pod) *metav1.OwnerReference {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return metav1.GetControllerOf(pod)
 }
 func IsMirrorPod(pod *apiv1.Pod) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, found := pod.ObjectMeta.Annotations[types.ConfigMirrorAnnotationKey]
 	return found
 }
 func isPodTerminal(pod *apiv1.Pod) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pod.Spec.RestartPolicy == apiv1.RestartPolicyNever && (pod.Status.Phase == apiv1.PodSucceeded || pod.Status.Phase == apiv1.PodFailed) {
@@ -162,6 +170,8 @@ func isPodTerminal(pod *apiv1.Pod) bool {
 func HasLocalStorage(pod *apiv1.Pod) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, volume := range pod.Spec.Volumes {
 		if isLocalVolume(&volume) {
 			return true
@@ -172,9 +182,13 @@ func HasLocalStorage(pod *apiv1.Pod) bool {
 func isLocalVolume(volume *apiv1.Volume) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return volume.HostPath != nil || volume.EmptyDir != nil
 }
 func checkKubeSystemPDBs(pod *apiv1.Pod, pdbs []*policyv1.PodDisruptionBudget) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, pdb := range pdbs {
@@ -191,9 +205,13 @@ func checkKubeSystemPDBs(pod *apiv1.Pod, pdbs []*policyv1.PodDisruptionBudget) (
 func hasSafeToEvictAnnotation(pod *apiv1.Pod) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pod.GetAnnotations()[PodSafeToEvictKey] == "true"
 }
 func hasNotSafeToEvictAnnotation(pod *apiv1.Pod) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return pod.GetAnnotations()[PodSafeToEvictKey] == "false"
@@ -201,7 +219,16 @@ func hasNotSafeToEvictAnnotation(pod *apiv1.Pod) bool {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

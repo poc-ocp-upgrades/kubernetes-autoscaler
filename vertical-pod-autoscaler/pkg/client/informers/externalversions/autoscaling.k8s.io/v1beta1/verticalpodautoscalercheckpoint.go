@@ -25,9 +25,13 @@ type verticalPodAutoscalerCheckpointInformer struct {
 func NewVerticalPodAutoscalerCheckpointInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewFilteredVerticalPodAutoscalerCheckpointInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 func NewFilteredVerticalPodAutoscalerCheckpointInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return cache.NewSharedIndexInformer(&cache.ListWatch{ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
@@ -45,14 +49,20 @@ func NewFilteredVerticalPodAutoscalerCheckpointInformer(client versioned.Interfa
 func (f *verticalPodAutoscalerCheckpointInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewFilteredVerticalPodAutoscalerCheckpointInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 func (f *verticalPodAutoscalerCheckpointInformer) Informer() cache.SharedIndexInformer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return f.factory.InformerFor(&autoscaling_k8s_io_v1beta1.VerticalPodAutoscalerCheckpoint{}, f.defaultInformer)
 }
 func (f *verticalPodAutoscalerCheckpointInformer) Lister() v1beta1.VerticalPodAutoscalerCheckpointLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return v1beta1.NewVerticalPodAutoscalerCheckpointLister(f.Informer().GetIndexer())

@@ -14,6 +14,8 @@ type ec2Wrapper struct{ ec2I }
 func (m ec2Wrapper) getInstanceTypeByLT(name string, version string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	params := &ec2.DescribeLaunchTemplateVersionsInput{LaunchTemplateName: aws.String(name), Versions: []*string{aws.String(version)}}
 	describeData, err := m.DescribeLaunchTemplateVersions(params)
 	if err != nil {

@@ -15,6 +15,8 @@ type TimeRFC1123 struct{ time.Time }
 func (t *TimeRFC1123) UnmarshalJSON(data []byte) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Time, err = ParseTime(rfc1123JSON, string(data))
 	if err != nil {
 		return err
@@ -22,6 +24,8 @@ func (t *TimeRFC1123) UnmarshalJSON(data []byte) (err error) {
 	return nil
 }
 func (t TimeRFC1123) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if y := t.Year(); y < 0 || y >= 10000 {
@@ -33,6 +37,8 @@ func (t TimeRFC1123) MarshalJSON() ([]byte, error) {
 func (t TimeRFC1123) MarshalText() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if y := t.Year(); y < 0 || y >= 10000 {
 		return nil, errors.New("Time.MarshalText: year outside of range [0,9999]")
 	}
@@ -40,6 +46,8 @@ func (t TimeRFC1123) MarshalText() ([]byte, error) {
 	return b, nil
 }
 func (t *TimeRFC1123) UnmarshalText(data []byte) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.Time, err = ParseTime(rfc1123, string(data))
@@ -51,9 +59,13 @@ func (t *TimeRFC1123) UnmarshalText(data []byte) (err error) {
 func (t TimeRFC1123) MarshalBinary() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.MarshalText()
 }
 func (t *TimeRFC1123) UnmarshalBinary(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return t.UnmarshalText(data)
@@ -61,9 +73,13 @@ func (t *TimeRFC1123) UnmarshalBinary(data []byte) error {
 func (t TimeRFC1123) ToTime() time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.Time
 }
 func (t TimeRFC1123) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, err := t.MarshalText()

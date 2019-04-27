@@ -23,6 +23,8 @@ var (
 func BuildTestContainer(containerName, cpu, mem string) apiv1.Container {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	container := apiv1.Container{Name: containerName, Resources: apiv1.ResourceRequirements{Requests: apiv1.ResourceList{}}}
 	if len(cpu) > 0 {
 		cpuVal, _ := resource.ParseQuantity(cpu)
@@ -37,6 +39,8 @@ func BuildTestContainer(containerName, cpu, mem string) apiv1.Container {
 func BuildTestPolicy(containerName, minCPU, maxCPU, minMemory, maxMemory string) *vpa_types.PodResourcePolicy {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	minCPUVal, _ := resource.ParseQuantity(minCPU)
 	maxCPUVal, _ := resource.ParseQuantity(maxCPU)
 	minMemVal, _ := resource.ParseQuantity(minMemory)
@@ -44,6 +48,8 @@ func BuildTestPolicy(containerName, minCPU, maxCPU, minMemory, maxMemory string)
 	return &vpa_types.PodResourcePolicy{ContainerPolicies: []vpa_types.ContainerResourcePolicy{{ContainerName: containerName, MinAllowed: apiv1.ResourceList{apiv1.ResourceMemory: minMemVal, apiv1.ResourceCPU: minCPUVal}, MaxAllowed: apiv1.ResourceList{apiv1.ResourceMemory: maxMemVal, apiv1.ResourceCPU: maxCPUVal}}}}
 }
 func Resources(cpu, mem string) apiv1.ResourceList {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(apiv1.ResourceList)
@@ -63,6 +69,8 @@ type RecommenderAPIMock struct{ mock.Mock }
 func (m *RecommenderAPIMock) GetRecommendation(spec *apiv1.PodSpec) (*vpa_types.RecommendedPodResources, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(spec)
 	var returnArg *vpa_types.RecommendedPodResources
 	if args.Get(0) != nil {
@@ -74,6 +82,8 @@ func (m *RecommenderAPIMock) GetRecommendation(spec *apiv1.PodSpec) (*vpa_types.
 type RecommenderMock struct{ mock.Mock }
 
 func (m *RecommenderMock) Get(spec *apiv1.PodSpec) (*vpa_types.RecommendedPodResources, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called(spec)
@@ -89,10 +99,14 @@ type PodsEvictionRestrictionMock struct{ mock.Mock }
 func (m *PodsEvictionRestrictionMock) Evict(pod *apiv1.Pod, eventRecorder record.EventRecorder) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(pod, eventRecorder)
 	return args.Error(0)
 }
 func (m *PodsEvictionRestrictionMock) CanEvict(pod *apiv1.Pod) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called(pod)
@@ -102,6 +116,8 @@ func (m *PodsEvictionRestrictionMock) CanEvict(pod *apiv1.Pod) bool {
 type PodListerMock struct{ mock.Mock }
 
 func (m *PodListerMock) Pods(namespace string) v1.PodNamespaceLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called(namespace)
@@ -114,6 +130,8 @@ func (m *PodListerMock) Pods(namespace string) v1.PodNamespaceLister {
 func (m *PodListerMock) List(selector labels.Selector) (ret []*apiv1.Pod, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called()
 	var returnArg []*apiv1.Pod
 	if args.Get(0) != nil {
@@ -124,12 +142,16 @@ func (m *PodListerMock) List(selector labels.Selector) (ret []*apiv1.Pod, err er
 func (m *PodListerMock) Get(name string) (*apiv1.Pod, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, fmt.Errorf("unimplemented")
 }
 
 type VerticalPodAutoscalerListerMock struct{ mock.Mock }
 
 func (m *VerticalPodAutoscalerListerMock) List(selector labels.Selector) (ret []*vpa_types.VerticalPodAutoscaler, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called()
@@ -142,6 +164,8 @@ func (m *VerticalPodAutoscalerListerMock) List(selector labels.Selector) (ret []
 func (m *VerticalPodAutoscalerListerMock) VerticalPodAutoscalers(namespace string) vpa_lister.VerticalPodAutoscalerNamespaceLister {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(namespace)
 	var returnArg vpa_lister.VerticalPodAutoscalerNamespaceLister
 	if args.Get(0) != nil {
@@ -152,12 +176,16 @@ func (m *VerticalPodAutoscalerListerMock) VerticalPodAutoscalers(namespace strin
 func (m *VerticalPodAutoscalerListerMock) Get(name string) (*vpa_types.VerticalPodAutoscaler, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, fmt.Errorf("unimplemented")
 }
 
 type RecommendationProcessorMock struct{ mock.Mock }
 
 func (m *RecommendationProcessorMock) Apply(podRecommendation *vpa_types.RecommendedPodResources, policy *vpa_types.PodResourcePolicy, conditions []vpa_types.VerticalPodAutoscalerCondition, pod *apiv1.Pod) (*vpa_types.RecommendedPodResources, map[string][]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called()
@@ -177,6 +205,8 @@ type FakeRecommendationProcessor struct{}
 func (f *FakeRecommendationProcessor) Apply(podRecommendation *vpa_types.RecommendedPodResources, policy *vpa_types.PodResourcePolicy, conditions []vpa_types.VerticalPodAutoscalerCondition, pod *apiv1.Pod) (*vpa_types.RecommendedPodResources, map[string][]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return podRecommendation, nil, nil
 }
 
@@ -185,20 +215,30 @@ type fakeEventRecorder struct{}
 func (f *fakeEventRecorder) Event(object runtime.Object, eventtype, reason, message string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (f *fakeEventRecorder) Eventf(object runtime.Object, eventtype, reason, messageFmt string, args ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (f *fakeEventRecorder) PastEventf(object runtime.Object, timestamp metav1.Time, eventtype, reason, messageFmt string, args ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (f *fakeEventRecorder) AnnotatedEventf(object runtime.Object, annotations map[string]string, eventtype, reason, messageFmt string, args ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func FakeEventRecorder() record.EventRecorder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &fakeEventRecorder{}

@@ -54,12 +54,16 @@ type MetaData struct {
 func NewMetaData(client *http.Client) *MetaData {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if client == nil {
 		client = &http.Client{}
 	}
 	return &MetaData{client: client}
 }
 func NewMockMetaData(client *http.Client, sendRequest requestMock) *MetaData {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if client == nil {
@@ -70,9 +74,13 @@ func NewMockMetaData(client *http.Client, sendRequest requestMock) *MetaData {
 func (m *MetaData) New() *MetaDataRequest {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &MetaDataRequest{client: m.client, sendRequest: m.mock}
 }
 func (m *MetaData) HostName() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var hostname ResultList
@@ -85,6 +93,8 @@ func (m *MetaData) HostName() (string, error) {
 func (m *MetaData) ImageID() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var image ResultList
 	err := m.New().Resource(IMAGE_ID).Do(&image)
 	if err != nil {
@@ -93,6 +103,8 @@ func (m *MetaData) ImageID() (string, error) {
 	return image.result[0], err
 }
 func (m *MetaData) InstanceID() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var instanceid ResultList
@@ -105,6 +117,8 @@ func (m *MetaData) InstanceID() (string, error) {
 func (m *MetaData) Mac() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var mac ResultList
 	err := m.New().Resource(MAC).Do(&mac)
 	if err != nil {
@@ -113,6 +127,8 @@ func (m *MetaData) Mac() (string, error) {
 	return mac.result[0], nil
 }
 func (m *MetaData) NetworkType() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var network ResultList
@@ -125,6 +141,8 @@ func (m *MetaData) NetworkType() (string, error) {
 func (m *MetaData) OwnerAccountID() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var owner ResultList
 	err := m.New().Resource(OWNER_ACCOUNT_ID).Do(&owner)
 	if err != nil {
@@ -133,6 +151,8 @@ func (m *MetaData) OwnerAccountID() (string, error) {
 	return owner.result[0], nil
 }
 func (m *MetaData) PrivateIPv4() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var private ResultList
@@ -145,6 +165,8 @@ func (m *MetaData) PrivateIPv4() (string, error) {
 func (m *MetaData) Region() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var region ResultList
 	err := m.New().Resource(REGION).Do(&region)
 	if err != nil {
@@ -153,6 +175,8 @@ func (m *MetaData) Region() (string, error) {
 	return region.result[0], nil
 }
 func (m *MetaData) SerialNumber() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var serial ResultList
@@ -165,6 +189,8 @@ func (m *MetaData) SerialNumber() (string, error) {
 func (m *MetaData) SourceAddress() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var source ResultList
 	err := m.New().Resource(SOURCE_ADDRESS).Do(&source)
 	if err != nil {
@@ -173,6 +199,8 @@ func (m *MetaData) SourceAddress() (string, error) {
 	return source.result[0], nil
 }
 func (m *MetaData) VpcCIDRBlock() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var vpcCIDR ResultList
@@ -185,6 +213,8 @@ func (m *MetaData) VpcCIDRBlock() (string, error) {
 func (m *MetaData) VpcID() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var vpcId ResultList
 	err := m.New().Resource(VPC_ID).Do(&vpcId)
 	if err != nil {
@@ -193,6 +223,8 @@ func (m *MetaData) VpcID() (string, error) {
 	return vpcId.result[0], err
 }
 func (m *MetaData) VswitchCIDRBlock() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var cidr ResultList
@@ -205,6 +237,8 @@ func (m *MetaData) VswitchCIDRBlock() (string, error) {
 func (m *MetaData) VswitchID() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var vswithcid ResultList
 	err := m.New().Resource(VSWITCH_ID).Do(&vswithcid)
 	if err != nil {
@@ -213,6 +247,8 @@ func (m *MetaData) VswitchID() (string, error) {
 	return vswithcid.result[0], err
 }
 func (m *MetaData) EIPv4() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var eip ResultList
@@ -225,6 +261,8 @@ func (m *MetaData) EIPv4() (string, error) {
 func (m *MetaData) DNSNameServers() ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var data ResultList
 	err := m.New().Resource(DNS_NAMESERVERS).Do(&data)
 	if err != nil {
@@ -233,6 +271,8 @@ func (m *MetaData) DNSNameServers() ([]string, error) {
 	return data.result, nil
 }
 func (m *MetaData) NTPConfigServers() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var data ResultList
@@ -245,6 +285,8 @@ func (m *MetaData) NTPConfigServers() ([]string, error) {
 func (m *MetaData) Zone() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var zone ResultList
 	err := m.New().Resource(ZONE).Do(&zone)
 	if err != nil {
@@ -255,6 +297,8 @@ func (m *MetaData) Zone() (string, error) {
 func (m *MetaData) RoleName() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var roleName ResultList
 	err := m.New().Resource("ram/security-credentials/").Do(&roleName)
 	if err != nil {
@@ -263,6 +307,8 @@ func (m *MetaData) RoleName() (string, error) {
 	return roleName.result[0], nil
 }
 func (m *MetaData) RamRoleToken(role string) (RoleAuth, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var roleauth RoleAuth
@@ -286,10 +332,14 @@ type MetaDataRequest struct {
 func (vpc *MetaDataRequest) Version(version string) IMetaDataRequest {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vpc.version = version
 	return vpc
 }
 func (vpc *MetaDataRequest) ResourceType(rtype string) IMetaDataRequest {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vpc.resourceType = rtype
@@ -298,10 +348,14 @@ func (vpc *MetaDataRequest) ResourceType(rtype string) IMetaDataRequest {
 func (vpc *MetaDataRequest) Resource(resource string) IMetaDataRequest {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vpc.resource = resource
 	return vpc
 }
 func (vpc *MetaDataRequest) SubResource(sub string) IMetaDataRequest {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vpc.subResource = sub
@@ -311,6 +365,8 @@ func (vpc *MetaDataRequest) SubResource(sub string) IMetaDataRequest {
 var retry = AttemptStrategy{Min: 5, Total: 5 * time.Second, Delay: 200 * time.Millisecond}
 
 func (vpc *MetaDataRequest) Url() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if vpc.version == "" {
@@ -335,6 +391,8 @@ func (vpc *MetaDataRequest) Url() (string, error) {
 func (vpc *MetaDataRequest) Do(api interface{}) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var res = ""
 	for r := retry.Start(); r.Next(); {
 		if vpc.sendRequest != nil {
@@ -354,6 +412,8 @@ func (vpc *MetaDataRequest) Do(api interface{}) (err error) {
 func (vpc *MetaDataRequest) Decode(data string, api interface{}) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if data == "" {
 		url, _ := vpc.Url()
 		return fmt.Errorf("metadata: alivpc decode data must not be nil. url=[%s]\n", url)
@@ -369,6 +429,8 @@ func (vpc *MetaDataRequest) Decode(data string, api interface{}) error {
 	}
 }
 func (vpc *MetaDataRequest) send() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	url, err := vpc.Url()
@@ -400,6 +462,8 @@ type TimeoutError interface {
 }
 
 func shouldRetry(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == nil {

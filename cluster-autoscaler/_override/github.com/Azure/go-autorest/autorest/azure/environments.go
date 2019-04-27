@@ -45,6 +45,8 @@ var (
 func EnvironmentFromName(name string) (Environment, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if strings.EqualFold(name, "AZURESTACKCLOUD") {
 		return EnvironmentFromFile(os.Getenv(EnvironmentFilepathName))
 	}
@@ -56,6 +58,8 @@ func EnvironmentFromName(name string) (Environment, error) {
 	return env, nil
 }
 func EnvironmentFromFile(location string) (unmarshaled Environment, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fileContents, err := ioutil.ReadFile(location)

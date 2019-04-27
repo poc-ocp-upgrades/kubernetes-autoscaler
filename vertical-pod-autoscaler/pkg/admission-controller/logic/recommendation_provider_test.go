@@ -14,6 +14,8 @@ import (
 func TestUpdateResourceRequests(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testCase struct {
 		pod		*apiv1.Pod
 		vpas		[]*vpa_types.VerticalPodAutoscaler

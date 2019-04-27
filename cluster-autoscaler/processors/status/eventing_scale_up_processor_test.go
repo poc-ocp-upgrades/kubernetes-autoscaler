@@ -16,9 +16,13 @@ type testReason struct{ message string }
 func (tr *testReason) Reasons() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []string{tr.message}
 }
 func TestEventingScaleUpStatusProcessor(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p := &EventingScaleUpStatusProcessor{}
@@ -59,6 +63,8 @@ func TestEventingScaleUpStatusProcessor(t *testing.T) {
 	}
 }
 func TestReasonsMessage(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	notSchedulableReason := &testReason{"not schedulable"}

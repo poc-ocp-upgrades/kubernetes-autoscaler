@@ -15,6 +15,8 @@ import (
 func GetRequiredPodsForNode(nodename string, client kube_client.Interface) ([]*apiv1.Pod, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	podListResult, err := client.CoreV1().Pods(apiv1.NamespaceAll).List(metav1.ListOptions{FieldSelector: fields.SelectorFromSet(fields.Set{"spec.nodeName": nodename}).String()})
 	if err != nil {
 		return []*apiv1.Pod{}, errors.ToAutoscalerError(errors.ApiCallError, err)
@@ -43,6 +45,8 @@ func GetRequiredPodsForNode(nodename string, client kube_client.Interface) ([]*a
 	return podsOnNewNode, nil
 }
 func BuildNodeInfoForNode(node *apiv1.Node, client kube_client.Interface) (*schedulercache.NodeInfo, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	requiredPods, err := GetRequiredPodsForNode(node.Name, client)

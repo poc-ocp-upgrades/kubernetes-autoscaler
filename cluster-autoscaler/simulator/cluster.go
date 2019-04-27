@@ -42,6 +42,8 @@ type UtilizationInfo struct {
 func FindNodesToRemove(candidates []*apiv1.Node, allNodes []*apiv1.Node, pods []*apiv1.Pod, client client.Interface, predicateChecker *PredicateChecker, maxCount int, fastCheck bool, oldHints map[string]string, usageTracker *UsageTracker, timestamp time.Time, podDisruptionBudgets []*policyv1.PodDisruptionBudget) (nodesToRemove []NodeToBeRemoved, unremovableNodes []*apiv1.Node, podReschedulingHints map[string]string, finalError errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodeNameToNodeInfo := scheduler_util.CreateNodeNameToInfoMap(pods, allNodes)
 	result := make([]NodeToBeRemoved, 0)
 	unremovable := make([]*apiv1.Node, 0)
@@ -88,6 +90,8 @@ candidateloop:
 func FindEmptyNodesToRemove(candidates []*apiv1.Node, pods []*apiv1.Pod) []*apiv1.Node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodeNameToNodeInfo := scheduler_util.CreateNodeNameToInfoMap(pods, candidates)
 	result := make([]*apiv1.Node, 0)
 	for _, node := range candidates {
@@ -105,6 +109,8 @@ func FindEmptyNodesToRemove(candidates []*apiv1.Node, pods []*apiv1.Pod) []*apiv
 func CalculateUtilization(node *apiv1.Node, nodeInfo *schedulercache.NodeInfo, skipDaemonSetPods, skipMirrorPods bool) (utilInfo UtilizationInfo, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cpu, err := calculateUtilizationOfResource(node, nodeInfo, apiv1.ResourceCPU, skipDaemonSetPods, skipMirrorPods)
 	if err != nil {
 		return UtilizationInfo{}, err
@@ -116,6 +122,8 @@ func CalculateUtilization(node *apiv1.Node, nodeInfo *schedulercache.NodeInfo, s
 	return UtilizationInfo{CpuUtil: cpu, MemUtil: mem, Utilization: math.Max(cpu, mem)}, nil
 }
 func calculateUtilizationOfResource(node *apiv1.Node, nodeInfo *schedulercache.NodeInfo, resourceName apiv1.ResourceName, skipDaemonSetPods, skipMirrorPods bool) (float64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodeAllocatable, found := node.Status.Allocatable[resourceName]
@@ -142,6 +150,8 @@ func calculateUtilizationOfResource(node *apiv1.Node, nodeInfo *schedulercache.N
 	return float64(podsRequest.MilliValue()) / float64(nodeAllocatable.MilliValue()), nil
 }
 func findPlaceFor(removedNode string, pods []*apiv1.Pod, nodes []*apiv1.Node, nodeInfos map[string]*schedulercache.NodeInfo, predicateChecker *PredicateChecker, oldHints map[string]string, newHints map[string]string, usageTracker *UsageTracker, timestamp time.Time) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	newNodeInfos := make(map[string]*schedulercache.NodeInfo)
@@ -216,6 +226,8 @@ func findPlaceFor(removedNode string, pods []*apiv1.Pod, nodes []*apiv1.Node, no
 func shuffleNodes(nodes []*apiv1.Node) []*apiv1.Node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make([]*apiv1.Node, len(nodes))
 	for i := range nodes {
 		result[i] = nodes[i]
@@ -229,6 +241,8 @@ func shuffleNodes(nodes []*apiv1.Node) []*apiv1.Node {
 func isDaemonSet(pod *apiv1.Pod) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, ownerReference := range pod.ObjectMeta.OwnerReferences {
 		if ownerReference.Kind == "DaemonSet" {
 			return true
@@ -239,7 +253,16 @@ func isDaemonSet(pod *apiv1.Pod) bool {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

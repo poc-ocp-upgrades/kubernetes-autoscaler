@@ -8,11 +8,15 @@ import (
 func (client *Client) DescribeInstanceTypes(request *DescribeInstanceTypesRequest) (response *DescribeInstanceTypesResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	response = CreateDescribeInstanceTypesResponse()
 	err = client.DoAction(request, response)
 	return
 }
 func (client *Client) DescribeInstanceTypesWithChan(request *DescribeInstanceTypesRequest) (<-chan *DescribeInstanceTypesResponse, <-chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	responseChan := make(chan *DescribeInstanceTypesResponse, 1)
@@ -35,6 +39,8 @@ func (client *Client) DescribeInstanceTypesWithChan(request *DescribeInstanceTyp
 	return responseChan, errChan
 }
 func (client *Client) DescribeInstanceTypesWithCallback(request *DescribeInstanceTypesRequest, callback func(response *DescribeInstanceTypesResponse, err error)) <-chan int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(chan int, 1)
@@ -98,11 +104,15 @@ type InstanceType struct {
 func CreateDescribeInstanceTypesRequest() (request *DescribeInstanceTypesRequest) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request = &DescribeInstanceTypesRequest{RpcRequest: &requests.RpcRequest{}}
 	request.InitWithApiInfo("Ecs", "2014-05-26", "DescribeInstanceTypes", "ecs", "openAPI")
 	return
 }
 func CreateDescribeInstanceTypesResponse() (response *DescribeInstanceTypesResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	response = &DescribeInstanceTypesResponse{BaseResponse: &responses.BaseResponse{}}

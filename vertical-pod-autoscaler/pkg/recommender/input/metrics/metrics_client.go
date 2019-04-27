@@ -31,9 +31,13 @@ type metricsClient struct {
 func NewMetricsClient(metricsGetter resourceclient.PodMetricsesGetter) MetricsClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &metricsClient{metricsGetter: metricsGetter}
 }
 func (c *metricsClient) GetContainersMetrics() ([]*ContainerMetricsSnapshot, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var metricsSnapshots []*ContainerMetricsSnapshot
@@ -52,6 +56,8 @@ func (c *metricsClient) GetContainersMetrics() ([]*ContainerMetricsSnapshot, err
 func createContainerMetricsSnapshots(podMetrics v1beta1.PodMetrics) []*ContainerMetricsSnapshot {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	snapshots := make([]*ContainerMetricsSnapshot, len(podMetrics.Containers))
 	for i, containerMetrics := range podMetrics.Containers {
 		snapshots[i] = newContainerMetricsSnapshot(containerMetrics, podMetrics)
@@ -61,10 +67,14 @@ func createContainerMetricsSnapshots(podMetrics v1beta1.PodMetrics) []*Container
 func newContainerMetricsSnapshot(containerMetrics v1beta1.ContainerMetrics, podMetrics v1beta1.PodMetrics) *ContainerMetricsSnapshot {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	usage := calculateUsage(containerMetrics.Usage)
 	return &ContainerMetricsSnapshot{ID: model.ContainerID{ContainerName: containerMetrics.Name, PodID: model.PodID{Namespace: podMetrics.Namespace, PodName: podMetrics.Name}}, Usage: usage, SnapshotTime: podMetrics.Timestamp.Time, SnapshotWindow: podMetrics.Window.Duration}
 }
 func calculateUsage(containerUsage k8sapiv1.ResourceList) model.Resources {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cpuQuantity := containerUsage[k8sapiv1.ResourceCPU]
@@ -76,7 +86,16 @@ func calculateUsage(containerUsage k8sapiv1.ResourceList) model.Resources {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

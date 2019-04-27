@@ -31,6 +31,8 @@ const scaleUpLimitUnknown = math.MaxInt64
 func computeScaleUpResourcesLeftLimits(nodeGroups []cloudprovider.NodeGroup, nodeInfos map[string]*schedulercache.NodeInfo, nodesFromNotAutoscaledGroups []*apiv1.Node, resourceLimiter *cloudprovider.ResourceLimiter) (scaleUpResourcesLimits, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	totalCores, totalMem, errCoresMem := calculateScaleUpCoresMemoryTotal(nodeGroups, nodeInfos, nodesFromNotAutoscaledGroups)
 	var totalGpus map[string]int64
 	var totalGpusErr error
@@ -73,6 +75,8 @@ func computeScaleUpResourcesLeftLimits(nodeGroups []cloudprovider.NodeGroup, nod
 func calculateScaleUpCoresMemoryTotal(nodeGroups []cloudprovider.NodeGroup, nodeInfos map[string]*schedulercache.NodeInfo, nodesFromNotAutoscaledGroups []*apiv1.Node) (int64, int64, errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var coresTotal int64
 	var memoryTotal int64
 	for _, nodeGroup := range nodeGroups {
@@ -98,6 +102,8 @@ func calculateScaleUpCoresMemoryTotal(nodeGroups []cloudprovider.NodeGroup, node
 	return coresTotal, memoryTotal, nil
 }
 func calculateScaleUpGpusTotal(nodeGroups []cloudprovider.NodeGroup, nodeInfos map[string]*schedulercache.NodeInfo, nodesFromNotAutoscaledGroups []*apiv1.Node) (map[string]int64, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(map[string]int64)
@@ -133,12 +139,16 @@ func calculateScaleUpGpusTotal(nodeGroups []cloudprovider.NodeGroup, nodeInfos m
 func computeBelowMax(total int64, max int64) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if total < max {
 		return max - total
 	}
 	return 0
 }
 func computeScaleUpResourcesDelta(nodeInfo *schedulercache.NodeInfo, nodeGroup cloudprovider.NodeGroup, resourceLimiter *cloudprovider.ResourceLimiter) (scaleUpResourcesDelta, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resultScaleUpDelta := make(scaleUpResourcesDelta)
@@ -163,9 +173,13 @@ type scaleUpLimitsCheckResult struct {
 func scaleUpLimitsNotExceeded() scaleUpLimitsCheckResult {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return scaleUpLimitsCheckResult{false, []string{}}
 }
 func (limits *scaleUpResourcesLimits) checkScaleUpDeltaWithinLimits(delta scaleUpResourcesDelta) scaleUpLimitsCheckResult {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	exceededResources := sets.NewString()
@@ -185,12 +199,16 @@ func (limits *scaleUpResourcesLimits) checkScaleUpDeltaWithinLimits(delta scaleU
 func getNodeInfoCoresAndMemory(nodeInfo *schedulercache.NodeInfo) (int64, int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getNodeCoresAndMemory(nodeInfo.Node())
 }
 
 type skippedReasons struct{ message []string }
 
 func (sr *skippedReasons) Reasons() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return sr.message
@@ -203,6 +221,8 @@ var (
 )
 
 func ScaleUp(context *context.AutoscalingContext, processors *ca_processors.AutoscalingProcessors, clusterStateRegistry *clusterstate.ClusterStateRegistry, unschedulablePods []*apiv1.Pod, nodes []*apiv1.Node, daemonSets []*extensionsv1.DaemonSet, nodeInfos map[string]*schedulercache.NodeInfo) (*status.ScaleUpStatus, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(unschedulablePods) == 0 {
@@ -435,6 +455,8 @@ type podsPredicatePassingCheckFunctions struct {
 func getPodsPredicatePassingCheckFunctions(context *context.AutoscalingContext, unschedulablePods []*apiv1.Pod, nodeInfos map[string]*schedulercache.NodeInfo) podsPredicatePassingCheckFunctions {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	podsPassingPredicatesCache := make(map[string][]*apiv1.Pod)
 	podsNotPassingPredicatesCache := make(map[string]map[*apiv1.Pod]status.Reasons)
 	errorsCache := make(map[string]error)
@@ -492,6 +514,8 @@ func getPodsPredicatePassingCheckFunctions(context *context.AutoscalingContext, 
 func getRemainingPods(schedulingErrors map[*apiv1.Pod]map[string]status.Reasons, skipped map[string]status.Reasons) []status.NoScaleUpInfo {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	remaining := []status.NoScaleUpInfo{}
 	for pod, errs := range schedulingErrors {
 		noScaleUpInfo := status.NoScaleUpInfo{Pod: pod, RejectedNodeGroups: errs, SkippedNodeGroups: skipped}
@@ -500,6 +524,8 @@ func getRemainingPods(schedulingErrors map[*apiv1.Pod]map[string]status.Reasons,
 	return remaining
 }
 func getPodsAwaitingEvaluation(allPods []*apiv1.Pod, unschedulable map[*apiv1.Pod]map[string]status.Reasons, bestOption []*apiv1.Pod) []*apiv1.Pod {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	awaitsEvaluation := make(map[*apiv1.Pod]bool, len(allPods))
@@ -518,6 +544,8 @@ func getPodsAwaitingEvaluation(allPods []*apiv1.Pod, unschedulable map[*apiv1.Po
 	return result
 }
 func filterNodeGroupsByPods(groups []cloudprovider.NodeGroup, podsRequiredToFit []*apiv1.Pod, fittingPodsPerNodeGroup func(groupId string) ([]*apiv1.Pod, error)) []cloudprovider.NodeGroup {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make([]cloudprovider.NodeGroup, 0)
@@ -545,6 +573,8 @@ groupsloop:
 func executeScaleUp(context *context.AutoscalingContext, clusterStateRegistry *clusterstate.ClusterStateRegistry, info nodegroupset.ScaleUpInfo, gpuType string) errors.AutoscalerError {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(0).Infof("Scale-up: setting group %s size to %d", info.Group.Id(), info.NewSize)
 	context.LogRecorder.Eventf(apiv1.EventTypeNormal, "ScaledUpGroup", "Scale-up: setting group %s size to %d", info.Group.Id(), info.NewSize)
 	increase := info.NewSize - info.CurrentSize
@@ -559,6 +589,8 @@ func executeScaleUp(context *context.AutoscalingContext, clusterStateRegistry *c
 	return nil
 }
 func applyScaleUpResourcesLimits(newNodes int, scaleUpResourcesLeft scaleUpResourcesLimits, nodeInfo *schedulercache.NodeInfo, nodeGroup cloudprovider.NodeGroup, resourceLimiter *cloudprovider.ResourceLimiter) (int, errors.AutoscalerError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	delta, err := computeScaleUpResourcesDelta(nodeInfo, nodeGroup, resourceLimiter)

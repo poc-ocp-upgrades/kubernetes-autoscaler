@@ -18,9 +18,13 @@ type Time struct{ time.Time }
 func (t Time) MarshalBinary() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.Time.MarshalText()
 }
 func (t *Time) UnmarshalBinary(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return t.UnmarshalText(data)
@@ -28,9 +32,13 @@ func (t *Time) UnmarshalBinary(data []byte) error {
 func (t Time) MarshalJSON() (json []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.Time.MarshalJSON()
 }
 func (t *Time) UnmarshalJSON(data []byte) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	timeFormat := azureUtcFormatJSON
@@ -46,9 +54,13 @@ func (t *Time) UnmarshalJSON(data []byte) (err error) {
 func (t Time) MarshalText() (text []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.Time.MarshalText()
 }
 func (t *Time) UnmarshalText(data []byte) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	timeFormat := azureUtcFormat
@@ -64,6 +76,8 @@ func (t *Time) UnmarshalText(data []byte) (err error) {
 func (t Time) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, err := t.MarshalText()
 	if err != nil {
 		return ""
@@ -71,6 +85,8 @@ func (t Time) String() string {
 	return string(b)
 }
 func (t Time) ToTime() time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return t.Time

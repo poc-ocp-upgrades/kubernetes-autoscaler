@@ -16,10 +16,14 @@ var parameterCodec = runtime.NewParameterCodec(scheme)
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v1.AddToGroupVersion(scheme, schema.GroupVersion{Version: "v1"})
 	AddToScheme(scheme)
 }
 func AddToScheme(scheme *runtime.Scheme) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	autoscalingv1beta1.AddToScheme(scheme)

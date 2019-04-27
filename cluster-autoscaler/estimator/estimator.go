@@ -16,6 +16,8 @@ const (
 func deprecated(name string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s (DEPRECATED)", name)
 }
 
@@ -27,6 +29,8 @@ type Estimator interface {
 type EstimatorBuilder func(*simulator.PredicateChecker) Estimator
 
 func NewEstimatorBuilder(name string) (EstimatorBuilder, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch name {

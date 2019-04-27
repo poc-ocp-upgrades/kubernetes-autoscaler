@@ -8,6 +8,8 @@ import (
 func TestGetPodSpecsReturnsNoResults(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tc := newEmptySpecClientTestCase()
 	client := tc.createFakeSpecClient()
 	podSpecs, err := client.GetPodSpecs()
@@ -15,6 +17,8 @@ func TestGetPodSpecsReturnsNoResults(t *testing.T) {
 	assert.Empty(t, podSpecs)
 }
 func TestGetPodSpecsReturnsSpecs(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tc := newSpecClientTestCase()

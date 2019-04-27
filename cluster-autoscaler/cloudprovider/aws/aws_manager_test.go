@@ -22,6 +22,8 @@ import (
 func TestGetRegion(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := "AWS_REGION"
 	originalRegion, originalPresent := os.LookupEnv(key)
 	defer func(region string, present bool) {
@@ -45,6 +47,8 @@ func TestGetRegion(t *testing.T) {
 func TestBuildGenericLabels(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	labels := buildGenericLabels(&asgTemplate{InstanceType: &instanceType{InstanceType: "c4.large", VCPU: 2, MemoryMb: 3840}, Region: "us-east-1"}, "sillyname")
 	assert.Equal(t, "us-east-1", labels[kubeletapis.LabelZoneRegion])
 	assert.Equal(t, "sillyname", labels[kubeletapis.LabelHostname])
@@ -55,12 +59,16 @@ func TestBuildGenericLabels(t *testing.T) {
 func TestExtractLabelsFromAsg(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tags := []*autoscaling.TagDescription{{Key: aws.String("k8s.io/cluster-autoscaler/node-template/label/foo"), Value: aws.String("bar")}, {Key: aws.String("bar"), Value: aws.String("baz")}}
 	labels := extractLabelsFromAsg(tags)
 	assert.Equal(t, 1, len(labels))
 	assert.Equal(t, "bar", labels["foo"])
 }
 func TestExtractTaintsFromAsg(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tags := []*autoscaling.TagDescription{{Key: aws.String("k8s.io/cluster-autoscaler/node-template/taint/dedicated"), Value: aws.String("foo:NoSchedule")}, {Key: aws.String("k8s.io/cluster-autoscaler/node-template/taint/group"), Value: aws.String("bar:NoExecute")}, {Key: aws.String("k8s.io/cluster-autoscaler/node-template/taint/app"), Value: aws.String("fizz:PreferNoSchedule")}, {Key: aws.String("bar"), Value: aws.String("baz")}, {Key: aws.String("k8s.io/cluster-autoscaler/node-template/taint/blank"), Value: aws.String("")}, {Key: aws.String("k8s.io/cluster-autoscaler/node-template/taint/nosplit"), Value: aws.String("some_value")}}
@@ -72,6 +80,8 @@ func TestExtractTaintsFromAsg(t *testing.T) {
 func makeTaintSet(taints []apiv1.Taint) map[apiv1.Taint]bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	set := make(map[apiv1.Taint]bool)
 	for _, taint := range taints {
 		set[taint] = true
@@ -79,6 +89,8 @@ func makeTaintSet(taints []apiv1.Taint) map[apiv1.Taint]bool {
 	return set
 }
 func TestFetchExplicitAsgs(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	min, max, groupname := 1, 10, "coolasg"
@@ -98,6 +110,8 @@ func TestFetchExplicitAsgs(t *testing.T) {
 func TestBuildInstanceType(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ltName, ltVersion, instanceType := "launcher", "1", "t2.large"
 	s := &EC2Mock{}
 	s.On("DescribeLaunchTemplateVersions", &ec2.DescribeLaunchTemplateVersionsInput{LaunchTemplateName: aws.String(ltName), Versions: []*string{aws.String(ltVersion)}}).Return(&ec2.DescribeLaunchTemplateVersionsOutput{LaunchTemplateVersions: []*ec2.LaunchTemplateVersion{{LaunchTemplateData: &ec2.ResponseLaunchTemplateData{InstanceType: aws.String(instanceType)}}}})
@@ -109,6 +123,8 @@ func TestBuildInstanceType(t *testing.T) {
 	assert.Equal(t, instanceType, builtInstanceType)
 }
 func TestGetASGTemplate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	const (
@@ -150,6 +166,8 @@ func TestGetASGTemplate(t *testing.T) {
 func TestFetchAutoAsgs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	min, max := 1, 10
 	groupname, tags := "coolasg", []string{"tag", "anothertag"}
 	s := &AutoScalingMock{}
@@ -179,6 +197,8 @@ func TestFetchAutoAsgs(t *testing.T) {
 func tagsMatcher(expected *autoscaling.DescribeTagsInput) func(*autoscaling.DescribeTagsInput) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(actual *autoscaling.DescribeTagsInput) bool {
 		expectedTags := flatTagSlice(expected.Filters)
 		actualTags := flatTagSlice(actual.Filters)
@@ -186,6 +206,8 @@ func tagsMatcher(expected *autoscaling.DescribeTagsInput) func(*autoscaling.Desc
 	}
 }
 func flatTagSlice(filters []*autoscaling.Filter) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tags := []string{}

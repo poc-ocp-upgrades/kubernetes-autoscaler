@@ -31,9 +31,13 @@ var (
 func NewStrategy(pricingModel cloudprovider.PricingModel, preferredNodeProvider PreferredNodeProvider, nodeUnfitness NodeUnfitness) expander.Strategy {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &priceBased{pricingModel: pricingModel, preferredNodeProvider: preferredNodeProvider, nodeUnfitness: nodeUnfitness}
 }
 func (p *priceBased) BestOption(expansionOptions []expander.Option, nodeInfos map[string]*schedulercache.NodeInfo) *expander.Option {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var bestOption *expander.Option
@@ -92,6 +96,8 @@ nextoption:
 	return bestOption
 }
 func buildPod(name string, millicpu int64, mem int64) *apiv1.Pod {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &apiv1.Pod{ObjectMeta: metav1.ObjectMeta{Namespace: "default", Name: name, SelfLink: fmt.Sprintf("/api/v1/namespaces/default/pods/%s", name)}, Spec: apiv1.PodSpec{Containers: []apiv1.Container{{Resources: apiv1.ResourceRequirements{Requests: apiv1.ResourceList{apiv1.ResourceCPU: *resource.NewMilliQuantity(millicpu, resource.DecimalSI), apiv1.ResourceMemory: *resource.NewQuantity(mem, resource.DecimalSI)}}}}}}

@@ -24,6 +24,8 @@ type metricsClientTestCase struct {
 func newMetricsClientTestCase() *metricsClientTestCase {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	namespaceName := "test-namespace"
 	testCase := &metricsClientTestCase{snapshotTimestamp: time.Now(), snapshotWindow: time.Duration(1234), namespace: &v1.Namespace{ObjectMeta: metav1.ObjectMeta{Name: namespaceName}}}
 	id1 := model.ContainerID{PodID: model.PodID{Namespace: namespaceName, PodName: "Pod1"}, ContainerName: "Name1"}
@@ -39,14 +41,20 @@ func newMetricsClientTestCase() *metricsClientTestCase {
 func newEmptyMetricsClientTestCase() *metricsClientTestCase {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &metricsClientTestCase{}
 }
 func (tc *metricsClientTestCase) newContainerMetricsSnapshot(id model.ContainerID, cpuUsage int64, memUsage int64) *ContainerMetricsSnapshot {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ContainerMetricsSnapshot{ID: id, SnapshotTime: tc.snapshotTimestamp, SnapshotWindow: tc.snapshotWindow, Usage: model.Resources{model.ResourceCPU: model.ResourceAmount(cpuUsage), model.ResourceMemory: model.ResourceAmount(memUsage)}}
 }
 func (tc *metricsClientTestCase) createFakeMetricsClient() MetricsClient {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeMetricsGetter := &fake.Clientset{}
@@ -58,6 +66,8 @@ func (tc *metricsClientTestCase) createFakeMetricsClient() MetricsClient {
 func (tc *metricsClientTestCase) getFakePodMetricsList() *metricsapi.PodMetricsList {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	metrics := &metricsapi.PodMetricsList{}
 	if tc.pod1Snaps != nil && tc.pod2Snaps != nil {
 		metrics.Items = append(metrics.Items, makePodMetrics(tc.pod1Snaps))
@@ -66,6 +76,8 @@ func (tc *metricsClientTestCase) getFakePodMetricsList() *metricsapi.PodMetricsL
 	return metrics
 }
 func makePodMetrics(snaps []*ContainerMetricsSnapshot) metricsapi.PodMetrics {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	firstSnap := snaps[0]
@@ -79,6 +91,8 @@ func makePodMetrics(snaps []*ContainerMetricsSnapshot) metricsapi.PodMetrics {
 func calculateResourceList(usage model.Resources) k8sapiv1.ResourceList {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cpuCores := big.NewRat(int64(usage[model.ResourceCPU]), 1000)
 	cpuQuantityString := cpuCores.FloatString(3)
 	memoryBytes := big.NewInt(int64(usage[model.ResourceMemory]))
@@ -87,6 +101,8 @@ func calculateResourceList(usage model.Resources) k8sapiv1.ResourceList {
 	return k8sapiv1.ResourceList(resourceMap)
 }
 func (tc *metricsClientTestCase) getAllSnaps() []*ContainerMetricsSnapshot {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return append(tc.pod1Snaps, tc.pod2Snaps...)

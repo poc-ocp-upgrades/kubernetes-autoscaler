@@ -26,9 +26,13 @@ type prometheusClient struct {
 func NewPrometheusClient(httpClient httpGetter, address string) PrometheusClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &prometheusClient{httpClient: httpClient, address: address}
 }
 func getUrlWithQuery(address, query string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	url, err := url.Parse(address)
@@ -44,6 +48,8 @@ func getUrlWithQuery(address, query string) (string, error) {
 func retry(callback func() error, attempts int, delay time.Duration) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := 1; ; i++ {
 		err := callback()
 		if err == nil {
@@ -56,6 +62,8 @@ func retry(callback func() error, attempts int, delay time.Duration) error {
 	}
 }
 func (c *prometheusClient) GetTimeseries(query string) ([]Timeseries, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	url, err := getUrlWithQuery(c.address, query)

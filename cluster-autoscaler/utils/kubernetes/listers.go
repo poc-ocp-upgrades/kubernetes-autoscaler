@@ -35,9 +35,13 @@ type listerRegistryImpl struct {
 func NewListerRegistry(allNode NodeLister, readyNode NodeLister, scheduledPod PodLister, unschedulablePod PodLister, podDisruptionBudgetLister PodDisruptionBudgetLister, daemonSetLister DaemonSetLister) ListerRegistry {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return listerRegistryImpl{allNodeLister: allNode, readyNodeLister: readyNode, scheduledPodLister: scheduledPod, unschedulablePodLister: unschedulablePod, podDisruptionBudgetLister: podDisruptionBudgetLister, daemonSetLister: daemonSetLister}
 }
 func NewListerRegistryWithDefaultListers(kubeClient client.Interface, stopChannel <-chan struct{}) ListerRegistry {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	unschedulablePodLister := NewUnschedulablePodLister(kubeClient, stopChannel)
@@ -51,9 +55,13 @@ func NewListerRegistryWithDefaultListers(kubeClient client.Interface, stopChanne
 func (r listerRegistryImpl) AllNodeLister() NodeLister {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.allNodeLister
 }
 func (r listerRegistryImpl) ReadyNodeLister() NodeLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return r.readyNodeLister
@@ -61,9 +69,13 @@ func (r listerRegistryImpl) ReadyNodeLister() NodeLister {
 func (r listerRegistryImpl) ScheduledPodLister() PodLister {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.scheduledPodLister
 }
 func (r listerRegistryImpl) UnschedulablePodLister() PodLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return r.unschedulablePodLister
@@ -71,9 +83,13 @@ func (r listerRegistryImpl) UnschedulablePodLister() PodLister {
 func (r listerRegistryImpl) PodDisruptionBudgetLister() PodDisruptionBudgetLister {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.podDisruptionBudgetLister
 }
 func (r listerRegistryImpl) DaemonSetLister() DaemonSetLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return r.daemonSetLister
@@ -83,6 +99,8 @@ type PodLister interface{ List() ([]*apiv1.Pod, error) }
 type UnschedulablePodLister struct{ podLister v1lister.PodLister }
 
 func (unschedulablePodLister *UnschedulablePodLister) List() ([]*apiv1.Pod, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var unschedulablePods []*apiv1.Pod
@@ -101,9 +119,13 @@ func (unschedulablePodLister *UnschedulablePodLister) List() ([]*apiv1.Pod, erro
 func NewUnschedulablePodLister(kubeClient client.Interface, stopchannel <-chan struct{}) PodLister {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewUnschedulablePodInNamespaceLister(kubeClient, apiv1.NamespaceAll, stopchannel)
 }
 func NewUnschedulablePodInNamespaceLister(kubeClient client.Interface, namespace string, stopchannel <-chan struct{}) PodLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	selector := fields.ParseSelectorOrDie("spec.nodeName==" + "" + ",status.phase!=" + string(apiv1.PodSucceeded) + ",status.phase!=" + string(apiv1.PodFailed))
@@ -120,9 +142,13 @@ type ScheduledPodLister struct{ podLister v1lister.PodLister }
 func (lister *ScheduledPodLister) List() ([]*apiv1.Pod, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return lister.podLister.List(labels.Everything())
 }
 func NewScheduledPodLister(kubeClient client.Interface, stopchannel <-chan struct{}) PodLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	selector := fields.ParseSelectorOrDie("spec.nodeName!=" + "" + ",status.phase!=" + string(apiv1.PodSucceeded) + ",status.phase!=" + string(apiv1.PodFailed))
@@ -140,6 +166,8 @@ type ReadyNodeLister struct{ nodeLister v1lister.NodeLister }
 func (readyNodeLister *ReadyNodeLister) List() ([]*apiv1.Node, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodes, err := readyNodeLister.nodeLister.List(labels.Everything())
 	if err != nil {
 		return []*apiv1.Node{}, err
@@ -155,6 +183,8 @@ func (readyNodeLister *ReadyNodeLister) List() ([]*apiv1.Node, error) {
 func NewReadyNodeLister(kubeClient client.Interface, stopChannel <-chan struct{}) NodeLister {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	listWatcher := cache.NewListWatchFromClient(kubeClient.CoreV1().RESTClient(), "nodes", apiv1.NamespaceAll, fields.Everything())
 	store := cache.NewIndexer(cache.MetaNamespaceKeyFunc, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc})
 	nodeLister := v1lister.NewNodeLister(store)
@@ -168,6 +198,8 @@ type AllNodeLister struct{ nodeLister v1lister.NodeLister }
 func (allNodeLister *AllNodeLister) List() ([]*apiv1.Node, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodes, err := allNodeLister.nodeLister.List(labels.Everything())
 	if err != nil {
 		return []*apiv1.Node{}, err
@@ -176,6 +208,8 @@ func (allNodeLister *AllNodeLister) List() ([]*apiv1.Node, error) {
 	return allNodes, nil
 }
 func NewAllNodeLister(kubeClient client.Interface, stopchannel <-chan struct{}) NodeLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	listWatcher := cache.NewListWatchFromClient(kubeClient.CoreV1().RESTClient(), "nodes", apiv1.NamespaceAll, fields.Everything())
@@ -196,9 +230,13 @@ type PodDisruptionBudgetListerImpl struct {
 func (lister *PodDisruptionBudgetListerImpl) List() ([]*policyv1.PodDisruptionBudget, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return lister.pdbLister.List(labels.Everything())
 }
 func NewPodDisruptionBudgetLister(kubeClient client.Interface, stopchannel <-chan struct{}) PodDisruptionBudgetLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	listWatcher := cache.NewListWatchFromClient(kubeClient.Policy().RESTClient(), "poddisruptionbudgets", apiv1.NamespaceAll, fields.Everything())
@@ -219,9 +257,13 @@ type DaemonSetListerImpl struct {
 func (lister *DaemonSetListerImpl) List() ([]*extensionsv1.DaemonSet, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return lister.daemonSetLister.List(labels.Everything())
 }
 func NewDaemonSetLister(kubeClient client.Interface, stopchannel <-chan struct{}) DaemonSetLister {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	listWatcher := cache.NewListWatchFromClient(kubeClient.Extensions().RESTClient(), "daemonsets", apiv1.NamespaceAll, fields.Everything())

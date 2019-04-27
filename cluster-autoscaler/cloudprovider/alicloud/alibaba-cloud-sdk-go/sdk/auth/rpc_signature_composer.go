@@ -11,6 +11,8 @@ import (
 func signRpcRequest(request requests.AcsRequest, signer Signer, regionId string) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = completeRpcSignParams(request, signer, regionId)
 	if err != nil {
 		return
@@ -25,6 +27,8 @@ func signRpcRequest(request requests.AcsRequest, signer Signer, regionId string)
 	return
 }
 func completeRpcSignParams(request requests.AcsRequest, signer Signer, regionId string) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	queryParams := request.GetQueryParams()
@@ -54,6 +58,8 @@ func completeRpcSignParams(request requests.AcsRequest, signer Signer, regionId 
 	return
 }
 func buildRpcStringToSign(request requests.AcsRequest) (stringToSign string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	signParams := make(map[string]string)

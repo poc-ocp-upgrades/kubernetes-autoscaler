@@ -11,6 +11,8 @@ import (
 func signRoaRequest(request requests.AcsRequest, signer Signer, regionId string) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	completeROASignParams(request, signer, regionId)
 	stringToSign := buildRoaStringToSign(request)
 	request.SetStringToSign(stringToSign)
@@ -23,6 +25,8 @@ func signRoaRequest(request requests.AcsRequest, signer Signer, regionId string)
 	return
 }
 func completeROASignParams(request requests.AcsRequest, signer Signer, regionId string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	headerParams := request.GetHeaders()
@@ -61,6 +65,8 @@ func completeROASignParams(request requests.AcsRequest, signer Signer, regionId 
 func buildRoaStringToSign(request requests.AcsRequest) (stringToSign string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	headers := request.GetHeaders()
 	stringToSignBuilder := bytes.Buffer{}
 	stringToSignBuilder.WriteString(request.GetMethod())
@@ -85,6 +91,8 @@ func buildRoaStringToSign(request requests.AcsRequest) (stringToSign string) {
 	return
 }
 func appendIfContain(sourceMap map[string]string, target *bytes.Buffer, key, separator string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if value, contain := sourceMap[key]; contain && len(value) > 0 {

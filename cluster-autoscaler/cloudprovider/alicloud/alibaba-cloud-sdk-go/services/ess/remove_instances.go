@@ -8,11 +8,15 @@ import (
 func (client *Client) RemoveInstances(request *RemoveInstancesRequest) (response *RemoveInstancesResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	response = CreateRemoveInstancesResponse()
 	err = client.DoAction(request, response)
 	return
 }
 func (client *Client) RemoveInstancesWithChan(request *RemoveInstancesRequest) (<-chan *RemoveInstancesResponse, <-chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	responseChan := make(chan *RemoveInstancesResponse, 1)
@@ -35,6 +39,8 @@ func (client *Client) RemoveInstancesWithChan(request *RemoveInstancesRequest) (
 	return responseChan, errChan
 }
 func (client *Client) RemoveInstancesWithCallback(request *RemoveInstancesRequest, callback func(response *RemoveInstancesResponse, err error)) <-chan int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(chan int, 1)
@@ -91,11 +97,15 @@ type RemoveInstancesResponse struct {
 func CreateRemoveInstancesRequest() (request *RemoveInstancesRequest) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request = &RemoveInstancesRequest{RpcRequest: &requests.RpcRequest{}}
 	request.InitWithApiInfo("Ess", "2014-08-28", "RemoveInstances", "ess", "openAPI")
 	return
 }
 func CreateRemoveInstancesResponse() (response *RemoveInstancesResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	response = &RemoveInstancesResponse{BaseResponse: &responses.BaseResponse{}}

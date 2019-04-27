@@ -14,6 +14,8 @@ import (
 func TestRequiredPodsForNode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod1 := apiv1.Pod{ObjectMeta: metav1.ObjectMeta{Namespace: "default", Name: "pod1", SelfLink: "pod1"}}
 	pod2 := apiv1.Pod{ObjectMeta: metav1.ObjectMeta{Name: "pod2", Namespace: "kube-system", SelfLink: "pod2", Annotations: map[string]string{types.ConfigMirrorAnnotationKey: "something"}}}
 	fakeClient := &fake.Clientset{}

@@ -12,6 +12,8 @@ import (
 func TestPredicates(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p1 := BuildTestPod("p1", 450, 500000)
 	p2 := BuildTestPod("p2", 600, 500000)
 	p3 := BuildTestPod("p3", 8000, 0)

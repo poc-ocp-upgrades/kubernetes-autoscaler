@@ -19,10 +19,14 @@ type gceManagerMock struct{ mock.Mock }
 func (m *gceManagerMock) GetMigSize(mig Mig) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(mig)
 	return args.Get(0).(int64), args.Error(1)
 }
 func (m *gceManagerMock) SetMigSize(mig Mig, size int64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called(mig, size)
@@ -31,10 +35,14 @@ func (m *gceManagerMock) SetMigSize(mig Mig, size int64) error {
 func (m *gceManagerMock) DeleteInstances(instances []*GceRef) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(instances)
 	return args.Error(0)
 }
 func (m *gceManagerMock) GetMigForInstance(instance *GceRef) (Mig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called(instance)
@@ -43,10 +51,14 @@ func (m *gceManagerMock) GetMigForInstance(instance *GceRef) (Mig, error) {
 func (m *gceManagerMock) GetMigNodes(mig Mig) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(mig)
 	return args.Get(0).([]string), args.Error(1)
 }
 func (m *gceManagerMock) Refresh() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called()
@@ -55,10 +67,14 @@ func (m *gceManagerMock) Refresh() error {
 func (m *gceManagerMock) Cleanup() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called()
 	return args.Error(0)
 }
 func (m *gceManagerMock) GetMigs() []*MigInformation {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called()
@@ -67,10 +83,14 @@ func (m *gceManagerMock) GetMigs() []*MigInformation {
 func (m *gceManagerMock) GetResourceLimiter() (*cloudprovider.ResourceLimiter, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called()
 	return args.Get(0).(*cloudprovider.ResourceLimiter), args.Error(1)
 }
 func (m *gceManagerMock) findMigsNamed(name *regexp.Regexp) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := m.Called()
@@ -79,16 +99,22 @@ func (m *gceManagerMock) findMigsNamed(name *regexp.Regexp) ([]string, error) {
 func (m *gceManagerMock) GetMigTemplateNode(mig Mig) (*apiv1.Node, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(mig)
 	return args.Get(0).(*apiv1.Node), args.Error(1)
 }
 func (m *gceManagerMock) getCpuAndMemoryForMachineType(machineType string, zone string) (cpu int64, mem int64, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := m.Called(machineType, zone)
 	return args.Get(0).(int64), args.Get(1).(int64), args.Error(2)
 }
 func TestBuildGceCloudProvider(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gceManagerMock := &gceManagerMock{}
@@ -100,6 +126,8 @@ func TestBuildGceCloudProvider(t *testing.T) {
 func TestNodeGroups(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gceManagerMock := &gceManagerMock{}
 	gce := &GceCloudProvider{gceManager: gceManagerMock}
 	mig := &MigInformation{Config: &gceMig{gceRef: GceRef{Name: "ng1"}}}
@@ -109,6 +137,8 @@ func TestNodeGroups(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, gceManagerMock)
 }
 func TestNodeGroupForNode(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gceManagerMock := &gceManagerMock{}
@@ -123,6 +153,8 @@ func TestNodeGroupForNode(t *testing.T) {
 	mock.AssertExpectationsForObjects(t, gceManagerMock)
 }
 func TestGetResourceLimiter(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gceManagerMock := &gceManagerMock{}
@@ -169,6 +201,8 @@ const getInstanceGroupManagerResponse = `{
 var gceInstanceTemplate = &gcev1.InstanceTemplate{Kind: "compute#instanceTemplate", Id: 28701103232323232, CreationTimestamp: "2017-09-15T04:47:21.577-07:00", Name: "gke-cluster-1-default-pool", Properties: &gcev1.InstanceProperties{Tags: &gcev1.Tags{Items: []string{"gke-cluster-1-000-node"}}, MachineType: "n1-standard-1", CanIpForward: true, NetworkInterfaces: []*gcev1.NetworkInterface{{Kind: "compute#networkInterface", Network: "https://www.googleapis.com/compute/v1/projects/project1/global/networks/default"}}, Metadata: &gcev1.Metadata{Kind: "compute#metadata", Fingerprint: "F7n_RsHD3ng=", Items: []*gcev1.MetadataItems{{Key: "kube-env", Value: createString("ALLOCATE_NODE_CIDRS: \"true\"\n")}, {Key: "user-data", Value: createString("#cloud-config")}, {Key: "gci-update-strategy", Value: createString("update_disabled")}, {Key: "gci-ensure-gke-docker", Value: createString("true")}, {Key: "configure-sh", Value: createString("#!/bin/bash\n\n<#")}, {Key: "cluster-name", Value: createString("cluster-1")}}}}}
 
 func TestMig(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	server := NewHttpServerMock()
@@ -259,11 +293,15 @@ func TestMig(t *testing.T) {
 func TestGceRefFromProviderId(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ref, err := GceRefFromProviderId("gce://project1/us-central1-b/name1")
 	assert.NoError(t, err)
 	assert.Equal(t, GceRef{"project1", "us-central1-b", "name1"}, *ref)
 }
 func createString(s string) *string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &s

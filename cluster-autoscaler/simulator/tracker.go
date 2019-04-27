@@ -19,15 +19,21 @@ type UsageTracker struct{ usage map[string]*UsageRecord }
 func NewUsageTracker() *UsageTracker {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &UsageTracker{usage: make(map[string]*UsageRecord)}
 }
 func (tracker *UsageTracker) Get(node string) (data *UsageRecord, found bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data, found = tracker.usage[node]
 	return data, found
 }
 func (tracker *UsageTracker) RegisterUsage(nodeA string, nodeB string, timestamp time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if record, found := tracker.usage[nodeA]; found {
@@ -56,6 +62,8 @@ func (tracker *UsageTracker) RegisterUsage(nodeA string, nodeB string, timestamp
 func (tracker *UsageTracker) Unregister(node string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if record, found := tracker.usage[node]; found {
 		for using := range record.using {
 			if record2, found := tracker.usage[using]; found {
@@ -73,6 +81,8 @@ func (tracker *UsageTracker) Unregister(node string) {
 func filterOutOld(timestampMap map[string]time.Time, cutoff time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	toRemove := make([]string, 0)
 	for key, timestamp := range timestampMap {
 		if timestamp.Before(cutoff) {
@@ -84,6 +94,8 @@ func filterOutOld(timestampMap map[string]time.Time, cutoff time.Time) {
 	}
 }
 func (tracker *UsageTracker) CleanUp(cutoff time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	toDelete := make([]string, 0)
@@ -103,6 +115,8 @@ func (tracker *UsageTracker) CleanUp(cutoff time.Time) {
 	}
 }
 func RemoveNodeFromTracker(tracker *UsageTracker, node string, utilization map[string]time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keysToRemove := make([]string, 0)
@@ -132,6 +146,8 @@ func RemoveNodeFromTracker(tracker *UsageTracker, node string, utilization map[s
 	}
 }
 func getAllKeys(m map[string]time.Time) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make([]string, 0, len(m))

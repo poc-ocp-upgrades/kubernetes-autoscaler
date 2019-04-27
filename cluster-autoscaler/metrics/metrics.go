@@ -68,6 +68,8 @@ var (
 func RegisterAll() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(clusterSafeToAutoscale)
 	prometheus.MustRegister(nodesCount)
 	prometheus.MustRegister(nodeGroupsCount)
@@ -89,10 +91,14 @@ func RegisterAll() {
 func UpdateDurationFromStart(label FunctionLabel, start time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	duration := time.Now().Sub(start)
 	UpdateDuration(label, duration)
 }
 func UpdateDuration(label FunctionLabel, duration time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if duration > LogLongDurationThreshold && label != ScaleDown {
@@ -103,9 +109,13 @@ func UpdateDuration(label FunctionLabel, duration time.Duration) {
 func UpdateLastTime(label FunctionLabel, now time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lastActivity.WithLabelValues(string(label)).Set(float64(now.Unix()))
 }
 func UpdateClusterSafeToAutoscale(safe bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if safe {
@@ -117,6 +127,8 @@ func UpdateClusterSafeToAutoscale(safe bool) {
 func UpdateNodesCount(ready, unready, starting, longUnregistered, unregistered int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodesCount.WithLabelValues(readyLabel).Set(float64(ready))
 	nodesCount.WithLabelValues(unreadyLabel).Set(float64(unready))
 	nodesCount.WithLabelValues(startingLabel).Set(float64(starting))
@@ -126,10 +138,14 @@ func UpdateNodesCount(ready, unready, starting, longUnregistered, unregistered i
 func UpdateNodeGroupsCount(autoscaled, autoprovisioned int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodeGroupsCount.WithLabelValues(string(autoscaledGroup)).Set(float64(autoscaled))
 	nodeGroupsCount.WithLabelValues(string(autoprovisionedGroup)).Set(float64(autoprovisioned))
 }
 func UpdateUnschedulablePodsCount(podsCount int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	unschedulablePodsCount.Set(float64(podsCount))
@@ -137,9 +153,13 @@ func UpdateUnschedulablePodsCount(podsCount int) {
 func RegisterError(err errors.AutoscalerError) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	errorsCount.WithLabelValues(string(err.Type())).Add(1.0)
 }
 func RegisterScaleUp(nodesCount int, gpuType string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scaleUpCount.Add(float64(nodesCount))
@@ -150,9 +170,13 @@ func RegisterScaleUp(nodesCount int, gpuType string) {
 func RegisterFailedScaleUp(reason FailedScaleUpReason) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	failedScaleUpCount.WithLabelValues(string(reason)).Inc()
 }
 func RegisterScaleDown(nodesCount int, gpuType string, reason NodeScaleDownReason) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scaleDownCount.WithLabelValues(string(reason)).Add(float64(nodesCount))
@@ -163,14 +187,20 @@ func RegisterScaleDown(nodesCount int, gpuType string, reason NodeScaleDownReaso
 func RegisterEvictions(podsCount int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	evictionsCount.Add(float64(podsCount))
 }
 func UpdateUnneededNodesCount(nodesCount int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	unneededNodesCount.Set(float64(nodesCount))
 }
 func UpdateNapEnabled(enabled bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if enabled {
@@ -182,9 +212,13 @@ func UpdateNapEnabled(enabled bool) {
 func RegisterNodeGroupCreation() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodeGroupCreationCount.Add(1.0)
 }
 func RegisterNodeGroupDeletion() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodeGroupDeletionCount.Add(1.0)

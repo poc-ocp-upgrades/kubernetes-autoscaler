@@ -25,10 +25,14 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	flag.Set("alsologtostderr", "true")
 	flag.Set("v", "5")
 }
 func TestUpdateVpaIfNeeded(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	modelVpa := model.NewVpa(model.VpaID{VpaName: "vpa", Namespace: "test"}, nil, time.Now())
@@ -62,6 +66,8 @@ func TestUpdateVpaIfNeeded(t *testing.T) {
 func TestPodMatchesVPA(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testCase struct {
 		pod	*core.Pod
 		vpa	*vpa_types.VerticalPodAutoscaler
@@ -83,6 +89,8 @@ func TestPodMatchesVPA(t *testing.T) {
 func TestGetControllingVPAForPod(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	selector := "app = testingApp"
 	pod := test.Pod().WithName("test-pod").AddContainer(test.BuildTestContainer(containerName, "1", "100M")).Get()
 	pod.Labels = map[string]string{"app": "testingApp"}
@@ -94,6 +102,8 @@ func TestGetControllingVPAForPod(t *testing.T) {
 	assert.Equal(t, vpaA, chosen)
 }
 func TestGetContainerResourcePolicy(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	containerPolicy1 := vpa_types.ContainerResourcePolicy{ContainerName: "container1", MinAllowed: core.ResourceList{core.ResourceCPU: *resource.NewScaledQuantity(10, 1)}}

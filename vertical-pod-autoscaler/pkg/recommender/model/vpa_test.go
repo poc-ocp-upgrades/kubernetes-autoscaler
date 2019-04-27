@@ -13,6 +13,8 @@ var (
 func TestMergeAggregateContainerState(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	containersInitialAggregateState := ContainerNameToAggregateStateMap{}
 	containersInitialAggregateState["test"] = NewAggregateContainerState()
 	vpa := NewVpa(VpaID{}, nil, anyTime)

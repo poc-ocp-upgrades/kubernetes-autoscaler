@@ -21,6 +21,8 @@ var verticalpodautoscalercheckpointsKind = schema.GroupVersionKind{Group: "poc.a
 func (c *FakeVerticalPodAutoscalerCheckpoints) Get(name string, options v1.GetOptions) (result *v1alpha1.VerticalPodAutoscalerCheckpoint, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	obj, err := c.Fake.Invokes(testing.NewGetAction(verticalpodautoscalercheckpointsResource, c.ns, name), &v1alpha1.VerticalPodAutoscalerCheckpoint{})
 	if obj == nil {
 		return nil, err
@@ -28,6 +30,8 @@ func (c *FakeVerticalPodAutoscalerCheckpoints) Get(name string, options v1.GetOp
 	return obj.(*v1alpha1.VerticalPodAutoscalerCheckpoint), err
 }
 func (c *FakeVerticalPodAutoscalerCheckpoints) List(opts v1.ListOptions) (result *v1alpha1.VerticalPodAutoscalerCheckpointList, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj, err := c.Fake.Invokes(testing.NewListAction(verticalpodautoscalercheckpointsResource, verticalpodautoscalercheckpointsKind, c.ns, opts), &v1alpha1.VerticalPodAutoscalerCheckpointList{})
@@ -49,9 +53,13 @@ func (c *FakeVerticalPodAutoscalerCheckpoints) List(opts v1.ListOptions) (result
 func (c *FakeVerticalPodAutoscalerCheckpoints) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.Fake.InvokesWatch(testing.NewWatchAction(verticalpodautoscalercheckpointsResource, c.ns, opts))
 }
 func (c *FakeVerticalPodAutoscalerCheckpoints) Create(verticalPodAutoscalerCheckpoint *v1alpha1.VerticalPodAutoscalerCheckpoint) (result *v1alpha1.VerticalPodAutoscalerCheckpoint, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj, err := c.Fake.Invokes(testing.NewCreateAction(verticalpodautoscalercheckpointsResource, c.ns, verticalPodAutoscalerCheckpoint), &v1alpha1.VerticalPodAutoscalerCheckpoint{})
@@ -63,6 +71,8 @@ func (c *FakeVerticalPodAutoscalerCheckpoints) Create(verticalPodAutoscalerCheck
 func (c *FakeVerticalPodAutoscalerCheckpoints) Update(verticalPodAutoscalerCheckpoint *v1alpha1.VerticalPodAutoscalerCheckpoint) (result *v1alpha1.VerticalPodAutoscalerCheckpoint, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	obj, err := c.Fake.Invokes(testing.NewUpdateAction(verticalpodautoscalercheckpointsResource, c.ns, verticalPodAutoscalerCheckpoint), &v1alpha1.VerticalPodAutoscalerCheckpoint{})
 	if obj == nil {
 		return nil, err
@@ -72,10 +82,14 @@ func (c *FakeVerticalPodAutoscalerCheckpoints) Update(verticalPodAutoscalerCheck
 func (c *FakeVerticalPodAutoscalerCheckpoints) Delete(name string, options *v1.DeleteOptions) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := c.Fake.Invokes(testing.NewDeleteAction(verticalpodautoscalercheckpointsResource, c.ns, name), &v1alpha1.VerticalPodAutoscalerCheckpoint{})
 	return err
 }
 func (c *FakeVerticalPodAutoscalerCheckpoints) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	action := testing.NewDeleteCollectionAction(verticalpodautoscalercheckpointsResource, c.ns, listOptions)
@@ -83,6 +97,8 @@ func (c *FakeVerticalPodAutoscalerCheckpoints) DeleteCollection(options *v1.Dele
 	return err
 }
 func (c *FakeVerticalPodAutoscalerCheckpoints) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.VerticalPodAutoscalerCheckpoint, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj, err := c.Fake.Invokes(testing.NewPatchSubresourceAction(verticalpodautoscalercheckpointsResource, c.ns, name, data, subresources...), &v1alpha1.VerticalPodAutoscalerCheckpoint{})

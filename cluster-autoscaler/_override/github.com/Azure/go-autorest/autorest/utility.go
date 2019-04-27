@@ -26,6 +26,8 @@ type Decoder interface{ Decode(v interface{}) error }
 func NewDecoder(encodedAs EncodedAs, r io.Reader) Decoder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if encodedAs == EncodedAsJSON {
 		return json.NewDecoder(r)
 	} else if encodedAs == EncodedAsXML {
@@ -36,10 +38,14 @@ func NewDecoder(encodedAs EncodedAs, r io.Reader) Decoder {
 func CopyAndDecode(encodedAs EncodedAs, r io.Reader, v interface{}) (bytes.Buffer, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b := bytes.Buffer{}
 	return b, NewDecoder(encodedAs, io.TeeReader(r, &b)).Decode(v)
 }
 func TeeReadCloser(rc io.ReadCloser, w io.Writer) io.ReadCloser {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &teeReadCloser{rc, io.TeeReader(rc, w)}
@@ -53,14 +59,20 @@ type teeReadCloser struct {
 func (t *teeReadCloser) Read(p []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.r.Read(p)
 }
 func (t *teeReadCloser) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.rc.Close()
 }
 func containsInt(ints []int, n int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, i := range ints {
@@ -73,12 +85,16 @@ func containsInt(ints []int, n int) bool {
 func escapeValueStrings(m map[string]string) map[string]string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for key, value := range m {
 		m[key] = url.QueryEscape(value)
 	}
 	return m
 }
 func ensureValueStrings(mapOfInterface map[string]interface{}) map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mapOfStrings := make(map[string]string)
@@ -88,6 +104,8 @@ func ensureValueStrings(mapOfInterface map[string]interface{}) map[string]string
 	return mapOfStrings
 }
 func ensureValueString(value interface{}) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if value == nil {
@@ -103,6 +121,8 @@ func ensureValueString(value interface{}) string {
 	}
 }
 func MapToValues(m map[string]interface{}) url.Values {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	v := url.Values{}
@@ -121,6 +141,8 @@ func MapToValues(m map[string]interface{}) url.Values {
 func AsStringSlice(s interface{}) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v := reflect.ValueOf(s)
 	if v.Kind() != reflect.Slice && v.Kind() != reflect.Array {
 		return nil, NewError("autorest", "AsStringSlice", "the value's type is not an array.")
@@ -132,6 +154,8 @@ func AsStringSlice(s interface{}) ([]string, error) {
 	return stringSlice, nil
 }
 func String(v interface{}, sep ...string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(sep) == 0 {
@@ -150,6 +174,8 @@ func String(v interface{}, sep ...string) string {
 func Encode(location string, v interface{}, sep ...string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := String(v, sep...)
 	switch strings.ToLower(location) {
 	case "path":
@@ -163,14 +189,20 @@ func Encode(location string, v interface{}, sep ...string) string {
 func pathEscape(s string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.Replace(url.QueryEscape(s), "+", "%20", -1)
 }
 func queryEscape(s string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return url.QueryEscape(s)
 }
 func ChangeToGet(req *http.Request) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req.Method = "GET"
@@ -182,6 +214,8 @@ func ChangeToGet(req *http.Request) *http.Request {
 func IsTokenRefreshError(err error) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, ok := err.(adal.TokenRefreshError); ok {
 		return true
 	}
@@ -191,6 +225,8 @@ func IsTokenRefreshError(err error) bool {
 	return false
 }
 func IsTemporaryNetworkError(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if netErr, ok := err.(net.Error); !ok || (ok && netErr.Temporary()) {

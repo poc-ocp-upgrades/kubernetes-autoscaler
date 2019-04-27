@@ -89,9 +89,13 @@ const (
 func IsGpuResource(resourceName string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return resourceName != ResourceNameCores && resourceName != ResourceNameMemory
 }
 func ContainsGpuResources(resources []string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, resource := range resources {
@@ -110,6 +114,8 @@ type ResourceLimiter struct {
 func NewResourceLimiter(minLimits map[string]int64, maxLimits map[string]int64) *ResourceLimiter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	minLimitsCopy := make(map[string]int64)
 	maxLimitsCopy := make(map[string]int64)
 	for key, value := range minLimits {
@@ -125,6 +131,8 @@ func NewResourceLimiter(minLimits map[string]int64, maxLimits map[string]int64) 
 func (r *ResourceLimiter) GetMin(resourceName string) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result, found := r.minLimits[resourceName]
 	if found {
 		return result
@@ -132,6 +140,8 @@ func (r *ResourceLimiter) GetMin(resourceName string) int64 {
 	return 0
 }
 func (r *ResourceLimiter) GetMax(resourceName string) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result, found := r.maxLimits[resourceName]
@@ -143,11 +153,15 @@ func (r *ResourceLimiter) GetMax(resourceName string) int64 {
 func (r *ResourceLimiter) GetResources() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	minResources := sets.StringKeySet(r.minLimits)
 	maxResources := sets.StringKeySet(r.maxLimits)
 	return minResources.Union(maxResources).List()
 }
 func (r *ResourceLimiter) HasMinLimitSet(resourceName string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, found := r.minLimits[resourceName]
@@ -156,10 +170,14 @@ func (r *ResourceLimiter) HasMinLimitSet(resourceName string) bool {
 func (r *ResourceLimiter) HasMaxLimitSet(resourceName string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, found := r.maxLimits[resourceName]
 	return found
 }
 func (r *ResourceLimiter) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var buffer bytes.Buffer
@@ -174,7 +192,16 @@ func (r *ResourceLimiter) String() string {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -23,6 +23,8 @@ type Resolver interface {
 func Resolve(param *ResolveParam) (endpoint string, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	supportedResolvers := getAllResolvers()
 	for _, resolver := range supportedResolvers {
 		endpoint, supported, err := resolver.TryResolve(param)
@@ -35,6 +37,8 @@ func Resolve(param *ResolveParam) (endpoint string, err error) {
 	return
 }
 func getAllResolvers() []Resolver {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	once.Do(func() {
@@ -53,6 +57,8 @@ type ResolveParam struct {
 }
 
 func (param *ResolveParam) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	jsonBytes, err := json.Marshal(param)

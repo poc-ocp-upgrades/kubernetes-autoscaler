@@ -35,6 +35,8 @@ type PodState struct {
 func NewClusterState() *ClusterState {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ClusterState{Pods: make(map[PodID]*PodState), Vpas: make(map[VpaID]*Vpa), aggregateStateMap: make(aggregateContainerStatesMap), labelSetMap: make(labelSetMap)}
 }
 
@@ -44,6 +46,8 @@ type ContainerUsageSampleWithKey struct {
 }
 
 func (cluster *ClusterState) AddOrUpdatePod(podID PodID, newLabels labels.Set, phase apiv1.PodPhase) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod, podExists := cluster.Pods[podID]
@@ -64,6 +68,8 @@ func (cluster *ClusterState) AddOrUpdatePod(podID PodID, newLabels labels.Set, p
 func (cluster *ClusterState) GetContainer(containerID ContainerID) *ContainerState {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod, podExists := cluster.Pods[containerID.PodID]
 	if podExists {
 		container, containerExists := pod.Containers[containerID.ContainerName]
@@ -76,9 +82,13 @@ func (cluster *ClusterState) GetContainer(containerID ContainerID) *ContainerSta
 func (cluster *ClusterState) DeletePod(podID PodID) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	delete(cluster.Pods, podID)
 }
 func (cluster *ClusterState) AddOrUpdateContainer(containerID ContainerID, request Resources) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod, podExists := cluster.Pods[containerID.PodID]
@@ -94,6 +104,8 @@ func (cluster *ClusterState) AddOrUpdateContainer(containerID ContainerID, reque
 	return nil
 }
 func (cluster *ClusterState) AddSample(sample *ContainerUsageSampleWithKey) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod, podExists := cluster.Pods[sample.Container.PodID]
@@ -112,6 +124,8 @@ func (cluster *ClusterState) AddSample(sample *ContainerUsageSampleWithKey) erro
 func (cluster *ClusterState) RecordOOM(containerID ContainerID, timestamp time.Time, requestedMemory ResourceAmount) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pod, podExists := cluster.Pods[containerID.PodID]
 	if !podExists {
 		return NewKeyError(containerID.PodID)
@@ -127,6 +141,8 @@ func (cluster *ClusterState) RecordOOM(containerID ContainerID, timestamp time.T
 	return nil
 }
 func (cluster *ClusterState) AddOrUpdateVpa(apiObject *vpa_types.VerticalPodAutoscaler) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vpaID := VpaID{Namespace: apiObject.Namespace, VpaName: apiObject.Name}
@@ -167,6 +183,8 @@ func (cluster *ClusterState) AddOrUpdateVpa(apiObject *vpa_types.VerticalPodAuto
 func (cluster *ClusterState) DeleteVpa(vpaID VpaID) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, vpaExists := cluster.Vpas[vpaID]; !vpaExists {
 		return NewKeyError(vpaID)
 	}
@@ -176,9 +194,13 @@ func (cluster *ClusterState) DeleteVpa(vpaID VpaID) error {
 func newPod(id PodID) *PodState {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &PodState{ID: id, Containers: make(map[string]*ContainerState)}
 }
 func (cluster *ClusterState) getLabelSetKey(labelSet labels.Set) labelSetKey {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	labelSetKey := labelSetKey(labelSet.String())
@@ -188,9 +210,13 @@ func (cluster *ClusterState) getLabelSetKey(labelSet labels.Set) labelSetKey {
 func (cluster *ClusterState) MakeAggregateStateKey(pod *PodState, containerName string) AggregateStateKey {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return aggregateStateKey{namespace: pod.ID.Namespace, containerName: containerName, labelSetKey: pod.labelSetKey, labelSetMap: &cluster.labelSetMap}
 }
 func (cluster *ClusterState) aggregateStateKeyForContainerID(containerID ContainerID) AggregateStateKey {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pod, podExists := cluster.Pods[containerID.PodID]
@@ -200,6 +226,8 @@ func (cluster *ClusterState) aggregateStateKeyForContainerID(containerID Contain
 	return cluster.MakeAggregateStateKey(pod, containerID.ContainerName)
 }
 func (cluster *ClusterState) findOrCreateAggregateContainerState(containerID ContainerID) *AggregateContainerState {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	aggregateStateKey := cluster.aggregateStateKeyForContainerID(containerID)
@@ -214,6 +242,8 @@ func (cluster *ClusterState) findOrCreateAggregateContainerState(containerID Con
 	return aggregateContainerState
 }
 func (cluster *ClusterState) GarbageCollectAggregateCollectionStates(now time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	glog.V(1).Info("Garbage collection of AggregateCollectionStates triggered")
@@ -242,14 +272,20 @@ type aggregateStateKey struct {
 func (k aggregateStateKey) Namespace() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return k.namespace
 }
 func (k aggregateStateKey) ContainerName() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return k.containerName
 }
 func (k aggregateStateKey) Labels() labels.Labels {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return (*k.labelSetMap)[k.labelSetKey]

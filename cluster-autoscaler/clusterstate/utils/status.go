@@ -28,6 +28,8 @@ type LogEventRecorder struct {
 func (ler *LogEventRecorder) Event(eventtype, reason, message string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ler.active && ler.statusObject != nil {
 		ler.recorder.Event(ler.statusObject, eventtype, reason, message)
 	}
@@ -35,11 +37,15 @@ func (ler *LogEventRecorder) Event(eventtype, reason, message string) {
 func (ler *LogEventRecorder) Eventf(eventtype, reason, message string, args ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ler.active && ler.statusObject != nil {
 		ler.recorder.Eventf(ler.statusObject, eventtype, reason, message, args...)
 	}
 }
 func NewStatusMapRecorder(kubeClient kube_client.Interface, namespace string, recorder record.EventRecorder, active bool) (*LogEventRecorder, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var mapObj runtime.Object
@@ -53,6 +59,8 @@ func NewStatusMapRecorder(kubeClient kube_client.Interface, namespace string, re
 	return &LogEventRecorder{recorder: recorder, statusObject: mapObj, active: active}, nil
 }
 func WriteStatusConfigMap(kubeClient kube_client.Interface, namespace string, msg string, logRecorder *LogEventRecorder) (*apiv1.ConfigMap, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	statusUpdateTime := time.Now().Format(ConfigMapLastUpdateFormat)
@@ -89,6 +97,8 @@ func WriteStatusConfigMap(kubeClient kube_client.Interface, namespace string, ms
 	return configMap, nil
 }
 func DeleteStatusConfigMap(kubeClient kube_client.Interface, namespace string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	maps := kubeClient.CoreV1().ConfigMaps(namespace)

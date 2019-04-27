@@ -53,6 +53,8 @@ type azVirtualMachineScaleSetsClient struct {
 func newAzVirtualMachineScaleSetsClient(subscriptionID, endpoint string, servicePrincipalToken *adal.ServicePrincipalToken) *azVirtualMachineScaleSetsClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	virtualMachineScaleSetsClient := compute.NewVirtualMachineScaleSetsClient(subscriptionID)
 	virtualMachineScaleSetsClient.BaseURI = endpoint
 	virtualMachineScaleSetsClient.Authorizer = autorest.NewBearerAuthorizer(servicePrincipalToken)
@@ -61,6 +63,8 @@ func newAzVirtualMachineScaleSetsClient(subscriptionID, endpoint string, service
 	return &azVirtualMachineScaleSetsClient{client: virtualMachineScaleSetsClient}
 }
 func (az *azVirtualMachineScaleSetsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, VMScaleSetName string, parameters compute.VirtualMachineScaleSet) (resp *http.Response, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(10).Infof("azVirtualMachineScaleSetsClient.CreateOrUpdate(%q,%q): start", resourceGroupName, VMScaleSetName)
@@ -77,6 +81,8 @@ func (az *azVirtualMachineScaleSetsClient) CreateOrUpdate(ctx context.Context, r
 func (az *azVirtualMachineScaleSetsClient) Get(ctx context.Context, resourceGroupName string, VMScaleSetName string) (result compute.VirtualMachineScaleSet, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(10).Infof("azVirtualMachineScaleSetsClient.Get(%q,%q): start", resourceGroupName, VMScaleSetName)
 	defer func() {
 		klog.V(10).Infof("azVirtualMachineScaleSetsClient.Get(%q,%q): end", resourceGroupName, VMScaleSetName)
@@ -84,6 +90,8 @@ func (az *azVirtualMachineScaleSetsClient) Get(ctx context.Context, resourceGrou
 	return az.client.Get(ctx, resourceGroupName, VMScaleSetName)
 }
 func (az *azVirtualMachineScaleSetsClient) List(ctx context.Context, resourceGroupName string) (result []compute.VirtualMachineScaleSet, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(10).Infof("azVirtualMachineScaleSetsClient.List(%q): start", resourceGroupName)
@@ -106,6 +114,8 @@ func (az *azVirtualMachineScaleSetsClient) List(ctx context.Context, resourceGro
 func (az *azVirtualMachineScaleSetsClient) DeleteInstances(ctx context.Context, resourceGroupName string, vmScaleSetName string, vmInstanceIDs compute.VirtualMachineScaleSetVMInstanceRequiredIDs) (resp *http.Response, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(10).Infof("azVirtualMachineScaleSetsClient.DeleteInstances(%q,%q,%v): start", resourceGroupName, vmScaleSetName, vmInstanceIDs)
 	defer func() {
 		klog.V(10).Infof("azVirtualMachineScaleSetsClient.DeleteInstances(%q,%q,%v): end", resourceGroupName, vmScaleSetName, vmInstanceIDs)
@@ -125,6 +135,8 @@ type azVirtualMachineScaleSetVMsClient struct {
 func newAzVirtualMachineScaleSetVMsClient(subscriptionID, endpoint string, servicePrincipalToken *adal.ServicePrincipalToken) *azVirtualMachineScaleSetVMsClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	virtualMachineScaleSetVMsClient := compute.NewVirtualMachineScaleSetVMsClient(subscriptionID)
 	virtualMachineScaleSetVMsClient.BaseURI = endpoint
 	virtualMachineScaleSetVMsClient.Authorizer = autorest.NewBearerAuthorizer(servicePrincipalToken)
@@ -135,6 +147,8 @@ func newAzVirtualMachineScaleSetVMsClient(subscriptionID, endpoint string, servi
 func (az *azVirtualMachineScaleSetVMsClient) Get(ctx context.Context, resourceGroupName string, VMScaleSetName string, instanceID string) (result compute.VirtualMachineScaleSetVM, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(10).Infof("azVirtualMachineScaleSetVMsClient.Get(%q,%q,%q): start", resourceGroupName, VMScaleSetName, instanceID)
 	defer func() {
 		klog.V(10).Infof("azVirtualMachineScaleSetVMsClient.Get(%q,%q,%q): end", resourceGroupName, VMScaleSetName, instanceID)
@@ -142,6 +156,8 @@ func (az *azVirtualMachineScaleSetVMsClient) Get(ctx context.Context, resourceGr
 	return az.client.Get(ctx, resourceGroupName, VMScaleSetName, instanceID)
 }
 func (az *azVirtualMachineScaleSetVMsClient) List(ctx context.Context, resourceGroupName string, virtualMachineScaleSetName string, filter string, selectParameter string, expand string) (result []compute.VirtualMachineScaleSetVM, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(10).Infof("azVirtualMachineScaleSetVMsClient.List(%q,%q,%q): start", resourceGroupName, virtualMachineScaleSetName, filter)
@@ -167,6 +183,8 @@ type azVirtualMachinesClient struct{ client compute.VirtualMachinesClient }
 func newAzVirtualMachinesClient(subscriptionID, endpoint string, servicePrincipalToken *adal.ServicePrincipalToken) *azVirtualMachinesClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	virtualMachinesClient := compute.NewVirtualMachinesClient(subscriptionID)
 	virtualMachinesClient.BaseURI = endpoint
 	virtualMachinesClient.Authorizer = autorest.NewBearerAuthorizer(servicePrincipalToken)
@@ -177,6 +195,8 @@ func newAzVirtualMachinesClient(subscriptionID, endpoint string, servicePrincipa
 func (az *azVirtualMachinesClient) Get(ctx context.Context, resourceGroupName string, VMName string, expand compute.InstanceViewTypes) (result compute.VirtualMachine, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(10).Infof("azVirtualMachinesClient.Get(%q,%q,%q): start", resourceGroupName, VMName, expand)
 	defer func() {
 		klog.V(10).Infof("azVirtualMachinesClient.Get(%q,%q,%q): end", resourceGroupName, VMName, expand)
@@ -184,6 +204,8 @@ func (az *azVirtualMachinesClient) Get(ctx context.Context, resourceGroupName st
 	return az.client.Get(ctx, resourceGroupName, VMName, expand)
 }
 func (az *azVirtualMachinesClient) Delete(ctx context.Context, resourceGroupName string, VMName string) (resp *http.Response, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(10).Infof("azVirtualMachinesClient.Delete(%q,%q): start", resourceGroupName, VMName)
@@ -198,6 +220,8 @@ func (az *azVirtualMachinesClient) Delete(ctx context.Context, resourceGroupName
 	return future.Response(), err
 }
 func (az *azVirtualMachinesClient) List(ctx context.Context, resourceGroupName string) (result []compute.VirtualMachine, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(10).Infof("azVirtualMachinesClient.List(%q): start", resourceGroupName)
@@ -223,6 +247,8 @@ type azInterfacesClient struct{ client network.InterfacesClient }
 func newAzInterfacesClient(subscriptionID, endpoint string, servicePrincipalToken *adal.ServicePrincipalToken) *azInterfacesClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	interfacesClient := network.NewInterfacesClient(subscriptionID)
 	interfacesClient.BaseURI = endpoint
 	interfacesClient.Authorizer = autorest.NewBearerAuthorizer(servicePrincipalToken)
@@ -231,6 +257,8 @@ func newAzInterfacesClient(subscriptionID, endpoint string, servicePrincipalToke
 	return &azInterfacesClient{client: interfacesClient}
 }
 func (az *azInterfacesClient) Delete(ctx context.Context, resourceGroupName string, networkInterfaceName string) (resp *http.Response, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(10).Infof("azInterfacesClient.Delete(%q,%q): start", resourceGroupName, networkInterfaceName)
@@ -250,6 +278,8 @@ type azDeploymentsClient struct{ client resources.DeploymentsClient }
 func newAzDeploymentsClient(subscriptionID, endpoint string, servicePrincipalToken *adal.ServicePrincipalToken) *azDeploymentsClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	deploymentsClient := resources.NewDeploymentsClient(subscriptionID)
 	deploymentsClient.BaseURI = endpoint
 	deploymentsClient.Authorizer = autorest.NewBearerAuthorizer(servicePrincipalToken)
@@ -258,6 +288,8 @@ func newAzDeploymentsClient(subscriptionID, endpoint string, servicePrincipalTok
 	return &azDeploymentsClient{client: deploymentsClient}
 }
 func (az *azDeploymentsClient) Get(ctx context.Context, resourceGroupName string, deploymentName string) (result resources.DeploymentExtended, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(10).Infof("azDeploymentsClient.Get(%q,%q): start", resourceGroupName, deploymentName)
@@ -269,6 +301,8 @@ func (az *azDeploymentsClient) Get(ctx context.Context, resourceGroupName string
 func (az *azDeploymentsClient) ExportTemplate(ctx context.Context, resourceGroupName string, deploymentName string) (result resources.DeploymentExportResult, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(10).Infof("azDeploymentsClient.ExportTemplate(%q,%q): start", resourceGroupName, deploymentName)
 	defer func() {
 		klog.V(10).Infof("azDeploymentsClient.ExportTemplate(%q,%q): end", resourceGroupName, deploymentName)
@@ -276,6 +310,8 @@ func (az *azDeploymentsClient) ExportTemplate(ctx context.Context, resourceGroup
 	return az.client.ExportTemplate(ctx, resourceGroupName, deploymentName)
 }
 func (az *azDeploymentsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, deploymentName string, parameters resources.Deployment) (resp *http.Response, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(10).Infof("azDeploymentsClient.CreateOrUpdate(%q,%q): start", resourceGroupName, deploymentName)
@@ -295,6 +331,8 @@ type azDisksClient struct{ client compute.DisksClient }
 func newAzDisksClient(subscriptionID, endpoint string, servicePrincipalToken *adal.ServicePrincipalToken) *azDisksClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	disksClient := compute.NewDisksClient(subscriptionID)
 	disksClient.BaseURI = endpoint
 	disksClient.Authorizer = autorest.NewBearerAuthorizer(servicePrincipalToken)
@@ -303,6 +341,8 @@ func newAzDisksClient(subscriptionID, endpoint string, servicePrincipalToken *ad
 	return &azDisksClient{client: disksClient}
 }
 func (az *azDisksClient) Delete(ctx context.Context, resourceGroupName string, diskName string) (resp *http.Response, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(10).Infof("azDisksClient.Delete(%q,%q): start", resourceGroupName, diskName)
@@ -322,6 +362,8 @@ type azAccountsClient struct{ client storage.AccountsClient }
 func newAzAccountsClient(subscriptionID, endpoint string, servicePrincipalToken *adal.ServicePrincipalToken) *azAccountsClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	accountsClient := storage.NewAccountsClient(subscriptionID)
 	accountsClient.BaseURI = endpoint
 	accountsClient.Authorizer = autorest.NewBearerAuthorizer(servicePrincipalToken)
@@ -330,6 +372,8 @@ func newAzAccountsClient(subscriptionID, endpoint string, servicePrincipalToken 
 	return &azAccountsClient{client: accountsClient}
 }
 func (az *azAccountsClient) ListKeys(ctx context.Context, resourceGroupName string, accountName string) (result storage.AccountListKeysResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(10).Infof("azAccountsClient.ListKeys(%q,%q): start", resourceGroupName, accountName)
@@ -352,6 +396,8 @@ type azClient struct {
 }
 
 func newServicePrincipalTokenFromCredentials(config *Config, env *azure.Environment) (*adal.ServicePrincipalToken, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oauthConfig, err := adal.NewOAuthConfig(env.ActiveDirectoryEndpoint, config.TenantID)
@@ -385,6 +431,8 @@ func newServicePrincipalTokenFromCredentials(config *Config, env *azure.Environm
 	return nil, fmt.Errorf("No credentials provided for AAD application %s", config.AADClientID)
 }
 func newAzClient(cfg *Config, env *azure.Environment) (*azClient, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	spt, err := newServicePrincipalTokenFromCredentials(cfg, env)

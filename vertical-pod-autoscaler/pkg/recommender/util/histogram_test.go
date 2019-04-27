@@ -17,12 +17,16 @@ var (
 func TestPercentilesEmptyHistogram(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h := NewHistogram(testHistogramOptions)
 	for p := -0.5; p <= 1.5; p += 0.5 {
 		assert.Equal(t, 0.0, h.Percentile(p))
 	}
 }
 func TestPercentiles(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := NewHistogram(testHistogramOptions)
@@ -44,6 +48,8 @@ func TestPercentiles(t *testing.T) {
 func TestPercentileOutOfBounds(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	options, err := NewLinearHistogramOptions(1.0, 0.1, weightEpsilon)
 	assert.Nil(t, err)
 	h := NewHistogram(options)
@@ -57,6 +63,8 @@ func TestPercentileOutOfBounds(t *testing.T) {
 	assert.InEpsilon(t, 1.0, h.Percentile(1.1), valueEpsilon)
 }
 func TestEmptyHistogram(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	options, err := NewLinearHistogramOptions(1.0, 0.1, weightEpsilon)
@@ -73,6 +81,8 @@ func TestEmptyHistogram(t *testing.T) {
 func TestNonEmptyOnEpsilonAddition(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	options, err := NewLinearHistogramOptions(1.0, 0.1, weightEpsilon)
 	assert.Nil(t, err)
 	h := NewHistogram(options)
@@ -85,6 +95,8 @@ func TestNonEmptyOnEpsilonAddition(t *testing.T) {
 	assert.False(t, h.IsEmpty())
 }
 func TestHistogramMerge(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h1 := NewHistogram(testHistogramOptions)
@@ -104,6 +116,8 @@ func TestHistogramMerge(t *testing.T) {
 func TestHistogramSaveToCheckpointEmpty(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h := NewHistogram(testHistogramOptions)
 	s, err := h.SaveToChekpoint()
 	assert.NoError(t, err)
@@ -111,6 +125,8 @@ func TestHistogramSaveToCheckpointEmpty(t *testing.T) {
 	assert.Len(t, s.BucketWeights, 0)
 }
 func TestHistogramSaveToCheckpoint(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := NewHistogram(testHistogramOptions)
@@ -124,6 +140,8 @@ func TestHistogramSaveToCheckpoint(t *testing.T) {
 	assert.Equal(t, MaxCheckpointWeight, s.BucketWeights[bucket])
 }
 func TestHistogramSaveToCheckpointDropsRelativelySmallValues(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := NewHistogram(testHistogramOptions)
@@ -143,6 +161,8 @@ func TestHistogramSaveToCheckpointDropsRelativelySmallValues(t *testing.T) {
 	assert.Equal(t, MaxCheckpointWeight, s.BucketWeights[bucket2])
 }
 func TestHistogramSaveToCheckpointForMultipleValues(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := NewHistogram(testHistogramOptions)
@@ -167,6 +187,8 @@ func TestHistogramSaveToCheckpointForMultipleValues(t *testing.T) {
 func TestHistogramLoadFromCheckpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	checkpoint := vpa_types.HistogramCheckpoint{TotalWeight: 6.0, BucketWeights: map[int]uint32{0: 1, 1: 2}}
 	h := histogram{options: testHistogramOptions, bucketWeight: make([]float64, testHistogramOptions.NumBuckets()), totalWeight: 0.0, minBucket: testHistogramOptions.NumBuckets() - 1, maxBucket: 0}
 	err := h.LoadFromCheckpoint(&checkpoint)
@@ -178,12 +200,16 @@ func TestHistogramLoadFromCheckpoint(t *testing.T) {
 func TestHistogramLoadFromCheckpointReturnsErrorOnNegativeBucket(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	checkpoint := vpa_types.HistogramCheckpoint{TotalWeight: 1.0, BucketWeights: map[int]uint32{-1: 1}}
 	h := NewHistogram(testHistogramOptions)
 	err := h.LoadFromCheckpoint(&checkpoint)
 	assert.Error(t, err)
 }
 func TestHistogramLoadFromCheckpointReturnsErrorOnInvalidBucket(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	checkpoint := vpa_types.HistogramCheckpoint{TotalWeight: 1.0, BucketWeights: map[int]uint32{99: 1}}
@@ -194,6 +220,8 @@ func TestHistogramLoadFromCheckpointReturnsErrorOnInvalidBucket(t *testing.T) {
 func TestHistogramLoadFromCheckpointReturnsErrorNegativeTotaWeight(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	checkpoint := vpa_types.HistogramCheckpoint{TotalWeight: -1.0, BucketWeights: map[int]uint32{}}
 	h := NewHistogram(testHistogramOptions)
 	err := h.LoadFromCheckpoint(&checkpoint)
@@ -202,11 +230,15 @@ func TestHistogramLoadFromCheckpointReturnsErrorNegativeTotaWeight(t *testing.T)
 func TestHistogramLoadFromCheckpointReturnsErrorOnNilInput(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h := NewHistogram(testHistogramOptions)
 	err := h.LoadFromCheckpoint(nil)
 	assert.Error(t, err)
 }
 func areUnique(values ...interface{}) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dict := make(map[interface{}]bool)

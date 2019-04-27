@@ -19,6 +19,8 @@ import (
 func TestBuildNodeFromTemplateSetsResources(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testCase struct {
 		scenario		string
 		kubeEnv			string
@@ -61,6 +63,8 @@ func TestBuildNodeFromTemplateSetsResources(t *testing.T) {
 func TestBuildLabelsForAutoprovisionedMigOK(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	labels, err := buildLabelsForAutoprovisionedMig(&GkeMig{gceRef: gce.GceRef{Name: "kubernetes-minion-autoprovisioned-group", Project: "mwielgus-proj", Zone: "us-central1-b"}, autoprovisioned: true, spec: &MigSpec{MachineType: "n1-standard-8", Labels: map[string]string{"A": "B"}}}, "sillyname")
 	assert.Nil(t, err)
 	assert.Equal(t, "B", labels["A"])
@@ -74,10 +78,14 @@ func TestBuildLabelsForAutoprovisionedMigOK(t *testing.T) {
 func TestBuildLabelsForAutoprovisionedMigConflict(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := buildLabelsForAutoprovisionedMig(&GkeMig{gceRef: gce.GceRef{Name: "kubernetes-minion-autoprovisioned-group", Project: "mwielgus-proj", Zone: "us-central1-b"}, autoprovisioned: true, spec: &MigSpec{MachineType: "n1-standard-8", Labels: map[string]string{kubeletapis.LabelOS: "windows"}}}, "sillyname")
 	assert.Error(t, err)
 }
 func TestBuildAllocatableFromKubeEnv(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type testCase struct {
@@ -112,6 +120,8 @@ func TestBuildAllocatableFromKubeEnv(t *testing.T) {
 func TestBuildKubeReserved(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type testCase struct {
 		physicalCpu	int64
 		reservedCpu	string
@@ -128,6 +138,8 @@ func TestBuildKubeReserved(t *testing.T) {
 	}
 }
 func makeResourceList(cpu string, memory string, gpu int64) (apiv1.ResourceList, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := apiv1.ResourceList{}
@@ -153,10 +165,14 @@ func makeResourceList(cpu string, memory string, gpu int64) (apiv1.ResourceList,
 func assertEqualResourceLists(t *testing.T, name string, expected, actual apiv1.ResourceList) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Helper()
 	assert.True(t, quota.V1Equals(expected, actual), "%q unequal:\nExpected: %v\nActual:   %v", name, stringifyResourceList(expected), stringifyResourceList(actual))
 }
 func stringifyResourceList(resourceList apiv1.ResourceList) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resourceNames := []apiv1.ResourceName{apiv1.ResourcePods, apiv1.ResourceCPU, gpuUtils.ResourceNvidiaGPU, apiv1.ResourceMemory, apiv1.ResourceEphemeralStorage}

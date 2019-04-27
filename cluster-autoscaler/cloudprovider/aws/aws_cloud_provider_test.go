@@ -16,10 +16,14 @@ type AutoScalingMock struct{ mock.Mock }
 func (a *AutoScalingMock) DescribeAutoScalingGroupsPages(i *autoscaling.DescribeAutoScalingGroupsInput, fn func(*autoscaling.DescribeAutoScalingGroupsOutput, bool) bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := a.Called(i, fn)
 	return args.Error(0)
 }
 func (a *AutoScalingMock) DescribeLaunchConfigurations(i *autoscaling.DescribeLaunchConfigurationsInput) (*autoscaling.DescribeLaunchConfigurationsOutput, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := a.Called(i)
@@ -28,16 +32,22 @@ func (a *AutoScalingMock) DescribeLaunchConfigurations(i *autoscaling.DescribeLa
 func (a *AutoScalingMock) DescribeTagsPages(i *autoscaling.DescribeTagsInput, fn func(*autoscaling.DescribeTagsOutput, bool) bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := a.Called(i, fn)
 	return args.Error(0)
 }
 func (a *AutoScalingMock) SetDesiredCapacity(input *autoscaling.SetDesiredCapacityInput) (*autoscaling.SetDesiredCapacityOutput, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := a.Called(input)
 	return args.Get(0).(*autoscaling.SetDesiredCapacityOutput), nil
 }
 func (a *AutoScalingMock) TerminateInstanceInAutoScalingGroup(input *autoscaling.TerminateInstanceInAutoScalingGroupInput) (*autoscaling.TerminateInstanceInAutoScalingGroupOutput, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := a.Called(input)
@@ -47,6 +57,8 @@ func (a *AutoScalingMock) TerminateInstanceInAutoScalingGroup(input *autoscaling
 type EC2Mock struct{ mock.Mock }
 
 func (e *EC2Mock) DescribeLaunchTemplateVersions(i *ec2.DescribeLaunchTemplateVersionsInput) (*ec2.DescribeLaunchTemplateVersionsOutput, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := e.Called(i)
@@ -59,10 +71,14 @@ var testAwsManager = &AwsManager{asgCache: &asgCache{registeredAsgs: make([]*asg
 func newTestAwsManagerWithService(service autoScaling, autoDiscoverySpecs []cloudprovider.ASGAutoDiscoveryConfig) *AwsManager {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wrapper := autoScalingWrapper{service}
 	return &AwsManager{autoScalingService: wrapper, asgCache: &asgCache{registeredAsgs: make([]*asg, 0), asgToInstances: make(map[AwsRef][]AwsInstanceRef), instanceToAsg: make(map[AwsInstanceRef]*asg), explicitlyConfigured: make(map[AwsRef]bool), interrupt: make(chan struct{}), asgAutoDiscoverySpecs: autoDiscoverySpecs, service: wrapper}}
 }
 func newTestAwsManagerWithAsgs(t *testing.T, service autoScaling, specs []string) *AwsManager {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := newTestAwsManagerWithService(service, nil)
@@ -72,11 +88,15 @@ func newTestAwsManagerWithAsgs(t *testing.T, service autoScaling, specs []string
 func newTestAwsManagerWithAutoAsgs(t *testing.T, service autoScaling, specs []string, autoDiscoverySpecs []cloudprovider.ASGAutoDiscoveryConfig) *AwsManager {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := newTestAwsManagerWithService(service, autoDiscoverySpecs)
 	m.asgCache.parseExplicitAsgs(specs)
 	return m
 }
 func testNamedDescribeAutoScalingGroupsOutput(groupName string, desiredCap int64, instanceIds ...string) *autoscaling.DescribeAutoScalingGroupsOutput {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	instances := []*autoscaling.Instance{}
@@ -88,12 +108,16 @@ func testNamedDescribeAutoScalingGroupsOutput(groupName string, desiredCap int64
 func testProvider(t *testing.T, m *AwsManager) *awsCloudProvider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resourceLimiter := cloudprovider.NewResourceLimiter(map[string]int64{cloudprovider.ResourceNameCores: 1, cloudprovider.ResourceNameMemory: 10000000}, map[string]int64{cloudprovider.ResourceNameCores: 10, cloudprovider.ResourceNameMemory: 100000000})
 	provider, err := BuildAwsCloudProvider(m, resourceLimiter)
 	assert.NoError(t, err)
 	return provider.(*awsCloudProvider)
 }
 func TestBuildAwsCloudProvider(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resourceLimiter := cloudprovider.NewResourceLimiter(map[string]int64{cloudprovider.ResourceNameCores: 1, cloudprovider.ResourceNameMemory: 10000000}, map[string]int64{cloudprovider.ResourceNameCores: 10, cloudprovider.ResourceNameMemory: 100000000})
@@ -103,10 +127,14 @@ func TestBuildAwsCloudProvider(t *testing.T) {
 func TestName(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	provider := testProvider(t, testAwsManager)
 	assert.Equal(t, provider.Name(), ProviderName)
 }
 func TestNodeGroups(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	provider := testProvider(t, newTestAwsManagerWithAsgs(t, testService, []string{"1:5:test-asg"}))
@@ -117,6 +145,8 @@ func TestNodeGroups(t *testing.T) {
 	assert.Equal(t, nodeGroups[0].MaxSize(), 5)
 }
 func TestAutoDiscoveredNodeGroups(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	service := &AutoScalingMock{}
@@ -137,6 +167,8 @@ func TestAutoDiscoveredNodeGroups(t *testing.T) {
 	assert.Equal(t, nodeGroups[0].MaxSize(), 5)
 }
 func TestNodeGroupForNode(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	node := &apiv1.Node{Spec: apiv1.NodeSpec{ProviderID: "aws:///us-east-1a/test-instance-id"}}
@@ -165,6 +197,8 @@ func TestNodeGroupForNode(t *testing.T) {
 func TestNodeGroupForNodeWithNoProviderId(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	node := &apiv1.Node{Spec: apiv1.NodeSpec{ProviderID: ""}}
 	service := &AutoScalingMock{}
 	provider := testProvider(t, newTestAwsManagerWithAsgs(t, service, []string{"1:5:test-asg"}))
@@ -173,6 +207,8 @@ func TestNodeGroupForNodeWithNoProviderId(t *testing.T) {
 	assert.Equal(t, group, nil)
 }
 func TestAwsRefFromProviderId(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, err := AwsRefFromProviderId("aws123")
@@ -184,6 +220,8 @@ func TestAwsRefFromProviderId(t *testing.T) {
 	assert.Equal(t, awsRef, &AwsInstanceRef{Name: "i-260942b3", ProviderID: "aws:///us-east-1a/i-260942b3"})
 }
 func TestTargetSize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	service := &AutoScalingMock{}
@@ -200,6 +238,8 @@ func TestTargetSize(t *testing.T) {
 	service.AssertNumberOfCalls(t, "DescribeAutoScalingGroupsPages", 1)
 }
 func TestIncreaseSize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	service := &AutoScalingMock{}
@@ -225,6 +265,8 @@ func TestIncreaseSize(t *testing.T) {
 func TestBelongs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	service := &AutoScalingMock{}
 	provider := testProvider(t, newTestAwsManagerWithAsgs(t, service, []string{"1:5:test-asg"}))
 	asgs := provider.NodeGroups()
@@ -244,6 +286,8 @@ func TestBelongs(t *testing.T) {
 	service.AssertNumberOfCalls(t, "DescribeAutoScalingGroupsPages", 1)
 }
 func TestDeleteNodes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	service := &AutoScalingMock{}
@@ -270,6 +314,8 @@ func TestDeleteNodes(t *testing.T) {
 func TestDeleteNodesAfterMultipleRefreshes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	service := &AutoScalingMock{}
 	manager := newTestAwsManagerWithAsgs(t, service, []string{"1:5:test-asg"})
 	provider := testProvider(t, manager)
@@ -288,6 +334,8 @@ func TestDeleteNodesAfterMultipleRefreshes(t *testing.T) {
 func TestGetResourceLimiter(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	service := &AutoScalingMock{}
 	m := newTestAwsManagerWithService(service, nil)
 	provider := testProvider(t, m)
@@ -295,6 +343,8 @@ func TestGetResourceLimiter(t *testing.T) {
 	assert.NoError(t, err)
 }
 func TestCleanup(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	provider := testProvider(t, testAwsManager)

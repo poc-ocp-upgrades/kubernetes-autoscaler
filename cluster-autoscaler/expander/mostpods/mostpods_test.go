@@ -10,6 +10,8 @@ import (
 func TestMostPods(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eo0 := expander.Option{Debug: "EO0"}
 	e := NewStrategy()
 	ret := e.BestOption([]expander.Option{eo0}, nil)

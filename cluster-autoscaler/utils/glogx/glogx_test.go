@@ -9,6 +9,8 @@ import (
 func TestLoggingQuota(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	q := NewLoggingQuota(3)
 	for i := 0; i < 5; i++ {
 		assert.Equal(t, 3-i, q.Left())
@@ -17,6 +19,8 @@ func TestLoggingQuota(t *testing.T) {
 	}
 }
 func TestReset(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	q := NewLoggingQuota(3)
@@ -31,12 +35,16 @@ func TestReset(t *testing.T) {
 func TestVFalse(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v := Verbose(false)
 	q := NewLoggingQuota(3)
 	assert.False(t, bool(v.UpTo(q)))
 	assert.Equal(t, 3, q.Left())
 }
 func TestV(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := klog.Level(0); i <= 10; i++ {

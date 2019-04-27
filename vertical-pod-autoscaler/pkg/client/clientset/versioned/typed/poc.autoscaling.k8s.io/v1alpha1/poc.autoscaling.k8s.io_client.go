@@ -17,14 +17,20 @@ type PocV1alpha1Client struct{ restClient rest.Interface }
 func (c *PocV1alpha1Client) VerticalPodAutoscalers(namespace string) VerticalPodAutoscalerInterface {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newVerticalPodAutoscalers(c, namespace)
 }
 func (c *PocV1alpha1Client) VerticalPodAutoscalerCheckpoints(namespace string) VerticalPodAutoscalerCheckpointInterface {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newVerticalPodAutoscalerCheckpoints(c, namespace)
 }
 func NewForConfig(c *rest.Config) (*PocV1alpha1Client, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	config := *c
@@ -40,6 +46,8 @@ func NewForConfig(c *rest.Config) (*PocV1alpha1Client, error) {
 func NewForConfigOrDie(c *rest.Config) *PocV1alpha1Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client, err := NewForConfig(c)
 	if err != nil {
 		panic(err)
@@ -49,9 +57,13 @@ func NewForConfigOrDie(c *rest.Config) *PocV1alpha1Client {
 func New(c rest.Interface) *PocV1alpha1Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &PocV1alpha1Client{c}
 }
 func setConfigDefaults(config *rest.Config) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gv := v1alpha1.SchemeGroupVersion
@@ -64,6 +76,8 @@ func setConfigDefaults(config *rest.Config) error {
 	return nil
 }
 func (c *PocV1alpha1Client) RESTClient() rest.Interface {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c == nil {

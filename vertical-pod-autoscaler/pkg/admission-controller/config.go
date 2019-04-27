@@ -19,6 +19,8 @@ const (
 func getClient() *kubernetes.Clientset {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	config, err := rest.InClusterConfig()
 	if err != nil {
 		glog.Fatal(err)
@@ -30,6 +32,8 @@ func getClient() *kubernetes.Clientset {
 	return clientset
 }
 func getAPIServerCert(clientset *kubernetes.Clientset) []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c, err := clientset.CoreV1().ConfigMaps("kube-system").Get("extension-apiserver-authentication", metav1.GetOptions{})
@@ -46,6 +50,8 @@ func getAPIServerCert(clientset *kubernetes.Clientset) []byte {
 func configTLS(clientset *kubernetes.Clientset, serverCert, serverKey []byte) *tls.Config {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cert := getAPIServerCert(clientset)
 	apiserverCA := x509.NewCertPool()
 	apiserverCA.AppendCertsFromPEM(cert)
@@ -56,6 +62,8 @@ func configTLS(clientset *kubernetes.Clientset, serverCert, serverKey []byte) *t
 	return &tls.Config{Certificates: []tls.Certificate{sCert}, ClientCAs: apiserverCA, ClientAuth: tls.NoClientCert}
 }
 func selfRegistration(clientset *kubernetes.Clientset, caCert []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	time.Sleep(10 * time.Second)

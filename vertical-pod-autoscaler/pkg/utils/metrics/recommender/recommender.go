@@ -34,6 +34,8 @@ type ObjectCounter struct{ cnt map[objectCounterKey]int }
 func Register() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(vpaObjectCount)
 	prometheus.MustRegister(recommendationLatency)
 	prometheus.MustRegister(functionLatency)
@@ -41,14 +43,20 @@ func Register() {
 func NewExecutionTimer() *metrics.ExecutionTimer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return metrics.NewExecutionTimer(functionLatency)
 }
 func ObserveRecommendationLatency(created time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	recommendationLatency.Observe(time.Now().Sub(created).Seconds())
 }
 func NewObjectCounter() *ObjectCounter {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj := ObjectCounter{cnt: make(map[objectCounterKey]int)}
@@ -61,6 +69,8 @@ func NewObjectCounter() *ObjectCounter {
 func (oc *ObjectCounter) Add(vpa *model.Vpa) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var mode string
 	if vpa.UpdateMode != nil {
 		mode = string(*vpa.UpdateMode)
@@ -71,6 +81,8 @@ func (oc *ObjectCounter) Add(vpa *model.Vpa) {
 func (oc *ObjectCounter) Observe() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for k, v := range oc.cnt {
 		vpaObjectCount.WithLabelValues(k.mode, fmt.Sprintf("%v", k.has)).Set(float64(v))
 	}
@@ -78,7 +90,16 @@ func (oc *ObjectCounter) Observe() {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -27,9 +27,13 @@ var _ cloudprovider.NodeGroup = (*nodegroup)(nil)
 func (ng *nodegroup) Name() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ng.scalableResource.Name()
 }
 func (ng *nodegroup) Namespace() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ng.scalableResource.Namespace()
@@ -37,9 +41,13 @@ func (ng *nodegroup) Namespace() string {
 func (ng *nodegroup) MinSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ng.scalableResource.MinSize()
 }
 func (ng *nodegroup) MaxSize() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ng.scalableResource.MaxSize()
@@ -47,9 +55,13 @@ func (ng *nodegroup) MaxSize() int {
 func (ng *nodegroup) TargetSize() (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return int(ng.scalableResource.Replicas()), nil
 }
 func (ng *nodegroup) IncreaseSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if delta <= 0 {
@@ -62,6 +74,8 @@ func (ng *nodegroup) IncreaseSize(delta int) error {
 	return ng.scalableResource.SetSize(int32(size + delta))
 }
 func (ng *nodegroup) DeleteNodes(nodes []*apiv1.Node) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, node := range nodes {
@@ -96,6 +110,8 @@ func (ng *nodegroup) DeleteNodes(nodes []*apiv1.Node) error {
 func (ng *nodegroup) DecreaseTargetSize(delta int) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if delta >= 0 {
 		return fmt.Errorf("size decrease must be negative")
 	}
@@ -115,14 +131,20 @@ func (ng *nodegroup) DecreaseTargetSize(delta int) error {
 func (ng *nodegroup) Id() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ng.scalableResource.ID()
 }
 func (ng *nodegroup) Debug() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf(debugFormat, ng.Id(), ng.MinSize(), ng.MaxSize(), ng.scalableResource.Replicas())
 }
 func (ng *nodegroup) Nodes() ([]cloudprovider.Instance, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodes, err := ng.scalableResource.Nodes()
@@ -138,9 +160,13 @@ func (ng *nodegroup) Nodes() ([]cloudprovider.Instance, error) {
 func (ng *nodegroup) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
 func (ng *nodegroup) Exist() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return true
@@ -148,9 +174,13 @@ func (ng *nodegroup) Exist() bool {
 func (ng *nodegroup) Create() (cloudprovider.NodeGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrAlreadyExist
 }
 func (ng *nodegroup) Delete() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return cloudprovider.ErrNotImplemented
@@ -158,9 +188,13 @@ func (ng *nodegroup) Delete() error {
 func (ng *nodegroup) Autoprovisioned() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
 func newNodegroupFromMachineSet(controller *machineController, machineSet *v1beta1.MachineSet) (*nodegroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scalableResource, err := newMachineSetScalableResource(controller, machineSet)
@@ -170,6 +204,8 @@ func newNodegroupFromMachineSet(controller *machineController, machineSet *v1bet
 	return &nodegroup{machineapiClient: controller.clusterClientset.MachineV1beta1(), machineController: controller, scalableResource: scalableResource}, nil
 }
 func newNodegroupFromMachineDeployment(controller *machineController, machineDeployment *v1beta1.MachineDeployment) (*nodegroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scalableResource, err := newMachineDeploymentScalableResource(controller, machineDeployment)

@@ -18,6 +18,8 @@ import (
 func TestMarkNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	node := BuildTestNode("node", 1000, 1000)
 	fakeClient := buildFakeClient(t, node)
 	err := MarkToBeDeleted(node, fakeClient)
@@ -27,6 +29,8 @@ func TestMarkNodes(t *testing.T) {
 	assert.True(t, HasToBeDeletedTaint(updatedNode))
 }
 func TestCheckNodes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	node := BuildTestNode("node", 1000, 1000)
@@ -43,6 +47,8 @@ func TestCheckNodes(t *testing.T) {
 func TestCleanNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	node := BuildTestNode("node", 1000, 1000)
 	addToBeDeletedTaint(node)
 	fakeClient := buildFakeClient(t, node)
@@ -54,6 +60,8 @@ func TestCleanNodes(t *testing.T) {
 	assert.False(t, HasToBeDeletedTaint(updatedNode))
 }
 func buildFakeClient(t *testing.T, node *apiv1.Node) *fake.Clientset {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeClient := fake.NewSimpleClientset()

@@ -28,9 +28,13 @@ type NodeGroupDiscoveryOptions struct {
 func (o NodeGroupDiscoveryOptions) StaticDiscoverySpecified() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(o.NodeGroupSpecs) > 0
 }
 func (o NodeGroupDiscoveryOptions) AutoDiscoverySpecified() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return len(o.NodeGroupAutoDiscoverySpecs) > 0
@@ -38,9 +42,13 @@ func (o NodeGroupDiscoveryOptions) AutoDiscoverySpecified() bool {
 func (o NodeGroupDiscoveryOptions) DiscoverySpecified() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return o.StaticDiscoverySpecified() || o.AutoDiscoverySpecified()
 }
 func (o NodeGroupDiscoveryOptions) ParseMIGAutoDiscoverySpecs() ([]MIGAutoDiscoveryConfig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfgs := make([]MIGAutoDiscoveryConfig, len(o.NodeGroupAutoDiscoverySpecs))
@@ -56,6 +64,8 @@ func (o NodeGroupDiscoveryOptions) ParseMIGAutoDiscoverySpecs() ([]MIGAutoDiscov
 func (o NodeGroupDiscoveryOptions) ParseASGAutoDiscoverySpecs() ([]ASGAutoDiscoveryConfig, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfgs := make([]ASGAutoDiscoveryConfig, len(o.NodeGroupAutoDiscoverySpecs))
 	var err error
 	for i, spec := range o.NodeGroupAutoDiscoverySpecs {
@@ -67,6 +77,8 @@ func (o NodeGroupDiscoveryOptions) ParseASGAutoDiscoverySpecs() ([]ASGAutoDiscov
 	return cfgs, nil
 }
 func (o NodeGroupDiscoveryOptions) ParseLabelAutoDiscoverySpecs() ([]LabelAutoDiscoveryConfig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfgs := make([]LabelAutoDiscoveryConfig, len(o.NodeGroupAutoDiscoverySpecs))
@@ -87,6 +99,8 @@ type MIGAutoDiscoveryConfig struct {
 }
 
 func parseMIGAutoDiscoverySpec(spec string) (MIGAutoDiscoveryConfig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg := MIGAutoDiscoveryConfig{}
@@ -139,6 +153,8 @@ type ASGAutoDiscoveryConfig struct{ Tags map[string]string }
 func parseASGAutoDiscoverySpec(spec string) (ASGAutoDiscoveryConfig, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := ASGAutoDiscoveryConfig{}
 	tokens := strings.Split(spec, ":")
 	if len(tokens) != 2 {
@@ -179,6 +195,8 @@ func parseASGAutoDiscoverySpec(spec string) (ASGAutoDiscoveryConfig, error) {
 type LabelAutoDiscoveryConfig struct{ Selector map[string]string }
 
 func parseLabelAutoDiscoverySpec(spec string) (LabelAutoDiscoveryConfig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg := LabelAutoDiscoveryConfig{Selector: make(map[string]string)}

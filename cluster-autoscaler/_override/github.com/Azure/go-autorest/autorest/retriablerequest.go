@@ -10,14 +10,20 @@ import (
 func NewRetriableRequest(req *http.Request) *RetriableRequest {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &RetriableRequest{req: req}
 }
 func (rr *RetriableRequest) Request() *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rr.req
 }
 func (rr *RetriableRequest) prepareFromByteReader() (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b := []byte{}

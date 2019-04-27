@@ -11,14 +11,20 @@ type FakePocV1alpha1 struct{ *testing.Fake }
 func (c *FakePocV1alpha1) VerticalPodAutoscalers(namespace string) v1alpha1.VerticalPodAutoscalerInterface {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &FakeVerticalPodAutoscalers{c, namespace}
 }
 func (c *FakePocV1alpha1) VerticalPodAutoscalerCheckpoints(namespace string) v1alpha1.VerticalPodAutoscalerCheckpointInterface {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &FakeVerticalPodAutoscalerCheckpoints{c, namespace}
 }
 func (c *FakePocV1alpha1) RESTClient() rest.Interface {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var ret *rest.RESTClient

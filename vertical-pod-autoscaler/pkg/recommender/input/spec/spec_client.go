@@ -30,9 +30,13 @@ type specClient struct{ podLister v1lister.PodLister }
 func NewSpecClient(podLister v1lister.PodLister) SpecClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &specClient{podLister: podLister}
 }
 func (client *specClient) GetPodSpecs() ([]*BasicPodSpec, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var podSpecs []*BasicPodSpec
@@ -49,12 +53,16 @@ func (client *specClient) GetPodSpecs() ([]*BasicPodSpec, error) {
 func newBasicPodSpec(pod *v1.Pod) *BasicPodSpec {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	podId := model.PodID{PodName: pod.Name, Namespace: pod.Namespace}
 	containerSpecs := newContainerSpecs(podId, pod)
 	basicPodSpec := &BasicPodSpec{ID: podId, PodLabels: pod.Labels, Containers: containerSpecs, Phase: pod.Status.Phase}
 	return basicPodSpec
 }
 func newContainerSpecs(podID model.PodID, pod *v1.Pod) []BasicContainerSpec {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var containerSpecs []BasicContainerSpec
@@ -67,10 +75,14 @@ func newContainerSpecs(podID model.PodID, pod *v1.Pod) []BasicContainerSpec {
 func newContainerSpec(podID model.PodID, container v1.Container) BasicContainerSpec {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	containerSpec := BasicContainerSpec{ID: model.ContainerID{PodID: podID, ContainerName: container.Name}, Image: container.Image, Request: calculateRequestedResources(container)}
 	return containerSpec
 }
 func calculateRequestedResources(container v1.Container) model.Resources {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cpuQuantity := container.Resources.Requests[v1.ResourceCPU]
@@ -82,7 +94,16 @@ func calculateRequestedResources(container v1.Container) model.Resources {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -14,9 +14,13 @@ import (
 func checkNodesSimilar(t *testing.T, n1, n2 *apiv1.Node, comparator NodeInfoComparator, shouldEqual bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	checkNodesSimilarWithPods(t, n1, n2, []*apiv1.Pod{}, []*apiv1.Pod{}, comparator, shouldEqual)
 }
 func checkNodesSimilarWithPods(t *testing.T, n1, n2 *apiv1.Node, pods1, pods2 []*apiv1.Pod, comparator NodeInfoComparator, shouldEqual bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ni1 := schedulercache.NewNodeInfo(pods1...)
@@ -28,11 +32,15 @@ func checkNodesSimilarWithPods(t *testing.T, n1, n2 *apiv1.Node, pods1, pods2 []
 func TestIdenticalNodesSimilar(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n1 := BuildTestNode("node1", 1000, 2000)
 	n2 := BuildTestNode("node2", 1000, 2000)
 	checkNodesSimilar(t, n1, n2, IsNodeInfoSimilar, true)
 }
 func TestNodesSimilarVariousRequirements(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n1 := BuildTestNode("node1", 1000, 2000)
@@ -53,6 +61,8 @@ func TestNodesSimilarVariousRequirements(t *testing.T) {
 func TestNodesSimilarVariousRequirementsAndPods(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n1 := BuildTestNode("node1", 1000, 2000)
 	p1 := BuildTestPod("pod1", 500, 1000)
 	p1.Spec.NodeName = "node1"
@@ -71,6 +81,8 @@ func TestNodesSimilarVariousRequirementsAndPods(t *testing.T) {
 	checkNodesSimilarWithPods(t, n1, n4, []*apiv1.Pod{p1}, []*apiv1.Pod{p4}, IsNodeInfoSimilar, true)
 }
 func TestNodesSimilarVariousLabels(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n1 := BuildTestNode("node1", 1000, 2000)

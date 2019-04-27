@@ -41,6 +41,8 @@ type sgTemplate struct {
 func CreateAliCloudManager(configReader io.Reader) (*AliCloudManager, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := &cloudConfig{}
 	if configReader != nil {
 		if err := gcfg.ReadInto(cfg, configReader); err != nil {
@@ -67,14 +69,20 @@ func CreateAliCloudManager(configReader io.Reader) (*AliCloudManager, error) {
 func (m *AliCloudManager) RegisterAsg(asg *Asg) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.asgs.Register(asg)
 }
 func (m *AliCloudManager) GetAsgForInstance(instanceId string) (*Asg, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.asgs.FindForInstance(instanceId)
 }
 func (m *AliCloudManager) GetAsgSize(asgConfig *Asg) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sg, err := m.aService.getScalingGroupByID(asgConfig.id)
@@ -86,9 +94,13 @@ func (m *AliCloudManager) GetAsgSize(asgConfig *Asg) (int64, error) {
 func (m *AliCloudManager) SetAsgSize(asg *Asg, size int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.aService.setCapcityInstanceSize(asg.id, size)
 }
 func (m *AliCloudManager) DeleteInstances(instanceIds []string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.Infof("start to remove Instances from ASG %v", instanceIds)
@@ -128,6 +140,8 @@ func (m *AliCloudManager) DeleteInstances(instanceIds []string) error {
 func (m *AliCloudManager) GetAsgNodes(sg *Asg) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make([]string, 0)
 	instances, err := m.aService.getScalingInstancesByGroup(sg.id)
 	if err != nil {
@@ -141,9 +155,13 @@ func (m *AliCloudManager) GetAsgNodes(sg *Asg) ([]string, error) {
 func getNodeProviderID(id, region string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s.%s", region, id)
 }
 func (m *AliCloudManager) getAsgTemplate(asgId string) (*sgTemplate, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sg, err := m.aService.getScalingGroupByID(asgId)
@@ -166,6 +184,8 @@ func (m *AliCloudManager) getAsgTemplate(asgId string) (*sgTemplate, error) {
 func (m *AliCloudManager) buildNodeFromTemplate(sg *Asg, template *sgTemplate) (*apiv1.Node, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	node := apiv1.Node{}
 	nodeName := fmt.Sprintf("%s-asg-%d", sg.id, rand.Int63())
 	node.ObjectMeta = metav1.ObjectMeta{Name: nodeName, SelfLink: fmt.Sprintf("/api/v1/nodes/%s", nodeName), Labels: map[string]string{}}
@@ -180,6 +200,8 @@ func (m *AliCloudManager) buildNodeFromTemplate(sg *Asg, template *sgTemplate) (
 	return &node, nil
 }
 func buildGenericLabels(template *sgTemplate, nodeName string) map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(map[string]string)
