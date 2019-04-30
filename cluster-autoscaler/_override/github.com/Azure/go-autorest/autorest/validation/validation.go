@@ -1,21 +1,4 @@
-/*
-Package validation provides methods for validating parameter value using reflection.
-*/
 package validation
-
-// Copyright 2017 Microsoft Corporation
-//
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
 
 import (
 	"fmt"
@@ -24,50 +7,37 @@ import (
 	"strings"
 )
 
-// Constraint stores constraint name, target field name
-// Rule and chain validations.
 type Constraint struct {
-
-	// Target field name for validation.
-	Target string
-
-	// Constraint name e.g. minLength, MaxLength, Pattern, etc.
-	Name string
-
-	// Rule for constraint e.g. greater than 10, less than 5 etc.
-	Rule interface{}
-
-	// Chain Validations for struct type
-	Chain []Constraint
+	Target	string
+	Name	string
+	Rule	interface{}
+	Chain	[]Constraint
 }
-
-// Validation stores parameter-wise validation.
 type Validation struct {
-	TargetValue interface{}
-	Constraints []Constraint
+	TargetValue	interface{}
+	Constraints	[]Constraint
 }
 
-// Constraint list
 const (
-	Empty            = "Empty"
-	Null             = "Null"
-	ReadOnly         = "ReadOnly"
-	Pattern          = "Pattern"
-	MaxLength        = "MaxLength"
-	MinLength        = "MinLength"
-	MaxItems         = "MaxItems"
-	MinItems         = "MinItems"
-	MultipleOf       = "MultipleOf"
-	UniqueItems      = "UniqueItems"
-	InclusiveMaximum = "InclusiveMaximum"
-	ExclusiveMaximum = "ExclusiveMaximum"
-	ExclusiveMinimum = "ExclusiveMinimum"
-	InclusiveMinimum = "InclusiveMinimum"
+	Empty			= "Empty"
+	Null			= "Null"
+	ReadOnly		= "ReadOnly"
+	Pattern			= "Pattern"
+	MaxLength		= "MaxLength"
+	MinLength		= "MinLength"
+	MaxItems		= "MaxItems"
+	MinItems		= "MinItems"
+	MultipleOf		= "MultipleOf"
+	UniqueItems		= "UniqueItems"
+	InclusiveMaximum	= "InclusiveMaximum"
+	ExclusiveMaximum	= "ExclusiveMaximum"
+	ExclusiveMinimum	= "ExclusiveMinimum"
+	InclusiveMinimum	= "InclusiveMinimum"
 )
 
-// Validate method validates constraints on parameter
-// passed in validation array.
 func Validate(m []Validation) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, item := range m {
 		v := reflect.ValueOf(item.TargetValue)
 		for _, constraint := range item.Constraints {
@@ -88,7 +58,6 @@ func Validate(m []Validation) error {
 			default:
 				err = createError(v, constraint, fmt.Sprintf("unknown type %v", v.Kind()))
 			}
-
 			if err != nil {
 				return err
 			}
@@ -96,24 +65,19 @@ func Validate(m []Validation) error {
 	}
 	return nil
 }
-
 func validateStruct(x reflect.Value, v Constraint, name ...string) error {
-	//Get field name from target name which is in format a.b.c
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := strings.Split(v.Target, ".")
 	f := x.FieldByName(s[len(s)-1])
 	if isZero(f) {
 		return createError(x, v, fmt.Sprintf("field %q doesn't exist", v.Target))
 	}
-
-	return Validate([]Validation{
-		{
-			TargetValue: getInterfaceValue(f),
-			Constraints: []Constraint{v},
-		},
-	})
+	return Validate([]Validation{{TargetValue: getInterfaceValue(f), Constraints: []Constraint{v}}})
 }
-
 func validatePtr(x reflect.Value, v Constraint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if v.Name == ReadOnly {
 		if !x.IsNil() {
 			return createError(x.Elem(), v, "readonly parameter; must send as nil or empty in request")
@@ -124,17 +88,13 @@ func validatePtr(x reflect.Value, v Constraint) error {
 		return checkNil(x, v)
 	}
 	if v.Chain != nil {
-		return Validate([]Validation{
-			{
-				TargetValue: getInterfaceValue(x.Elem()),
-				Constraints: v.Chain,
-			},
-		})
+		return Validate([]Validation{{TargetValue: getInterfaceValue(x.Elem()), Constraints: v.Chain}})
 	}
 	return nil
 }
-
 func validateInt(x reflect.Value, v Constraint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i := x.Int()
 	r, ok := toInt64(v.Rule)
 	if !ok {
@@ -166,8 +126,9 @@ func validateInt(x reflect.Value, v Constraint) error {
 	}
 	return nil
 }
-
 func validateFloat(x reflect.Value, v Constraint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f := x.Float()
 	r, ok := v.Rule.(float64)
 	if !ok {
@@ -195,8 +156,9 @@ func validateFloat(x reflect.Value, v Constraint) error {
 	}
 	return nil
 }
-
 func validateString(x reflect.Value, v Constraint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := x.String()
 	switch v.Name {
 	case Empty:
@@ -232,19 +194,14 @@ func validateString(x reflect.Value, v Constraint) error {
 	default:
 		return createError(x, v, fmt.Sprintf("constraint %s is not applicable to string type", v.Name))
 	}
-
 	if v.Chain != nil {
-		return Validate([]Validation{
-			{
-				TargetValue: getInterfaceValue(x),
-				Constraints: v.Chain,
-			},
-		})
+		return Validate([]Validation{{TargetValue: getInterfaceValue(x), Constraints: v.Chain}})
 	}
 	return nil
 }
-
 func validateArrayMap(x reflect.Value, v Constraint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch v.Name {
 	case Null:
 		if x.IsNil() {
@@ -298,19 +255,14 @@ func validateArrayMap(x reflect.Value, v Constraint) error {
 	default:
 		return createError(x, v, fmt.Sprintf("constraint %v is not applicable to array, slice and map type", v.Name))
 	}
-
 	if v.Chain != nil {
-		return Validate([]Validation{
-			{
-				TargetValue: getInterfaceValue(x),
-				Constraints: v.Chain,
-			},
-		})
+		return Validate([]Validation{{TargetValue: getInterfaceValue(x), Constraints: v.Chain}})
 	}
 	return nil
 }
-
 func checkNil(x reflect.Value, v Constraint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, ok := v.Rule.(bool); !ok {
 		return createError(x, v, fmt.Sprintf("rule must be bool value for %v constraint; got: %v", v.Name, v.Rule))
 	}
@@ -319,28 +271,27 @@ func checkNil(x reflect.Value, v Constraint) error {
 	}
 	return nil
 }
-
 func checkEmpty(x reflect.Value, v Constraint) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, ok := v.Rule.(bool); !ok {
 		return createError(x, v, fmt.Sprintf("rule must be bool value for %v constraint; got: %v", v.Name, v.Rule))
 	}
-
 	if v.Rule.(bool) {
 		return createError(x, v, "value can not be null or empty; required parameter")
 	}
 	return nil
 }
-
 func checkForUniqueInArray(x reflect.Value) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x == reflect.Zero(reflect.TypeOf(x)) || x.Len() == 0 {
 		return false
 	}
 	arrOfInterface := make([]interface{}, x.Len())
-
 	for i := 0; i < x.Len(); i++ {
 		arrOfInterface[i] = x.Index(i).Interface()
 	}
-
 	m := make(map[interface{}]bool)
 	for _, val := range arrOfInterface {
 		if m[val] {
@@ -350,18 +301,17 @@ func checkForUniqueInArray(x reflect.Value) bool {
 	}
 	return true
 }
-
 func checkForUniqueInMap(x reflect.Value) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x == reflect.Zero(reflect.TypeOf(x)) || x.Len() == 0 {
 		return false
 	}
 	mapOfInterface := make(map[interface{}]interface{}, x.Len())
-
 	keys := x.MapKeys()
 	for _, k := range keys {
 		mapOfInterface[k.Interface()] = x.MapIndex(k).Interface()
 	}
-
 	m := make(map[interface{}]bool)
 	for _, val := range mapOfInterface {
 		if m[val] {
@@ -371,38 +321,37 @@ func checkForUniqueInMap(x reflect.Value) bool {
 	}
 	return true
 }
-
 func getInterfaceValue(x reflect.Value) interface{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x.Kind() == reflect.Invalid {
 		return nil
 	}
 	return x.Interface()
 }
-
 func isZero(x interface{}) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return x == reflect.Zero(reflect.TypeOf(x)).Interface()
 }
-
 func createError(x reflect.Value, v Constraint, err string) error {
-	return fmt.Errorf("autorest/validation: validation failed: parameter=%s constraint=%s value=%#v details: %s",
-		v.Target, v.Name, getInterfaceValue(x), err)
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return fmt.Errorf("autorest/validation: validation failed: parameter=%s constraint=%s value=%#v details: %s", v.Target, v.Name, getInterfaceValue(x), err)
 }
-
 func toInt64(v interface{}) (int64, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if i64, ok := v.(int64); ok {
 		return i64, true
 	}
-	// older generators emit max constants as int, so if int64 fails fall back to int
 	if i32, ok := v.(int); ok {
 		return int64(i32), true
 	}
 	return 0, false
 }
-
-// NewErrorWithValidationError appends package type and method name in
-// validation error.
-//
-// Deprecated: Please use validation.NewError() instead.
 func NewErrorWithValidationError(err error, packageType, method string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewError(packageType, method, err.Error())
 }

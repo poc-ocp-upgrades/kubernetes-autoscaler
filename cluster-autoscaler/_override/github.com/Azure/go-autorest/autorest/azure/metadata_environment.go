@@ -6,107 +6,61 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
-
 	"github.com/Azure/go-autorest/autorest"
 )
 
-// Copyright 2017 Microsoft Corporation
-//
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
-
 type audience []string
-
 type authentication struct {
-	LoginEndpoint string   `json:"loginEndpoint"`
-	Audiences     audience `json:"audiences"`
+	LoginEndpoint	string		`json:"loginEndpoint"`
+	Audiences	audience	`json:"audiences"`
 }
-
 type environmentMetadataInfo struct {
-	GalleryEndpoint string         `json:"galleryEndpoint"`
-	GraphEndpoint   string         `json:"graphEndpoint"`
-	PortalEndpoint  string         `json:"portalEndpoint"`
-	Authentication  authentication `json:"authentication"`
+	GalleryEndpoint	string		`json:"galleryEndpoint"`
+	GraphEndpoint	string		`json:"graphEndpoint"`
+	PortalEndpoint	string		`json:"portalEndpoint"`
+	Authentication	authentication	`json:"authentication"`
 }
-
-// EnvironmentProperty represent property names that clients can override
 type EnvironmentProperty string
 
 const (
-	// EnvironmentName ...
-	EnvironmentName EnvironmentProperty = "name"
-	// EnvironmentManagementPortalURL ..
-	EnvironmentManagementPortalURL EnvironmentProperty = "managementPortalURL"
-	// EnvironmentPublishSettingsURL ...
-	EnvironmentPublishSettingsURL EnvironmentProperty = "publishSettingsURL"
-	// EnvironmentServiceManagementEndpoint ...
-	EnvironmentServiceManagementEndpoint EnvironmentProperty = "serviceManagementEndpoint"
-	// EnvironmentResourceManagerEndpoint ...
-	EnvironmentResourceManagerEndpoint EnvironmentProperty = "resourceManagerEndpoint"
-	// EnvironmentActiveDirectoryEndpoint ...
-	EnvironmentActiveDirectoryEndpoint EnvironmentProperty = "activeDirectoryEndpoint"
-	// EnvironmentGalleryEndpoint ...
-	EnvironmentGalleryEndpoint EnvironmentProperty = "galleryEndpoint"
-	// EnvironmentKeyVaultEndpoint ...
-	EnvironmentKeyVaultEndpoint EnvironmentProperty = "keyVaultEndpoint"
-	// EnvironmentGraphEndpoint ...
-	EnvironmentGraphEndpoint EnvironmentProperty = "graphEndpoint"
-	// EnvironmentServiceBusEndpoint ...
-	EnvironmentServiceBusEndpoint EnvironmentProperty = "serviceBusEndpoint"
-	// EnvironmentBatchManagementEndpoint ...
-	EnvironmentBatchManagementEndpoint EnvironmentProperty = "batchManagementEndpoint"
-	// EnvironmentStorageEndpointSuffix ...
-	EnvironmentStorageEndpointSuffix EnvironmentProperty = "storageEndpointSuffix"
-	// EnvironmentSQLDatabaseDNSSuffix ...
-	EnvironmentSQLDatabaseDNSSuffix EnvironmentProperty = "sqlDatabaseDNSSuffix"
-	// EnvironmentTrafficManagerDNSSuffix ...
-	EnvironmentTrafficManagerDNSSuffix EnvironmentProperty = "trafficManagerDNSSuffix"
-	// EnvironmentKeyVaultDNSSuffix ...
-	EnvironmentKeyVaultDNSSuffix EnvironmentProperty = "keyVaultDNSSuffix"
-	// EnvironmentServiceBusEndpointSuffix ...
-	EnvironmentServiceBusEndpointSuffix EnvironmentProperty = "serviceBusEndpointSuffix"
-	// EnvironmentServiceManagementVMDNSSuffix ...
-	EnvironmentServiceManagementVMDNSSuffix EnvironmentProperty = "serviceManagementVMDNSSuffix"
-	// EnvironmentResourceManagerVMDNSSuffix ...
-	EnvironmentResourceManagerVMDNSSuffix EnvironmentProperty = "resourceManagerVMDNSSuffix"
-	// EnvironmentContainerRegistryDNSSuffix ...
-	EnvironmentContainerRegistryDNSSuffix EnvironmentProperty = "containerRegistryDNSSuffix"
-	// EnvironmentTokenAudience ...
-	EnvironmentTokenAudience EnvironmentProperty = "tokenAudience"
+	EnvironmentName				EnvironmentProperty	= "name"
+	EnvironmentManagementPortalURL		EnvironmentProperty	= "managementPortalURL"
+	EnvironmentPublishSettingsURL		EnvironmentProperty	= "publishSettingsURL"
+	EnvironmentServiceManagementEndpoint	EnvironmentProperty	= "serviceManagementEndpoint"
+	EnvironmentResourceManagerEndpoint	EnvironmentProperty	= "resourceManagerEndpoint"
+	EnvironmentActiveDirectoryEndpoint	EnvironmentProperty	= "activeDirectoryEndpoint"
+	EnvironmentGalleryEndpoint		EnvironmentProperty	= "galleryEndpoint"
+	EnvironmentKeyVaultEndpoint		EnvironmentProperty	= "keyVaultEndpoint"
+	EnvironmentGraphEndpoint		EnvironmentProperty	= "graphEndpoint"
+	EnvironmentServiceBusEndpoint		EnvironmentProperty	= "serviceBusEndpoint"
+	EnvironmentBatchManagementEndpoint	EnvironmentProperty	= "batchManagementEndpoint"
+	EnvironmentStorageEndpointSuffix	EnvironmentProperty	= "storageEndpointSuffix"
+	EnvironmentSQLDatabaseDNSSuffix		EnvironmentProperty	= "sqlDatabaseDNSSuffix"
+	EnvironmentTrafficManagerDNSSuffix	EnvironmentProperty	= "trafficManagerDNSSuffix"
+	EnvironmentKeyVaultDNSSuffix		EnvironmentProperty	= "keyVaultDNSSuffix"
+	EnvironmentServiceBusEndpointSuffix	EnvironmentProperty	= "serviceBusEndpointSuffix"
+	EnvironmentServiceManagementVMDNSSuffix	EnvironmentProperty	= "serviceManagementVMDNSSuffix"
+	EnvironmentResourceManagerVMDNSSuffix	EnvironmentProperty	= "resourceManagerVMDNSSuffix"
+	EnvironmentContainerRegistryDNSSuffix	EnvironmentProperty	= "containerRegistryDNSSuffix"
+	EnvironmentTokenAudience		EnvironmentProperty	= "tokenAudience"
 )
 
-// OverrideProperty represents property name and value that clients can override
 type OverrideProperty struct {
-	Key   EnvironmentProperty
-	Value string
+	Key	EnvironmentProperty
+	Value	string
 }
 
-// EnvironmentFromURL loads an Environment from a URL
-// This function is particularly useful in the Hybrid Cloud model, where one may define their own
-// endpoints.
 func EnvironmentFromURL(resourceManagerEndpoint string, properties ...OverrideProperty) (environment Environment, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var metadataEnvProperties environmentMetadataInfo
-
 	if resourceManagerEndpoint == "" {
 		return environment, fmt.Errorf("Metadata resource manager endpoint is empty")
 	}
-
 	if metadataEnvProperties, err = retrieveMetadataEnvironment(resourceManagerEndpoint); err != nil {
 		return environment, err
 	}
-
-	// Give priority to user's override values
 	overrideProperties(&environment, properties)
-
 	if environment.Name == "" {
 		environment.Name = "HybridEnvironment"
 	}
@@ -136,11 +90,11 @@ func EnvironmentFromURL(resourceManagerEndpoint string, properties ...OverridePr
 	if environment.GraphEndpoint == "" {
 		environment.GraphEndpoint = metadataEnvProperties.GraphEndpoint
 	}
-
 	return environment, nil
 }
-
 func overrideProperties(environment *Environment, properties []OverrideProperty) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, property := range properties {
 		switch property.Key {
 		case EnvironmentName:
@@ -226,8 +180,9 @@ func overrideProperties(environment *Environment, properties []OverrideProperty)
 		}
 	}
 }
-
 func retrieveMetadataEnvironment(endpoint string) (environment environmentMetadataInfo, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := autorest.NewClientWithUserAgent("")
 	managementEndpoint := fmt.Sprintf("%s%s", strings.TrimSuffix(endpoint, "/"), "/metadata/endpoints?api-version=1.0")
 	req, _ := http.NewRequest("GET", managementEndpoint, nil)
