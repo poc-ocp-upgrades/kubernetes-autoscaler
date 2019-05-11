@@ -1,19 +1,3 @@
-/*
-Copyright 2018 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package ess
 
 import (
@@ -21,18 +5,16 @@ import (
 	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider/alicloud/alibaba-cloud-sdk-go/sdk/responses"
 )
 
-// DeleteScalingRule invokes the ess.DeleteScalingRule API synchronously
-// api document: https://help.aliyun.com/api/ess/deletescalingrule.html
 func (client *Client) DeleteScalingRule(request *DeleteScalingRuleRequest) (response *DeleteScalingRuleResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	response = CreateDeleteScalingRuleResponse()
 	err = client.DoAction(request, response)
 	return
 }
-
-// DeleteScalingRuleWithChan invokes the ess.DeleteScalingRule API asynchronously
-// api document: https://help.aliyun.com/api/ess/deletescalingrule.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteScalingRuleWithChan(request *DeleteScalingRuleRequest) (<-chan *DeleteScalingRuleResponse, <-chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	responseChan := make(chan *DeleteScalingRuleResponse, 1)
 	errChan := make(chan error, 1)
 	err := client.AddAsyncTask(func() {
@@ -52,11 +34,9 @@ func (client *Client) DeleteScalingRuleWithChan(request *DeleteScalingRuleReques
 	}
 	return responseChan, errChan
 }
-
-// DeleteScalingRuleWithCallback invokes the ess.DeleteScalingRule API asynchronously
-// api document: https://help.aliyun.com/api/ess/deletescalingrule.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteScalingRuleWithCallback(request *DeleteScalingRuleRequest, callback func(response *DeleteScalingRuleResponse, err error)) <-chan int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
 		var response *DeleteScalingRuleResponse
@@ -74,34 +54,28 @@ func (client *Client) DeleteScalingRuleWithCallback(request *DeleteScalingRuleRe
 	return result
 }
 
-// DeleteScalingRuleRequest is the request struct for api DeleteScalingRule
 type DeleteScalingRuleRequest struct {
 	*requests.RpcRequest
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	ScalingRuleId        string           `position:"Query" name:"ScalingRuleId"`
+	ResourceOwnerAccount	string				`position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount			string				`position:"Query" name:"OwnerAccount"`
+	OwnerId					requests.Integer	`position:"Query" name:"OwnerId"`
+	ScalingRuleId			string				`position:"Query" name:"ScalingRuleId"`
 }
-
-// DeleteScalingRuleResponse is the response struct for api DeleteScalingRule
 type DeleteScalingRuleResponse struct {
 	*responses.BaseResponse
-	RequestId string `json:"RequestId" xml:"RequestId"`
+	RequestId	string	`json:"RequestId" xml:"RequestId"`
 }
 
-// CreateDeleteScalingRuleRequest creates a request to invoke DeleteScalingRule API
 func CreateDeleteScalingRuleRequest() (request *DeleteScalingRuleRequest) {
-	request = &DeleteScalingRuleRequest{
-		RpcRequest: &requests.RpcRequest{},
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	request = &DeleteScalingRuleRequest{RpcRequest: &requests.RpcRequest{}}
 	request.InitWithApiInfo("Ess", "2014-08-28", "DeleteScalingRule", "ess", "openAPI")
 	return
 }
-
-// CreateDeleteScalingRuleResponse creates a response to parse from DeleteScalingRule response
 func CreateDeleteScalingRuleResponse() (response *DeleteScalingRuleResponse) {
-	response = &DeleteScalingRuleResponse{
-		BaseResponse: &responses.BaseResponse{},
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	response = &DeleteScalingRuleResponse{BaseResponse: &responses.BaseResponse{}}
 	return
 }

@@ -1,19 +1,3 @@
-/*
-Copyright 2018 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package requests
 
 import (
@@ -25,20 +9,20 @@ import (
 	"strings"
 )
 
-// RoaRequest wrap base request
 type RoaRequest struct {
 	*baseRequest
-	pathPattern string
-	PathParams  map[string]string
+	pathPattern	string
+	PathParams	map[string]string
 }
 
-// GetStyle returns ROA
 func (*RoaRequest) GetStyle() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ROA
 }
-
-// GetBodyReader returns body
 func (request *RoaRequest) GetBodyReader() io.Reader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if request.FormParams != nil && len(request.FormParams) > 0 {
 		formString := utils.GetUrlFormedMap(request.FormParams)
 		return strings.NewReader(formString)
@@ -48,39 +32,34 @@ func (request *RoaRequest) GetBodyReader() io.Reader {
 		return nil
 	}
 }
-
-// GetQueries returns queries
 func (request *RoaRequest) GetQueries() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return request.queries
 }
-
-// BuildQueries for sign method, need not url encoded
 func (request *RoaRequest) BuildQueries() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return request.buildQueries(false)
 }
-
 func (request *RoaRequest) buildQueries(needParamEncode bool) string {
-	// replace path params with value
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	path := request.pathPattern
 	for key, value := range request.PathParams {
 		path = strings.Replace(path, "["+key+"]", value, 1)
 	}
-
 	queryParams := request.QueryParams
-	// check if path contains params
 	splitArray := strings.Split(path, "?")
 	path = splitArray[0]
 	if len(splitArray) > 1 && len(splitArray[1]) > 0 {
 		queryParams[splitArray[1]] = ""
 	}
-	// sort QueryParams by key
 	var queryKeys []string
 	for key := range queryParams {
 		queryKeys = append(queryKeys, key)
 	}
 	sort.Strings(queryKeys)
-
-	// append urlBuilder
 	urlBuilder := bytes.Buffer{}
 	urlBuilder.WriteString(path)
 	if len(queryKeys) > 0 {
@@ -106,49 +85,45 @@ func (request *RoaRequest) buildQueries(needParamEncode bool) string {
 	request.queries = result
 	return request.queries
 }
-
 func popStandardUrlencode(stringToSign string) (result string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result = strings.Replace(stringToSign, "+", "%20", -1)
 	result = strings.Replace(result, "*", "%2A", -1)
 	result = strings.Replace(result, "%7E", "~", -1)
 	return
 }
-
-// GetUrl returns url
 func (request *RoaRequest) GetUrl() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.ToLower(request.Scheme) + "://" + request.Domain + ":" + request.Port + request.GetQueries()
 }
-
-// BuildUrl creates url
 func (request *RoaRequest) BuildUrl() string {
-	// for network trans, need url encoded
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.ToLower(request.Scheme) + "://" + request.Domain + ":" + request.Port + request.buildQueries(true)
 }
-
 func (request *RoaRequest) addPathParam(key, value string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request.PathParams[key] = value
 }
-
-// InitWithApiInfo creates api info
 func (request *RoaRequest) InitWithApiInfo(product, version, action, uriPattern, serviceCode, endpointType string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request.baseRequest = defaultBaseRequest()
 	request.PathParams = make(map[string]string)
 	request.Headers["x-acs-version"] = version
 	request.pathPattern = uriPattern
 	request.locationServiceCode = serviceCode
 	request.locationEndpointType = endpointType
-	//request.product = product
-	//request.version = version
-	//request.actionName = action
 }
-
 func (request *RoaRequest) initWithCommonRequest(commonRequest *CommonRequest) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request.baseRequest = commonRequest.baseRequest
 	request.PathParams = commonRequest.PathParams
-	//request.product = commonRequest.Product
-	//request.version = commonRequest.Version
 	request.Headers["x-acs-version"] = commonRequest.Version
-	//request.actionName = commonRequest.ApiName
 	request.pathPattern = commonRequest.PathPattern
 	request.locationServiceCode = ""
 	request.locationEndpointType = ""

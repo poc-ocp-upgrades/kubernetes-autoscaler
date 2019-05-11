@@ -1,19 +1,3 @@
-/*
-Copyright 2018 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package signers
 
 import (
@@ -33,29 +17,19 @@ const (
 	defaultDurationSeconds = 3600
 )
 
-// RamRoleArnSigner is kind of signer
 type RamRoleArnSigner struct {
 	*credentialUpdater
-	roleSessionName   string
-	sessionCredential *SessionCredential
-	credential        *credentials.RamRoleArnCredential
-	commonApi         func(request *requests.CommonRequest, signer interface{}) (response *responses.CommonResponse, err error)
+	roleSessionName		string
+	sessionCredential	*SessionCredential
+	credential			*credentials.RamRoleArnCredential
+	commonApi			func(request *requests.CommonRequest, signer interface{}) (response *responses.CommonResponse, err error)
 }
 
-// NewRamRoleArnSigner returns RamRoleArnSigner
 func NewRamRoleArnSigner(credential *credentials.RamRoleArnCredential, commonApi func(request *requests.CommonRequest, signer interface{}) (response *responses.CommonResponse, err error)) (signer *RamRoleArnSigner, err error) {
-	signer = &RamRoleArnSigner{
-		credential: credential,
-		commonApi:  commonApi,
-	}
-
-	signer.credentialUpdater = &credentialUpdater{
-		credentialExpiration: credential.RoleSessionExpiration,
-		buildRequestMethod:   signer.buildCommonRequest,
-		responseCallBack:     signer.refreshCredential,
-		refreshApi:           signer.refreshApi,
-	}
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	signer = &RamRoleArnSigner{credential: credential, commonApi: commonApi}
+	signer.credentialUpdater = &credentialUpdater{credentialExpiration: credential.RoleSessionExpiration, buildRequestMethod: signer.buildCommonRequest, responseCallBack: signer.refreshCredential, refreshApi: signer.refreshApi}
 	if len(credential.RoleSessionName) > 0 {
 		signer.roleSessionName = credential.RoleSessionName
 	} else {
@@ -72,24 +46,24 @@ func NewRamRoleArnSigner(credential *credentials.RamRoleArnCredential, commonApi
 	}
 	return
 }
-
-// GetName returns "HMAC-SHA1"
 func (*RamRoleArnSigner) GetName() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "HMAC-SHA1"
 }
-
-// GetType returns ""
 func (*RamRoleArnSigner) GetType() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ""
 }
-
-// GetVersion returns "1.0"
 func (*RamRoleArnSigner) GetVersion() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "1.0"
 }
-
-// GetAccessKeyId returns accessKeyId
 func (signer *RamRoleArnSigner) GetAccessKeyId() (accessKeyId string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if signer.sessionCredential == nil || signer.needUpdateCredential() {
 		err = signer.updateCredential()
 	}
@@ -98,9 +72,9 @@ func (signer *RamRoleArnSigner) GetAccessKeyId() (accessKeyId string, err error)
 	}
 	return signer.sessionCredential.AccessKeyId, nil
 }
-
-// GetExtraParam returns params
 func (signer *RamRoleArnSigner) GetExtraParam() map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if signer.sessionCredential == nil || signer.needUpdateCredential() {
 		signer.updateCredential()
 	}
@@ -109,14 +83,15 @@ func (signer *RamRoleArnSigner) GetExtraParam() map[string]string {
 	}
 	return map[string]string{"SecurityToken": signer.sessionCredential.StsToken}
 }
-
-// Sign create signer
 func (signer *RamRoleArnSigner) Sign(stringToSign, secretSuffix string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	secret := signer.sessionCredential.AccessKeySecret + secretSuffix
 	return ShaHmac1(stringToSign, secret)
 }
-
 func (signer *RamRoleArnSigner) buildCommonRequest() (request *requests.CommonRequest, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	request = requests.NewCommonRequest()
 	request.Product = "Sts"
 	request.Version = "2015-04-01"
@@ -127,17 +102,16 @@ func (signer *RamRoleArnSigner) buildCommonRequest() (request *requests.CommonRe
 	request.QueryParams["DurationSeconds"] = strconv.Itoa(signer.credentialExpiration)
 	return
 }
-
 func (signer *RamRoleArnSigner) refreshApi(request *requests.CommonRequest) (response *responses.CommonResponse, err error) {
-	credential := &credentials.AccessKeyCredential{
-		AccessKeyId:     signer.credential.AccessKeyId,
-		AccessKeySecret: signer.credential.AccessKeySecret,
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	credential := &credentials.AccessKeyCredential{AccessKeyId: signer.credential.AccessKeyId, AccessKeySecret: signer.credential.AccessKeySecret}
 	signerV1, err := NewAccessKeySigner(credential)
 	return signer.commonApi(request, signerV1)
 }
-
 func (signer *RamRoleArnSigner) refreshCredential(response *responses.CommonResponse) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if response.GetHttpStatus() != http.StatusOK {
 		message := "refresh session token failed"
 		err = errors.NewServerError(response.GetHttpStatus(), response.GetHttpContentString(), message)
@@ -167,18 +141,15 @@ func (signer *RamRoleArnSigner) refreshCredential(response *responses.CommonResp
 	if accessKeyId == nil || accessKeySecret == nil || securityToken == nil {
 		return
 	}
-	signer.sessionCredential = &SessionCredential{
-		AccessKeyId:     accessKeyId.(string),
-		AccessKeySecret: accessKeySecret.(string),
-		StsToken:        securityToken.(string),
-	}
+	signer.sessionCredential = &SessionCredential{AccessKeyId: accessKeyId.(string), AccessKeySecret: accessKeySecret.(string), StsToken: securityToken.(string)}
 	return
 }
-
-// GetSessionCredential returns SessionCredential
 func (signer *RamRoleArnSigner) GetSessionCredential() *SessionCredential {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return signer.sessionCredential
 }
-
-// Shutdown doesn't implement
-func (signer *RamRoleArnSigner) Shutdown() {}
+func (signer *RamRoleArnSigner) Shutdown() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+}

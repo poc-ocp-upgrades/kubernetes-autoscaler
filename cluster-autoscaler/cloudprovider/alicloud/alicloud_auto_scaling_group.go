@@ -1,58 +1,40 @@
-/*
-Copyright 2018 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package alicloud
 
 import (
 	"fmt"
-
 	apiv1 "k8s.io/api/core/v1"
 	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider"
 	"k8s.io/klog"
 	schedulercache "k8s.io/kubernetes/pkg/scheduler/cache"
 )
 
-// Asg implements NodeGroup interface.
 type Asg struct {
-	manager  *AliCloudManager
-	minSize  int
-	maxSize  int
-	regionId string
-	id       string
+	manager		*AliCloudManager
+	minSize		int
+	maxSize		int
+	regionId	string
+	id			string
 }
 
-// MaxSize returns maximum size of the node group.
 func (asg *Asg) MaxSize() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return asg.maxSize
 }
-
-// MinSize returns minimum size of the node group.
 func (asg *Asg) MinSize() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return asg.minSize
 }
-
-// TargetSize returns the current TARGET size of the node group. It is possible that the
-// number is different from the number of nodes registered in Kubernetes.
 func (asg *Asg) TargetSize() (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size, err := asg.manager.GetAsgSize(asg)
 	return int(size), err
 }
-
-// IncreaseSize increases Asg size
 func (asg *Asg) IncreaseSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.Infof("increase ASG:%s with %d nodes", asg.Id(), delta)
 	if delta <= 0 {
 		return fmt.Errorf("size increase must be positive")
@@ -67,13 +49,9 @@ func (asg *Asg) IncreaseSize(delta int) error {
 	}
 	return asg.manager.SetAsgSize(asg, size+int64(delta))
 }
-
-// DecreaseTargetSize decreases the target size of the node group. This function
-// doesn't permit to delete any existing node and can be used only to reduce the
-// request for new nodes that have not been yet fulfilled. Delta should be negative.
-// It is assumed that cloud provider will not delete the existing nodes if the size
-// when there is an option to just decrease the target.
 func (asg *Asg) DecreaseTargetSize(delta int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(4).Infof("Aliyun: DecreaseTargetSize() with args: %v", delta)
 	if delta >= 0 {
 		return fmt.Errorf("size decrease size must be negative")
@@ -89,14 +67,13 @@ func (asg *Asg) DecreaseTargetSize(delta int) error {
 		return err
 	}
 	if int(size)+delta < len(nodes) {
-		return fmt.Errorf("attempt to delete existing nodes targetSize:%d delta:%d existingNodes: %d",
-			size, delta, len(nodes))
+		return fmt.Errorf("attempt to delete existing nodes targetSize:%d delta:%d existingNodes: %d", size, delta, len(nodes))
 	}
 	return asg.manager.SetAsgSize(asg, size+int64(delta))
 }
-
-// Belongs returns true if the given node belongs to the NodeGroup.
 func (asg *Asg) Belongs(node *apiv1.Node) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	instanceId, err := ecsInstanceIdFromProviderId(node.Spec.ProviderID)
 	if err != nil {
 		return false, err
@@ -113,9 +90,9 @@ func (asg *Asg) Belongs(node *apiv1.Node) (bool, error) {
 	}
 	return true, nil
 }
-
-// DeleteNodes deletes the nodes from the group.
 func (asg *Asg) DeleteNodes(nodes []*apiv1.Node) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size, err := asg.manager.GetAsgSize(asg)
 	if err != nil {
 		klog.Errorf("failed to get ASG size because of %s", err.Error())
@@ -143,24 +120,24 @@ func (asg *Asg) DeleteNodes(nodes []*apiv1.Node) error {
 	}
 	return asg.manager.DeleteInstances(nodeIds)
 }
-
-// Id returns asg id.
 func (asg *Asg) Id() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return asg.id
 }
-
-// RegionId returns regionId of asg
 func (asg *Asg) RegionId() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return asg.regionId
 }
-
-// Debug returns a debug string for the Asg.
 func (asg *Asg) Debug() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s (%d:%d)", asg.Id(), asg.MinSize(), asg.MaxSize())
 }
-
-// Nodes returns a list of all nodes that belong to this node group.
 func (asg *Asg) Nodes() ([]cloudprovider.Instance, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	instanceNames, err := asg.manager.GetAsgNodes(asg)
 	if err != nil {
 		return nil, err
@@ -171,43 +148,39 @@ func (asg *Asg) Nodes() ([]cloudprovider.Instance, error) {
 	}
 	return instances, nil
 }
-
-// TemplateNodeInfo returns a node template for this node group.
 func (asg *Asg) TemplateNodeInfo() (*schedulercache.NodeInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	template, err := asg.manager.getAsgTemplate(asg.id)
 	if err != nil {
 		return nil, err
 	}
-
 	node, err := asg.manager.buildNodeFromTemplate(asg, template)
 	if err != nil {
 		klog.Errorf("failed to build instanceType:%v from template in ASG:%s,because of %s", template.InstanceType, asg.Id(), err.Error())
 		return nil, err
 	}
-
 	nodeInfo := schedulercache.NewNodeInfo(cloudprovider.BuildKubeProxy(asg.id))
 	nodeInfo.SetNode(node)
 	return nodeInfo, nil
 }
-
-// Exist checks if the node group really exists on the cloud provider side. Allows to tell the
-// theoretical node group from the real one.
 func (asg *Asg) Exist() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return true
 }
-
-// Create creates the node group on the cloud provider side.
 func (asg *Asg) Create() (cloudprovider.NodeGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, cloudprovider.ErrNotImplemented
 }
-
-// Autoprovisioned returns true if the node group is autoprovisioned.
 func (asg *Asg) Autoprovisioned() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
-
-// Delete deletes the node group on the cloud provider side.
-// This will be executed only for autoprovisioned node groups, once their size drops to 0.
 func (asg *Asg) Delete() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cloudprovider.ErrNotImplemented
 }

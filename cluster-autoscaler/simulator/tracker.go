@@ -1,19 +1,3 @@
-/*
-Copyright 2016 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package simulator
 
 import (
@@ -24,34 +8,28 @@ const (
 	maxUsageRecorded = 50
 )
 
-// UsageRecord records which node was considered helpful to which node during pod rescheduling analysis.
 type UsageRecord struct {
-	usingTooMany  bool
-	using         map[string]time.Time
-	usedByTooMany bool
-	usedBy        map[string]time.Time
+	usingTooMany	bool
+	using			map[string]time.Time
+	usedByTooMany	bool
+	usedBy			map[string]time.Time
 }
+type UsageTracker struct{ usage map[string]*UsageRecord }
 
-// UsageTracker track usage relationship between nodes in pod rescheduling calculations.
-type UsageTracker struct {
-	usage map[string]*UsageRecord
-}
-
-// NewUsageTracker builds new usage tracker.
 func NewUsageTracker() *UsageTracker {
-	return &UsageTracker{
-		usage: make(map[string]*UsageRecord),
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return &UsageTracker{usage: make(map[string]*UsageRecord)}
 }
-
-// Get gets the given node UsageRecord, if present
 func (tracker *UsageTracker) Get(node string) (data *UsageRecord, found bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data, found = tracker.usage[node]
 	return data, found
 }
-
-// RegisterUsage registers that node A uses nodeB during usage calculations at time timestamp.
 func (tracker *UsageTracker) RegisterUsage(nodeA string, nodeB string, timestamp time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if record, found := tracker.usage[nodeA]; found {
 		if len(record.using) >= maxUsageRecorded {
 			record.usingTooMany = true
@@ -59,14 +37,10 @@ func (tracker *UsageTracker) RegisterUsage(nodeA string, nodeB string, timestamp
 			record.using[nodeB] = timestamp
 		}
 	} else {
-		record := UsageRecord{
-			using:  make(map[string]time.Time),
-			usedBy: make(map[string]time.Time),
-		}
+		record := UsageRecord{using: make(map[string]time.Time), usedBy: make(map[string]time.Time)}
 		record.using[nodeB] = timestamp
 		tracker.usage[nodeA] = &record
 	}
-
 	if record, found := tracker.usage[nodeB]; found {
 		if len(record.usedBy) >= maxUsageRecorded {
 			record.usedByTooMany = true
@@ -74,17 +48,14 @@ func (tracker *UsageTracker) RegisterUsage(nodeA string, nodeB string, timestamp
 			record.usedBy[nodeA] = timestamp
 		}
 	} else {
-		record := UsageRecord{
-			using:  make(map[string]time.Time),
-			usedBy: make(map[string]time.Time),
-		}
+		record := UsageRecord{using: make(map[string]time.Time), usedBy: make(map[string]time.Time)}
 		record.usedBy[nodeA] = timestamp
 		tracker.usage[nodeB] = &record
 	}
 }
-
-// Unregister removes the given node from all usage records
 func (tracker *UsageTracker) Unregister(node string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if record, found := tracker.usage[node]; found {
 		for using := range record.using {
 			if record2, found := tracker.usage[using]; found {
@@ -99,8 +70,9 @@ func (tracker *UsageTracker) Unregister(node string) {
 		delete(tracker.usage, node)
 	}
 }
-
 func filterOutOld(timestampMap map[string]time.Time, cutoff time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	toRemove := make([]string, 0)
 	for key, timestamp := range timestampMap {
 		if timestamp.Before(cutoff) {
@@ -111,9 +83,9 @@ func filterOutOld(timestampMap map[string]time.Time, cutoff time.Time) {
 		delete(timestampMap, key)
 	}
 }
-
-// CleanUp removes all relations updated before the cutoff time.
 func (tracker *UsageTracker) CleanUp(cutoff time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	toDelete := make([]string, 0)
 	for key, usageRecord := range tracker.usage {
 		if !usageRecord.usingTooMany {
@@ -130,9 +102,9 @@ func (tracker *UsageTracker) CleanUp(cutoff time.Time) {
 		delete(tracker.usage, key)
 	}
 }
-
-// RemoveNodeFromTracker removes node from tracker and also cleans the passed utilization map.
 func RemoveNodeFromTracker(tracker *UsageTracker, node string, utilization map[string]time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	keysToRemove := make([]string, 0)
 	if mainRecord, found := tracker.Get(node); found {
 		if mainRecord.usingTooMany {
@@ -159,8 +131,9 @@ func RemoveNodeFromTracker(tracker *UsageTracker, node string, utilization map[s
 		delete(utilization, key)
 	}
 }
-
 func getAllKeys(m map[string]time.Time) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make([]string, 0, len(m))
 	for key := range m {
 		result = append(result, key)

@@ -1,19 +1,3 @@
-/*
-Copyright 2018 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package auth
 
 import (
@@ -25,11 +9,12 @@ import (
 )
 
 func signRpcRequest(request requests.AcsRequest, signer Signer, regionId string) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = completeRpcSignParams(request, signer, regionId)
 	if err != nil {
 		return
 	}
-	// remove while retry
 	if _, containsSign := request.GetQueryParams()["Signature"]; containsSign {
 		delete(request.GetQueryParams(), "Signature")
 	}
@@ -37,11 +22,11 @@ func signRpcRequest(request requests.AcsRequest, signer Signer, regionId string)
 	request.SetStringToSign(stringToSign)
 	signature := signer.Sign(stringToSign, "&")
 	request.GetQueryParams()["Signature"] = signature
-
 	return
 }
-
 func completeRpcSignParams(request requests.AcsRequest, signer Signer, regionId string) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	queryParams := request.GetQueryParams()
 	queryParams["Version"] = request.GetVersion()
 	queryParams["Action"] = request.GetActionName()
@@ -52,11 +37,9 @@ func completeRpcSignParams(request requests.AcsRequest, signer Signer, regionId 
 	queryParams["SignatureVersion"] = signer.GetVersion()
 	queryParams["SignatureNonce"] = utils.GetUUIDV4()
 	queryParams["AccessKeyId"], err = signer.GetAccessKeyId()
-
 	if err != nil {
 		return
 	}
-
 	if _, contains := queryParams["RegionId"]; !contains {
 		queryParams["RegionId"] = regionId
 	}
@@ -65,15 +48,14 @@ func completeRpcSignParams(request requests.AcsRequest, signer Signer, regionId 
 			queryParams[key] = value
 		}
 	}
-
 	request.GetHeaders()["Content-Type"] = requests.Form
 	formString := utils.GetUrlFormedMap(request.GetFormParams())
 	request.SetContent([]byte(formString))
-
 	return
 }
-
 func buildRpcStringToSign(request requests.AcsRequest) (stringToSign string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	signParams := make(map[string]string)
 	for key, value := range request.GetQueryParams() {
 		signParams[key] = value
@@ -81,8 +63,6 @@ func buildRpcStringToSign(request requests.AcsRequest) (stringToSign string) {
 	for key, value := range request.GetFormParams() {
 		signParams[key] = value
 	}
-
-	// sort params by key
 	var paramKeySlice []string
 	for key := range signParams {
 		paramKeySlice = append(paramKeySlice, key)

@@ -1,19 +1,3 @@
-/*
-Copyright 2018 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package history
 
 import (
@@ -23,41 +7,24 @@ import (
 	"time"
 )
 
-// Helper types used for parsing json returned by Prometheus.
-// It would be nice if there was a public go library with these, but currently
-// there's none. The server side implementation is at:
-// https://github.com/prometheus/prometheus/blob/2d73d2b892853e95dbf157561e9df56ac220875e/web/api/v1/api.go#L92
-
-// This is the top-level structure of the response.
 type responseType struct {
-	// Should be "success".
-	Status      string   `json:"status"`
-	Data        dataType `json:"data"`
-	ErrorType   string   `json:"errorType"`
-	ErrorString string   `json:"error"`
+	Status		string		`json:"status"`
+	Data		dataType	`json:"data"`
+	ErrorType	string		`json:"errorType"`
+	ErrorString	string		`json:"error"`
 }
-
-// Holds all the data returned.
 type dataType struct {
-	// For range vectors, this will be "matrix". Other possibilities are:
-	// "vector","scalar","string".
-	ResultType string `json:"resultType"`
-	// This has different types depending on ResultType.
-	Result json.RawMessage `json:"result"`
+	ResultType	string			`json:"resultType"`
+	Result		json.RawMessage	`json:"result"`
 }
-
-// dataType.Result has this type when ResultType="matrix".
 type matrixType struct {
-	// Labels of the timeseries.
-	Metric map[string]string `json:"metric"`
-	// List of samples. Each sample is represented as a two-item list with
-	// floating point timestamp in seconds and a string holding the value
-	// of the metric.
-	Values [][]interface{} `json:"values"`
+	Metric	map[string]string	`json:"metric"`
+	Values	[][]interface{}		`json:"values"`
 }
 
-// Decodes the list of samples from the format of matrixType.Values field.
 func decodeSamples(input [][]interface{}) ([]Sample, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	res := make([]Sample, 0)
 	for _, item := range input {
 		if len(item) != 2 {
@@ -73,15 +40,13 @@ func decodeSamples(input [][]interface{}) ([]Sample, error) {
 		}
 		var val float64
 		fmt.Sscan(stringVal, &val)
-		res = append(res, Sample{
-			Value:     val,
-			Timestamp: time.Unix(int64(ts), 0)})
+		res = append(res, Sample{Value: val, Timestamp: time.Unix(int64(ts), 0)})
 	}
 	return res, nil
 }
-
-// Decodes timeseries from a Prometheus response.
 func decodeTimeseriesFromResponse(input io.Reader) ([]Timeseries, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var resp responseType
 	err := json.NewDecoder(input).Decode(&resp)
 	if err != nil {
